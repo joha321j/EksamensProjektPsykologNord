@@ -36,7 +36,7 @@
 %Images
 \usepackage{float}
 \usepackage{graphicx}
-\graphicspath{ {./Grafik/} }
+\graphicspath{ {./Images/} }
 \usepackage{rotating} %Rotate pictures
 
 %Links and clickable ToC
@@ -72,6 +72,10 @@
 % PDF
 % \usepackage{pdfpages}
 
+%for comments
+\usepackage{verbatim}
+
+\usepackage[table,xcdraw]{xcolor}
 
 \usepackage{eso-pic}
 \newcommand\BackgroundPic{%
@@ -79,5 +83,7 @@
 \parbox[b][\paperheight]{\paperwidth}{%
 \vfill
 \centering
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{Halvorsen.JPG}%
 \vfill
 }}}
