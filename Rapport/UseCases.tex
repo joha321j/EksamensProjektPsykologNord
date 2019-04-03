@@ -1,59 +1,66 @@
 \subsection{Use Cases}
 
+En aftale består af to aftaleparter: en klient og en bruger. Når der i dette afsnit bliver refereret til en aftalepart vil det være en af disse. Vi skelner ikke mellem hvilken af de to aktører, der er aftaleparten i de nedenstående use cases, da use casesne skal gælde for begge aktører.
+
 \subsubsection{Use Case: Book aftale}
 {\setlength{\parindent}{0cm}
-\textbf{Scope:} Bookingsystem for PsykologNord
+\textbf{Scope:} Bookingsystem for Psykolog Nord
 
-\textbf{Primær Aktør:} Bruger eller klient, Fremover i dette kapitel vil ”bruger” bruges til at referer til begge.
+\textbf{Primær Aktør:} Aftalepart
 
-\textbf{Preconditions:} En aftale skal ikke eksistere på det givet tidspunkt for psykologen eller brugeren.
+\textbf{Preconditions:} En aftale skal ikke eksistere på det givne tidspunkt for begge aftaleparter.
 
 \textbf{Hovedscenarie (succes):} Booking af ny aftale.
 
-Brugeren ønsker at booke en aftale. Han vælger at oprette en ny aftale, hvor psykologen har tid. Aftalen oprettes og psykologen notificeres.
+Aftaleparten ønsker at booke en aftale. Han vælger at oprette en ny aftale, hvor den anden aftalepart har tid. Aftalen oprettes og psykologen notificeres.
 
 \textbf{Alternativt scenarie:} Booking af ny aftale over telefon.
 
-Brugeren ønsker at booke en aftale. Han ringer receptionisten op og beder om en tid. Receptionisten opretter så en ny tid, hvor psykologen har tid. Aftalen oprettes og psykologen notificeres.
+Aftaleparten ønsker at booke en aftale. Han ringer til den anden aftalepart og beder om en tid. Aftalen oprettes som i hovedscenariet.
 }
 
 \subsubsection{Use Case: Ændr Aftale}
 {\setlength{\parindent}{0cm}
-\textbf{Scope:} Bookingsystem for PsykologNord
+\textbf{Scope:} Bookingsystem for Psykolog Nord
 
-\textbf{Primær Aktør:} Bruger eller klient, fremover i dette kapitel vil ”bruger” bruges til at referer til begge. 
+\textbf{Primær Aktør:} Aftalepart 
 
-\textbf{Preconditions:} En aftale eksistere og der er mere end 24 timer til aftalen.
+\textbf{Preconditions:} En aftale eksisterer, og der er mere end 24 timer til aftalen.
 
 \textbf{Hovedscenarie (succes):} Ændring af aftale.
 
-Den første part, brugeren, går ind i systemet og ændrer aftalen til andet tidspunkt. Den anden part modtager en notifikation med ændringen. 
+Den første aftalepart går ind i systemet og ændrer aftalen til andet tidspunkt.
+Den anden part modtager en notifikation med ændringen.
 
 \textbf{Alternativt scenarie:} Ændring af aftale over telefon.
 
-Klienten ringer til receptionisten og beder aftalens tid ændret. Receptionisten ændrer tiden og psykologen notificeres
+Klienten ringer til den anden aftalepart og beder om at få ændret aftalen. Aftalen ændres som i hovedscenariet.
 }
 
-\subsection{Use case: Aflys Aftale}
+\subsubsection{Use case: Aflys Aftale}
 {\setlength{\parindent}{0cm}
-\textbf{Scope:} Bookingsystem for PsykologNord
+\textbf{Scope:} Bookingsystem for Psykolog Nord
 
-\textbf{Primær Aktør:} Bruger eller klient, fremover i dette kapitel vil ”aftalepart” bruges til at referer til begge.
-Preconditions: En aftale eksisterer.
+\textbf{Primær Aktør:} Aftalepart
+
+\textbf{Preconditions:} En aftale eksisterer.
 
 \textbf{Hovedscenarie (success):} Aflysning af aftale.
 
-Aftalepart går ind i system og aflyser aftalen. Den anden part modtager notifikation om aflysningen og fakturaen slettes.
+Aftaleparten går ind i system og aflyser aftalen.
+Den anden part modtager notifikation om aflysningen og fakturaen slettes.
 
 \textbf{Alternativt scenarie:} Aflysning af aftale over telefon.
 
-Klienten ringer til receptionisten og beder aftalen aflyst. Receptionisten aflyser tiden og den anden part notificeres. Fakturaen slettes.
+Klienten ringer til den anden aftalepart og beder aftalen aflyst.
+Aftalen aflyses som i hovedscenariet.
 
 \textbf{Alternativt scenarie:} Aflysning af aftale inden for 24 timer af aftalens tid.
 
-Klienten går ind i system og aflyser aftalen. Den anden part modtager notifikation om aflysningen og fakturaen sendes til klienten.
+Klienten går ind i system og aflyser aftalen.
+Den anden part modtager notifikation om aflysningen, men fakturaen sendes stadig til klienten.
 
 \textbf{Alternativt scenarie:} Aflysning af aftale inden for 24 timer af aftalens tid over telefon.
 
-Klienten ringer til receptionisten og beder aftalen aflyst. Receptionisten aflyser tiden og den anden aftalepart notificeres. Fakturaen sendes til klienten.
+Klienten ringer den anden aftalepart for at aflyse aftalen. Aftalen aflyses som i hovedscenariet.
 }
