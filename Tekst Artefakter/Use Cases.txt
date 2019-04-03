@@ -1,0 +1,18 @@
+
+Use case: Book Aftale
+Scope: Bookingsystem for PsykologNord
+Primær Aktør: Bruger eller klient, Fremover i dette kapitel vil ”bruger” bruges til at referer til begge.
+Preconditions: En aftale skal ikke eksistere på det givet tidspunkt for psykologen eller brugeren.
+Hovedscenarie (succes): Booking af ny aftale.
+Brugeren ønsker at booke en aftale. Han vælger at oprette en ny aftale, hvor psykologen har tid. Aftalen oprettes og psykologen notificeres.
+Alternativt scenarie: Booking af ny aftale gennem telefon.
+En klient ønsker at booke en aftale. Han ringer receptionisten op og beder om en tid. Receptionisten opretter så en ny tid, hvor psykologen har tid. Aftalen oprettes og psykologen notificeres.
+
+Use Case: Ændr Aftale
+Scope: Bookingsystem for PsykologNord
+Primær Aktør: Bruger eller klient, fremover i dette kapitel vil ”bruger” bruges til at referer til begge. 
+Preconditions: En aftale eksistere og der er mere end 24 timer til aftalen.
+Hovedscenarie (succes): Ændring af aftale.
+Den første part, brugeren, går ind i systemet og ændrer aftalen til andet tidspunkt. Den anden part modtager en notifikation med ændringen. 
+Alternativt scenarie: Ændring af aftale gennem telefon.
+Klienten ringer til receptionisten og beder aftalens tid ændret. Receptionisten ændrer tiden og psykologen notificeres.
