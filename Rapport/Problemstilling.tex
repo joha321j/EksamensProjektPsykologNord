@@ -1,29 +1,42 @@
 \subsection{Psykolog Nords problemstilling}
 
-Psykolog Nord bruger to informationssystemer til at understøtte deres forretnin
-g, se figur \ref{forretning:isfml}.
+Psykolog Nord bruger to informationssystemer til at understøtte deres forretning, se figur \ref{forretning:isfml}.
 Dinero bruges som deres regnskabsprogram til at lave og sende fakturaer til deres klienter.
 
 TerapeutBooking er deres nuværende bookingsystem.
 Som det kan ses på figur \ref{forretning:isfml} understøttes virksomheden meget af de to informationssystemer, og derfor er det vigtigt, at de fungerer godt for dem.
 
-Psykolog Nord har dog problemer med TerapeutBooking:
+Psykolog Nord har følgende problemer med TerapeutBooking:
 
 \begin{itemize}
     \item TerapeutBooking kan ikke håndtere en bruger tilknyttet flere lokationer.
-    Derfor har Katrine to forskellige kalendre: En for hendes klienter i Aarhus og en i Aalborg.
+    Derfor har Katrine to forskellige kalendere: En for hendes klienter i Aarhus og en i Aalborg.
     Katrine skal altså manuelt gå ind og blokere hendes ene kalender, når den anden kalender bliver booket.
     
-    \item TerapeutBooking kan ikke håndtere flere kalendre, der bruger de samme lokaler.
-    Det betyder, at da Miriam og Katrine lige nu begge tilbyder samtaler i Aarhus og Aalborg, skal de manuelt gå ind og blokere aftaler i hinandens kalendre.
+    \item TerapeutBooking kan ikke håndtere flere kalendere, der bruger de samme lokaler.
+    Det betyder, at da Miriam og Katrine lige nu begge tilbyder samtaler i Aarhus og Aalborg, skal de manuelt gå ind og blokere aftaler i hinandens kalendere.
     Hvis Katrine har en aftale i Aalborg om mandagen klokken 10 til 11, skal hun altså gå ind i Miriams kalender og blokere den tid.
     
-   \item 
+   \item Psykolog Nord har, som beskrevet i afsnit \ref{section:forretningsmodel} flere psykologer tilknyttet deres firma.
+   Men TerapeutBooking giver ikke en tilfredsstillende måde at styre deres brugeres rettigheder.
+   En bruger kan få lov til at ændre alle journaler, se alle journaler eller se ingen journaler.
+   På samme måde med fakturaer.
 \end{itemize}
+
+De første to problemstillinger betyder, at noget så simpelt som at lave en aftale med en klient går hen og bliver en tidskrævende proces, hvor der også nemt kan ske fejl, se figur \ref{forretning:bpmnnow}.
+I følge Katrine bruger hun lige nu X timer om ugen på bare at håndtere bestillinger af aftaler.
+
 
 \begin{figure}
     \caption{Informationssystemers understøttelse af FML}
     \centering
-        \includegraphics[scale=.5]{ISFML.png}
+        \includegraphics[width=\textwidth]{ISFML.png}
     \label{forretning:isfml}
+\end{figure}
+
+\begin{figure}
+    \caption{BPMN diagram over at aftale en tid med en klient}
+    \centering
+        \includegraphics[width=\textwidth]{BPMNNow.png}
+    \label{forretning:bpmnnow}
 \end{figure}
