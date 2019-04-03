@@ -1,0 +1,7 @@
+Vejledermøde 3/4 med Tove:
+
+antal sider står i studieordning
+Skriv det hele ind i rapport i første omgang, og sorter derefter ud i bilag etc.
+
+Reflekter over besultinger i rapporten blandt med hensyn til FML og objektmodel -> Hvorvidt journal skal være sit eget objekt/domæne eller ej?
+Hvad ville vi få ud af at have det som det ene eller det andet?
