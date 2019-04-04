@@ -1,6 +1,20 @@
 \subsection{Use Cases}
+For at sikre at vi laver et program der fungere som ønsket har vi opstillet flere Use cases for systemet.
+Disse Use Cases er blevet udledt på baggrund af møder med Psykolog Nords ledelse, og ved brug af CRUD på objekt- og domænemodelen. Det er f.eks. vigtigt at skelne mellem at oprette en ny aftale, ændre den og slette den. 
 
-En aftale består af to aftaleparter: en klient og en bruger. Når der i dette afsnit bliver refereret til en aftalepart vil det være en af disse. Vi skelner ikke mellem hvilken af de to aktører, der er aftaleparten i de nedenstående use cases, da use casesne skal gælde for begge aktører.
+\begin{figure}
+	\centering
+  		\includegraphics[scale=0.75]{UseCaseDiagram.png}
+  \caption{Use Case diagram.}
+  \label{fig:UseCaseDiagram}
+\end{figure}
+
+På figur \ref{fig:UseCaseDiagram} kan man se alle de use cases vi fandt frem til. 
+I følgende kapitel kan man så findes vores use cases beskrevet mere detaljeret.
+
+En aftale består af to aftaleparter: en klient og en bruger. 
+Når der i dette afsnit bliver refereret til en aftalepart vil det være en af disse. 
+Vi skelner ikke mellem hvilken af de to aktører, der er aftaleparten i de nedenstående use cases, da use casesene skal gælde for begge aktører.
 
 \subsubsection{Use Case: Book aftale}
 {\setlength{\parindent}{0cm}
@@ -12,7 +26,9 @@ En aftale består af to aftaleparter: en klient og en bruger. Når der i dette a
 
 \textbf{Hovedscenarie (succes):} Booking af ny aftale.
 
-Aftaleparten ønsker at booke en aftale. Han vælger at oprette en ny aftale, hvor den anden aftalepart har tid. Aftalen oprettes og psykologen notificeres.
+Aftaleparten ønsker at booke en aftale. 
+Han vælger at oprette en ny aftale, hvor den anden aftalepart har tid. 
+Aftalen oprettes og psykologen notificeres.
 
 \textbf{Alternativt scenarie:} Booking af ny aftale over telefon.
 
