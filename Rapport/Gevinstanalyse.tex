@@ -1,0 +1,30 @@
+\subsection{Gevinstanalyse}
+Dette afsnit vil beskrive, hvad formålet med projektet er, hvad Psykolog Nord vil få ud af det, og hvordan vi vil sikre gevinsterne.
+
+\subsubsection{Formål}
+Formålet med projektet er:
+
+\begin{itemize}
+    \item At forbedre booking processen, så når en klient laver en aftale med en psykolog i et lokale, kan en anden psykolog ikke lave en aftale på samme tidspunkt i samme lokale, uden at psykologen manuelt skal ind og blokere for booking af lokalet.
+    \item At forbedre booking processen, så når en klient laver en aftale med en psykolog i en afdeling, kan en anden klient ikke lave en aftale med samme psykolog i en anden afdeling på samme tidspunkt, uden at psykologen manuelt skal melde sig optaget.
+    \item At forbedre kundesikkerheden ved at sikre, at en psykolog kun har adgang til sine egne klienters journaler.
+\end{itemize}
+
+\subsubsection{Forretningsmæssig løsningsbeskrivelse}
+
+Projektet skal sikre, at Psykolog Nords bookingproces kommer til at foregå uden, at de manuelt skal ind og rette i hinandens kalendere.
+Derudover skal det sikre, at deres psykologer kun kan se deres egne klienters journaler. 
+Til sidst skal det også give mulighed for at lave brugere af systemet med andre rettigheder, såsom en sekretær, der vil kunne se alle klienter og deres fakturaer, men ikke kunne se nogen klientjournaler.
+
+Til at starte med skal løsningen bruges af Psykolog Nord, men på længere sigt skal løsningen også bruges af Katrine, Lasse og Anders's andre firmaer.
+
+De ønsker at tage løsningen i brug hurtigst muligt.
+
+\subsubsection{IT-mæssig løsningsbeskrivelse}
+
+Psykolog Nord vil i fremtiden gerne have bookingsystemet til at være en hjemmeside, men det er på nuværende tidspunkt uden for projektgruppens pensum.
+Derfor er de gået med til, at det bliver udviklet som en WPF applikation i .Net C\#, hvor applikationen skal kunne køre på flere computere i et netværk.
+
+Psykolog Nord har også mange forslag til videreudvilking af systemet, som vi ved, at vi ikke vil kunne nå inden for tidsrammen af projektet.
+Derfor er det vigtigt, at løsningen er objektorienteret, så den er nem at videreudvikle på et senere tidspunkt.
+Da vi også nu ved, at de senere vil have det som en hjemmeside istedet for en applikation, skal løsningen også være lagdelt, så blandt andet brugergrænsefladen nemt kan udskiftes.
