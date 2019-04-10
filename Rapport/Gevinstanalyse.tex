@@ -51,15 +51,41 @@ Der vil også blive en større sikkerhed for klienterne, da alle brugere af syst
 
 I det første år eller 2 vil projektet være en udgift, men effektiviseringen af bookingprocessen vil resultere i en besparelse på længere sigt.
 
-\subsection{Gevinster}
+\subsubsection{Risikovurdering}
+
+\paragraph*{Læk af følsomme personoplysninger}
+
+\subparagraph{Risikovurdering:}
+Høj pga. økonomiske konsekvenser.
+    
+\subparagraph{Eksisterende sikring:}
+Den nuværende løsning lever op  til alle krav fra Datatilsynet mht. til behandling af følsomme personoplysninger, blandt andet ved at have en krypteret hjemmside.\cite{terapeutbookingsikkerhed}
+    
+\subparagraph{Handlingsplan:}
+Den nye løsning skal også leve op til reglerne fra Datatilsynet. Derudover vil den forbedre sikkerheden ved at begrænse brugernes adgang til klienter i systemet, så en bruger kun har adgang til sine egne klienter.
+    
+Hvis der skulle ske en læk af data vil Psykolog følge lovgivningen ved at give Datatilsynet besked, inden for 24 timer efter lækken opdages, og derefter give de involverede klienter besked. Derefter vil lækken lukkes hurtigst muligt.
+    
+\paragraph*{Tab af klienters fortrolige oplysninger som følge af servernedbrud}
+
+\subparagraph{Risikovurdering:}
+Lav
+    
+\subparagraph{Eksisterende sikring:}
+Den nuværende serverløsning har en gennemsnitlig oppetid på 99.5\%. De har 2 separate strømtilslutning, hvilket sikrer deres kørsel mod strømsvigt. Der tages backup af data dagligt, der gemmes i 7 til 30 dage, hvorefter det overskrives. Deres servere er sikret med firewalls og antivirus software, og deres netværksinfrastruktur er optimeret til at kunne modstå alle former for hackerangreb.\cite{terapeutbookingdata}
+
+\subparagraph{Handlingsplan:}
+Den nuværende sikring er tilstrækkelig, og derfor er det vigtigt at den nye løsning opfylder samme krav, når den bliver implementeret i virksomheden.
+
+\subsubsection{Gevinster}
 \textit{Interne serviceforbedringer:}
 Det vil blive nemmere for brugerne af bookingsystemet, når de ikke skal til at lave dobbeltarbejde ved alle aftalerne.
 
 \textit{Risici:}
-Det største risici med udviklingen af dette projekt er, at vi ikke når langt nok til, at det bliver en erstatning for deres nuværende løsning.
-Derfor er det vigtigt, at vi laver et system, der er så nemt som muligt at videreudvikle på.
+De største risici med udviklingen af dette projekt er, at vi ikke når langt nok til, at det bliver en erstatning for deres nuværende løsning, og at den nye løsning ikke behandler klienternes fortrolige personoplysninger sikkert nok.
+Derfor er det vigtigt, at vi laver et system, der er så nemt som muligt at videreudvikle på, og at det er sikkert nok til, at uvedkommende ikke bare kan få adgang til fortrolige personoplysninger.
 
-\subsection{Implementering og Opfølgning}
+\subsubsection{Implementering og Opfølgning}
 
 For at sikre, at den udarbejdede løsning er en forbedring af deres nuværende system, er der blevet opstillet følgende key performance indicators(KPI'er):
 
