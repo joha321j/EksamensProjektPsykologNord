@@ -8,10 +8,23 @@ Vores primæraktører og deres mål er:
 \begin{itemize}
     \item Booker
         \begin{itemize}
-            \item Abekat
+            \item Se aftaler
+            \item Book aftale
+            \item Ændr aftale
+            \item Aflys aftale
         \end{itemize}
     \item Superbruger
+        \begin{itemize}
+            \item Håndter bruger
+        \end{itemize}
+    \item Behandler
+        \begin{itemize}
+            \item Håndter journaler
+        \end{itemize}
     \item Klient
+        \begin{itemize}
+            \item Se og betal fakturaer
+        \end{itemize}
 \end{itemize}
 
 Det er f.eks. vigtigt at skelne mellem at booke en ny aftale, ændre den og aflyse den, da det er tre forskellige funktionaliteter i systemet.
@@ -27,7 +40,7 @@ På figur \ref{fig:UseCaseDiagram} kan man se alle de use cases vi fandt frem ti
 I følgende kapitel kan man så findes vores use cases beskrevet mere detaljeret.
 
 To personer deltager i en aftale: en klient og en psykolog. Begge har rollen som booker i usecasesne, da begge skal kunne håndtere aftaler. 
-Vi skelner ikke mellem hvilken af de to aktører, der er aftaleparten i de nedenstående use cases, da use casesene skal gælde for begge aktører.
+Vi skelner ikke mellem hvilken af de to aktører, der er bookeren i de nedenstående use cases, da use casesene skal gælde for begge aktører, med mindre der eksplicit står klient eller psykolog.
 
 \subsubsection{Use Case: Book aftale}\label{usecase:bookaftale}
 {\setlength{\parindent}{0cm}
@@ -40,12 +53,12 @@ Vi skelner ikke mellem hvilken af de to aktører, der er aftaleparten i de neden
 \textbf{Hovedscenarie (succes):} Booking af ny aftale.
 
 Bookeren ønsker at booke en aftale. 
-Han vælger at oprette en ny aftale, hvor den anden aftalepart har tid. 
+Han vælger at oprette en ny aftale, hvor den anden booker har tid. 
 Aftalen oprettes og psykologen notificeres.
 
 \textbf{Alternativt scenarie:} Booking af ny aftale over telefon.
 
-Bookeren ønsker at booke en aftale. Han ringer til psykologen og beder om en tid. Aftalen oprettes som i hovedscenariet.
+Klienten ønsker at booke en aftale. Han ringer til psykologen og beder om en tid. Aftalen oprettes som i hovedscenariet.
 }
 
 \subsubsection{Use Case: Ændr Aftale}
@@ -59,11 +72,12 @@ Bookeren ønsker at booke en aftale. Han ringer til psykologen og beder om en ti
 \textbf{Hovedscenarie (succes):} Ændring af aftale.
 
 Bookeren går ind i systemet og ændrer aftalen til andet tidspunkt.
-Den anden part modtager en notifikation med ændringen.
+Den anden booker modtager en notifikation med ændringen.
 
 \textbf{Alternativt scenarie:} Ændring af aftale over telefon.
 
-Klienten ringer til den psykologen og beder om at få ændret aftalen. Aftalen ændres som i hovedscenariet.
+Klienten ringer til den psykologen og beder om at få ændret aftalen.
+Aftalen ændres som i hovedscenariet.
 }
 
 \subsubsection{Use case: Aflys Aftale}
@@ -76,8 +90,8 @@ Klienten ringer til den psykologen og beder om at få ændret aftalen. Aftalen �
 
 \textbf{Hovedscenarie (success):} Aflysning af aftale.
 
-Klienten går ind i system og aflyser aftalen.
-Den anden part modtager notifikation om aflysningen og fakturaen slettes.
+Den ene booker aflyser aftalen.
+Den anden booker modtager en besked om aflysningen og fakturaen, der er tilkoblet aftalen, slettes.
 
 \textbf{Alternativt scenarie:} Aflysning af aftale over telefon.
 
@@ -87,11 +101,11 @@ Aftalen aflyses som i hovedscenariet.
 \textbf{Alternativt scenarie:} Aflysning af aftale inden for 24 timer af aftalens tid.
 
 Klienten går ind i system og aflyser aftalen.
-Den anden part modtager notifikation om aflysningen, men fakturaen sendes stadig til klienten.
+Psykologen modtager notifikation om aflysningen, men fakturaen sendes stadig til klienten.
 
 \textbf{Alternativt scenarie:} Aflysning af aftale inden for 24 timer af aftalens tid over telefon.
 
-Klienten ringer den anden aftalepart for at aflyse aftalen. Aftalen aflyses som i ovenstående scenarie.
+Klienten ringer til psykologen for at aflyse aftalen. Aftalen aflyses som i aflsysning af aftale inden for 24 timer af aftalens tid scenariet.
 }
 
 \subsubsection{Use Case: Se og betal faktura}
@@ -100,7 +114,7 @@ Klienten ringer den anden aftalepart for at aflyse aftalen. Aftalen aflyses som 
 
 \textbf{Primær Aktør:} Klient
 
-\textbf{Precondition: }faktura eksisterer
+\textbf{Precondition:} Faktura eksisterer
 
 \textbf{Hovedscenarie (success):} Se faktura
 
