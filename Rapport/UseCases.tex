@@ -3,11 +3,14 @@ For at sikre at vi laver et program, der fungerer som ønsket, har vi opstillet 
 Disse use cases er blevet udledt på baggrund af møder med Psykolog Nords ledelse, og ved brug af de fire basis funktioner for persistens: create, read, update og delete (CRUD), på objekt- og domænemodelen.
 Derudover har vi også identificeret primæraktørene og deres mål, og sikret at vores use cases opfylder målene.
 
-Vores primæraktører er:
+Vores primæraktører og deres mål er:
 
 \begin{itemize}
-    \item Bruger
-    \item Administrator
+    \item Booker
+        \begin{itemize}
+            \item Abekat
+        \end{itemize}
+    \item Superbruger
     \item Klient
 \end{itemize}
 
@@ -23,63 +26,62 @@ Det er f.eks. vigtigt at skelne mellem at booke en ny aftale, ændre den og afly
 På figur \ref{fig:UseCaseDiagram} kan man se alle de use cases vi fandt frem til. 
 I følgende kapitel kan man så findes vores use cases beskrevet mere detaljeret.
 
-En aftale består af to aftaleparter: en klient og en bruger. 
-Når der i dette afsnit bliver refereret til en aftalepart vil det være en af disse. 
+To personer deltager i en aftale: en klient og en psykolog. Begge har rollen som booker i usecasesne, da begge skal kunne håndtere aftaler. 
 Vi skelner ikke mellem hvilken af de to aktører, der er aftaleparten i de nedenstående use cases, da use casesene skal gælde for begge aktører.
 
 \subsubsection{Use Case: Book aftale}\label{usecase:bookaftale}
 {\setlength{\parindent}{0cm}
 \textbf{Scope:} Bookingsystem for Psykolog Nord
 
-\textbf{Primær Aktør:} Aftalepart
+\textbf{Primær Aktør:} Booker
 
 \textbf{Preconditions:} En aftale skal ikke eksistere på det givne tidspunkt for begge aftaleparter.
 
 \textbf{Hovedscenarie (succes):} Booking af ny aftale.
 
-Aftaleparten ønsker at booke en aftale. 
+Bookeren ønsker at booke en aftale. 
 Han vælger at oprette en ny aftale, hvor den anden aftalepart har tid. 
 Aftalen oprettes og psykologen notificeres.
 
 \textbf{Alternativt scenarie:} Booking af ny aftale over telefon.
 
-Aftaleparten ønsker at booke en aftale. Han ringer til den anden aftalepart og beder om en tid. Aftalen oprettes som i hovedscenariet.
+Bookeren ønsker at booke en aftale. Han ringer til psykologen og beder om en tid. Aftalen oprettes som i hovedscenariet.
 }
 
 \subsubsection{Use Case: Ændr Aftale}
 {\setlength{\parindent}{0cm}
 \textbf{Scope:} Bookingsystem for Psykolog Nord
 
-\textbf{Primær Aktør:} Aftalepart 
+\textbf{Primær Aktør:} Booker 
 
 \textbf{Preconditions:} En aftale eksisterer, og der er mere end 24 timer til aftalen.
 
 \textbf{Hovedscenarie (succes):} Ændring af aftale.
 
-Den første aftalepart går ind i systemet og ændrer aftalen til andet tidspunkt.
+Bookeren går ind i systemet og ændrer aftalen til andet tidspunkt.
 Den anden part modtager en notifikation med ændringen.
 
 \textbf{Alternativt scenarie:} Ændring af aftale over telefon.
 
-Klienten ringer til den anden aftalepart og beder om at få ændret aftalen. Aftalen ændres som i hovedscenariet.
+Klienten ringer til den psykologen og beder om at få ændret aftalen. Aftalen ændres som i hovedscenariet.
 }
 
 \subsubsection{Use case: Aflys Aftale}
 {\setlength{\parindent}{0cm}
 \textbf{Scope:} Bookingsystem for Psykolog Nord
 
-\textbf{Primær Aktør:} Aftalepart
+\textbf{Primær Aktør:} Klient
 
 \textbf{Preconditions:} En aftale eksisterer.
 
 \textbf{Hovedscenarie (success):} Aflysning af aftale.
 
-Aftaleparten går ind i system og aflyser aftalen.
+Klienten går ind i system og aflyser aftalen.
 Den anden part modtager notifikation om aflysningen og fakturaen slettes.
 
 \textbf{Alternativt scenarie:} Aflysning af aftale over telefon.
 
-Klienten ringer til den anden aftalepart og beder aftalen aflyst.
+Klienten ringer til psykolog og beder aftalen aflyst.
 Aftalen aflyses som i hovedscenariet.
 
 \textbf{Alternativt scenarie:} Aflysning af aftale inden for 24 timer af aftalens tid.
