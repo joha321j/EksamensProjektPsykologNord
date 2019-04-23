@@ -57,7 +57,7 @@ To personer deltager i en aftale: en kunde og en psykolog.
 
 Den bookingansvarlige ønsker at booke en aftale.
 Hvis den involverede kunde ikke har brugt PsykologNord før, oprettes kunden i systemet.
-Der bookes en ny aftale, hvor både kunden og psykologen har tid. 
+Kunden vælger aftaletype og der bookes en ny aftale, hvor både kunden og psykologen har tid. 
 Aftalen bookes og kunde og psykolog notificeres.
 
 \textbf{Primær Aktør:} Kunde og bookingansvarlig
@@ -66,6 +66,16 @@ Aftalen bookes og kunde og psykolog notificeres.
 
 En kunde ønsker at booke en aftale, og kontakter derfor PsykologNord.
 En bookingansvarlig booker aftalen som i hovedscenariet.
+
+\textbf{Primær Aktør:} Kunde
+
+\textbf{Alternativt scenarie (succes):} Vælge Parterapi som aftale
+
+En kunde ønsker at booke en parterapi aftale.
+Hvis den involverede kunde ikke har brugt PsykologNord før, oprettes kunden i systemet.
+Kunden vælger aftaletype, og indtaster sin anden parts informationer.
+Der bookes en ny aftale, hvor både kunden og psykologen har tid. 
+Aftalen bookes, kunde og psykolog notificeres.
 }
 
 \subsubsection{Use Case: Ændr Aftale}
@@ -81,9 +91,12 @@ En bookingansvarlig booker aftalen som i hovedscenariet.
 Den bookingansvarlige går ind i systemet og ændrer aftalen til andet tidspunkt, hvor kunden og psykologen kan.
 Kunde og psykolog modtager en notifikation med ændringen.
 
-\textbf{PrimærAktør:} Kunde og bookingansvarlig
+\textbf{Primær Aktør:} Kunde og bookingansvarlig
 
 \textbf{Alternativt scenarie:} Kunde ændrer aftale ved at kontakte PsykologNord.
+
+Kunden ønsker at ændre sin aftale, og kontakter derfor PsykologNord.
+En bookinansvarlig ændrer aftalen som i hovedscenariet.
 }
 
 \subsubsection{Use case: Aflys Aftale}
