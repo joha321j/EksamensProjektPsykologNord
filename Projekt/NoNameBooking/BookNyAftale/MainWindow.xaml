@@ -7,14 +7,26 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080"
          WindowState="Maximized">
-    <Grid>
-        <Label Content="Opret aftale" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,125,0,0" FirstDayOfWeek="Monday" SelectedDateFormat="Short"/>
-        <Label Content="Vælg dato og  tidspunkt:" HorizontalAlignment="Left" Margin="150,96,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbAppointmentTime" HorizontalAlignment="Left" Margin="257,127,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cbClient" HorizontalAlignment="Left" Margin="150,250,0,0" VerticalAlignment="Top" Width="449"/>
-        <Label Content="Vælg klient:" HorizontalAlignment="Left" Margin="150,219,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnAddClient" Content="Button" HorizontalAlignment="Left" Margin="616,250,0,0" VerticalAlignment="Top" Width="75"/>
+    <Grid >
+        <Label Content="Opret aftale" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Grid Margin="99,97,83,25" HorizontalAlignment="Center">
+            <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,29,0,0" FirstDayOfWeek="Monday" SelectedDateFormat="Short"/>
+            <Label Content="Vælg dato og  tidspunkt:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" Margin="107,31,0,0" VerticalAlignment="Top" Width="120"/>
+            <ComboBox x:Name="cmbbClient" HorizontalAlignment="Left" Margin="0,154,0,0" VerticalAlignment="Top" Width="449"/>
+            <Label Content="Vælg klient:" HorizontalAlignment="Left" Margin="0,123,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btnAddClient" Content="Opret klient" HorizontalAlignment="Left" Margin="466,154,0,0" VerticalAlignment="Top" Width="75"/>
+            <ComboBox x:Name="cmbbDepartment" HorizontalAlignment="Left" Margin="0,213,0,0" VerticalAlignment="Top" Width="541"/>
+            <Label Content="Vælg afdeling:" HorizontalAlignment="Left" Margin="0,182,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="cmbbTreatment" HorizontalAlignment="Left" Margin="0,277,0,0" VerticalAlignment="Top" Width="541"/>
+            <Label Content="Vælg ydelse:" HorizontalAlignment="Left" Margin="0,246,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtNotes" HorizontalAlignment="Left" Height="113" Margin="0,341,0,0" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" VerticalAlignment="Top" Width="541"/>
+            <Label Content="Noter:" HorizontalAlignment="Left" Margin="0,310,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btnCreateAppointment" Content="Opret aftale" HorizontalAlignment="Left" Margin="815,547,0,0" VerticalAlignment="Top" Width="75"/>
+            <CheckBox x:Name="cbEmail" Content="Send email til klient 24 timer før aftale." HorizontalAlignment="Left" Margin="653,201,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="cbSMS" Content="Send SMS til klient 24 timer før aftale." HorizontalAlignment="Left" Margin="653,234,0,0" VerticalAlignment="Top"/>
+
+        </Grid>
 
     </Grid>
 </Window>
