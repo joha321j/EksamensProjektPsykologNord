@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookNyAftale"
         mc:Ignorable="d"
-        Title="LandingPage" Height="450" Width="800">
+        Title="Kalender" Height="720" Width="1080"
+         WindowState="Maximized">
     <Grid>
-        
+        <Grid HorizontalAlignment="Left" Height="481" Margin="10,130,0,0" VerticalAlignment="Top" Width="1052" ShowGridLines="True" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Mandag" Grid.Column="0" Grid.Row="0"></TextBlock>
+            <TextBlock Text="Tirsdag" Grid.Column="1" Grid.Row="0"></TextBlock>
+            <TextBlock Text="Onsdag" Grid.Column="2" Grid.Row="0"></TextBlock>
+            <TextBlock Text="Torsdag" Grid.Column="3" Grid.Row="0"></TextBlock>
+            <TextBlock Text="Fredag" Grid.Column="4" Grid.Row="0"></TextBlock>
+            <TextBlock Text="Lørdag" Grid.Column="5" Grid.Row="0"></TextBlock>
+            <TextBlock Text="Søndag" Grid.Column="6" Grid.Row="0"></TextBlock>
+        </Grid>
+
     </Grid>
 </Window>
