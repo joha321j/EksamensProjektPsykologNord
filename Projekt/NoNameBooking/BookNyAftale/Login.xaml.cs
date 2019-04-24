@@ -15,13 +15,21 @@ using System.Windows.Shapes;
 namespace BookNyAftale
 {
     /// <summary>
-    /// Interaction logic for Login1.xaml
+    /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login1 : Window
+    public partial class Login : Window
     {
-        public Login1()
+        public Login()
         {
             InitializeComponent();
+        }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+            CreateAppointment createAppointment = new CreateAppointment();
+            createAppointment.Show();
+            this.Close();
         }
     }
 }
