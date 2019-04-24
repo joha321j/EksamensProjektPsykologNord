@@ -27,8 +27,8 @@ namespace BookNyAftale
             for (int i = 0; i < 12; i++)
             {
 
-                lvMonday.Items.Add(openingTime+":00");
-                lvMonday.Items.Add(openingTime + ":30");
+                lvTime.Items.Add(openingTime+":00");
+                lvTime.Items.Add(openingTime + ":30");
                 openingTime++;
             }
             

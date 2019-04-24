@@ -18,10 +18,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListView HorizontalAlignment="Left" Height="499" VerticalAlignment="Top" Width="150" Name="lvMonday">
+            <ListView HorizontalAlignment="Left" Height="499" VerticalAlignment="Top" Width="150" Name="lvTime">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Monday"/>
+                        <GridViewColumn Header="Timer"/>
                     </GridView>
                 </ListView.View>
             </ListView>
