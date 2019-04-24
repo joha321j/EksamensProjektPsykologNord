@@ -8,7 +8,7 @@
         Title="Kalender" Height="720" Width="1080"
          WindowState="Maximized">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="481" Margin="10,130,0,0" VerticalAlignment="Top" Width="1052" ShowGridLines="True" >
+        <Grid HorizontalAlignment="Center" Height="481" Margin="0,200,0,0" VerticalAlignment="Top" Width="1052" ShowGridLines="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
