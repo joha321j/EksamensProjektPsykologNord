@@ -15,7 +15,7 @@
             <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" Margin="107,31,0,0" VerticalAlignment="Top" Width="120"/>
             <ComboBox x:Name="cmbbClient" HorizontalAlignment="Left" Margin="0,154,0,0" VerticalAlignment="Top" Width="449"/>
             <Label Content="Vælg klient:" HorizontalAlignment="Left" Margin="0,123,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="btnAddClient" Content="Opret klient" HorizontalAlignment="Left" Margin="466,154,0,0" VerticalAlignment="Top" Width="75"/>
+            <Button x:Name="btnAddClient" Content="Opret klient" HorizontalAlignment="Left" Margin="466,154,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddClient_Click"/>
             <ComboBox x:Name="cmbbDepartment" HorizontalAlignment="Left" Margin="0,213,0,0" VerticalAlignment="Top" Width="541"/>
             <Label Content="Vælg afdeling:" HorizontalAlignment="Left" Margin="0,182,0,0" VerticalAlignment="Top"/>
             <ComboBox x:Name="cmbbTreatment" HorizontalAlignment="Left" Margin="0,277,0,0" VerticalAlignment="Top" Width="541"/>
