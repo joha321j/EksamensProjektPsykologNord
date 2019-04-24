@@ -10,6 +10,7 @@ namespace ModelClassLibrary
         public string ClientAddress { get; }
         internal int ClientSsn { get; }
         public string ClientNote { get; }
+        public Journal Journal { get; }
 
         public Client(string clientName = "", string clientEmail = "", string clientPhoneNumber = "", string clientAddress = "", int clientSsn = Int32.MinValue, string clientNote = "")
         {
@@ -19,6 +20,7 @@ namespace ModelClassLibrary
             ClientAddress = clientAddress;
             ClientSsn = clientSsn;
             ClientNote = clientNote;
+            Journal = new Journal();
         }
     }
 }

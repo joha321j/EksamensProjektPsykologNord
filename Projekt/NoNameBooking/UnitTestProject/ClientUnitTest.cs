@@ -16,5 +16,12 @@ namespace UnitTestProject
 
             Assert.IsNotNull(testClient);
         }
+
+        [TestMethod]
+        public void JournalCreation()
+        {
+            Client testClient = new Client();
+            Assert.IsNotNull(testClient.Journal);
+        }
     }
 }
