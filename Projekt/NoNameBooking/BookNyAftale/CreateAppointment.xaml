@@ -13,7 +13,7 @@
         <Grid Margin="99,97,83,25" HorizontalAlignment="Center">
             <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,29,0,0" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
             <Label Content="Vælg dato og  tidspunkt:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" Margin="107,31,0,0" VerticalAlignment="Top" Width="120"/>
+            <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" Margin="107,31,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
             <ComboBox x:Name="cmbbClient" HorizontalAlignment="Left" Margin="0,154,0,0" VerticalAlignment="Top" Width="449"/>
             <Label Content="Vælg klient:" HorizontalAlignment="Left" Margin="0,123,0,0" VerticalAlignment="Top"/>
             <Button x:Name="btnAddClient" Content="Opret klient" HorizontalAlignment="Left" Margin="466,154,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddClient_Click"/>
