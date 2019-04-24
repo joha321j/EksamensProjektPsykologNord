@@ -8,36 +8,12 @@
         Title="Kalender" Height="720" Width="1080"
          WindowState="Maximized">
     <Grid>
-        <Grid HorizontalAlignment="Center" Height="481" Margin="0,200,0,0" VerticalAlignment="Top" Width="1052" ShowGridLines="True">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock Text="Mandag" Grid.Column="0" Grid.Row="0"></TextBlock>
-            <TextBlock Text="Tirsdag" Grid.Column="1" Grid.Row="0"></TextBlock>
-            <TextBlock Text="Onsdag" Grid.Column="2" Grid.Row="0"></TextBlock>
-            <TextBlock Text="Torsdag" Grid.Column="3" Grid.Row="0"></TextBlock>
-            <TextBlock Text="Fredag" Grid.Column="4" Grid.Row="0"></TextBlock>
-            <TextBlock Text="Lørdag" Grid.Column="5" Grid.Row="0"></TextBlock>
-            <TextBlock Text="Søndag" Grid.Column="6" Grid.Row="0"></TextBlock>
-        </Grid>
-
+        <DataGrid Name="grCalendar" HorizontalAlignment="Center" Height="463" Margin="10,216,10,0" VerticalAlignment="Top" Width="1052">
+            <DataGrid.RowHeaderStyle>
+            <Style TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Content" Value="{Binding  RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=Columns[0].Header,Mode=OneTime}"/>
+            </Style>
+            </DataGrid.RowHeaderStyle>
+        </DataGrid>
     </Grid>
 </Window>
