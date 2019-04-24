@@ -23,22 +23,16 @@ namespace BookNyAftale
         public LandingPage()
         {
             InitializeComponent();
-            ObservableCollection<Days> dataTest = new ObservableCollection<Days>();
+            int openingTime = 9;
+            for (int i = 0; i < 12; i++)
+            {
+
+                lvMonday.Items.Add(openingTime+":00");
+                lvMonday.Items.Add(openingTime + ":30");
+                openingTime++;
+            }
             
-            dataTest.Add(new Days { Day = "Mandag" });
-            dataTest.Add(new Days { Day = "Tirsdag" });
-            dataTest.Add(new Days { Day = "Onsdag" });
-            dataTest.Add(new Days { Day = "Torsdag" });
-            dataTest.Add(new Days { Day = "Fredag" });
-            dataTest.Add(new Days { Day = "Lørdag" });
-            dataTest.Add(new Days { Day = "Søndag" });
-            
-            grCalendar.ItemsSource = dataTest;
             
         }
-    }
-    public class Days
-    {
-        public string Day { get; set; }
-    }
+    }   
 }
