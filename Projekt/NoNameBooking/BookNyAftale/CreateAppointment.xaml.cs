@@ -23,6 +23,13 @@ namespace BookNyAftale
         public CreateAppointment()
         {
             InitializeComponent();
+            double openTime = 9;
+            for (int i = 0; i < 12; i++)
+            {
+                cmbbAppointmentTime.Items.Add(openTime + ":00");
+                openTime++;
+            }
+            
         }
 
         private void BtnAddClient_Click(object sender, RoutedEventArgs e)

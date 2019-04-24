@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:BookNyAftale"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080"
@@ -10,7 +11,7 @@
     <Grid >
         <Label Content="Opret aftale" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="22"/>
         <Grid Margin="99,97,83,25" HorizontalAlignment="Center">
-            <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,29,0,0" FirstDayOfWeek="Monday" SelectedDateFormat="Short"/>
+            <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,29,0,0" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
             <Label Content="Vælg dato og  tidspunkt:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" Margin="107,31,0,0" VerticalAlignment="Top" Width="120"/>
             <ComboBox x:Name="cmbbClient" HorizontalAlignment="Left" Margin="0,154,0,0" VerticalAlignment="Top" Width="449"/>
