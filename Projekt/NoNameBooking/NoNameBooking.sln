@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{0704EA82-2FED-4677-90C4-2F157784F5EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookNyAftale", "BookNyAftale\BookNyAftale.csproj", "{ABC8BB69-8053-45EE-9E78-5A7DDC110D6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABC8BB69-8053-45EE-9E78-5A7DDC110D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC8BB69-8053-45EE-9E78-5A7DDC110D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC8BB69-8053-45EE-9E78-5A7DDC110D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC8BB69-8053-45EE-9E78-5A7DDC110D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ABC8BB69-8053-45EE-9E78-5A7DDC110D6E} = {0704EA82-2FED-4677-90C4-2F157784F5EA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD707155-898A-4F2E-8B82-0AED14DD3045}
+	EndGlobalSection
+EndGlobal
