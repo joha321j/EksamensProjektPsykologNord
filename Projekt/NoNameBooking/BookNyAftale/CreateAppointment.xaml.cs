@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BookNyAftale
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CreateAppointment.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CreateAppointment : Window
     {
-        public MainWindow()
+        public CreateAppointment()
         {
             InitializeComponent();
         }
