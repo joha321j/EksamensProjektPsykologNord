@@ -18,7 +18,7 @@
         </Grid>
         <Label Content="Email:" HorizontalAlignment="Left" Margin="30,94,0,0" VerticalAlignment="Top"/>
         <Label Content="Telefon:" HorizontalAlignment="Left" Margin="262,94,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtClientAdress" HorizontalAlignment="Left" Height="23" Margin="30,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="432"/>
+        <TextBox x:Name="txtClientAddress" HorizontalAlignment="Left" Height="23" Margin="30,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="432"/>
         <Label Content="Adresse:" HorizontalAlignment="Left" Margin="30,166,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtClientZip" HorizontalAlignment="Left" Height="23" Margin="30,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtClientCity" HorizontalAlignment="Left" Height="23" Margin="176,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"/>
@@ -26,7 +26,7 @@
         <Label Content="By:" HorizontalAlignment="Left" Margin="176,231,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtClientNote" HorizontalAlignment="Left" Height="90" Margin="30,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="432" AcceptsReturn="True" SpellCheck.IsEnabled="True"/>
         <Label Content="Noter:" HorizontalAlignment="Left" Margin="30,299,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnSaveClient" Content="Gem" HorizontalAlignment="Left" Margin="387,439,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnSaveClient" Content="Gem" HorizontalAlignment="Left" Margin="387,439,0,0" VerticalAlignment="Top" Width="75" Click="BtnSaveClient_Click"/>
 
     </Grid>
 </Window>

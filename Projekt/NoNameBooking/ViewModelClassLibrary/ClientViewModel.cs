@@ -16,7 +16,5 @@ namespace ViewModelClassLibrary
                                      clientSsn, clientNote);
 
         }
-
-
     }
 }
