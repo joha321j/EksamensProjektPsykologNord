@@ -29,7 +29,7 @@
             <ListView Grid.Column="1" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvMonday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Mandag" Width="143"/>
+                        <GridViewColumn Header="Mandag: {Binding Dato}" Width="143"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -113,8 +113,5 @@
         <Button Content="I dag" HorizontalAlignment="Center" Margin="947,133,69,0" VerticalAlignment="Top" Width="56" Name="btnToday"/>
         <Button Content="-" HorizontalAlignment="Center" Margin="1010,133,34,0" VerticalAlignment="Top" Width="28" Name="btnBack"/>
         <Button Content="+" HorizontalAlignment="Center" Margin="1031,133,0,0" VerticalAlignment="Top" Width="28" Name="btnForward"/>
-
-
-
     </Grid>
 </Window>
