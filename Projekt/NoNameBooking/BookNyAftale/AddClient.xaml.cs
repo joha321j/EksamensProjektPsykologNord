@@ -20,10 +20,10 @@ namespace BookNyAftale
     /// </summary>
     public partial class AddClient : Window
     {
-        private readonly ClientViewModel _addClientViewModel;
-        public AddClient()
+        private readonly ClientRepoViewModel _addClientRepoViewModel;
+        public AddClient(ClientRepoViewModel clientRepoViewModel)
         {
-            _addClientViewModel = new ClientViewModel();
+            _addClientRepoViewModel = clientRepoViewModel;
             InitializeComponent();
         }
 
@@ -77,7 +77,8 @@ namespace BookNyAftale
         private void CreateClient()
         {
             string clientAddress = txtClientAddress.Text + ";" + txtClientZip.Text + ";" + txtClientCity.Text;
-            _addClientViewModel.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
+
+            _addClientRepoViewModel.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
                 clientAddress, txtClientSSN.Text, txtClientNote.Text);
         }
 

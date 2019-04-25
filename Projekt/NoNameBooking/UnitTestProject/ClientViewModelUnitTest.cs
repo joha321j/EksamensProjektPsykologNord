@@ -9,19 +9,19 @@ namespace UnitTestProject
     [TestClass]
     public class ClientViewModelUnitTest
     {
-        private ClientViewModel _clientView;
+        private ClientRepoViewModel _clientRepoView;
 
         [TestInitialize]
         public void ClientViewModelTestInitialize()
         {
-            _clientView = new ClientViewModel();
+            _clientRepoView = new ClientRepoViewModel();
         }
         [TestMethod]
         public void ClientViewModelCreation()
         {
-            ClientViewModel testClientViewModel = new ClientViewModel();
+            ClientRepoViewModel testClientRepoViewModel = new ClientRepoViewModel();
 
-            Assert.IsNotNull(testClientViewModel);
+            Assert.IsNotNull(testClientRepoViewModel);
         }
 
 
@@ -35,9 +35,9 @@ namespace UnitTestProject
             string clientSSN = "12346578";
             string clientNote = "Dette er vores testnote.";
 
-            _clientView.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSSN, clientNote);
+            _clientRepoView.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSSN, clientNote);
 
-            Assert.AreEqual(_clientView.ClientName, clientName);
+            Assert.AreEqual(_clientRepoView.ClientName, clientName);
         }
     }
 }

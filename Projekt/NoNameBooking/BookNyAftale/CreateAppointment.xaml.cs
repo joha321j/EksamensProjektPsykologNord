@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModelClassLibrary;
 
 namespace BookNyAftale
 {
@@ -20,9 +21,12 @@ namespace BookNyAftale
     /// </summary>
     public partial class CreateAppointment : Window
     {
+        private readonly ClientRepoViewModel _addClientRepoViewModel;
         public CreateAppointment()
         {
             InitializeComponent();
+            _addClientRepoViewModel = new ClientRepoViewModel();
+            _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
             double openTime = 9;
             for (int i = 0; i < 12; i++)
             {
@@ -34,8 +38,13 @@ namespace BookNyAftale
 
         private void BtnAddClient_Click(object sender, RoutedEventArgs e)
         {
-            AddClient addClient = new AddClient();
+            AddClient addClient = new AddClient(_addClientRepoViewModel);
             addClient.Show();
+        }
+
+        private void ClientRepoClientCreationHandler(object sender, EventArgs args)
+        {
+
         }
     }
 }
