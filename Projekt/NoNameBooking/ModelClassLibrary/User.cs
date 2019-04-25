@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ModelClassLibrary
@@ -29,6 +30,11 @@ namespace ModelClassLibrary
         public Appointment GetAppointment(Appointment appointment)
         {
             return _appointments.Find(a => a.Equals(appointment));
+        }
+
+        public Appointment GetAppointment()
+        {
+            return _appointments.Last();
         }
     }
 }

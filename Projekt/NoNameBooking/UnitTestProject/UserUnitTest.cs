@@ -10,6 +10,8 @@ namespace UnitTestProject
     public class UserUnitTest
     {
         private User _testUser;
+        private Appointment _testAppointmentOne;
+        private Appointment _testAppointmentTwo;
 
         [TestInitialize]
         public void TestUserSetup()
@@ -20,6 +22,13 @@ namespace UnitTestProject
             string email = "test@knapsåmegettest.testcom";
 
             _testUser = new User(userName, address, phoneNumber, email);
+
+
+            _testAppointmentOne = new Appointment();
+            _testAppointmentTwo = new Appointment();
+
+            _testUser.AddAppointment(_testAppointmentOne);
+            _testUser.AddAppointment(_testAppointmentTwo);
         }
         [TestMethod]
         public void UserCreationTest()
@@ -64,13 +73,14 @@ namespace UnitTestProject
         [TestMethod]
         public void UserPropertyAppointmentsTest()
         {
-            Appointment testAppointmentOne = new Appointment();
-            Appointment testAppointmentTwo = new Appointment();
 
-            _testUser.AddAppointment(testAppointmentOne);
-            _testUser.AddAppointment(testAppointmentTwo);
+            Assert.AreEqual(_testAppointmentOne, _testUser.GetAppointment(_testAppointmentOne));
+        }
 
-            Assert.AreEqual(testAppointmentOne, _testUser.GetAppointment(testAppointmentOne));
+        [TestMethod]
+        public void UserGetLastAppointmentMethod()
+        {
+            Assert.AreEqual(_testAppointmentTwo, _testUser.GetAppointment());
         }
 
     }
