@@ -61,5 +61,17 @@ namespace UnitTestProject
             Assert.AreEqual(_testUser.Email, email);
         }
 
+        [TestMethod]
+        public void UserPropertyAppointmentsTest()
+        {
+            Appointment testAppointmentOne = new Appointment();
+            Appointment testAppointmentTwo = new Appointment();
+
+            _testUser.AddAppointment(testAppointmentOne);
+            _testUser.AddAppointment(testAppointmentTwo);
+
+            Assert.AreEqual(testAppointmentOne, _testUser.GetAppointment(testAppointmentOne));
+        }
+
     }
 }
