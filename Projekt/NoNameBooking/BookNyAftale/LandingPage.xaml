@@ -8,7 +8,76 @@
         Title="Kalender" Height="720" Width="1080"
          WindowState="Maximized">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="499" Margin="10,180,0,0" VerticalAlignment="Top" Width="1052">
+        <Grid HorizontalAlignment="Center" Height="500" Margin="0,180,0,0" VerticalAlignment="Top" Width="1052">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Column="0" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="50" Name="lvTime" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Timer: " Width="50"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Column="1" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvMonday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Mandag" Width="143"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Column="2" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvTuesday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tirsdag" Width="143"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Column="3" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvWednesday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Onsdag" Width="143"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Column="4" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvThursday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Torsdag" Width="143"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Column="5" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvFriday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Fredag" Width="143"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Column="6" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvSaturday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Lørdag" Width="143"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Column="7" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvSunday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Søndag" Width="143"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+        <Grid HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="1072">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -18,14 +87,13 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListView HorizontalAlignment="Left" Height="499" VerticalAlignment="Top" Width="150" Name="lvTime">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Timer"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-
+            <Button Content="Kalender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="0" Name="btnCalendar"/>
+            <Button Content="Klienter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="1" Name="btnClients"/>
+            <Button Content="Ydelser" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="2" Name="btnTreatments"/>
+            <Button Content="Faktura" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="3" Name="btnInvoice"/>
+            <Button Content="Statistik" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="4" Name="btnStatistics"/>
+            <Button Content="Indstillinger" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="5" Name="btnSettings"/>
+            <Button Content="Apps" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="6" Name="btnApps"/>
         </Grid>
 
 
