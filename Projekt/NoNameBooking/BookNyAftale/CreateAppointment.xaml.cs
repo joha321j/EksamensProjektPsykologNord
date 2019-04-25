@@ -25,11 +25,12 @@ namespace BookNyAftale
         public CreateAppointment()
         {
             InitializeComponent();
+
             _addClientRepoViewModel = new ClientRepoViewModel();
             _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
 
             UpdateClientComboBox();
-            UpdateAppointmentTimeComboBox(); 
+            UpdateAppointmentTimeComboBox();
         }
 
         private void UpdateAppointmentTimeComboBox()
@@ -45,7 +46,7 @@ namespace BookNyAftale
         private void UpdateClientComboBox()
         {
             List<ClientView> clients = _addClientRepoViewModel.GetClientViews();
-
+            cmbbClient.Items.Clear();
             foreach (ClientView clientView in clients)
             {
                 cmbbClient.Items.Add(clientView.ShowInComboBox());

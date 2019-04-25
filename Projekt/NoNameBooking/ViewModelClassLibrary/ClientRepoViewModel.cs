@@ -22,6 +22,7 @@ namespace ViewModelClassLibrary
             _currentClientView = new ClientView(clientName, clientPhoneNumber, clientAddress, clientEmail, clientSsn, clientNote);
 
             _clientViews.Add(_currentClientView);
+
             ClientAddedEvent?.Invoke(this, EventArgs.Empty);
         }
 
