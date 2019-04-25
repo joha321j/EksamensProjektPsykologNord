@@ -8,7 +8,7 @@ namespace ViewModelClassLibrary
     {
         private ClientView _currentClientView;
         private readonly ClientRepo _clientRepo = ClientRepo.GetInstance();
-        private List<ClientView> _clientViews;
+        private readonly List<ClientView> _clientViews = new List<ClientView>();
         public string ClientName => _currentClientView.Name;
 
         public event EventHandler ClientAddedEvent;
@@ -21,13 +21,14 @@ namespace ViewModelClassLibrary
 
             _currentClientView = new ClientView(clientName, clientPhoneNumber, clientAddress, clientEmail, clientSsn, clientNote);
 
+            _clientViews.Add(_currentClientView);
             ClientAddedEvent?.Invoke(this, EventArgs.Empty);
         }
 
 
         public List<ClientView> GetClientViews()
         {
-            throw new NotImplementedException();
+            return _clientViews;
         }
     }
 }

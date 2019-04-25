@@ -27,13 +27,29 @@ namespace BookNyAftale
             InitializeComponent();
             _addClientRepoViewModel = new ClientRepoViewModel();
             _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
+
+            UpdateClientComboBox();
+            UpdateAppointmentTimeComboBox(); 
+        }
+
+        private void UpdateAppointmentTimeComboBox()
+        {
             double openTime = 9;
             for (int i = 0; i < 12; i++)
             {
                 cmbbAppointmentTime.Items.Add(openTime + ":00");
                 openTime++;
             }
-            
+        }
+
+        private void UpdateClientComboBox()
+        {
+            List<ClientView> clients = _addClientRepoViewModel.GetClientViews();
+
+            foreach (ClientView clientView in clients)
+            {
+                cmbbClient.Items.Add(clientView.ShowInComboBox());
+            }
         }
 
         private void BtnAddClient_Click(object sender, RoutedEventArgs e)
@@ -44,7 +60,7 @@ namespace BookNyAftale
 
         private void ClientRepoClientCreationHandler(object sender, EventArgs args)
         {
-
+            UpdateClientComboBox();
         }
     }
 }

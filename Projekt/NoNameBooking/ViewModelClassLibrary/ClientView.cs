@@ -25,5 +25,10 @@ namespace ViewModelClassLibrary
 
             Journal = journal ?? new JournalView();
         }
+
+        public object ShowInComboBox()
+        {
+            return Name + " " + Email;
+        }
     }
 }
