@@ -40,7 +40,7 @@ namespace UnitTestProject
             string clientEmail = "TestTest@Test.com";
             string clientPhoneNumber = "54758838";
             string clientAddress = "Krårupvej 12; dør 3; 4990; Maribo";
-            int clientSSN = 12346578;
+            string clientSSN = "12346578";
             string clientNote = "Dette er vores testnote.";
 
             _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSSN, clientNote);

@@ -76,10 +76,9 @@ namespace BookNyAftale
 
         private void CreateClient()
         {
-            int clientSsn = int.Parse(txtClientSSN.Text);
             string clientAddress = txtClientAddress.Text + ";" + txtClientZip.Text + ";" + txtClientCity.Text;
             _addClientViewModel.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
-                clientAddress, clientSsn, txtClientNote.Text);
+                clientAddress, txtClientSSN.Text, txtClientNote.Text);
         }
 
         private bool ContainsLetters(string text)

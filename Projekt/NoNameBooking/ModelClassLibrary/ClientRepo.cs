@@ -19,7 +19,7 @@ namespace ModelClassLibrary
             return _instance ?? (_instance = new ClientRepo());
         }
 
-        public Client CreateClient(string clientName, string clientEmail, string clientPhoneNumber, string clientAddress, int clientSsn, string clientNote)
+        public Client CreateClient(string clientName, string clientEmail, string clientPhoneNumber, string clientAddress, string clientSsn, string clientNote)
         {
             Client newClient = new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
 

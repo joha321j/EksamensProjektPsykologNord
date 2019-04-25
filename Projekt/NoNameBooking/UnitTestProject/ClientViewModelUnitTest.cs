@@ -32,7 +32,7 @@ namespace UnitTestProject
             string clientEmail = "TestEmail@Test.com";
             string clientPhoneNumber = "testNumber";
             string clientAddress = "Testvej 12; dør 3; 4220; Testkøbing";
-            int clientSSN = 12346578;
+            string clientSSN = "12346578";
             string clientNote = "Dette er vores testnote.";
 
             _clientView.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSSN, clientNote);

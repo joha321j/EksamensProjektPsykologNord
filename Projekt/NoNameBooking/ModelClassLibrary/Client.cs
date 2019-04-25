@@ -2,22 +2,16 @@
 
 namespace ModelClassLibrary
 {
-    public class Client
+    public class Client : User
     {
-        public string ClientName { get; }
-        public string ClientEmail { get; set; }
-        public string ClientPhoneNumber { get; set; }
-        public string ClientAddress { get; }
-        internal int ClientSsn { get; }
+        internal string ClientSsn { get; }
         public string ClientNote { get; }
         public Journal Journal { get; }
 
-        public Client(string clientName = "", string clientEmail = "", string clientPhoneNumber = "", string clientAddress = "", int clientSsn = Int32.MinValue, string clientNote = "")
+        public Client(string clientName = "", string clientEmail = "", string clientPhoneNumber = "",
+            string clientAddress = "", string clientSsn = "-1", string clientNote = "")
+            : base(clientName, clientAddress, clientPhoneNumber, clientEmail)
         {
-            ClientName = clientName;
-            ClientEmail = clientEmail;
-            ClientPhoneNumber = clientPhoneNumber;
-            ClientAddress = clientAddress;
             ClientSsn = clientSsn;
             ClientNote = clientNote;
             Journal = new Journal();

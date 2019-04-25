@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelClassLibrary;
 
 namespace UnitTestProject
@@ -22,6 +19,14 @@ namespace UnitTestProject
         {
             Client testClient = new Client();
             Assert.IsNotNull(testClient.Journal);
+        }
+
+        [TestMethod]
+        public void ClientInheritanceUserTest()
+        {
+            Client testClient = new Client();
+
+            Assert.IsInstanceOfType(testClient, typeof(User));
         }
     }
 }
