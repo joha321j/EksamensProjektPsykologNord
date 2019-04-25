@@ -25,6 +25,8 @@
             <Button x:Name="btnCreateAppointment" Content="Opret aftale" HorizontalAlignment="Left" Margin="815,547,0,0" VerticalAlignment="Top" Width="75"/>
             <CheckBox x:Name="cbEmail" Content="Send email til klient 24 timer før aftale." HorizontalAlignment="Left" Margin="653,201,0,0" VerticalAlignment="Top"/>
             <CheckBox x:Name="cbSMS" Content="Send SMS til klient 24 timer før aftale." HorizontalAlignment="Left" Margin="653,234,0,0" VerticalAlignment="Top"/>
+            <ComboBox HorizontalAlignment="Left" Margin="0,96,0,0" VerticalAlignment="Top" Width="541" Name="cmbbPractitioner"/>
+            <Label Content="Vælg Behandler:" HorizontalAlignment="Left" Margin="0,65,0,0" VerticalAlignment="Top"/>
 
         </Grid>
 
