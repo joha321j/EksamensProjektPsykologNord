@@ -29,7 +29,7 @@
             <ListView Grid.Column="1" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvMonday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Mandag" Width="143"/>
+                        <GridViewColumn Header="Mandag: {Binding Dato}" Width="143"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -109,12 +109,9 @@
             <Button Content="Uge" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="85" Height="30" Name="btnWeek"/>
             <Button Content="Dag" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="85" Height="30" Name="btnDay"/>
         </Grid>
-        <ComboBox HorizontalAlignment="Center" Margin="942,95,0,0" VerticalAlignment="Top" Width="120" Name="cmbbCalendar"/>
-        <Button Content="I dag" HorizontalAlignment="Center" Margin="947,133,69,0" VerticalAlignment="Top" Width="56" Name="btnToday"/>
+        <ComboBox HorizontalAlignment="Center" Margin="889,95,5,0" VerticalAlignment="Top" Width="178" Name="cmbbCalendar"/>
+        <Button Content="I dag" HorizontalAlignment="Center" Margin="889,133,69,0" VerticalAlignment="Top" Width="114" Name="btnToday"/>
         <Button Content="-" HorizontalAlignment="Center" Margin="1010,133,34,0" VerticalAlignment="Top" Width="28" Name="btnBack"/>
         <Button Content="+" HorizontalAlignment="Center" Margin="1031,133,0,0" VerticalAlignment="Top" Width="28" Name="btnForward"/>
-
-
-
     </Grid>
 </Window>
