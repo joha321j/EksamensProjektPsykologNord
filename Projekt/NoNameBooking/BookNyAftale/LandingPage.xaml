@@ -95,6 +95,24 @@
             <Button Content="Indstillinger" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="5" Name="btnSettings"/>
             <Button Content="Apps" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="6" Name="btnApps"/>
         </Grid>
+        <Button Content="Opret Aftale" HorizontalAlignment="Center" Margin="10,95,987,0" VerticalAlignment="Top" Width="75" Name="btnCreateAppointment"/>
+        <Button Content="Åbningstider" HorizontalAlignment="Center" Margin="100,95,898,0" VerticalAlignment="Top" Width="75" Name="btnOpening"/>
+        <Button Content="Print" HorizontalAlignment="Center" Margin="190,95,807,0" VerticalAlignment="Top" Width="75" Name="btnPrintCalendar"/>
+        <Button Content="Skjul" HorizontalAlignment="Center" Margin="280,95,714,0" VerticalAlignment="Top" Width="75" Name="btnHideInfo"/>
+        <Grid HorizontalAlignment="Center" Height="30" Margin="10,133,807,0" VerticalAlignment="Top" Width="255">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Måned" HorizontalAlignment="Left" VerticalAlignment="Top" Width="85" Height="30" Name="btnMonth"/>
+            <Button Content="Uge" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="85" Height="30" Name="btnWeek"/>
+            <Button Content="Dag" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="85" Height="30" Name="btnDay"/>
+        </Grid>
+        <ComboBox HorizontalAlignment="Center" Margin="942,95,0,0" VerticalAlignment="Top" Width="120" Name="cmbbCalendar"/>
+        <Button Content="I dag" HorizontalAlignment="Center" Margin="947,133,69,0" VerticalAlignment="Top" Width="56" Name="btnToday"/>
+        <Button Content="-" HorizontalAlignment="Center" Margin="1010,133,34,0" VerticalAlignment="Top" Width="28" Name="btnBack"/>
+        <Button Content="+" HorizontalAlignment="Center" Margin="1031,133,0,0" VerticalAlignment="Top" Width="28" Name="btnForward"/>
 
 
 
