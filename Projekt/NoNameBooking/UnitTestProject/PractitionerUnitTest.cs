@@ -9,21 +9,35 @@ namespace UnitTestProject
     [TestClass]
     public class PractitionerUnitTest
     {
+        private Practitioner _testPractitioner;
+        [TestInitialize]
+        public void PractitionerUnitTestSetup()
+        {
+            _testPractitioner = new Practitioner();
+        }
 
         [TestMethod]
         public void PractitionerCreationTest()
         {
-            Practitioner testPractitioner = new Practitioner();
-
-            Assert.IsNotNull(testPractitioner);
+            
+            Assert.IsNotNull(_testPractitioner);
         }
 
         [TestMethod]
         public void PractitionerUserInheritanceTest()
         {
-            Practitioner testPractitioner = new Practitioner();
             
-            Assert.IsInstanceOfType(testPractitioner, typeof(User));
+            Assert.IsInstanceOfType(_testPractitioner, typeof(User));
+        }
+
+        [TestMethod]
+        public void PractitionerAvailabilityTest()
+        {
+            DateTime starTime = new DateTime(1, 1, 1, 9, 0, 0);
+            DateTime endTime = new DateTime(1, 1, 1, 21, 0, 0);
+            _testPractitioner.Availability = endTime - starTime;
+
+            Assert.AreEqual(new TimeSpan(12, 0, 0), _testPractitioner.Availability);
         }
     }
 }

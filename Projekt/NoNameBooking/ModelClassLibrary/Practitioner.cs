@@ -6,5 +6,6 @@ namespace ModelClassLibrary
 {
     public class Practitioner : User
     {
+        public TimeSpan Availability { get; set; }
     }
 }
