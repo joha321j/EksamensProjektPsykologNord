@@ -7,17 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{0704EA82-2FED-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookNyAftale", "BookNyAftale\BookNyAftale.csproj", "{ABC8BB69-8053-45EE-9E78-5A7DDC110D6E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModel", "ViewModel", "{2E0B6F2F-656B-4443-9D61-74957CAD22CA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{2E0B6F2F-656B-4443-9D61-74957CAD22CA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{1978FB6C-7AAA-4C04-B700-8C9AE9FA6830}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{1978FB6C-7AAA-4C04-B700-8C9AE9FA6830}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{51266B0D-EE07-4119-A53A-944BE097A403}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E139EE85-051F-48AF-9D07-D721CE48F17F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelClassLibrary", "ViewModelClassLibrary\ViewModelClassLibrary.csproj", "{0EF19BAF-D374-4C52-8DF6-093E45A2F2B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelClassLibrary", "ViewModelClassLibrary\ViewModelClassLibrary.csproj", "{0EF19BAF-D374-4C52-8DF6-093E45A2F2B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelClassLibrary", "ModelClassLibrary\ModelClassLibrary.csproj", "{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelClassLibrary", "ModelClassLibrary\ModelClassLibrary.csproj", "{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
