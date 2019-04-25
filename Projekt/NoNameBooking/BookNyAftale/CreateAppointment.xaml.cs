@@ -29,8 +29,20 @@ namespace BookNyAftale
             _addClientRepoViewModel = new ClientRepoViewModel();
             _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
 
+            //UpdateDepartmentComboBox();
             UpdateClientComboBox();
             UpdateAppointmentTimeComboBox();
+        }
+
+        private void UpdatePractitionerComboBox()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void UpdateDepartmentComboBox()
+        {
+            UpdatePractitionerComboBox();
+            throw new NotImplementedException();
         }
 
         private void UpdateAppointmentTimeComboBox()
@@ -62,6 +74,11 @@ namespace BookNyAftale
         private void ClientRepoClientCreationHandler(object sender, EventArgs args)
         {
             UpdateClientComboBox();
+        }
+
+        private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
