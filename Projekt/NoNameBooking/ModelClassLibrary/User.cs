@@ -11,7 +11,7 @@ namespace ModelClassLibrary
         public string Address { get; }
         public string Email { get; }
 
-        private List<Appointment> appointments = new List<Appointment>();
+        private readonly List<Appointment> _appointments = new List<Appointment>();
 
         public User(string name = "", string address = "", string phoneNumber = "", string email ="")
         {
@@ -23,12 +23,12 @@ namespace ModelClassLibrary
 
         public void AddAppointment(Appointment appointment)
         {
-            appointments.Add(appointment);
+            _appointments.Add(appointment);
         }
 
         public Appointment GetAppointment(Appointment appointment)
         {
-            return appointments.Find(a => a.Equals(appointment));
+            return _appointments.Find(a => a.Equals(appointment));
         }
     }
 }
