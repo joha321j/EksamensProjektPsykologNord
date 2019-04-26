@@ -16,13 +16,28 @@ using System.Windows.Shapes;
 namespace BookNyAftale
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+
+    /// Interaction logic for CreateAppointment.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CreateAppointment : Window
     {
-        public MainWindow()
+        public CreateAppointment()
         {
             InitializeComponent();
+            double openTime = 9;
+            for (int i = 0; i < 12; i++)
+            {
+                cmbbAppointmentTime.Items.Add(openTime + ":00");
+                openTime++;
+            }
+            
+        }
+
+        private void BtnAddClient_Click(object sender, RoutedEventArgs e)
+        {
+            AddClient addClient = new AddClient();
+            addClient.Show();
+
         }
     }
 }
