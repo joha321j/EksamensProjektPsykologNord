@@ -14,9 +14,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ViewModelClassLibrary;
 
+
 namespace BookNyAftale
 {
     /// <summary>
+
     /// Interaction logic for CreateAppointment.xaml
     /// </summary>
     public partial class CreateAppointment : Window
@@ -47,12 +49,14 @@ namespace BookNyAftale
 
         private void UpdateAppointmentTimeComboBox()
         {
+
             double openTime = 9;
             for (int i = 0; i < 12; i++)
             {
                 cmbbAppointmentTime.Items.Add(openTime + ":00");
                 openTime++;
             }
+
         }
 
         private void UpdateClientComboBox()
