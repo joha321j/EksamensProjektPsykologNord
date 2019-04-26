@@ -13,11 +13,14 @@ namespace UnitTestProject
         [TestInitialize]
         public void PractitionerUnitTestSetup()
         {
-            _testPractitioner = new Practitioner();
+
 
             DateTime starTime = new DateTime(1, 1, 1, 9, 0, 0);
             DateTime endTime = new DateTime(1, 1, 1, 21, 0, 0);
-            _testPractitioner.Availability = endTime - starTime;
+
+            TimeSpan daySpan = endTime - starTime;
+
+            _testPractitioner = new Practitioner(starTime, daySpan);
         }
 
         [TestMethod]
@@ -37,7 +40,7 @@ namespace UnitTestProject
         [TestMethod]
         public void PractitionerAvailabilityTest()
         {
-            Assert.AreEqual(new TimeSpan(12, 0, 0), _testPractitioner.Availability);
+            Assert.AreEqual(new TimeSpan(12, 0, 0), _testPractitioner.DayLength);
         }
 
         [TestMethod]
@@ -53,11 +56,10 @@ namespace UnitTestProject
             _testPractitioner.AddAppointment(appointmentOne);
 
             DateTime tomorrow = DateTime.Today.AddDays(1);
-            DateTime inOneYear = tomorrow.AddYears(1);
+            DateTime inOneYear = tomorrow.AddYears(2);
             List<DateTime> availableTimeSpans = _testPractitioner.GetAvailability(tomorrow, inOneYear);
 
             Assert.IsFalse(availableTimeSpans.Contains(testDateTime));
-
         }
     }
 }
