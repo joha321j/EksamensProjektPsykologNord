@@ -55,6 +55,7 @@
     <Compile Include="ClientViewModelUnitTest.cs" />
     <Compile Include="PractitionerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoomUnitTest.cs" />
     <Compile Include="UserUnitTest.cs" />
     <Compile Include="UserViewModelUnitTest.cs" />
   </ItemGroup>

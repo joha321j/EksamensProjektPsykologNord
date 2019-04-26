@@ -4,8 +4,9 @@ using System.Text;
 
 namespace ModelClassLibrary
 {
-    public class Room
+    public class Room : IBookable
     {
+        private List<Appointment> _appointments;
         public string Name { get; set; }
         public Department Department { get; }
 
@@ -13,6 +14,18 @@ namespace ModelClassLibrary
         {
             Name = name;
             Department = department;
+
+            _appointments = new List<Appointment>();
+        }
+
+        public List<DateTime> GetAvailability(DateTime startDate, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddAppointment(Appointment appointment)
+        {
+            _appointments.Add(appointment);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ModelClassLibrary
 {
-    public class Practitioner : User
+    public class Practitioner : User, IBookable
     {
         public DateTime Start { get; set; }
         public TimeSpan DayLength { get; set; }
