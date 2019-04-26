@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 namespace BookNyAftale
 {
     /// <summary>
+
     /// Interaction logic for CreateAppointment.xaml
     /// </summary>
     public partial class CreateAppointment : Window
@@ -36,6 +37,7 @@ namespace BookNyAftale
         {
             AddClient addClient = new AddClient();
             addClient.Show();
+
         }
     }
 }
