@@ -7,5 +7,10 @@ namespace ModelClassLibrary
     public class Practitioner : User
     {
         public TimeSpan Availability { get; set; }
+
+        public List<DateTime> GetAvailability(DateTime startDate, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

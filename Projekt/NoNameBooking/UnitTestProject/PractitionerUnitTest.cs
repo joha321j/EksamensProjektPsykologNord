@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelClassLibrary;
 
@@ -14,6 +14,10 @@ namespace UnitTestProject
         public void PractitionerUnitTestSetup()
         {
             _testPractitioner = new Practitioner();
+
+            DateTime starTime = new DateTime(1, 1, 1, 9, 0, 0);
+            DateTime endTime = new DateTime(1, 1, 1, 21, 0, 0);
+            _testPractitioner.Availability = endTime - starTime;
         }
 
         [TestMethod]
@@ -33,11 +37,27 @@ namespace UnitTestProject
         [TestMethod]
         public void PractitionerAvailabilityTest()
         {
-            DateTime starTime = new DateTime(1, 1, 1, 9, 0, 0);
-            DateTime endTime = new DateTime(1, 1, 1, 21, 0, 0);
-            _testPractitioner.Availability = endTime - starTime;
-
             Assert.AreEqual(new TimeSpan(12, 0, 0), _testPractitioner.Availability);
+        }
+
+        [TestMethod]
+        public void GetAvailabilityTest()
+        {
+            Client testClient = new Client();
+            DateTime testDateTime = new DateTime(2019, 04, 27, 10, 0, 0);
+            AppointmentType testAppointmentType = new AppointmentType("Test", 1200, TimeSpan.FromHours(1));
+            Room testRoom = new Room("A", new Department("Monkey", "Here"));
+
+            List<User> users = new List<User> {testClient, _testPractitioner};
+            Appointment appointmentOne = new Appointment(testDateTime, users, testAppointmentType, testRoom, "");
+            _testPractitioner.AddAppointment(appointmentOne);
+
+            DateTime tomorrow = DateTime.Today.AddDays(1);
+            DateTime inOneYear = tomorrow.AddYears(1);
+            List<DateTime> availableTimeSpans = _testPractitioner.GetAvailability(tomorrow, inOneYear);
+
+            Assert.IsFalse(availableTimeSpans.Contains(testDateTime));
+
         }
     }
 }
