@@ -20,6 +20,23 @@ namespace ModelClassLibrary
 
         public List<DateTime> GetAvailability(DateTime startDate, DateTime endDate)
         {
+            // Get all possible available DateTimes.
+            List<DateTime> availableDateTimes = GetAvailableDateTimes(startDate, endDate);
+
+            // Remove available DateTimes that have appointments at the same time.
+
+            availableDateTimes = RemoveBookedDateTimes(availableDateTimes);
+
+            return availableDateTimes;
+        }
+
+        private List<DateTime> RemoveBookedDateTimes(List<DateTime> availableDateTimes)
+        {
+            throw new NotImplementedException();
+        }
+
+        private List<DateTime> GetAvailableDateTimes(DateTime startDate, DateTime endDate)
+        {
             throw new NotImplementedException();
         }
 
