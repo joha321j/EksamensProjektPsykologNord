@@ -1,7 +1,42 @@
-\textbf{Operation:} Opret aftale 
+%\textbf{Operation:} Opret aftale 
+%
+%\textbf{Cross reference:} Opret aftale 
+%
+%\textbf{Precondition:} Der skal være mindst et brugerobject og der skal være mindst et klientobject I systemet, der skal også være en klinik, begge aktører skal være ledige på det valgte tidspunkt, der skal samtidig også være et lokale ledigt I den valgte klinik på det valgte tidspunkt. 
+%
+%\textbf{Postconditions:}   
+ 
+\noindent
 
-\textbf{Cross reference:} Opret aftale 
+\textbf{Operation:} createClient(clientName: string, clientEmail: string, 
 
-\textbf{Precondition:} Der skal være mindst et brugerobject og der skal være mindst et klientobject I systemet, der skal også være en klinik, begge aktører skal være ledige på det valgte tidspunkt, der skal samtidig også være et lokale ledigt I den valgte klinik på det valgte tidspunkt. 
+\textbf{clientPhoneNumber:} string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
 
-\textbf{Postconditions:}   
+\textbf{Cross References:} Use Case: Book Ny Aftale 
+
+\textbf{Precondition:} Client instance with Client.Email equals to clientEmail does not exist in the system 
+
+\textbf{Postcondition:}  
+		\begin{itemize}
+			\item Client instance c was created 
+			\item Attributes of c were initialized
+		\end{itemize}
+  
+\textbf{Operation:} createAppointment(dateAndTime: DateTime, users : User[2..*], appointmentType: TreatmentType, note: string, room: Room) 
+
+\textbf{Cross References:} Use Case: Book Ny Aftale 
+
+\textbf{Precondition: }
+		\begin{itemize}
+			\item Client instance c exists 
+			\item User instance u exists 
+			\item room instance r exists 
+			\item r has no appointment at dateAndTime
+		\end{itemize}
+		
+\textbf{Postcondition:}  
+        \begin{itemize}
+            \item An appointment instance a is created
+            \item Attributes of a were intialized
+            \item a was associated with c, u and r
+        \end{itemize}
