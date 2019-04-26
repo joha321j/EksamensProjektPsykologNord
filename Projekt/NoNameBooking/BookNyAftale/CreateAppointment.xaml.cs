@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModelClassLibrary;
+
 
 namespace BookNyAftale
 {
@@ -21,23 +23,66 @@ namespace BookNyAftale
     /// </summary>
     public partial class CreateAppointment : Window
     {
+        private readonly ClientRepoViewModel _addClientRepoViewModel;
         public CreateAppointment()
         {
             InitializeComponent();
+
+            _addClientRepoViewModel = new ClientRepoViewModel();
+            _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
+
+            //UpdateDepartmentComboBox();
+            UpdateClientComboBox();
+            UpdateAppointmentTimeComboBox();
+        }
+
+        private void UpdatePractitionerComboBox()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void UpdateDepartmentComboBox()
+        {
+            UpdatePractitionerComboBox();
+            throw new NotImplementedException();
+        }
+
+        private void UpdateAppointmentTimeComboBox()
+        {
+
             double openTime = 9;
             for (int i = 0; i < 12; i++)
             {
                 cmbbAppointmentTime.Items.Add(openTime + ":00");
                 openTime++;
             }
-            
+
+        }
+
+        private void UpdateClientComboBox()
+        {
+            List<ClientView> clients = _addClientRepoViewModel.GetClientViews();
+            cmbbClient.Items.Clear();
+            foreach (ClientView clientView in clients)
+            {
+                cmbbClient.Items.Add(clientView.ShowInComboBox());
+            }
         }
 
         private void BtnAddClient_Click(object sender, RoutedEventArgs e)
         {
-            AddClient addClient = new AddClient();
+            AddClient addClient = new AddClient(_addClientRepoViewModel);
             addClient.Show();
+        }
 
+        private void ClientRepoClientCreationHandler(object sender, EventArgs args)
+        {
+            UpdateClientComboBox();
+        }
+
+        private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
