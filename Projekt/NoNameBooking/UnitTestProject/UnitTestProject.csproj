@@ -69,9 +69,9 @@
       <Project>{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}</Project>
       <Name>ModelClassLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewModelClassLibrary\ApplicationClassLibrary.csproj">
+    <ProjectReference Include="..\ViewModelClassLibrary\ViewModelClassLibrary.csproj">
       <Project>{0EF19BAF-D374-4C52-8DF6-093E45A2F2B7}</Project>
-      <Name>ApplicationClassLibrary</Name>
+      <Name>ViewModelClassLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

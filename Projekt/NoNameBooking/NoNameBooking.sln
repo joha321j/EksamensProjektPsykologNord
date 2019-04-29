@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E139EE85-051F-48AF-9D07-D721CE48F17F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationClassLibrary", "ViewModelClassLibrary\ApplicationClassLibrary.csproj", "{0EF19BAF-D374-4C52-8DF6-093E45A2F2B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelClassLibrary", "ViewModelClassLibrary\ViewModelClassLibrary.csproj", "{0EF19BAF-D374-4C52-8DF6-093E45A2F2B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelClassLibrary", "ModelClassLibrary\ModelClassLibrary.csproj", "{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}"
 EndProject

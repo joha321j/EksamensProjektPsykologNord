@@ -24,10 +24,8 @@ namespace BookNyAftale
     public partial class CreateAppointment : Window
     {
         private DepartmentViewModel _departmentViewModel;
-        private PractitionerViewModel _practitionerViewModel;
         private readonly ClientRepoViewModel _addClientRepoViewModel;
-        private readonly DepartmentRepoViewModel _departmentRepoViewModel;
-        private readonly PractitionerRepoViewModel _practitionerRepoViewModel;
+        private DepartmentRepoViewModel _departmentRepoViewModel;
 
         public CreateAppointment()
         {
@@ -36,25 +34,14 @@ namespace BookNyAftale
             _addClientRepoViewModel = new ClientRepoViewModel();
             _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
             _departmentRepoViewModel = new DepartmentRepoViewModel();
-            _practitionerRepoViewModel = new PractitionerRepoViewModel();
 
             UpdateDepartmentComboBox();
+            UpdateAppointmentTimeComboBox();
         }
 
         private void UpdatePractitionerComboBox()
         {
-            List<PractitionerViewModel> practitionerViewModels = _practitionerRepoViewModel.GetPractitionerView(_departmentViewModel);
-            cmbbPractitioner.Items.Clear();
-            foreach (PractitionerViewModel practitionerViewModel in practitionerViewModels)
-            {
-                cmbbPractitioner.Items.Add(practitionerViewModel.Name);
-            }
-
-        }
-
-        private void UpdateTreatmentComboBox()
-        {
-
+            throw new NotImplementedException();
         }
 
         private void UpdateDepartmentComboBox()
@@ -108,19 +95,8 @@ namespace BookNyAftale
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string departmentName = cmbbDepartment.SelectionBoxItem.ToString();
-
             _departmentViewModel = _departmentRepoViewModel.FindDepartmentViewModel(departmentName);
-
             UpdatePractitionerComboBox();
-        }
-
-        private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string practitionerName = cmbbPractitioner.SelectionBoxItem.ToString();
-
-            _practitionerViewModel = _practitionerRepoViewModel.FindPractitionerViewModel(practitionerName);
-
-            UpdateTreatmentComboBox();
         }
     }
 }
