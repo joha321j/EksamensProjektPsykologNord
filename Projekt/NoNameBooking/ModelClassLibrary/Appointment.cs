@@ -24,6 +24,13 @@ namespace ModelClassLibrary
             Location = testRoom;
             Note = note;
 
+            testRoom.AddAppointment(this);
+
+            foreach (User participant in participants)
+            {
+                participant.AddAppointment(this);
+            }
+
             Price = Math.Abs(price) < 0.01 ? appointmentType.StandardPrice : price;
         }
     }

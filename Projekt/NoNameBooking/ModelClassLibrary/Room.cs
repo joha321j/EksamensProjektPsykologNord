@@ -8,11 +8,11 @@ namespace ModelClassLibrary
 {
     public class Room : IBookable
     {
-        private readonly List<Appointment> _appointments;
+        public readonly List<Appointment> _appointments;
         public string Name { get; set; }
 
         private int _dayLength;
-        private DateTime _starTime;
+        private DateTime _startTime;
 
         public Room(string name, DateTime startHour = default(DateTime), int dayLength = 24)
         {
@@ -24,7 +24,7 @@ namespace ModelClassLibrary
 
             if (startHour == default(DateTime))
             {
-                _starTime = new DateTime(startHour.Year, startHour.Month, startHour.Day, 0, 0, 0);
+                _startTime = new DateTime(startHour.Year, startHour.Month, startHour.Day, 0, 0, 0);
             }
 
         }
@@ -54,7 +54,7 @@ namespace ModelClassLibrary
         private List<DateTime> GetAvailableDateTimes(DateTime startDate, DateTime endDate)
         {
             List<DateTime> availableDateTimes = new List<DateTime>();
-            DateTime tempDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, _starTime.Hour, _starTime.Minute, _starTime.Second);
+            DateTime tempDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, _startTime.Hour, _startTime.Minute, _startTime.Second);
             for (int i = 0; i < (endDate - startDate).TotalDays; i++)
             {
                 for (int j = 0; j < _dayLength; j++)
@@ -63,7 +63,7 @@ namespace ModelClassLibrary
                     tempDate = tempDate.AddHours(1);
                 }
 
-                tempDate = tempDate.Date.AddDays(1);
+                tempDate = new DateTime(tempDate.Year, tempDate.Month, tempDate.Day, _startTime.Hour, 0, 0);
             }
 
             return availableDateTimes;

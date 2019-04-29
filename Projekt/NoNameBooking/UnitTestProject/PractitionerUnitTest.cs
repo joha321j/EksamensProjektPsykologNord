@@ -47,13 +47,12 @@ namespace UnitTestProject
         public void GetAvailabilityTest()
         {
             Client testClient = new Client();
-            DateTime testDateTime = new DateTime(2019, 04, 27, 10, 0, 0);
+            DateTime testDateTime = new DateTime(2019, 05, 12, 10, 0, 0);
             AppointmentType testAppointmentType = new AppointmentType("Test", 1200, TimeSpan.FromHours(1));
             Room testRoom = new Room("A");
 
             List<User> users = new List<User> {testClient, _testPractitioner};
             Appointment appointmentOne = new Appointment(testDateTime, users, testAppointmentType, testRoom, "");
-            _testPractitioner.AddAppointment(appointmentOne);
 
             DateTime tomorrow = DateTime.Today.AddDays(1);
             DateTime inOneYear = tomorrow.AddYears(2);

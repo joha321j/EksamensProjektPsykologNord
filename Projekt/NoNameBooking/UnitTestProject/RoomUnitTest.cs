@@ -42,12 +42,11 @@ namespace UnitTestProject
             users.Add(userTwo);
             users.Add(userThree);
 
-            DateTime testDate = new DateTime(2020, 11, 12, 12, 0, 0);
+            DateTime testDate = new DateTime(2019, 5, 1, 12, 0, 0);
             AppointmentType appointmentType = new AppointmentType("Anders", 123.879, TimeSpan.FromHours(2));
 
             Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testRoom, "");
 
-            _testRoom.AddAppointment(testAppointment);
 
             DateTime startDate = DateTime.Today.AddDays(1);
 

@@ -22,11 +22,10 @@ namespace ModelClassLibrary
         public List<DateTime> GetAvailability(DateTime startDate, DateTime endDate)
         {
             List<DateTime> availableDateTimes = new List<DateTime>();
-            List<DateTime> tempDateTimes = new List<DateTime>();
 
             foreach (Room room in Rooms)
             {
-                tempDateTimes = room.GetAvailability(startDate, endDate);
+                List<DateTime> tempDateTimes = room.GetAvailability(startDate, endDate);
 
                 CompareAvailability(ref availableDateTimes, tempDateTimes);
             }
