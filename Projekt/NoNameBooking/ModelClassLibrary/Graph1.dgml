@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph DataVirtualized="True" Layout="Sugiyama" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="@2" Category="CodeSchema_Assembly" Bounds="0,0,154.2,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(abc8bb69-8053-45ee-9e78-5a7ddc110d6e.OutputPath)" Group="Collapsed" Label="BookNyAftale.exe">
+    <Node Id="@2" Category="CodeSchema_Assembly" Bounds="71.2790193272936,-71.3427309444797,154.2,25" CodeSchemaProperty_StrongName="BookNyAftale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(abc8bb69-8053-45ee-9e78-5a7ddc110d6e.OutputPath)" Group="Collapsed" Label="BookNyAftale.exe">
       <Category Ref="CodeMap_WpfProject" />
       <Category Ref="FileSystem.Category.FileOfType.exe" />
     </Node>
-    <Node Id="@4" Category="CodeSchema_Assembly" Bounds="20,40,197.346666666667,25" CodeSchemaProperty_StrongName="ViewModelClassLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(0ef19baf-d374-4c52-8df6-093e45a2f2b7.OutputPath)" Group="Collapsed" Label="ViewModelClassLibrary.dll" />
-    <Node Id="@6" Category="CodeSchema_Assembly" Bounds="32.655,155,172.036666666667,25" CodeSchemaProperty_StrongName="ModelClassLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(bb1603b7-1593-4b0b-be66-ec29cf1635dd.OutputPath)" Group="Collapsed" Label="ModelClassLibrary.dll" />
-    <Node Id="Application{2E0B6F2F-656B-4443-9D61-74957CAD22CA}" Category="CodeMap_SolutionFolder" Bounds="0,0,237.346666666667,85" Group="Expanded" Label="Application" />
-    <Node Id="Domain{1978FB6C-7AAA-4C04-B700-8C9AE9FA6830}" Category="CodeMap_SolutionFolder" Bounds="12.655,115,212.036666666667,85" Group="Expanded" Label="Domain" />
-    <Node Id="UI{0704EA82-2FED-4677-90C4-2F157784F5EA}" Category="CodeMap_SolutionFolder" Group="Expanded" Label="UI" />
+    <Node Id="@4" Category="CodeSchema_Assembly" Bounds="57.0166765417851,50.8080337213205,197.346666666667,25" CodeSchemaProperty_StrongName="ViewModelClassLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(0ef19baf-d374-4c52-8df6-093e45a2f2b7.OutputPath)" Group="Collapsed" Label="ViewModelClassLibrary.dll" />
+    <Node Id="@6" Category="CodeSchema_Assembly" Bounds="5.90812595923506,227.792905976559,172.036666666667,25" CodeSchemaProperty_StrongName="ModelClassLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(bb1603b7-1593-4b0b-be66-ec29cf1635dd.OutputPath)" Group="Collapsed" Label="ModelClassLibrary.dll" />
+    <Node Id="Application{2E0B6F2F-656B-4443-9D61-74957CAD22CA}" Category="CodeMap_SolutionFolder" Bounds="37.0166765417851,10.8077838665205,237.346666666667,85.0002" Group="Expanded" Label="Application" />
+    <Node Id="Domain{1978FB6C-7AAA-4C04-B700-8C9AE9FA6830}" Category="CodeMap_SolutionFolder" Bounds="-14.0918740407649,187.792955831359,212.036666666667,85.0002" Group="Expanded" Label="Domain" />
+    <Node Id="UI{0704EA82-2FED-4677-90C4-2F157784F5EA}" Category="CodeMap_SolutionFolder" Bounds="51.2790193272936,-111.37915613808,194.2,85" Group="Expanded" Label="UI" UseManualLocation="True" />
   </Nodes>
   <Links>
-    <Link Source="@2" Target="@4" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="11">
+    <Link Source="@2" Target="@4" Category="References" Bounds="30.7460939896638,-39.1196158914796,102.735960102253,84.2218114376643" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="11">
+      <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_Calls" />
     </Link>
     <Link Source="@4" Target="@6" Category="References" Bounds="28.2710445030068,-2.74990688170542,110.061036366103,84.5183842166562" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="11">
@@ -60,6 +61,7 @@
     <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
     <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
     <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
     <Property Id="Value" DataType="System.String" />
     <Property Id="ValueLabel" DataType="System.String" />
     <Property Id="Visibility" Label="Visibility" Description="Defines whether a node in the graph is visible or not" DataType="System.Windows.Visibility" />
