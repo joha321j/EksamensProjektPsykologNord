@@ -6,27 +6,29 @@
 %
 %\textbf{Postconditions:}   
  
-Med alle use casene modelleret kan vi går videre til at modellere hvad koden skal gøre.  
- 
+Med alle use casene modelleret kan vi går videre til at modellere hvad koden skal gøre. Hertil har vi så oprettet SOC'er for de mest relevante metoder, så vi ved præcis hvordan funktionen skal virke.
+
+
+\subsubsection{Operationer for Use Case: Book ny aftale}\label{Operation:Book ny aftale}
+
 \noindent
 
-\textbf{Operation:} createClient(clientName: string, clientEmail: string, 
+\textbf{Operation:} createClient(clientName: string, clientEmail: string, clientPhoneNumber: string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
 
-\textbf{clientPhoneNumber:} string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
+\textbf{Cross References:} Use Case: Book ny aftale 
 
-\textbf{Cross References:} Use Case: Book Ny Aftale 
-
-\textbf{Precondition:} Client instance with Client.Email equals to clientEmail does not exist in the system 
+\textbf{Precondition:} Client instance with Client.Email equals to clientEmail does not exist in the system
 
 \textbf{Postcondition:}  
 		\begin{itemize}
 			\item Client instance c was created 
 			\item Attributes of c were initialized
 		\end{itemize}
-  
+ 
+
 \textbf{Operation:} createAppointment(dateAndTime: DateTime, users : User[2..*], appointmentType: TreatmentType, note: string, room: Room) 
 
-\textbf{Cross References:} Use Case: Book Ny Aftale 
+\textbf{Cross References:} Use Case: Book ny aftale 
 
 \textbf{Precondition: }
 		\begin{itemize}
@@ -42,3 +44,4 @@ Med alle use casene modelleret kan vi går videre til at modellere hvad koden sk
             \item Attributes of a were intialized
             \item a was associated with c, u and r
         \end{itemize}
+        
