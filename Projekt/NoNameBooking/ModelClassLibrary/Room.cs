@@ -1,24 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Xml.Schema;
 
 namespace ModelClassLibrary
 {
     public class Room : IBookable
     {
-        private List<Appointment> _appointments;
+        private readonly List<Appointment> _appointments;
         public string Name { get; set; }
         public Department Department { get; }
 
-        public TimeSpan DayLength { get; set; }
+        private int _dayLength;
+        private DateTime _starTime;
 
-        public Room(string name, Department department, int openHours = 24)
+        public Room(string name, Department department, DateTime startHour = default(DateTime), int dayLength = 24)
         {
             Name = name;
             Department = department;
             _appointments = new List<Appointment>();
 
-            DayLength = TimeSpan.FromHours(openHours);
+            _dayLength = dayLength;
+
+            if (startHour == default(DateTime))
+            {
+                _starTime = new DateTime(startHour.Year, startHour.Month, startHour.Day, 0, 0, 0);
+            }
+
         }
 
         public List<DateTime> GetAvailability(DateTime startDate, DateTime endDate)
@@ -46,10 +55,10 @@ namespace ModelClassLibrary
         private List<DateTime> GetAvailableDateTimes(DateTime startDate, DateTime endDate)
         {
             List<DateTime> availableDateTimes = new List<DateTime>();
-            DateTime tempDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, 0, 0, 0);
+            DateTime tempDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, _starTime.Hour, _starTime.Minute, _starTime.Second);
             for (int i = 0; i < (endDate - startDate).TotalDays; i++)
             {
-                for (int j = 0; j < DayLength.TotalHours; j++)
+                for (int j = 0; j < _dayLength; j++)
                 {
                     availableDateTimes.Add(new DateTime(tempDate.Year, tempDate.Month, tempDate.Day, tempDate.Hour, 0, 0));
                     tempDate = tempDate.AddHours(1);
