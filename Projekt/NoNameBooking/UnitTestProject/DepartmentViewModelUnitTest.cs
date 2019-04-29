@@ -25,5 +25,11 @@ namespace UnitTestProject
         {
             Assert.IsNotNull(_testDepartmentViewModel);
         }
+
+        [TestMethod]
+        public void GetAvailabilityTest()
+        {
+
+        }
     }
 }
