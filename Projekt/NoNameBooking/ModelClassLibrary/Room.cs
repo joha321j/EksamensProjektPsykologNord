@@ -10,12 +10,15 @@ namespace ModelClassLibrary
         public string Name { get; set; }
         public Department Department { get; }
 
-        public Room(string name, Department department)
+        public TimeSpan DayLength { get; set; }
+
+        public Room(string name, Department department, int openHours = 24)
         {
             Name = name;
             Department = department;
-
             _appointments = new List<Appointment>();
+
+            DayLength = TimeSpan.FromHours(openHours);
         }
 
         public List<DateTime> GetAvailability(DateTime startDate, DateTime endDate)
@@ -32,12 +35,30 @@ namespace ModelClassLibrary
 
         private List<DateTime> RemoveBookedDateTimes(List<DateTime> availableDateTimes)
         {
-            throw new NotImplementedException();
+            foreach (Appointment appointment in _appointments)
+            {
+                availableDateTimes.Remove(appointment.DateAndTime);
+            }
+
+            return availableDateTimes;
         }
 
         private List<DateTime> GetAvailableDateTimes(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            List<DateTime> availableDateTimes = new List<DateTime>();
+            DateTime tempDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, 0, 0, 0);
+            for (int i = 0; i < (endDate - startDate).TotalDays; i++)
+            {
+                for (int j = 0; j < DayLength.TotalHours; j++)
+                {
+                    availableDateTimes.Add(new DateTime(tempDate.Year, tempDate.Month, tempDate.Day, tempDate.Hour, 0, 0));
+                    tempDate = tempDate.AddHours(1);
+                }
+
+                tempDate = tempDate.Date.AddDays(1);
+            }
+
+            return availableDateTimes;
         }
 
         public void AddAppointment(Appointment appointment)
