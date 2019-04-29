@@ -23,16 +23,18 @@ namespace BookNyAftale
     /// </summary>
     public partial class CreateAppointment : Window
     {
+        private DepartmentViewModel _departmentViewModel;
         private readonly ClientRepoViewModel _addClientRepoViewModel;
+        private DepartmentRepoViewModel _departmentRepoViewModel;
         public CreateAppointment()
         {
             InitializeComponent();
 
             _addClientRepoViewModel = new ClientRepoViewModel();
             _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
+            _departmentRepoViewModel = new DepartmentRepoViewModel();
 
-            //UpdateDepartmentComboBox();
-            UpdateClientComboBox();
+            UpdateDepartmentComboBox();
             UpdateAppointmentTimeComboBox();
         }
 
@@ -43,8 +45,12 @@ namespace BookNyAftale
 
         private void UpdateDepartmentComboBox()
         {
-            UpdatePractitionerComboBox();
-            throw new NotImplementedException();
+            List<DepartmentViewModel> departmentViewModels = _departmentRepoViewModel.GetDepartmentViews();
+            cmbbDepartment.Items.Clear();
+            foreach (DepartmentViewModel departmentViewModel in departmentViewModels)
+            {
+                cmbbDepartment.Items.Add(departmentViewModel);
+            }
         }
 
         private void UpdateAppointmentTimeComboBox()
@@ -65,7 +71,7 @@ namespace BookNyAftale
             cmbbClient.Items.Clear();
             foreach (ClientView clientView in clients)
             {
-                cmbbClient.Items.Add(clientView.ShowInComboBox());
+                cmbbClient.Items.Add(clientView);
             }
         }
 
@@ -83,6 +89,12 @@ namespace BookNyAftale
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _departmentViewModel = cmbbDepartment.SelectionBoxItem as DepartmentViewModel;
+            UpdatePractitionerComboBox();
         }
     }
 }
