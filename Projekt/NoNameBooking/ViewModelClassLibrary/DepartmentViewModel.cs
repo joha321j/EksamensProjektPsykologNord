@@ -7,7 +7,7 @@ namespace ViewModelClassLibrary
     public class DepartmentViewModel
     {
 
-        private Department _department;
+        private readonly Department _department;
 
         public DepartmentViewModel(Department department)
         {
@@ -23,7 +23,7 @@ namespace ViewModelClassLibrary
 
         }
 
-        private List<DateTime> CompareAvailability(List<DateTime> departmentAvailableDateTimes, List<DateTime> practitionerAvailableDateTimes)
+        private static List<DateTime> CompareAvailability(List<DateTime> departmentAvailableDateTimes, List<DateTime> practitionerAvailableDateTimes)
         {
             List<DateTime> combinedAvailableDateTimes = new List<DateTime>();
 

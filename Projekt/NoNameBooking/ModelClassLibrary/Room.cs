@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Xml.Schema;
+
 
 namespace ModelClassLibrary
 {
     public class Room : IBookable
     {
-        public readonly List<Appointment> _appointments;
+        public readonly List<Appointment> Appointments;
         public string Name { get; set; }
 
-        private int _dayLength;
-        private DateTime _startTime;
+        private readonly int _dayLength;
+        private readonly DateTime _startTime;
 
         public Room(string name, DateTime startHour = default(DateTime), int dayLength = 24)
         {
             Name = name;
 
-            _appointments = new List<Appointment>();
+            Appointments = new List<Appointment>();
 
             _dayLength = dayLength;
 
@@ -43,7 +41,7 @@ namespace ModelClassLibrary
 
         private List<DateTime> RemoveBookedDateTimes(List<DateTime> availableDateTimes)
         {
-            foreach (Appointment appointment in _appointments)
+            foreach (Appointment appointment in Appointments)
             {
                 availableDateTimes.Remove(appointment.DateAndTime);
             }
@@ -71,7 +69,7 @@ namespace ModelClassLibrary
 
         public void AddAppointment(Appointment appointment)
         {
-            _appointments.Add(appointment);
+            Appointments.Add(appointment);
         }
     }
 }
