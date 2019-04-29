@@ -26,6 +26,7 @@ namespace BookNyAftale
         private DepartmentViewModel _departmentViewModel;
         private readonly ClientRepoViewModel _addClientRepoViewModel;
         private DepartmentRepoViewModel _departmentRepoViewModel;
+
         public CreateAppointment()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace BookNyAftale
             cmbbDepartment.Items.Clear();
             foreach (DepartmentViewModel departmentViewModel in departmentViewModels)
             {
-                cmbbDepartment.Items.Add(departmentViewModel);
+                cmbbDepartment.Items.Add(departmentViewModel.Name);
             }
         }
 
@@ -93,7 +94,8 @@ namespace BookNyAftale
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _departmentViewModel = cmbbDepartment.SelectionBoxItem as DepartmentViewModel;
+            string departmentName = cmbbDepartment.SelectionBoxItem.ToString();
+            _departmentViewModel = _departmentRepoViewModel.FindDepartmentViewModel(departmentName);
             UpdatePractitionerComboBox();
         }
     }

@@ -9,6 +9,8 @@ namespace ViewModelClassLibrary
 
         private readonly Department _department;
 
+        public string Name => _department.Name;
+
         public DepartmentViewModel(Department department)
         {
             _department = department;
