@@ -40,7 +40,7 @@ namespace UnitTestProject
 
             string note = "Dette er testnoten.";
 
-            Room testRoom = new Room("Kaare's Lejlighed", new Department("HCØ", "Testvej 12, 2113 Sakstesting"));
+            Room testRoom = new Room("Kaare's Lejlighed");
 
             _userViewModel.CreateAppointment(dateAndTime, participants, appointmentType, note, testRoom);
 

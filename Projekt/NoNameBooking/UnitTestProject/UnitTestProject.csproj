@@ -53,6 +53,7 @@
     <Compile Include="ClientRepoUnitTest.cs" />
     <Compile Include="ClientUnitTest.cs" />
     <Compile Include="ClientViewModelUnitTest.cs" />
+    <Compile Include="DepartmentUnitTest.cs" />
     <Compile Include="PractitionerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomUnitTest.cs" />

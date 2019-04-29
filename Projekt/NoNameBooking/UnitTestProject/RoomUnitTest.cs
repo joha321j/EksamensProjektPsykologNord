@@ -13,7 +13,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void RoomTestSetup()
         {
-            _testRoom = new Room("TestRoom", new Department("TestDepartment", "Testvej 11"));
+            _testRoom = new Room("TestRoom");
         }
         [TestMethod]
         public void RoomCreationUnitTest()

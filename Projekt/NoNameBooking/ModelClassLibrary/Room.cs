@@ -10,15 +10,14 @@ namespace ModelClassLibrary
     {
         private readonly List<Appointment> _appointments;
         public string Name { get; set; }
-        public Department Department { get; }
 
         private int _dayLength;
         private DateTime _starTime;
 
-        public Room(string name, Department department, DateTime startHour = default(DateTime), int dayLength = 24)
+        public Room(string name, DateTime startHour = default(DateTime), int dayLength = 24)
         {
             Name = name;
-            Department = department;
+
             _appointments = new List<Appointment>();
 
             _dayLength = dayLength;
