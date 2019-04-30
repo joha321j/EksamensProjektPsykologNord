@@ -25,10 +25,14 @@ namespace BookNyAftale
     {
         private DepartmentViewModel _departmentViewModel;
         private DepartmentRepoViewModel _departmentRepoViewModel;
+        private Controller _controller;
 
         public CreateAppointment()
         {
             InitializeComponent();
+            _controller = Controller.GetInstance();
+
+            _controller.NewClientCreatedEventHandler += ClientRepoClientCreationHandler;
 
             // UpdateDepartmentComboBox();
             //UpdateAppointmentTimeComboBox();
@@ -63,11 +67,13 @@ namespace BookNyAftale
 
         private void UpdateClientComboBox()
         {
-            List<ClientView> clients = new List<ClientView>();
+            List<string> clients = _controller.GetClientNames();
+
             cmbbClient.Items.Clear();
-            foreach (ClientView clientView in clients)
+
+            foreach (string clientName in clients)
             {
-                cmbbClient.Items.Add(clientView);
+                cmbbClient.Items.Add(clientName);
             }
         }
 

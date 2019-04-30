@@ -7,11 +7,19 @@ namespace ApplicationClassLibrary
     public class Controller
     {
         private static Controller _instance;
-        private ClientRepo _clientRepo;
+        private readonly ClientRepo _clientRepo;
+
+        public EventHandler NewClientCreatedEventHandler;
 
         private Controller()
         {
             _clientRepo = ClientRepo.GetInstance();
+            _clientRepo.NewClientEventHandler += NewClientEventHandler;
+        }
+
+        private void NewClientEventHandler(object sender, EventArgs e)
+        {
+            NewClientCreatedEventHandler.Invoke(sender.ToString(), e);
         }
 
         public static Controller GetInstance()
@@ -26,6 +34,11 @@ namespace ApplicationClassLibrary
             InputValidator.EnsureValidZip(clientAddress);
 
             _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
+        }
+
+        public List<string> GetClientNames()
+        {
+            throw new NotImplementedException();
         }
     }
 }

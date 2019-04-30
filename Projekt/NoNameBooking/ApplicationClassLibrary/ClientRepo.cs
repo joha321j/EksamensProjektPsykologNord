@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
@@ -8,6 +9,8 @@ namespace ApplicationClassLibrary
         private static ClientRepo _instance;
 
         private readonly List<Client> _clients;
+
+        public EventHandler NewClientEventHandler;
 
         private ClientRepo()
         {
@@ -19,14 +22,14 @@ namespace ApplicationClassLibrary
             return _instance ?? (_instance = new ClientRepo());
         }
 
-        public Client CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
+        public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
             string clientAddress, string clientSsn, string clientNote)
         {
             Client newClient = new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
 
             _clients.Add(newClient);
 
-            return newClient;
+            NewClientEventHandler?.Invoke(newClient, EventArgs.Empty);
         }
 
 
