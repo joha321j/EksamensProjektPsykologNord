@@ -17,9 +17,11 @@ namespace ApplicationClassLibrary
             return _instance ?? (_instance = new Controller());
         }
 
-        public void CreateClient(string text, string s, string text1, string clientAddress, string s1, string text2)
+        public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber, string clientAddress, string clientSsn, string clientNote)
         {
-            throw new NotImplementedException();
+            InputValidator.EnsureValidPhoneNumber(clientPhoneNumber);
+            InputValidator.EnsureValidSsn(clientSsn);
+            InputValidator.ensureValidZip(clientAddress);
         }
     }
 }

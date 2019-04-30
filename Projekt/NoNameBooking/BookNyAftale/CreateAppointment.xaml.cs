@@ -24,16 +24,11 @@ namespace BookNyAftale
     public partial class CreateAppointment : Window
     {
         private DepartmentViewModel _departmentViewModel;
-        private readonly ClientRepoViewModel _addClientRepoViewModel;
         private DepartmentRepoViewModel _departmentRepoViewModel;
 
         public CreateAppointment()
         {
             InitializeComponent();
-
-            _addClientRepoViewModel = new ClientRepoViewModel();
-            _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
-            //_departmentRepoViewModel = new DepartmentRepoViewModel();
 
             // UpdateDepartmentComboBox();
             //UpdateAppointmentTimeComboBox();
@@ -68,7 +63,7 @@ namespace BookNyAftale
 
         private void UpdateClientComboBox()
         {
-            List<ClientView> clients = _addClientRepoViewModel.GetClientViews();
+            List<ClientView> clients = new List<ClientView>();
             cmbbClient.Items.Clear();
             foreach (ClientView clientView in clients)
             {

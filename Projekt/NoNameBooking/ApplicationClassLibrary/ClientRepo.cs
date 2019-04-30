@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ModelClassLibrary;
 
-namespace ModelClassLibrary
+namespace ApplicationClassLibrary
 {
     public class ClientRepo
     {
