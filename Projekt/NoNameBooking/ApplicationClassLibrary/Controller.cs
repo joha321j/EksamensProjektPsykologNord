@@ -10,7 +10,7 @@ namespace ApplicationClassLibrary
         private static Controller _instance;
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
-        private readonly PractitionerRepo _practitioverRepo;
+        private readonly PractitionerRepo _practitionerRepo;
 
         public EventHandler NewClientCreatedEventHandler;
 
@@ -21,7 +21,7 @@ namespace ApplicationClassLibrary
 
             _departmentRepo = DepartmentRepo.GetInstance();
 
-            _practitioverRepo = PractitionerRepo.GetInstance();
+            _practitionerRepo = PractitionerRepo.GetInstance();
         }
 
         private void NewClientEventHandler(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace ApplicationClassLibrary
         public List<string> GetTreatments(string practitionerName)
         {
             Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
-            List<AppointmentType> treatments = tempPractitioner.GetTreatmentTypes();
+            List<AppointmentType> treatments = tempPractitioner.TreatmentTypes;
 
             return treatments.ConvertAll(treatmentType => treatmentType.Name);
         }
