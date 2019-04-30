@@ -33,10 +33,10 @@ namespace BookNyAftale
 
             _addClientRepoViewModel = new ClientRepoViewModel();
             _addClientRepoViewModel.ClientAddedEvent += ClientRepoClientCreationHandler;
-            _departmentRepoViewModel = new DepartmentRepoViewModel();
+            //_departmentRepoViewModel = new DepartmentRepoViewModel();
 
-            UpdateDepartmentComboBox();
-            UpdateAppointmentTimeComboBox();
+            // UpdateDepartmentComboBox();
+            //UpdateAppointmentTimeComboBox();
         }
 
         private void UpdatePractitionerComboBox()
@@ -44,15 +44,15 @@ namespace BookNyAftale
             throw new NotImplementedException();
         }
 
-        private void UpdateDepartmentComboBox()
-        {
-            List<DepartmentViewModel> departmentViewModels = _departmentRepoViewModel.GetDepartmentViews();
-            cmbbDepartment.Items.Clear();
-            foreach (DepartmentViewModel departmentViewModel in departmentViewModels)
-            {
-                cmbbDepartment.Items.Add(departmentViewModel.Name);
-            }
-        }
+        //private void UpdateDepartmentComboBox()
+        //{
+        //    List<DepartmentViewModel> departmentViewModels = _departmentRepoViewModel.GetDepartmentViews();
+        //    cmbbDepartment.Items.Clear();
+        //    foreach (DepartmentViewModel departmentViewModel in departmentViewModels)
+        //    {
+        //        cmbbDepartment.Items.Add(departmentViewModel.Name);
+        //    }
+        //}
 
         private void UpdateAppointmentTimeComboBox()
         {
