@@ -104,5 +104,15 @@ namespace BookNyAftale
         {
             UpdatePractitionerComboBox();
         }
+
+        private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateTreatmentComboBox();
+        }
+
+        private void UpdateTreatmentComboBox()
+        {
+            List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
+        }
     }
 }
