@@ -78,7 +78,7 @@ namespace BookNyAftale
 
         private void BtnAddClient_Click(object sender, RoutedEventArgs e)
         {
-            AddClient addClient = new AddClient(_addClientRepoViewModel);
+            AddClient addClient = new AddClient();
             addClient.Show();
         }
 

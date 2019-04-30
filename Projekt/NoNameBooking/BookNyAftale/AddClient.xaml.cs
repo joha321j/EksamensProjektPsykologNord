@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ApplicationClassLibrary;
@@ -20,11 +21,14 @@ namespace BookNyAftale
     /// </summary>
     public partial class AddClient : Window
     {
-        private readonly ClientRepoViewModel _addClientRepoViewModel;
-        public AddClient(ClientRepoViewModel clientRepoViewModel)
+
+        private readonly Controller _controller;
+
+        public AddClient()
         {
-            _addClientRepoViewModel = clientRepoViewModel;
             InitializeComponent();
+
+            _controller = Controller.GetInstance();
         }
 
         private void BtnSaveClient_Click(object sender, RoutedEventArgs e)
@@ -78,7 +82,7 @@ namespace BookNyAftale
         {
             string clientAddress = txtClientAddress.Text + ";" + txtClientZip.Text + ";" + txtClientCity.Text;
 
-            _addClientRepoViewModel.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
+            _controller.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
                 clientAddress, txtClientSSN.Text, txtClientNote.Text);
         }
 
