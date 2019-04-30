@@ -61,26 +61,24 @@ namespace BookNyAftale
 
         private void UpdateAppointmentTimeComboBox()
         {
+            List<string> availableTimes = _controller.GetAvailableTimes(dpAppointmentDate.SelectedDate.Value,
+                cmbbPractitioner.SelectionBoxItem.ToString(), cmbbDepartment.SelectionBoxItem.ToString());
 
-            double openTime = 9;
-            for (int i = 0; i < 12; i++)
+            cmbbAppointmentTime.Items.Clear();
+
+            foreach (string availableTime in availableTimes)
             {
-                cmbbAppointmentTime.Items.Add(openTime + ":00");
-                openTime++;
-            }
 
+            }
         }
 
         private void UpdateClientComboBox(object sender)
         {
             List<string> clients = _controller.GetClientNames();
 
-            cmbbClient.Items.Clear();
+            cmbbClient.ItemsSource = clients;
+            cmbbClient.SelectedIndex = 0;
 
-            foreach (string clientName in clients)
-            {
-                cmbbClient.Items.Add(clientName);
-            }
 
             cmbbClient.SelectedItem = sender;
         }
@@ -124,7 +122,7 @@ namespace BookNyAftale
 
                 foreach (DateTime blockedDate in blockedDates)
                 {
-                    if (dpAppointmentDate.BlackoutDates.Contains(blockedDate))
+                    if (!dpAppointmentDate.BlackoutDates.Contains(blockedDate))
                     {
                         dpAppointmentDate.BlackoutDates.Add(new CalendarDateRange(blockedDate));
                     }

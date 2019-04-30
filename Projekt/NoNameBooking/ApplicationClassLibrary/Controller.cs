@@ -77,17 +77,21 @@ namespace ApplicationClassLibrary
         public List<DateTime> GetBusyDates(string practitionerName, string departmentName, DateTime startDate,
             DateTime endDate)
         {
-            List<DateTime> busyDates = new List<DateTime>();
             List<DateTime> practitionerAvailableDates =
                 _practitionerRepo.GetAvailableDatesForPractitioner(practitionerName);
 
             List<DateTime> departmentAvailableDates =
                 _departmentRepo.GetAvailableDatesForDepartment(departmentName, startDate, endDate);
 
-            busyDates = DateTimeCalculator.GetBusyDates(practitionerAvailableDates, departmentAvailableDates,
+            var busyDates = DateTimeCalculator.GetBusyDates(practitionerAvailableDates, departmentAvailableDates,
                 startDate, endDate);
 
             return busyDates;
+        }
+
+        public List<string> GetAvailableTimes(DateTime selectedDateValue, string toString, string s)
+        {
+            throw new NotImplementedException();
         }
     }
 }
