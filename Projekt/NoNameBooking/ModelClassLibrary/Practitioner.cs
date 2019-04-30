@@ -9,6 +9,8 @@ namespace ModelClassLibrary
         public DateTime Start { get; set; }
         public TimeSpan DayLength { get; set; }
 
+        public List<AppointmentType> TreatmentTypes { get; private set; }
+
         public Practitioner(DateTime start, TimeSpan dayLength)
         {
             Start = start;
