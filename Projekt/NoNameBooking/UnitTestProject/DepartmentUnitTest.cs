@@ -52,17 +52,17 @@ namespace UnitTestProject
             users.Add(userTwo);
             users.Add(userThree);
 
-            DateTime testDate = new DateTime(2019, 4, 30, 12, 0, 0);
+            DateTime testDate = new DateTime(DateTime.Today.Year, DateTime.Today.AddMonths(1).Month, DateTime.Today.AddDays(2).Day, 12, 0, 0);
             AppointmentType appointmentType = new AppointmentType("Anders", 123.879, TimeSpan.FromHours(2));
 
-            DateTime testDateTwo = new DateTime(2019, 5, 1, 10, 0, 0);
+            DateTime testDateTwo = new DateTime(DateTime.Today.Year, DateTime.Today.AddMonths(1).Month, DateTime.Today.AddDays(5).Day, 10, 0, 0);
 
             Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[0], "");
             Appointment testAppointmentTwo = new Appointment(testDateTwo, users, appointmentType, _testDepartment.Rooms[1], "");
 
             DateTime startDate = DateTime.Today.AddDays(1);
 
-            DateTime endDate = DateTime.Today.AddMonths(1);
+            DateTime endDate = DateTime.Today.AddMonths(3);
 
             List<DateTime> availableDateTimes = _testDepartment.GetAvailability(startDate, endDate);
 
@@ -76,19 +76,19 @@ namespace UnitTestProject
             User userTwo = new User();
             User userThree = new User();
 
-            List<User> users = new List<User>();
+            List<User> users = new List<User> {userOne, userTwo, userThree};
 
-            users.Add(userOne);
-            users.Add(userTwo);
-            users.Add(userThree);
 
-            DateTime testDate = new DateTime(2019, 5, 2, 10, 0, 0);
+
+
+            DateTime testDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.AddDays(2).Day, 10, 0, 0);
             AppointmentType appointmentType = new AppointmentType("Anders", 123.879, TimeSpan.FromHours(2));
 
             DateTime testDateTwo = new DateTime(2019, 5, 2, 10, 0, 0);
 
             Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[0], "");
             Appointment testAppointmentTwo = new Appointment(testDateTwo, users, appointmentType, _testDepartment.Rooms[1], "");
+
 
             DateTime startDate = DateTime.Today.AddDays(1);
 

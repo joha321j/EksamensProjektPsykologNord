@@ -16,15 +16,15 @@ namespace ModelClassLibrary
         {
 
         }
-        public Appointment(DateTime dateAndTime, List<User> participants, AppointmentType appointmentType, Room testRoom, string note, double price = 0)
+        public Appointment(DateTime dateAndTime, List<User> participants, AppointmentType appointmentType, Room room, string note, double price = 0)
         {
             DateAndTime = dateAndTime;
             Participants = participants;
             AppointmentType = appointmentType;
-            Location = testRoom;
+            Location = room;
             Note = note;
 
-            testRoom.AddAppointment(this);
+            room.AddAppointment(this);
 
             foreach (User participant in participants)
             {
