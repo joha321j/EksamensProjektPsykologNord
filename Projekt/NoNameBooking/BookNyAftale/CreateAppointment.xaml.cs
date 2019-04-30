@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,11 +109,44 @@ namespace BookNyAftale
         private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateTreatmentComboBox();
+            UpdateAppointmentDates();
+        }
+
+        private void UpdateAppointmentDates()
+        {
+            if (dpAppointmentDate.DisplayDateStart != null && dpAppointmentDate.DisplayDateEnd != null)
+            {
+                List<DateTime> blockedDates = _controller.GetBusyDates(cmbbPractitioner.SelectionBoxItem.ToString(),
+                    cmbbDepartment.SelectionBoxItem.ToString(), (DateTime) dpAppointmentDate.DisplayDateStart,
+                    (DateTime) dpAppointmentDate.DisplayDateEnd);
+
+                dpAppointmentDate.BlackoutDates.Clear();
+
+                foreach (DateTime blockedDate in blockedDates)
+                {
+                    if (dpAppointmentDate.BlackoutDates.Contains(blockedDate))
+                    {
+                        dpAppointmentDate.BlackoutDates.Add(new CalendarDateRange(blockedDate));
+                    }
+                }
+            }
         }
 
         private void UpdateTreatmentComboBox()
         {
             List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
+
+            cmbbTreatment.Items.Clear();
+
+            foreach (string treatment in treatments)
+            {
+                cmbbTreatment.Items.Add(treatment);
+            }
+        }
+
+        private void DpAppointmentDate_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateAppointmentTimeComboBox();
         }
     }
 }

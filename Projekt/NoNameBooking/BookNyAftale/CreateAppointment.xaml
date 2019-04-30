@@ -9,9 +9,9 @@
          WindowState="Maximized">
     <Grid >
         <Label Content="Opret aftale" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="103,387,0,0"/>
+        <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="103,387,0,0" SelectedDateChanged="DpAppointmentDate_OnSelectedDateChanged"/>
         <Label Content="Vælg dato og  tidspunkt:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,358,0,0"/>
-        <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" IsEnabled="False" Margin="210,389,0,0"/>
+        <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="210,389,0,0"/>
         <ComboBox x:Name="cmbbClient" HorizontalAlignment="Left" VerticalAlignment="Top" Width="449" Margin="100,118,0,0"/>
         <Label Content="Vælg klient:" HorizontalAlignment="Left" Margin="100,87,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnAddClient" Content="Opret klient" HorizontalAlignment="Left" Margin="566,118,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddClient_Click"/>

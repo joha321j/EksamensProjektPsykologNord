@@ -7,6 +7,7 @@ namespace ModelClassLibrary
     {
         List<DateTime> GetAvailability(DateTime startDate, DateTime endDate);
 
+
         void AddAppointment(Appointment appointment);
     }
 }
