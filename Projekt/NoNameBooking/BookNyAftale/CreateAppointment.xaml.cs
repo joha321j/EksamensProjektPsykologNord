@@ -64,12 +64,8 @@ namespace BookNyAftale
             List<string> availableTimes = _controller.GetAvailableTimes(dpAppointmentDate.SelectedDate.Value,
                 cmbbPractitioner.SelectionBoxItem.ToString(), cmbbDepartment.SelectionBoxItem.ToString());
 
-            cmbbAppointmentTime.Items.Clear();
-
-            foreach (string availableTime in availableTimes)
-            {
-
-            }
+            cmbbAppointmentTime.ItemsSource = availableTimes;
+            cmbbAppointmentTime.SelectedIndex = 0; 
         }
 
         private void UpdateClientComboBox(object sender)
@@ -134,12 +130,8 @@ namespace BookNyAftale
         {
             List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
 
-            cmbbTreatment.Items.Clear();
-
-            foreach (string treatment in treatments)
-            {
-                cmbbTreatment.Items.Add(treatment);
-            }
+            cmbbTreatment.ItemsSource = treatments;
+            cmbbTreatment.SelectedIndex = 0;
         }
 
         private void DpAppointmentDate_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)

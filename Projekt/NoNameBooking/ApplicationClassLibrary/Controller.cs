@@ -89,7 +89,7 @@ namespace ApplicationClassLibrary
             return busyDates;
         }
 
-        public List<string> GetAvailableTimes(DateTime selectedDateValue, string toString, string s)
+        public List<string> GetAvailableTimes(DateTime selectedDateValue, string practitionerName, string departmentName)
         {
             throw new NotImplementedException();
         }
