@@ -84,7 +84,7 @@ namespace ApplicationClassLibrary
             List<DateTime> departmentAvailableDates =
                 _departmentRepo.GetAvailableDatesForDepartment(departmentName, startDate, endDate);
 
-            busyDates = AvailabilityCalculator.GetBusyDates(practitionerAvailableDates, departmentAvailableDates,
+            busyDates = DateTimeCalculator.GetBusyDates(practitionerAvailableDates, departmentAvailableDates,
                 startDate, endDate);
 
             return busyDates;

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ApplicationClassLibrary
 {
-    internal class AvailabilityCalculator
+    internal class DateTimeCalculator
     {
         public static List<DateTime> GetBusyDates(List<DateTime> practitionerAvailableDates,
             List<DateTime> departmentAvailableDates, DateTime startDate, DateTime endDate)
