@@ -6,28 +6,37 @@ namespace ApplicationClassLibrary
     {
         public static void EnsureValidPhoneNumber(string clientPhoneNumber)
         { 
-            IntValidator(clientPhoneNumber, "phone number");
+            IntValidator(clientPhoneNumber, "telefonnummer");
         }
 
         public static void EnsureValidSsn(string clientSsn)
         {
-            IntValidator(clientSsn, "SSN");
+            IntValidator(clientSsn, "CPR-nummer");
         }
 
         public static void EnsureValidZip(string clientAddress)
         {
-            IntValidator(clientAddress, "Zip code");
+            IntValidator(clientAddress, "postnummer");
         }
 
         private static void IntValidator(string input, string inputType)
         {
-            foreach (char c in input)
+            input = input.Trim();
+            if (input!= string.Empty)
             {
-                if (!int.TryParse(c.ToString(), out _))
+                foreach (char c in input)
                 {
-                    throw new InvalidInputException($"{input} is not a valid {inputType}");
+                    if (!int.TryParse(c.ToString(), out _))
+                    {
+                        throw new InvalidInputException($"{input} er ikke et gyldigt {inputType}.");
+                    }
                 }
             }
+            else
+            {
+                throw new InvalidInputException($"En kunde skal have et {inputType}");
+            }
+
             
         }
     }

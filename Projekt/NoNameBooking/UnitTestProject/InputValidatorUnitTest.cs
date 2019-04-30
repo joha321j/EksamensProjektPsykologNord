@@ -28,6 +28,13 @@ namespace UnitTestProject
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void EnsureValidPhoneNumberWhiteSpace()
+        {
+            InputValidator.EnsureValidPhoneNumber("  ");
+        }
+
+        [TestMethod]
         public void EnsureValidSsnTestValidSsn()
         {
             InputValidator.EnsureValidSsn("0717741180");
@@ -38,6 +45,20 @@ namespace UnitTestProject
         public void EnsureValidSsnTestInvalidSsn()
         {
             InputValidator.EnsureValidSsn("oaterustheaog+)}{[+))[{}+æøå");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void EnsureValidSsnTestEmpty()
+        {
+            InputValidator.EnsureValidSsn(string.Empty);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void EnsureValidSsnTestWhiteSpace()
+        {
+            InputValidator.EnsureValidSsn("      ");
         }
     }
 }
