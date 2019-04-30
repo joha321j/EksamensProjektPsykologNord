@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using ApplicationClassLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelClassLibrary;
-using ViewModelClassLibrary;
 
 namespace UnitTestProject
 {

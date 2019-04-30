@@ -1,4 +1,4 @@
-﻿namespace ViewModelClassLibrary
+﻿namespace ApplicationClassLibrary
 {
     public class PractitionerRepoViewModel
     {

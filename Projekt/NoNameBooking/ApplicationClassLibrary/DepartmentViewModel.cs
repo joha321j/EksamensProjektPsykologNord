@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ModelClassLibrary;
 
-namespace ViewModelClassLibrary
+namespace ApplicationClassLibrary
 {
     public class DepartmentViewModel
     {

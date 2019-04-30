@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ViewModelClassLibrary
+﻿namespace ApplicationClassLibrary
 {
     public class ClientView
     {

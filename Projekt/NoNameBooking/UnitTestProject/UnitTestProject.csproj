@@ -65,13 +65,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationClassLibrary\ApplicationClassLibrary.csproj">
+      <Project>{77ad1380-e0f9-44f1-a870-d8d47ca8982c}</Project>
+      <Name>ApplicationClassLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModelClassLibrary\ModelClassLibrary.csproj">
       <Project>{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}</Project>
       <Name>ModelClassLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModelClassLibrary\ViewModelClassLibrary.csproj">
-      <Project>{0EF19BAF-D374-4C52-8DF6-093E45A2F2B7}</Project>
-      <Name>ViewModelClassLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

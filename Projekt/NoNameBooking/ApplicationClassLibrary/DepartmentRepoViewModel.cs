@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ViewModelClassLibrary
+namespace ApplicationClassLibrary
 {
     public class DepartmentRepoViewModel
     {

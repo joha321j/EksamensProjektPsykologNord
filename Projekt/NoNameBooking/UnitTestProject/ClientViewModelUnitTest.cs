@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net.Sockets;
+using ApplicationClassLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelClassLibrary;
-using ViewModelClassLibrary;
 
 namespace UnitTestProject
 {
