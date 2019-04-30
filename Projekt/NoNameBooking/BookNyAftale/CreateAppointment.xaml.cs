@@ -18,7 +18,6 @@ using ApplicationClassLibrary;
 namespace BookNyAftale
 {
     /// <summary>
-
     /// Interaction logic for CreateAppointment.xaml
     /// </summary>
     public partial class CreateAppointment : Window
@@ -32,24 +31,32 @@ namespace BookNyAftale
 
             _controller.NewClientCreatedEventHandler += ClientRepoClientCreationHandler;
 
-            //UpdateDepartmentComboBox();
-            //UpdateAppointmentTimeComboBox();
+            UpdateClientComboBox(null);
+            UpdateDepartmentComboBox();
         }
 
         private void UpdatePractitionerComboBox()
         {
-            throw new NotImplementedException();
+            List<string> practitionerNames =
+                _controller.GetPractitionerNamesForDepartment(cmbbDepartment.SelectionBoxItem.ToString());
+
+            cmbbPractitioner.Items.Clear();
+
+            foreach (string practitionerName in practitionerNames)
+            {
+                cmbbPractitioner.Items.Add(practitionerName);
+            }
         }
 
-        //private void UpdateDepartmentComboBox()
-        //{
-        //    List<DepartmentViewModel> departmentViewModels = _departmentRepoViewModel.GetDepartmentViews();
-        //    cmbbDepartment.Items.Clear();
-        //    foreach (DepartmentViewModel departmentViewModel in departmentViewModels)
-        //    {
-        //        cmbbDepartment.Items.Add(departmentViewModel.Name);
-        //    }
-        //}
+        private void UpdateDepartmentComboBox()
+        {
+            List<string> departmentViewModels = _controller.GetDepartmentNames();
+            cmbbDepartment.Items.Clear();
+            foreach (string departmentName in departmentViewModels)
+            {
+                cmbbDepartment.Items.Add(departmentName);
+            }
+        }
 
         private void UpdateAppointmentTimeComboBox()
         {
@@ -95,7 +102,7 @@ namespace BookNyAftale
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            UpdatePractitionerComboBox();
         }
     }
 }

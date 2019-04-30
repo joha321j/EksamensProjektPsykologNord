@@ -5,6 +5,7 @@ namespace ModelClassLibrary
 {
     public class Department
     {
+        private readonly List<Practitioner> _practitioners;
         public string Name { get; set; }
         public string Address { get; }
         public List<Room> Rooms { get; set; }
@@ -12,6 +13,8 @@ namespace ModelClassLibrary
 
         public Department(string name, string address)
         {
+            _practitioners = new List<Practitioner>();
+
             Name = name;
             Address = address;
 
@@ -42,6 +45,11 @@ namespace ModelClassLibrary
                     availableDateTimes.Add(dateTime);
                 }
             }
+        }
+
+        public List<Practitioner> GetPractitioners()
+        {
+            return _practitioners;
         }
     }
 }
