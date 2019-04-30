@@ -39,5 +39,9 @@ namespace ApplicationClassLibrary
         }
 
 
+        public List<Client> GetClients()
+        {
+            return _clients;
+        }
     }
 }

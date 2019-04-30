@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
 {
@@ -19,7 +20,7 @@ namespace ApplicationClassLibrary
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler.Invoke(sender.ToString(), e);
+            NewClientCreatedEventHandler.Invoke(((Client) sender).Name, e);
         }
 
         public static Controller GetInstance()
@@ -38,7 +39,9 @@ namespace ApplicationClassLibrary
 
         public List<string> GetClientNames()
         {
-            throw new NotImplementedException();
+            List<Client> clients = _clientRepo.GetClients();
+
+            return clients.ConvertAll(client => client.Name);
         }
     }
 }

@@ -23,9 +23,7 @@ namespace BookNyAftale
     /// </summary>
     public partial class CreateAppointment : Window
     {
-        private DepartmentViewModel _departmentViewModel;
-        private DepartmentRepoViewModel _departmentRepoViewModel;
-        private Controller _controller;
+        private readonly Controller _controller;
 
         public CreateAppointment()
         {
@@ -34,7 +32,7 @@ namespace BookNyAftale
 
             _controller.NewClientCreatedEventHandler += ClientRepoClientCreationHandler;
 
-            // UpdateDepartmentComboBox();
+            //UpdateDepartmentComboBox();
             //UpdateAppointmentTimeComboBox();
         }
 
@@ -65,7 +63,7 @@ namespace BookNyAftale
 
         }
 
-        private void UpdateClientComboBox()
+        private void UpdateClientComboBox(object sender)
         {
             List<string> clients = _controller.GetClientNames();
 
@@ -75,6 +73,8 @@ namespace BookNyAftale
             {
                 cmbbClient.Items.Add(clientName);
             }
+
+            cmbbClient.SelectedItem = sender;
         }
 
         private void BtnAddClient_Click(object sender, RoutedEventArgs e)
@@ -85,7 +85,7 @@ namespace BookNyAftale
 
         private void ClientRepoClientCreationHandler(object sender, EventArgs args)
         {
-            UpdateClientComboBox();
+            UpdateClientComboBox(sender);
         }
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
@@ -95,9 +95,7 @@ namespace BookNyAftale
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string departmentName = cmbbDepartment.SelectionBoxItem.ToString();
-            _departmentViewModel = _departmentRepoViewModel.FindDepartmentViewModel(departmentName);
-            UpdatePractitionerComboBox();
+            throw new NotImplementedException();
         }
     }
 }
