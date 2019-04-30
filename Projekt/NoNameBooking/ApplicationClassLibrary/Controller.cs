@@ -21,7 +21,7 @@ namespace ApplicationClassLibrary
         {
             InputValidator.EnsureValidPhoneNumber(clientPhoneNumber);
             InputValidator.EnsureValidSsn(clientSsn);
-            InputValidator.ensureValidZip(clientAddress);
+            InputValidator.EnsureValidZip(clientAddress);
         }
     }
 }

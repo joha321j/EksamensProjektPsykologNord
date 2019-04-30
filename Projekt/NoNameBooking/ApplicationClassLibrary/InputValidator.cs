@@ -1,20 +1,41 @@
-﻿namespace ApplicationClassLibrary
+﻿using System;
+
+namespace ApplicationClassLibrary
 {
-    internal class InputValidator
+    public static class InputValidator
     {
         public static void EnsureValidPhoneNumber(string clientPhoneNumber)
-        {
-            throw new System.NotImplementedException();
+        { 
+            IntValidator(clientPhoneNumber, "phone number");
         }
 
         public static void EnsureValidSsn(string clientSsn)
         {
-            throw new System.NotImplementedException();
+            IntValidator(clientSsn, "SSN");
         }
 
-        public static void ensureValidZip(string clientAddress)
+        public static void EnsureValidZip(string clientAddress)
         {
-            throw new System.NotImplementedException();
+            IntValidator(clientAddress, "Zip code");
+        }
+
+        private static void IntValidator(string input, string inputType)
+        {
+            foreach (char c in input)
+            {
+                if (!int.TryParse(c.ToString(), out _))
+                {
+                    throw new InvalidInputException($"{input} is not a valid {inputType}");
+                }
+            }
+            
+        }
+    }
+
+    public class InvalidInputException : Exception
+    {
+        public InvalidInputException(string message) : base(message)
+        {
         }
     }
 }
