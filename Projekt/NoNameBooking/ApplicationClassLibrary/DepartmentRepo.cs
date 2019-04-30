@@ -30,5 +30,15 @@ namespace ApplicationClassLibrary
         {
             return _departments.Find(department => string.Equals(department.Name, departmentName));
         }
+
+        public void AddDepartment(Department department)
+        {
+            _departments.Add(department);
+        }
+
+        public void ResetInstance()
+        {
+            _instance = null;
+        }
     }
 }
