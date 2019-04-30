@@ -31,11 +31,14 @@ namespace ApplicationClassLibrary
             return _departments.Find(department => string.Equals(department.Name, departmentName));
         }
 
-        public List<DateTime> GetAvailableDatesForDepartment(string departmentName, DateTime startDate, DateTime endDate)
+        public List<DateTime> GetAvailableDatesForDepartment(string departmentName, DateTime startDate,
+            DateTime endDate)
         {
             Department tempDepartment = GetDepartment(departmentName);
 
             return tempDepartment.GetAvailability(startDate, endDate);
+        }
+
         public void AddDepartment(Department department)
         {
             _departments.Add(department);

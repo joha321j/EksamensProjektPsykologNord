@@ -74,15 +74,20 @@ namespace ApplicationClassLibrary
             return treatments.ConvertAll(treatmentType => treatmentType.Name);
         }
 
-        public List<DateTime> GetBusyDates(string practitionerName, string departmentName, DateTime startDate, DateTime endDate)
+        public List<DateTime> GetBusyDates(string practitionerName, string departmentName, DateTime startDate,
+            DateTime endDate)
         {
+            List<DateTime> busyDates = new List<DateTime>();
             List<DateTime> practitionerAvailableDates =
                 _practitionerRepo.GetAvailableDatesForPractitioner(practitionerName);
 
             List<DateTime> departmentAvailableDates =
                 _departmentRepo.GetAvailableDatesForDepartment(departmentName, startDate, endDate);
 
-            throw new NotImplementedException();
+            busyDates = AvailabilityCalculator.GetBusyDates(practitionerAvailableDates, departmentAvailableDates,
+                startDate, endDate);
+
+            return busyDates;
         }
     }
 }
