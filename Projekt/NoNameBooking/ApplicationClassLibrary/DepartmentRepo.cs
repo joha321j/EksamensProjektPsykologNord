@@ -5,7 +5,7 @@ using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
 {
-    class DepartmentRepo
+    public class DepartmentRepo
     {
         private static DepartmentRepo _instance;
 
@@ -36,6 +36,14 @@ namespace ApplicationClassLibrary
             Department tempDepartment = GetDepartment(departmentName);
 
             return tempDepartment.GetAvailability(startDate, endDate);
+        public void AddDepartment(Department department)
+        {
+            _departments.Add(department);
+        }
+
+        public void ResetInstance()
+        {
+            _instance = null;
         }
     }
 }
