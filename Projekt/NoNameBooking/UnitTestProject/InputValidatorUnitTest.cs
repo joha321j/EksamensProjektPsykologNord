@@ -60,5 +60,32 @@ namespace UnitTestProject
         {
             InputValidator.EnsureValidSsn("      ");
         }
+
+        [TestMethod]
+        public void EnsureValidZip()
+        {
+            InputValidator.EnsureValidZip("testvej 74; 9999; Testenhøj");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void EnsureValidZipInvalid()
+        {
+            InputValidator.EnsureValidZip("oaecrgp.)*{[&)*=}{[}fntueouoanuo32475976231; 213465{[})+[*{}g; 5646213{[)}");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void EnsureValidZipEmpty()
+        {
+            InputValidator.EnsureValidZip(string.Empty);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void EnsureValidZipWhiteSpace()
+        {
+            InputValidator.EnsureValidZip("   ");
+        }
     }
 }

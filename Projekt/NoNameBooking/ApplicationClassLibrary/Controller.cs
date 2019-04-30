@@ -7,9 +7,11 @@ namespace ApplicationClassLibrary
     public class Controller
     {
         private static Controller _instance;
+        private ClientRepo _clientRepo;
 
         private Controller()
         {
+            _clientRepo = ClientRepo.GetInstance();
         }
 
         public static Controller GetInstance()
@@ -22,6 +24,8 @@ namespace ApplicationClassLibrary
             InputValidator.EnsureValidPhoneNumber(clientPhoneNumber);
             InputValidator.EnsureValidSsn(clientSsn);
             InputValidator.EnsureValidZip(clientAddress);
+
+            _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
         }
     }
 }

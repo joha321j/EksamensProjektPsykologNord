@@ -16,7 +16,15 @@ namespace ApplicationClassLibrary
 
         public static void EnsureValidZip(string clientAddress)
         {
-            IntValidator(clientAddress, "postnummer");
+            string[] tempStrings = clientAddress.Split(';');
+            if (tempStrings.Length > 1)
+            {
+                IntValidator(tempStrings[1], "postnummer");
+            }
+            else
+            {
+                throw new InvalidInputException("En kunde skal have et postnummer.");
+            }
         }
 
         private static void IntValidator(string input, string inputType)
