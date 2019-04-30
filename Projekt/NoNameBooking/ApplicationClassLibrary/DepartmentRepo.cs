@@ -5,7 +5,7 @@ using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
 {
-    class DepartmentRepo
+    public class DepartmentRepo
     {
         private static DepartmentRepo _instance;
 

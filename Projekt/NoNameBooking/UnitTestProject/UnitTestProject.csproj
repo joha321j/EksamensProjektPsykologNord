@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ClientRepoUnitTest.cs" />
     <Compile Include="ClientUnitTest.cs" />
+    <Compile Include="DepartmentRepoUnitTest.cs" />
     <Compile Include="DepartmentUnitTest.cs" />
     <Compile Include="InputValidatorUnitTest.cs" />
     <Compile Include="PractitionerUnitTest.cs" />
