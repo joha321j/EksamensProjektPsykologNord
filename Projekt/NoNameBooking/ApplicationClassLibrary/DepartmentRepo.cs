@@ -9,7 +9,7 @@ namespace ApplicationClassLibrary
     {
         private static DepartmentRepo _instance;
 
-        private List<Department> _departments;
+        private readonly List<Department> _departments;
 
         private DepartmentRepo()
         {
