@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookNyAftale"
         mc:Ignorable="d"
-        Title="SpecifcInvoice" Height="720" Width="1080"
+        Title="SpecifcInvoice" Height="798.667" Width="1080"
          WindowState="Maximized">
     <Grid HorizontalAlignment="Center">
         <Grid HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="1072">
@@ -33,7 +33,7 @@
         <Button Content="Send faktura" HorizontalAlignment="Left" Margin="177,135,0,0" VerticalAlignment="Top" Width="75" Name="btnSendInvoice"/>
         <Button Content="Print" HorizontalAlignment="Left" Margin="274,135,0,0" VerticalAlignment="Top" Width="75" Name="btnPrintInvoice"/>
         <Button Content="Hent som PDF" HorizontalAlignment="Left" Margin="373,135,0,0" VerticalAlignment="Top" Width="91" Name="btnInvoicePDF"/>
-        <TabControl HorizontalAlignment="Left" Height="500" Margin="10,179,0,0" VerticalAlignment="Top" Width="1052">
+        <TabControl HorizontalAlignment="Left" Height="579" Margin="10,179,0,0" VerticalAlignment="Top" Width="1052">
             <TabItem Header="Faktura">
                 <Grid Background="LightGray">
                     <Label Content="Status" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Name="lblInvoiceStatus"/>
@@ -46,7 +46,34 @@
                     <Grid HorizontalAlignment="Left" Height="1" Margin="10,167,0,0" VerticalAlignment="Top" Width="1021">
                         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Top" Width="1021"/>
                     </Grid>
-
+                    <Label Content="1 X behandling" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Name="lblInvoiceTreatment"/>
+                    <Label Content="Mandag d. 1. januar 2019" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" Name="lblInvoiceTreatmentDate" FontWeight="Light" FontSize="10"/>
+                    <Label Content="0,00" HorizontalAlignment="Left" Margin="984,173,0,0" VerticalAlignment="Top" Name="lblInvoiceTreatmentPrice"/>
+                    <Grid HorizontalAlignment="Left" Height="1" Margin="10,220,0,0" VerticalAlignment="Top" Width="1021">
+                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Top" Width="1021"/>
+                    </Grid>
+                    <Label Content="Subtotal" HorizontalAlignment="Left" Margin="839,226,0,0" VerticalAlignment="Top"/>
+                    <Label Content="0,00" HorizontalAlignment="Left" Margin="984,226,0,0" VerticalAlignment="Top" Name="lblInvoiceSubtotal"/>
+                    <Grid HorizontalAlignment="Left" Height="1" Margin="10,255,0,0" VerticalAlignment="Top" Width="1021">
+                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Top" Width="1021"/>
+                    </Grid>
+                    <Label Content="0,00" HorizontalAlignment="Left" Margin="984,261,0,0" VerticalAlignment="Top" Name="lblInvoiceVAT"/>
+                    <Label Content="Moms" HorizontalAlignment="Left" Margin="850,261,0,0" VerticalAlignment="Top"/>
+                    <Grid HorizontalAlignment="Left" Height="1" Margin="10,290,0,0" VerticalAlignment="Top" Width="1021">
+                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Top" Width="1021"/>
+                    </Grid>
+                    <Label Content="Total DKK" HorizontalAlignment="Left" Margin="837,296,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="10"/>
+                    <Label Content="0,00" HorizontalAlignment="Left" Margin="984,296,0,0" VerticalAlignment="Top" Name="lblInvoiceTotal"/>
+                    <Grid HorizontalAlignment="Left" Height="1" Margin="10,318,0,0" VerticalAlignment="Top" Width="1021">
+                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" VerticalAlignment="Top" Width="1021"/>
+                    </Grid>
+                    <Label Content="Sådan betaler du " HorizontalAlignment="Left" Margin="10,315,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Label Content="Du betaler bankoverførsel. Overfør ovenstående beløb til kontonummer XXXX XXXXXX og skriv fakturanummeret på overførslen." HorizontalAlignment="Left" Margin="10,341,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Betalingsbetingelser" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Label Content="90 dage netto, fra fakturadato." HorizontalAlignment="Left" Margin="10,398,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Bankinformation" HorizontalAlignment="Left" Margin="10,435,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Label Content="Bank: Banknavn" HorizontalAlignment="Left" Margin="10,455,0,0" VerticalAlignment="Top" Name="lblInvoiceBankName"/>
+                    <Label Content="Kontonummer: XXXX XXXXXX" HorizontalAlignment="Left" Margin="10,475,0,0" VerticalAlignment="Top" Name="lblInvoiceAccountNumber"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Information">
