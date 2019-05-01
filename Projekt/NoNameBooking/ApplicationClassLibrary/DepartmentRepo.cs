@@ -48,5 +48,10 @@ namespace ApplicationClassLibrary
         {
             _instance = null;
         }
+
+        public List<DateTime> GetAvailableTimesForDepartmtent(DateTime selectedDateValue, string departmentName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

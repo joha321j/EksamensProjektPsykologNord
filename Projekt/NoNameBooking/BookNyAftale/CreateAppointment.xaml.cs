@@ -61,10 +61,14 @@ namespace BookNyAftale
 
         private void UpdateAppointmentTimeComboBox()
         {
-            List<string> availableTimes = _controller.GetAvailableTimes(dpAppointmentDate.SelectedDate.Value,
-                cmbbPractitioner.SelectionBoxItem.ToString(), cmbbDepartment.SelectionBoxItem.ToString());
+            if (dpAppointmentDate.SelectedDate != null)
+            {
+                List<string> availableTimes = _controller.GetAvailableTimes(dpAppointmentDate.SelectedDate.Value,
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbDepartment.SelectionBoxItem.ToString());
 
-            cmbbAppointmentTime.ItemsSource = availableTimes;
+                cmbbAppointmentTime.ItemsSource = availableTimes;
+            }
+
             cmbbAppointmentTime.SelectedIndex = 0; 
         }
 

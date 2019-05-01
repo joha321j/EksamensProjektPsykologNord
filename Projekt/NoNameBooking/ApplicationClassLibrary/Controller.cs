@@ -83,7 +83,7 @@ namespace ApplicationClassLibrary
             List<DateTime> departmentAvailableDates =
                 _departmentRepo.GetAvailableDatesForDepartment(departmentName, startDate, endDate);
 
-            var busyDates = DateTimeCalculator.GetBusyDates(practitionerAvailableDates, departmentAvailableDates,
+            List<DateTime> busyDates = DateTimeCalculator.GetBusyDates(practitionerAvailableDates, departmentAvailableDates,
                 startDate, endDate);
 
             return busyDates;
@@ -91,7 +91,15 @@ namespace ApplicationClassLibrary
 
         public List<string> GetAvailableTimes(DateTime selectedDateValue, string practitionerName, string departmentName)
         {
-            throw new NotImplementedException();
+            List<DateTime> practitionerTimes =
+                _practitionerRepo.GetAvailableTimesForPractitioner(selectedDateValue, practitionerName);
+
+            List<DateTime> departmentTimes =
+                _departmentRepo.GetAvailableTimesForDepartmtent(selectedDateValue, departmentName);
+
+            List<DateTime> availableTimes = DateTimeCalculator.GetAvailableTimes(practitionerTimes, departmentTimes);
+
+            return availableTimes.ConvertAll(time => time.ToShortTimeString());
         }
     }
 }

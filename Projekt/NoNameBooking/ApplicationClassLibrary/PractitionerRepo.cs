@@ -29,5 +29,10 @@ namespace ApplicationClassLibrary
         {
             throw new NotImplementedException();
         }
+
+        public List<DateTime> GetAvailableTimesForPractitioner(DateTime selectedDateValue, string practitionerName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

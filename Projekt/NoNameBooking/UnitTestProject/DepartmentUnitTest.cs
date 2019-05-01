@@ -84,10 +84,8 @@ namespace UnitTestProject
             DateTime testDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.AddDays(2).Day, 10, 0, 0);
             AppointmentType appointmentType = new AppointmentType("Anders", 123.879, TimeSpan.FromHours(2));
 
-            DateTime testDateTwo = new DateTime(2019, 5, 2, 10, 0, 0);
-
             Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[0], "");
-            Appointment testAppointmentTwo = new Appointment(testDateTwo, users, appointmentType, _testDepartment.Rooms[1], "");
+            Appointment testAppointmentTwo = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[1], "");
 
 
             DateTime startDate = DateTime.Today.AddDays(1);

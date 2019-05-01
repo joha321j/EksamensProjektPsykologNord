@@ -55,5 +55,10 @@ namespace ApplicationClassLibrary
 
             return dates;
         }
+
+        public static List<DateTime> GetAvailableTimes(List<DateTime> practitionerTimes, List<DateTime> departmentTimes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
