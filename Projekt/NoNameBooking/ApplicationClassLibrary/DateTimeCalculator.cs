@@ -56,9 +56,14 @@ namespace ApplicationClassLibrary
             return dates;
         }
 
-        public static List<DateTime> GetAvailableTimes(List<DateTime> practitionerTimes, List<DateTime> departmentTimes)
+        public static List<DateTime> GetAvailableTimes(List<DateTime> firstTimeList, List<DateTime> secondTimeList)
         {
-            throw new NotImplementedException();
+            var availableDateTimes = from date in firstTimeList
+                join practitionerDate in secondTimeList on date equals
+                    practitionerDate
+                select date;
+
+            return availableDateTimes.ToList();
         }
     }
 }
