@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ApplicationClassLibrary;
+using DateTime = System.DateTime;
 
 
 namespace BookNyAftale
@@ -96,7 +97,16 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
-            
+
+            DateTime dateAndTime = default(DateTime);
+            if (dpAppointmentDate.SelectedDate != null)
+            {
+                dateAndTime = (DateTime) dpAppointmentDate.SelectedDate;
+            }
+
+            _controller.CreateAppointment(dateAndTime, cmbbAppointmentTime.SelectionBoxItem.ToString(),
+                cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
+                cmbbPractitioner.SelectionBoxItem.ToString(), cmbbTreatment.SelectionBoxItem.ToString(), txtNotes.Text);
         }
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -67,5 +67,10 @@ namespace ModelClassLibrary
         {
             return GetAvailability(selectedDateValue, selectedDateValue.AddDays(1));
         }
+
+        public object GetAppointmentType(string appointmentTypeString)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

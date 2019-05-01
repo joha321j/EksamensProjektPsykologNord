@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ApplicationClassLibrary
 {
-    internal class DateTimeCalculator
+    public class DateTimeCalculator
     {
         public static List<DateTime> GetBusyDates(List<DateTime> practitionerAvailableDates,
             List<DateTime> departmentAvailableDates, DateTime startDate, DateTime endDate)
@@ -64,6 +64,11 @@ namespace ApplicationClassLibrary
                 select date;
 
             return availableDateTimes.ToList();
+        }
+
+        public static DateTime CalculateTimeFromString(string timeString)
+        {
+            throw new NotImplementedException();
         }
     }
 }

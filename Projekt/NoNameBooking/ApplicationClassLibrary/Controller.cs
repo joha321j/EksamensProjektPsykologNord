@@ -10,6 +10,7 @@ namespace ApplicationClassLibrary
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
         private readonly PractitionerRepo _practitionerRepo;
+        private readonly AppointmentRepo _appointmentRepo;
 
         public EventHandler NewClientCreatedEventHandler;
 
@@ -21,6 +22,8 @@ namespace ApplicationClassLibrary
             _departmentRepo = DepartmentRepo.GetInstance();
 
             _practitionerRepo = PractitionerRepo.GetInstance();
+
+            _appointmentRepo = AppointmentRepo.GetInstance();
         }
 
         private void NewClientEventHandler(object sender, EventArgs e)
@@ -33,7 +36,8 @@ namespace ApplicationClassLibrary
             return _instance ?? (_instance = new Controller());
         }
 
-        public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber, string clientAddress, string clientSsn, string clientNote)
+        public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber, string clientAddress,
+            string clientSsn, string clientNote)
         {
             InputValidator.EnsureValidPhoneNumber(clientPhoneNumber);
             InputValidator.EnsureValidSsn(clientSsn);
@@ -99,6 +103,25 @@ namespace ApplicationClassLibrary
             List<DateTime> availableTimes = DateTimeCalculator.GetAvailableTimes(practitionerTimes, departmentTimes);
 
             return availableTimes.ConvertAll(time => time.ToShortTimeString());
+        }
+
+        public void CreateAppointment(DateTime dateAndTime, string timeString, string departmentName, string clientName,
+            string practitionerName, string appointmentTypeString, string note)
+        {
+            DateTime appointmentTime = DateTimeCalculator.CalculateTimeFromString(timeString);
+
+            dateAndTime = dateAndTime.AddHours(appointmentTime.Hour);
+
+            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
+            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime);
+
+            Client tempClient = _clientRepo.GetClient(clientName);
+            Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
+
+            List<User> users = new List<User>() {tempClient, tempPractitioner};
+
+            _appointmentRepo.AddAppointment(dateAndTime, tempRoom, users,
+                tempPractitioner.GetAppointmentType(appointmentTypeString), note);
         }
     }
 }

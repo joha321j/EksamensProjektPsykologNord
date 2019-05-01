@@ -61,5 +61,10 @@ namespace ModelClassLibrary
         {
             return GetAvailability(selectedDateValue, selectedDateValue.AddDays(1));
         }
+
+        public Room GetAvailableRoom(DateTime dateAndTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
