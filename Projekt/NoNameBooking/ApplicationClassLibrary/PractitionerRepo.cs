@@ -25,14 +25,18 @@ namespace ApplicationClassLibrary
             return _practitioners.Find(practitioner => string.Equals(practitioner.Name, practitionerName));
         }
 
-        public List<DateTime> GetAvailableDatesForPractitioner(string practitionerName)
+        public List<DateTime> GetAvailableDatesForPractitioner(string practitionerName, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            Practitioner tempPractitioner = GetPractitioner(practitionerName);
+
+            return tempPractitioner.GetAvailability(startDate, endDate);
         }
 
         public List<DateTime> GetAvailableTimesForPractitioner(DateTime selectedDateValue, string practitionerName)
         {
-            throw new NotImplementedException();
+            Practitioner tempPractitioner = GetPractitioner(practitionerName);
+
+            return tempPractitioner.GetAvailableTimes(selectedDateValue);
         }
 
         public void AddPractitioner(Practitioner practitioner)

@@ -91,6 +91,11 @@ namespace UnitTestProject
             Assert.IsFalse(availableDateTimes.Contains(testDateTime));
         }
 
+        [TestMethod]
+        public void GetAvailableTimesforDepartmentTest()
+        {
+
+        }
 
     }
 }

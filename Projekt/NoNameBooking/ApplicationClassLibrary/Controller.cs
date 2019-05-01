@@ -78,7 +78,7 @@ namespace ApplicationClassLibrary
             DateTime endDate)
         {
             List<DateTime> practitionerAvailableDates =
-                _practitionerRepo.GetAvailableDatesForPractitioner(practitionerName);
+                _practitionerRepo.GetAvailableDatesForPractitioner(practitionerName, startDate, endDate);
 
             List<DateTime> departmentAvailableDates =
                 _departmentRepo.GetAvailableDatesForDepartment(departmentName, startDate, endDate);

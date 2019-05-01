@@ -13,8 +13,6 @@ namespace UnitTestProject
         [TestInitialize]
         public void PractitionerUnitTestSetup()
         {
-
-
             DateTime starTime = new DateTime(1, 1, 1, 9, 0, 0);
             DateTime endTime = new DateTime(1, 1, 1, 21, 0, 0);
 
@@ -55,10 +53,26 @@ namespace UnitTestProject
             Appointment appointmentOne = new Appointment(testDateTime, users, testAppointmentType, testRoom, "");
 
             DateTime tomorrow = DateTime.Today.AddDays(1);
-            DateTime inOneYear = tomorrow.AddYears(2);
+            DateTime inOneYear = tomorrow.AddYears(1);
             List<DateTime> availableTimeSpans = _testPractitioner.GetAvailability(tomorrow, inOneYear);
 
             Assert.IsFalse(availableTimeSpans.Contains(testDateTime));
+        }
+
+        [TestMethod]
+        public void GetAvailableTimesTest()
+        {
+            Client testClient = new Client();
+            DateTime testDateTime = new DateTime(2019, 06, 17, 9, 0, 0);
+            AppointmentType testAppointmentType = new AppointmentType("TestAppointment", 70, TimeSpan.FromHours(2));
+            Room testRoom = new Room("B");
+
+            List<User> users = new List<User> { testClient, _testPractitioner };
+            Appointment appointmentOne = new Appointment(testDateTime, users, testAppointmentType, testRoom, "");
+
+            List<DateTime> availableTimes = _testPractitioner.GetAvailableTimes(testDateTime.Date);
+
+            Assert.IsFalse(availableTimes.Contains(testDateTime.AddHours(1)));
         }
     }
 }

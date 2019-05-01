@@ -34,7 +34,12 @@ namespace ModelClassLibrary
         {
             foreach (Appointment appointment in _appointments)
             {
-                availableDateTimes.Remove(appointment.DateAndTime);
+                DateTime tempDate = appointment.DateAndTime;
+                for (int i = 0; i < appointment.AppointmentType.Duration.TotalHours; i++)
+                {
+                    availableDateTimes.Remove(tempDate);
+                    tempDate = tempDate.AddHours(1);
+                }
             }
 
             return availableDateTimes;
@@ -56,6 +61,11 @@ namespace ModelClassLibrary
             }
 
             return availableDateTimes;
+        }
+
+        public List<DateTime> GetAvailableTimes(DateTime selectedDateValue)
+        {
+            return GetAvailability(selectedDateValue, selectedDateValue.AddDays(1));
         }
     }
 }
