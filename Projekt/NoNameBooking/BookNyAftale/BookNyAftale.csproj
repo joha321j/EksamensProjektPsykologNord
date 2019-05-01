@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SpecifcInvoice.xaml.cs">
+      <DependentUpon>SpecifcInvoice.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddClient.xaml">
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +91,10 @@
       <DependentUpon>CreateAppointment.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SpecifcInvoice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
