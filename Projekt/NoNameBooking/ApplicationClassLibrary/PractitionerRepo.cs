@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
 {
     public class PractitionerRepo
     {
-        private List<Practitioner> _practitioners;
+        private readonly List<Practitioner> _practitioners;
         private static PractitionerRepo _instance;
 
         private PractitionerRepo()
