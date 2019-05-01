@@ -12,7 +12,7 @@ namespace ApplicationClassLibrary
             List<DateTime> busyDates = PopulateDateList(startDate, endDate);
 
 
-            var availableDateTimes = from date in practitionerAvailableDates
+            IEnumerable<DateTime> availableDateTimes = from date in practitionerAvailableDates
                 join practitionerDate in departmentAvailableDates on date equals
                     practitionerDate
                 select date;
@@ -58,7 +58,7 @@ namespace ApplicationClassLibrary
 
         public static List<DateTime> GetAvailableTimes(List<DateTime> firstTimeList, List<DateTime> secondTimeList)
         {
-            var availableDateTimes = from date in firstTimeList
+            IEnumerable<DateTime> availableDateTimes = from date in firstTimeList
                 join practitionerDate in secondTimeList on date equals
                     practitionerDate
                 select date;
