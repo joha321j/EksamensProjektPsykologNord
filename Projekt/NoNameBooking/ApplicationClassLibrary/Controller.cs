@@ -95,7 +95,7 @@ namespace ApplicationClassLibrary
                 _practitionerRepo.GetAvailableTimesForPractitioner(selectedDateValue, practitionerName);
 
             List<DateTime> departmentTimes =
-                _departmentRepo.GetAvailableTimesForDepartmtent(selectedDateValue, departmentName);
+                _departmentRepo.GetAvailableTimesForDepartment(selectedDateValue, departmentName);
 
             List<DateTime> availableTimes = DateTimeCalculator.GetAvailableTimes(practitionerTimes, departmentTimes);
 
