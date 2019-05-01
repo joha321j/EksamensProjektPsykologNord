@@ -79,8 +79,6 @@ namespace UnitTestProject
             List<User> users = new List<User> {userOne, userTwo, userThree};
 
 
-
-
             DateTime testDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.AddDays(2).Day, 10, 0, 0);
             AppointmentType appointmentType = new AppointmentType("Anders", 123.879, TimeSpan.FromHours(2));
 
@@ -95,6 +93,51 @@ namespace UnitTestProject
             List<DateTime> availableDateTimes = _testDepartment.GetAvailability(startDate, endDate);
 
             Assert.IsFalse(availableDateTimes.Contains(testAppointment.DateAndTime));
+        }
+
+        [TestMethod]
+        public void GetAvailableDatesTest()
+        {
+            Department testDepartment2 = new Department("Kaare sex dungeon", "Hej 24");
+            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(24));
+
+            User testUserOne = new User("testMike", "TestVibevænget 24", "69696969", "Mike@Johannes.mike");
+            User testUserTwo = new User("testMike2", "TestVibevænget 241", "69696968", "Mike@Cancer.Rasmus");
+            List<User> testUsers = new List<User>() { testUserOne, testUserTwo };
+
+            DateTime testDateTime = DateTime.Today.AddDays(1);
+
+            Room testRoom = new Room("Youtube");
+
+            testDepartment2.Rooms.Add(testRoom);
+
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+
+            List<DateTime> availableDateTimes = testDepartment2.GetAvailability(DateTime.Today, DateTime.Today.AddDays(7));
+
+            Assert.IsFalse(availableDateTimes.Contains(testDateTime));
+        }
+
+        [TestMethod]
+        public void AddPractitionerTest()
+        {
+            Practitioner prac = new Practitioner(DateTime.Today, TimeSpan.FromHours(9));
+            _testDepartment.AddPractitioner(prac);
+        }
+
+        [TestMethod]
+        public void GetPractitionersTest()
+        {
+            Practitioner prac1 = new Practitioner(DateTime.Today, TimeSpan.FromHours(9));
+            Practitioner prac2 = new Practitioner(DateTime.Today, TimeSpan.FromHours(9));
+
+            List<Practitioner> compareList = new List<Practitioner>(){prac1, prac2};
+
+            _testDepartment.AddPractitioner(prac1);
+            _testDepartment.AddPractitioner(prac2);
+
+            CollectionAssert.AreEqual(compareList,_testDepartment.GetPractitioners());
+            
         }
 
     }

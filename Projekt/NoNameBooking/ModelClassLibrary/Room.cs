@@ -43,7 +43,13 @@ namespace ModelClassLibrary
         {
             foreach (Appointment appointment in Appointments)
             {
-                availableDateTimes.Remove(appointment.DateAndTime);
+                DateTime temp = appointment.DateAndTime;
+                for (int i = 0; i < appointment.AppointmentType.Duration.TotalHours; i++)
+                {
+                    availableDateTimes.Remove(temp);
+                    temp = temp.AddHours(1);
+                }
+                
             }
 
             return availableDateTimes;

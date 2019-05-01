@@ -55,6 +55,7 @@
     <Compile Include="DepartmentRepoUnitTest.cs" />
     <Compile Include="DepartmentUnitTest.cs" />
     <Compile Include="InputValidatorUnitTest.cs" />
+    <Compile Include="PractitionerRepoUnitTest.cs" />
     <Compile Include="PractitionerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomUnitTest.cs" />

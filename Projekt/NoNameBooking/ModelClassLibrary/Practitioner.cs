@@ -11,7 +11,8 @@ namespace ModelClassLibrary
 
         public List<AppointmentType> TreatmentTypes { get; private set; }
 
-        public Practitioner(DateTime start, TimeSpan dayLength)
+        public Practitioner(DateTime start, TimeSpan dayLength, string practitionerName = "", string practitionerEmail = "", string practitionerPhoneNumber = "",
+            string practitionerAddress = "") : base(practitionerName, practitionerAddress, practitionerPhoneNumber, practitionerEmail)
         {
             Start = start;
             DayLength = dayLength;

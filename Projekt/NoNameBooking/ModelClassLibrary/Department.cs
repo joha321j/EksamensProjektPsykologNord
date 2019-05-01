@@ -51,5 +51,10 @@ namespace ModelClassLibrary
         {
             return _practitioners;
         }
+
+        public void AddPractitioner(Practitioner practitioner)
+        {
+            _practitioners.Add(practitioner);
+        }
     }
 }

@@ -5,7 +5,7 @@ using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
 {
-    class PractitionerRepo
+    public class PractitionerRepo
     {
         private List<Practitioner> _practitioners;
         private static PractitionerRepo _instance;
@@ -33,6 +33,18 @@ namespace ApplicationClassLibrary
         public List<DateTime> GetAvailableTimesForPractitioner(DateTime selectedDateValue, string practitionerName)
         {
             throw new NotImplementedException();
+        }
+
+        public void AddPractitioner(Practitioner practitioner)
+        {
+            _practitioners.Add(practitioner);
+        }
+
+
+
+        public void ResetInstance()
+        {
+            _instance = null;
         }
     }
 }

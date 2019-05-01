@@ -31,8 +31,9 @@ namespace UnitTestProject
             _instance = DepartmentRepo.GetInstance();
             _departmentOne = new Department("TestDepartmentOne", "TestAddressOne");
             _departmentTwo = new Department("TestDepartmentTwo", "TestAddressTwo");
-            
+
         }
+
         [TestMethod]
         public void GetInstanceTest()
         {
@@ -52,7 +53,7 @@ namespace UnitTestProject
         public void GetDepartmentTest()
         {
             _instance.AddDepartment(_departmentOne);
-            Assert.AreEqual(_departmentOne,_instance.GetDepartment("TestDepartmentOne"));
+            Assert.AreEqual(_departmentOne, _instance.GetDepartment("TestDepartmentOne"));
         }
 
         [TestMethod]
@@ -67,6 +68,29 @@ namespace UnitTestProject
 
             CollectionAssert.AreEquivalent(compare, testList);
         }
-    
+
+        [TestMethod]
+        public void GetAvailableDatesForDepartmentTest()
+        {
+            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(24));
+
+            User testUserOne = new User("Mike", "TestBoulevard 24", "69696969", "Mike@Mikeson.mike");
+            User testUserTwo = new User("Mike2", "TestBoulevard 241", "69696968", "Mike@Mikeson.Rasmus");
+            List<User> testUsers = new List<User>() { testUserOne, testUserTwo };
+
+            DateTime testDateTime = DateTime.Today.AddDays(1);
+
+            _instance.AddDepartment(_departmentOne);
+            Room testRoom = new Room("TestName");
+            _departmentOne.Rooms.Add(testRoom);
+
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+
+            List<DateTime> availableDateTimes = _instance.GetAvailableDatesForDepartment("TestDepartmentOne", DateTime.Today, DateTime.Today.AddDays(7));
+
+            Assert.IsFalse(availableDateTimes.Contains(testDateTime));
+        }
+
+
     }
 }
