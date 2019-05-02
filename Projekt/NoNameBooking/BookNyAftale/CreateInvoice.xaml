@@ -5,9 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookNyAftale"
         mc:Ignorable="d"
-        Title="CreateInvoice" Height="572.643" Width="777.869">
+        Title="CreateInvoice" Height="738.6" Width="777.869">
     <Grid>
         <Label Content="Opret faktura" HorizontalAlignment="Left" Margin="18,20,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-
+        <Button Content="Godkend faktura" HorizontalAlignment="Left" Margin="18,51,0,0" VerticalAlignment="Top" Width="99" Name="btnApproveInvoice"/>
+        <Button Content="Opret som igangværende faktura" HorizontalAlignment="Left" Margin="141,51,0,0" VerticalAlignment="Top" Width="185" Name="btnCreateAsOngoingInvoice"/>
+        <Label Content="Behandler navn" HorizontalAlignment="Left" Margin="535,75,0,0" VerticalAlignment="Top" Name="lblPractitionerNameInvoice" FontWeight="Bold" FontSize="25"/>
+        <Label Content="Klient" HorizontalAlignment="Left" Margin="18,145,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <ComboBox HorizontalAlignment="Left" Margin="18,176,0,0" VerticalAlignment="Top" Width="308" Name="cmbbChooseClientInvoice"/>
+        <Button Content="Opret klient" HorizontalAlignment="Left" Margin="351,176,0,0" VerticalAlignment="Top" Width="75" Height="22" Name="btnCreateClientInvoice"/>
+        <Label Content="Dine Oplysninger" HorizontalAlignment="Left" Margin="449,145,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Grid HorizontalAlignment="Left" Height="71" Margin="449,176,0,0" VerticalAlignment="Top" Width="311" Background="LightGray">
+            <Label Content="Behandler navn" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Name="lblPractitionerNameInfoInvoice"/>
+            <Label Content="behandler@email.com" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Name="lblPractitionerEmailInfoInvoice"/>
+        </Grid>
+        <Label Content="Faktura note" HorizontalAlignment="Left" Margin="18,221,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Height="53" Margin="18,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="408" AcceptsReturn="True" SpellCheck.IsEnabled="True" Name="txtCreateInvoiceNote"/>
+        <Label Content="Faktura information" HorizontalAlignment="Left" Margin="449,252,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Fakturanummer" HorizontalAlignment="Left" Margin="449,283,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fakturadato" HorizontalAlignment="Left" Margin="605,283,0,0" VerticalAlignment="Top"/>
+        <Label Content="Dato for udført arbejde" HorizontalAlignment="Left" Margin="449,347,0,0" VerticalAlignment="Top"/>
+        <Label Content="Forfaldsdato" HorizontalAlignment="Left" Margin="608,347,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="449,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Name="txtCreateInvoiceNumber"/>
+        <DatePicker HorizontalAlignment="Left" Margin="608,309,0,0" VerticalAlignment="Top" Name="dpCreateInvoiceDate" Width="150"/>
+        <DatePicker HorizontalAlignment="Left" Margin="449,373,0,0" VerticalAlignment="Top" x:Name="dpCreateInvoiceDateOfWork" Width="150"/>
+        <DatePicker HorizontalAlignment="Left" Margin="608,373,0,0" VerticalAlignment="Top" x:Name="dpCreateInvoiceLastDayToPay" Width="150"/>
+        <Label Content="OrdreLinje" HorizontalAlignment="Left" Margin="18,410,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Tekst" HorizontalAlignment="Left" Margin="24,441,0,0" VerticalAlignment="Top"/>
+        <Label Content="Antal" HorizontalAlignment="Left" Margin="449,441,0,0" VerticalAlignment="Top"/>
+        <Label Content="Stk. pris" HorizontalAlignment="Left" Margin="548,441,0,0" VerticalAlignment="Top"/>
+        <Label Content="Moms" HorizontalAlignment="Left" Margin="608,441,0,0" VerticalAlignment="Top"/>
+        <Label Content="Totalpris" HorizontalAlignment="Left" Margin="704,441,0,0" VerticalAlignment="Top"/>
+        <Grid HorizontalAlignment="Left" Height="43" Margin="18,472,0,0" VerticalAlignment="Top" Width="740" Background="LightGray">
+            <ComboBox HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="393" Name="cmbbCreateInvoiceTreatment" Height="23"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="419,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Name="txtCreateInvoiceAmount"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="483,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Name="txtCreateInvoicePricePerTreatment"/>
+            <CheckBox HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="17" Name="cbCreateInvoiceVAT"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="634,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Name="txtCreateInvoiceTotalPrice"/>
+        </Grid>
+        <Label Content="0,00" HorizontalAlignment="Left" Margin="720,554,0,0" VerticalAlignment="Top" Name="lblCreateInvoiceSubTotal"/>
+        <Label Content="Subtotal" HorizontalAlignment="Left" Margin="641,554,0,0" VerticalAlignment="Top"/>
+        <Label Content="Moms" HorizontalAlignment="Left" Margin="652,585,0,0" VerticalAlignment="Top"/>
+        <Label Content="0,00" HorizontalAlignment="Left" Margin="720,585,0,0" VerticalAlignment="Top" Name="lblCreateInvoiceVAT"/>
+        <Label Content="Total DKK" HorizontalAlignment="Left" Margin="629,616,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="0,00" HorizontalAlignment="Left" Margin="720,616,0,0" VerticalAlignment="Top" FontWeight="Bold" Name="lblCreateInvoiceTotalPriceDKK"/>
     </Grid>
 </Window>
