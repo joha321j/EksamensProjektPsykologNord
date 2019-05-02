@@ -96,14 +96,25 @@
                         <Label Grid.Column="1" HorizontalAlignment="Center" Margin="0,93,0,0" VerticalAlignment="Top" Foreground="Blue" Cursor="Hand">
                             <TextBlock TextDecorations="underline">link</TextBlock>
                         </Label>
-                        <Label Content="Event tilmelding på denne faktura" HorizontalAlignment="Center" Margin="0,31,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" FontSize="15"/>
+                        <Label Content="Event tilmeldinger på denne faktura" HorizontalAlignment="Center" Margin="0,31,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" FontSize="15"/>
                         <Label Content="dato" HorizontalAlignment="center" Margin="0,83,0,0" Grid.Row="1" VerticalAlignment="Top" Name="lblInvoiceInfoDate" BorderBrush="Blue"/>
 
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Begivnheder">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <ListView HorizontalAlignment="Left" Height="531" Margin="10,10,0,0" VerticalAlignment="Top" Width="1026">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Dato" Width="150"/>
+                                <GridViewColumn Header="Behandler" Width="250"/>
+                                <GridViewColumn Header="Begivenhed" Width="375"/>
+                                <GridViewColumn Header="Gå til klient" Width="250"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </TabItem>
         </TabControl>
 
