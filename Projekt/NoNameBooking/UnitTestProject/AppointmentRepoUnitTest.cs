@@ -64,8 +64,6 @@ namespace UnitTestProject
             _instance.AddAppointment(tempAppointment);
 
             CollectionAssert.AreEqual(_instance.GetAppointments(), compareList);
-
-
         }
     }
 }
