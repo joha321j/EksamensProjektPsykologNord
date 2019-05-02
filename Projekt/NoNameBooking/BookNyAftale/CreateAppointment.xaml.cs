@@ -97,7 +97,6 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
-
             DateTime dateAndTime = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
             {

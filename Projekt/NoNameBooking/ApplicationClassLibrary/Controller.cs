@@ -72,7 +72,7 @@ namespace ApplicationClassLibrary
         public List<string> GetTreatments(string practitionerName)
         {
             Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
-            List<AppointmentType> treatments = tempPractitioner.TreatmentTypes;
+            List<AppointmentType> treatments = tempPractitioner.AppointmentTypes;
 
             return treatments.ConvertAll(treatmentType => treatmentType.Name);
         }
@@ -120,8 +120,9 @@ namespace ApplicationClassLibrary
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
 
-            _appointmentRepo.AddAppointment(dateAndTime, tempRoom, users,
+            Appointment tempAppointment = _appointmentRepo.CreateAppointment(dateAndTime, tempRoom, users,
                 tempPractitioner.GetAppointmentType(appointmentTypeString), note);
+            _appointmentRepo.AddAppointment(tempAppointment);
         }
     }
 }

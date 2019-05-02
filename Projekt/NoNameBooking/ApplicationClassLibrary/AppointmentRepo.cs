@@ -5,11 +5,11 @@ using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
 {
-    class AppointmentRepo
+    public class AppointmentRepo
     {
         private static AppointmentRepo _instance;
 
-        private List<Appointment> _appointments;
+        private readonly List<Appointment> _appointments;
 
         private AppointmentRepo()
         {
@@ -21,9 +21,24 @@ namespace ApplicationClassLibrary
             return _instance ?? (_instance = new AppointmentRepo());
         }
 
-        public void AddAppointment(DateTime dateAndTime, Room tempRoom, List<User> users, object getAppointmentType, string note)
+        public void AddAppointment(Appointment appointment)
         {
-            throw new NotImplementedException();
+            _appointments.Add(appointment);
+        }
+
+        public Appointment CreateAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
+        {
+            return new Appointment(dateAndTime, users, appointmentType, room, note);
+        }
+
+        public void ResetInstance()
+        {
+            _instance = null;
+        }
+
+        public List<Appointment> GetAppointments()
+        {
+            return _appointments;
         }
     }
 }
