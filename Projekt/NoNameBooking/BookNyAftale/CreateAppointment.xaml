@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080"
          WindowState="Maximized">
     <Grid >
+        <!--wpfTool:TimePicker x:Name="TPTime" Height="30" Width="100" RenderTransformOrigin="-0.295,2.1" Margin="348,384,624,275" Format="ShortTime"  StartTime="9:00" EndTime="21:00" ShowButtonSpinner="False" Value ="9:00" ContextMenuClosing="Eventtest"/-->
         <Label Content="Opret aftale" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="22"/>
         <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="103,387,0,0" SelectedDateChanged="DpAppointmentDate_OnSelectedDateChanged"/>
         <Label Content="Vælg dato og  tidspunkt:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,358,0,0"/>
