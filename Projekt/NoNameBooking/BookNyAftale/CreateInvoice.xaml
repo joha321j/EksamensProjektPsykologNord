@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookNyAftale"
         mc:Ignorable="d"
-        Title="CreateInvoice" Height="738.6" Width="777.869">
+        Title="CreateInvoice" Height="872.642" Width="777.869">
     <Grid>
         <Label Content="Opret faktura" HorizontalAlignment="Left" Margin="18,20,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Button Content="Godkend faktura" HorizontalAlignment="Left" Margin="18,51,0,0" VerticalAlignment="Top" Width="99" Name="btnApproveInvoice"/>
@@ -49,5 +49,12 @@
         <Label Content="0,00" HorizontalAlignment="Left" Margin="720,585,0,0" VerticalAlignment="Top" Name="lblCreateInvoiceVAT"/>
         <Label Content="Total DKK" HorizontalAlignment="Left" Margin="629,616,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="0,00" HorizontalAlignment="Left" Margin="720,616,0,0" VerticalAlignment="Top" FontWeight="Bold" Name="lblCreateInvoiceTotalPriceDKK"/>
+        <Label Content="Sådan betaler du " HorizontalAlignment="Left" Margin="18,646,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Du betaler bankoverførsel. Overfør ovenstående beløb til kontonummer XXXX XXXXXX og skriv fakturanummeret på overførslen." HorizontalAlignment="Left" Margin="18,672,0,0" VerticalAlignment="Top"/>
+        <Label Content="Betalingsbetingelser" HorizontalAlignment="Left" Margin="18,703,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="90 dage netto, fra fakturadato." HorizontalAlignment="Left" Margin="18,729,0,0" VerticalAlignment="Top"/>
+        <Label Content="Bankinformation" HorizontalAlignment="Left" Margin="18,766,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Bank: Banknavn" HorizontalAlignment="Left" Margin="18,786,0,0" VerticalAlignment="Top" Name="lblInvoiceBankName"/>
+        <Label Content="Kontonummer: XXXX XXXXXX" HorizontalAlignment="Left" Margin="18,806,0,0" VerticalAlignment="Top" Name="lblInvoiceAccountNumber"/>
     </Grid>
 </Window>
