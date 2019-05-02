@@ -77,7 +77,30 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Information">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Ikke betalt endnu" HorizontalAlignment="center" Margin="0,70,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Foreground="Red" Name="lblInvoicePaid"/>
+                    <Label Content="Klik på knappen 'Marker faktura som betalt', når du har modtaget betalingen for denne faktura." HorizontalAlignment="Center" Margin="0,107,0,0" VerticalAlignment="Top"/>
+                    <Grid HorizontalAlignment="Left" Height="391" Margin="0,160,0,0" VerticalAlignment="Top" Width="1046" ShowGridLines="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Klient navn" HorizontalAlignment="center" Margin="216,49,217,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Name="lblInvoiceInfoClientName"/>
+                        <Button Content="Gå til klient" HorizontalAlignment="Center" Margin="0,93,0,0" VerticalAlignment="Top" Width="75" Name="btnInvoiceGoToClient"/>
+                        <Button Content="Rediger klient" HorizontalAlignment="Center" Margin="0,135,0,0" VerticalAlignment="Top" Width="75" Name="btnInvoiceEditClient"/>
+                        <Label Content="Klienten kan se fakturaen gennem dette link" Grid.Column="1" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15"/>
+                        <Label Grid.Column="1" HorizontalAlignment="Center" Margin="0,93,0,0" VerticalAlignment="Top" Foreground="Blue" Cursor="Hand">
+                            <TextBlock TextDecorations="underline">link</TextBlock>
+                        </Label>
+                        <Label Content="Event tilmelding på denne faktura" HorizontalAlignment="Center" Margin="0,31,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" FontSize="15"/>
+                        <Label Content="dato" HorizontalAlignment="center" Margin="0,83,0,0" Grid.Row="1" VerticalAlignment="Top" Name="lblInvoiceInfoDate" BorderBrush="Blue"/>
+
+                    </Grid>
+                </Grid>
             </TabItem>
             <TabItem Header="Begivnheder">
                 <Grid Background="#FFE5E5E5"/>
