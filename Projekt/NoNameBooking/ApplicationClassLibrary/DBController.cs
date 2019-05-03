@@ -10,7 +10,7 @@ namespace ApplicationClassLibrary
     {
         private static string _connectionString = "Server=EALSQL1.eal.local; Database = B_DB19_2018; User Id = B_STUDENT19; Password = B_OPENDB19; MultipleActiveResultSets=True;";
 
-        public void AddAppointment(int id, string connectionString, DateTime dateAndTime, string note)
+        public void AddAppointment(string connectionString, DateTime dateAndTime, string note)
         {
             try
             {
