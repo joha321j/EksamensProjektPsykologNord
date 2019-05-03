@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
@@ -49,9 +48,11 @@ namespace ApplicationClassLibrary
             _instance = null;
         }
 
-        public List<DateTime> GetAvailableTimesForDepartmtent(DateTime selectedDateValue, string departmentName)
+        public List<DateTime> GetAvailableTimesForDepartment(DateTime selectedDateValue, string departmentName)
         {
-            throw new NotImplementedException();
+            Department tempDepartment = GetDepartment(departmentName);
+
+            return tempDepartment.GetAvailableTimes(selectedDateValue);
         }
     }
 }

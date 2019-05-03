@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ApplicationClassLibrary;
+using DateTime = System.DateTime;
 
 
 namespace BookNyAftale
@@ -96,7 +97,22 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            DateTime date = default(DateTime);
+            if (dpAppointmentDate.SelectedDate != null)
+            {
+                date = (DateTime) dpAppointmentDate.SelectedDate;
+            }
+
+            try
+            {
+                _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
+                    cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
+            }
+            catch (InvalidInputException exception)
+            {
+                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -134,8 +150,8 @@ namespace BookNyAftale
         {
             List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
 
-            cmbbTreatment.ItemsSource = treatments;
-            cmbbTreatment.SelectedIndex = 0;
+            cmbbAppointmentType.ItemsSource = treatments;
+            cmbbAppointmentType.SelectedIndex = 0;
         }
 
         private void DpAppointmentDate_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)

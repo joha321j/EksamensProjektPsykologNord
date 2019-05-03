@@ -43,5 +43,10 @@ namespace ApplicationClassLibrary
         {
             return _clients;
         }
+
+        public Client GetClient(string clientName)
+        {
+            return _clients.Find(client => string.Equals(client.Name, clientName));
+        }
     }
 }

@@ -74,6 +74,16 @@ namespace UnitTestProject
 
             Assert.IsFalse(availableTimes.Contains(testDateTime.AddHours(1)));
         }
+
+        [TestMethod]
+        public void GetAppointmentTypeTest()
+        {
+            AppointmentType testAppointmentType =
+                new AppointmentType("TestAppointment", 1200.00, TimeSpan.FromHours(1));
+            _testPractitioner.AppointmentTypes.Add(testAppointmentType);
+
+            Assert.AreEqual(testAppointmentType, _testPractitioner.GetAppointmentType("TestAppointment"));
+        }
     }
 }
 

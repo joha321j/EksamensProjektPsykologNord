@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentRepoUnitTest.cs" />
     <Compile Include="ClientRepoUnitTest.cs" />
     <Compile Include="ClientUnitTest.cs" />
     <Compile Include="DepartmentRepoUnitTest.cs" />

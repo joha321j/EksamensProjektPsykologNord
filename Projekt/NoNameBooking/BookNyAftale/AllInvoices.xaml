@@ -1,0 +1,74 @@
+﻿<Window x:Class="BookNyAftale.AllInvoices"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookNyAftale"
+        mc:Ignorable="d"
+        Title="AllInvoices" Height="720" Width="1080"
+         WindowState="Maximized">
+    <Grid HorizontalAlignment="Center">
+        <Grid HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="1072">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Kalender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="0" Name="btnCalendar"/>
+            <Button Content="Klienter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="1" Name="btnClients"/>
+            <Button Content="Ydelser" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="2" Name="btnTreatments"/>
+            <Button Content="Faktura" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="3" Name="btnInvoice"/>
+            <Button Content="Statistik" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="4" Name="btnStatistics"/>
+            <Button Content="Indstillinger" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="5" Name="btnSettings"/>
+            <Button Content="Apps" HorizontalAlignment="Left" VerticalAlignment="Top" Width="154" Height="75" Grid.Column="5" Name="btnApps" Grid.ColumnSpan="2" Margin="153,0,0,0"/>
+        </Grid>
+        <Label Content="Fakturaer" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
+        <Button Content="Opret ny faktura" HorizontalAlignment="Left" Margin="11,150,0,0" VerticalAlignment="Top" Width="98" Name="btnCreateInvoice"/>
+        <Button Content="Opret ny kreditnota" HorizontalAlignment="Left" Margin="120,150,0,0" VerticalAlignment="Top" Width="112" Name="btnCreateNota"/>
+        <Button Content="Hent fakturaer" HorizontalAlignment="Left" Margin="248,150,0,0" VerticalAlignment="Top" Width="95" Name="btnDownloadInvoice"/>
+        <Button Content="Hent rapport" HorizontalAlignment="Left" Margin="353,150,0,0" VerticalAlignment="Top" Width="75" Name="btnDownloadRapport"/>
+        <Grid HorizontalAlignment="Left" Height="80" Margin="11,195,0,0" VerticalAlignment="Top" Width="180">
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="180"/>
+            <Label Content="Omsætning i år" HorizontalAlignment="Left" Margin="50,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="DKK" HorizontalAlignment="Left" Margin="18,41,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="7777,00" HorizontalAlignment="Left" Margin="50,41,0,0" VerticalAlignment="Top" FontWeight="Bold" Name="lblYearlyTurnover"/>
+            <Label Content="ex. moms" HorizontalAlignment="Left" Margin="105,44,0,0" VerticalAlignment="Top" FontWeight="Light" FontSize="10"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="80" Margin="463,195,0,0" VerticalAlignment="Top" Width="180">
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="180"/>
+            <Label Content="Omsætning denne måned" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="DKK" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="0,00" HorizontalAlignment="Left" Margin="49,41,0,0" VerticalAlignment="Top" FontWeight="Bold" Name="lblMonthlyTurnover"/>
+            <Label Content="ex. moms" HorizontalAlignment="Left" Margin="90,44,0,0" VerticalAlignment="Top" FontWeight="Light" FontSize="10"/>
+        </Grid>
+        <Grid Margin="846,195,46,414">
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="180"/>
+            <Label Content="Omsætning denne uge" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="21,10,0,0"/>
+            <Label Content="DKK" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="10,41,0,0"/>
+            <Label Content="0,00" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" x:Name="lblWeeklyTurnover" Margin="49,41,0,0"/>
+            <Label Content="ex. moms" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Light" FontSize="10" Margin="90,44,0,0"/>
+        </Grid>
+        <Button Content="Skjul nøgletal" HorizontalAlignment="Left" Margin="941,155,0,0" VerticalAlignment="Top" Width="85" Name="btnHideTurnover"/>
+        <ListView HorizontalAlignment="Left" Height="338" Margin="11,341,0,0" VerticalAlignment="Top" Width="1015">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Nummer" Width="100"/>
+                    <GridViewColumn Header="Klient" Width="430"/>
+                    <GridViewColumn Header="Oprettelses dato" Width="240"/>
+                    <GridViewColumn Header="Beløb" Width="240"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="11,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Name="txtSearchInvoiceText"/>
+        <Button Content="Søg" HorizontalAlignment="Left" Margin="196,313,0,0" VerticalAlignment="Top" Width="60" Height="23" Name="btnSearchInvoices"/>
+        <Button Content="Vælg fakturaer" HorizontalAlignment="Left" Margin="419,313,0,0" VerticalAlignment="Top" Width="89" Height="23" Name="btnSelectInvoices"/>
+        <ComboBox HorizontalAlignment="Left" Margin="560,313,0,0" VerticalAlignment="Top" Width="169" Height="23" Name="cmbbArrangeInvoices"/>
+        <ComboBox HorizontalAlignment="Left" Margin="846,313,0,0" VerticalAlignment="Top" Width="180" Height="23" Name="cmbbSortingInvoices"/>
+
+
+    </Grid>
+</Window>

@@ -94,7 +94,23 @@ namespace UnitTestProject
         [TestMethod]
         public void GetAvailableTimesforDepartmentTest()
         {
+            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(4));
 
+            User testUserOne = new User("asd", "ghd 24", "2324655", "sadffd@cxv.d");
+            User testUserTwo = new User("asdasd", "fj, 241", "23563223", "Mixcvke@sdfh.hg");
+            List<User> testUsers = new List<User>() { testUserOne, testUserTwo };
+
+            DateTime testDateTime = DateTime.Today.AddDays(1);
+
+            _instance.AddDepartment(_departmentOne);
+            Room testRoom = new Room("pohjpd");
+            _departmentOne.Rooms.Add(testRoom);
+
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+
+            List<DateTime> availableTimes = _instance.GetAvailableTimesForDepartment(testDateTime.Date, "TestDepartmentOne");
+
+            Assert.IsFalse(availableTimes.Contains(testDateTime.AddHours(3)));
         }
 
     }

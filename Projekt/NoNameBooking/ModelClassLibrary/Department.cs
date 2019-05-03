@@ -56,5 +56,15 @@ namespace ModelClassLibrary
         {
             _practitioners.Add(practitioner);
         }
+
+        public List<DateTime> GetAvailableTimes(DateTime selectedDateValue)
+        {
+            return GetAvailability(selectedDateValue, selectedDateValue.AddDays(1));
+        }
+
+        public Room GetAvailableRoom(DateTime dateAndTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
