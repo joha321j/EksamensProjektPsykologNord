@@ -97,15 +97,15 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
-            DateTime dateAndTime = default(DateTime);
+            DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
             {
-                dateAndTime = (DateTime) dpAppointmentDate.SelectedDate;
+                date = (DateTime) dpAppointmentDate.SelectedDate;
             }
 
             try
             {
-                _controller.CreateAppointment(dateAndTime, cmbbAppointmentTime.SelectionBoxItem.ToString(),
+                _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
                     cmbbPractitioner.SelectionBoxItem.ToString(), cmbbTreatment.SelectionBoxItem.ToString(), txtNotes.Text);
             }
