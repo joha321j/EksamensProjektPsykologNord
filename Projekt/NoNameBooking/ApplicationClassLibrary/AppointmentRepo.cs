@@ -26,7 +26,13 @@ namespace ApplicationClassLibrary
             _appointments.Add(appointment);
         }
 
-        public Appointment CreateAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
+        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
+        {
+            Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note);
+            AddAppointment(tempAppointment);
+        }
+
+        private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note)
         {
             return new Appointment(dateAndTime, users, appointmentType, room, note);
         }

@@ -58,12 +58,12 @@ namespace UnitTestProject
             AppointmentType tempAppointmentType = new AppointmentType("Help", 2500, TimeSpan.FromHours(10));
             Room testRoom = new Room("Beta");
 
-            Appointment tempAppointment = _instance.CreateAppointment(date, testRoom, users, tempAppointmentType, "Hey");
+            Appointment tempAppointment = new Appointment(date, users, tempAppointmentType, testRoom, "Hey");
+
+            _instance.CreateAndAddAppointment(date, testRoom, users, tempAppointmentType, "Hey");
+
             List<Appointment> compareList = new List<Appointment>(){tempAppointment};
-
-            _instance.AddAppointment(tempAppointment);
-
-            CollectionAssert.AreEqual(_instance.GetAppointments(), compareList);
+            Assert.IsTrue(_instance.GetAppointments().Exists(appointment => appointment.DateAndTime == date));
         }
     }
 }
