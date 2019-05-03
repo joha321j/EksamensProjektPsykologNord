@@ -87,5 +87,15 @@ namespace UnitTestProject
         {
             InputValidator.EnsureValidZip("   ");
         }
+
+        [TestMethod]
+        public void ConvertShortTimeStringToDateTimeTest()
+        {
+            string testTimeString = new DateTime(1, 1, 1, 12, 05, 12).ToShortTimeString();
+
+            DateTime testDateTime = InputValidator.ConvertShortTimeStringToDateTime(testTimeString);
+
+            Assert.AreEqual(testTimeString, testDateTime.ToShortTimeString());
+        }
     }
 }

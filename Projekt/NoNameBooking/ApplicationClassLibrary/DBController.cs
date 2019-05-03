@@ -208,5 +208,55 @@ namespace ApplicationClassLibrary
                 throw e;
             }
         }
+
+        public void AddTreatementType(string connectionString, int id, string name, DateTime duration, double price)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("spInsertUser", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@TreatmentTypeId", id);
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Duration", duration);
+                    command.Parameters.AddWithValue("@StandardPrice", price);
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+
+                }
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
+        }
+
+        public void SelectAppointment(string connectionString, )
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("spSelectAppointment", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
+        }
     }
 }

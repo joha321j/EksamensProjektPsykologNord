@@ -4,10 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow" Height="720" Width="1080"
          WindowState="Maximized">
     <Grid >
+        <!--wpfTool:TimePicker x:Name="TPTime" Height="30" Width="100" RenderTransformOrigin="-0.295,2.1" Margin="348,384,624,275" Format="ShortTime"  StartTime="9:00" EndTime="21:00" ShowButtonSpinner="False" Value ="9:00" ContextMenuClosing="Eventtest"/-->
         <Label Content="Opret aftale" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="22"/>
         <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="103,387,0,0" SelectedDateChanged="DpAppointmentDate_OnSelectedDateChanged"/>
         <Label Content="Vælg dato og  tidspunkt:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,358,0,0"/>
@@ -17,7 +20,7 @@
         <Button x:Name="btnAddClient" Content="Opret klient" HorizontalAlignment="Left" Margin="566,118,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddClient_Click"/>
         <ComboBox x:Name="cmbbDepartment" HorizontalAlignment="Left" Margin="100,182,0,0" VerticalAlignment="Top" Width="541" SelectionChanged="CmbbDepartment_SelectionChanged"/>
         <Label Content="Vælg afdeling:" HorizontalAlignment="Left" Margin="100,151,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbbTreatment" HorizontalAlignment="Left" Margin="100,323,0,0" VerticalAlignment="Top" Width="541"/>
+        <ComboBox x:Name="cmbbAppointmentType" HorizontalAlignment="Left" Margin="100,323,0,0" VerticalAlignment="Top" Width="541"/>
         <Label Content="Vælg ydelse:" HorizontalAlignment="Left" Margin="100,292,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtNotes" HorizontalAlignment="Left" Height="113" Margin="100,438,0,0" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" VerticalAlignment="Top" Width="541"/>
         <Label Content="Noter:" HorizontalAlignment="Left" Margin="100,407,0,0" VerticalAlignment="Top"/>

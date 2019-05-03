@@ -9,13 +9,14 @@ namespace ModelClassLibrary
         public DateTime Start { get; set; }
         public TimeSpan DayLength { get; set; }
 
-        public List<AppointmentType> TreatmentTypes { get; private set; }
+        public List<AppointmentType> AppointmentTypes { get; private set; }
 
         public Practitioner(DateTime start, TimeSpan dayLength, string practitionerName = "", string practitionerEmail = "", string practitionerPhoneNumber = "",
             string practitionerAddress = "") : base(practitionerName, practitionerAddress, practitionerPhoneNumber, practitionerEmail)
         {
             Start = start;
             DayLength = dayLength;
+            AppointmentTypes = new List<AppointmentType>();
         }
 
         public List<DateTime> GetAvailability(DateTime startDate, DateTime endDate)
@@ -66,6 +67,11 @@ namespace ModelClassLibrary
         public List<DateTime> GetAvailableTimes(DateTime selectedDateValue)
         {
             return GetAvailability(selectedDateValue, selectedDateValue.AddDays(1));
+        }
+
+        public AppointmentType GetAppointmentType(string appointmentTypeString)
+        {
+            return AppointmentTypes.Find(appointment => String.Equals(appointment.Name, appointmentTypeString));
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ApplicationClassLibrary
 {
-    internal class DateTimeCalculator
+    public class DateTimeCalculator
     {
         public static List<DateTime> GetBusyDates(List<DateTime> practitionerAvailableDates,
             List<DateTime> departmentAvailableDates, DateTime startDate, DateTime endDate)
@@ -12,7 +12,7 @@ namespace ApplicationClassLibrary
             List<DateTime> busyDates = PopulateDateList(startDate, endDate);
 
 
-            var availableDateTimes = from date in practitionerAvailableDates
+            IEnumerable<DateTime> availableDateTimes = from date in practitionerAvailableDates
                 join practitionerDate in departmentAvailableDates on date equals
                     practitionerDate
                 select date;
@@ -56,9 +56,14 @@ namespace ApplicationClassLibrary
             return dates;
         }
 
-        public static List<DateTime> GetAvailableTimes(List<DateTime> practitionerTimes, List<DateTime> departmentTimes)
+        public static List<DateTime> GetAvailableTimes(List<DateTime> firstTimeList, List<DateTime> secondTimeList)
         {
-            throw new NotImplementedException();
+            IEnumerable<DateTime> availableDateTimes = from date in firstTimeList
+                join practitionerDate in secondTimeList on date equals
+                    practitionerDate
+                select date;
+
+            return availableDateTimes.ToList();
         }
     }
 }
