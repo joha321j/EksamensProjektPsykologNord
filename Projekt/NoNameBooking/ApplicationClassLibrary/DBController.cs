@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
 {
@@ -10,11 +11,11 @@ namespace ApplicationClassLibrary
     {
         private static string _connectionString = "Server=EALSQL1.eal.local; Database = B_DB19_2018; User Id = B_STUDENT19; Password = B_OPENDB19; MultipleActiveResultSets=True;";
 
-        public void AddAppointment(string connectionString, int id, DateTime dateAndTime, string  roomName, string departmentName, int practitionerId, double price, int treatmentTypeId, string note)
+        public void AddAppointment(int id, DateTime dateAndTime, string  roomName, string departmentName, int practitionerId, double price, int treatmentTypeId, string note)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertAppointment", connection);
@@ -39,11 +40,11 @@ namespace ApplicationClassLibrary
                 throw e;
             }
         }
-        public void AddClient(string connectionString, int id, Boolean medicalRefferal, int journalId, int SSN, int userId)
+        public void AddClient(int id, Boolean medicalRefferal, int journalId, int SSN, int userId)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertClient", connection);
@@ -65,11 +66,11 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void AddDepartment(string connectionString, int id, string address, string name)
+        public void AddDepartment(int id, string address, string name)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertDepartment", connection);
@@ -89,11 +90,11 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void AddInvoice(string connectionString, int id, DateTime dueDate, int appointmentId)
+        public void AddInvoice(int id, DateTime dueDate, int appointmentId)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertInvoice", connection);
@@ -113,11 +114,11 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void AddUser(string connectionString, int id, string name, string address, string phoneNumber, string email)
+        public void AddUser(int id, string name, string address, string phoneNumber, string email)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertUser", connection);
@@ -138,11 +139,11 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void AddJournalEntry(string connectionString, int id, int journalId, string text)
+        public void AddJournalEntry(int id, int journalId, string text)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertJournal_Entry", connection);
@@ -162,11 +163,11 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void AddPractitioner(string connectionString, int id, int userId)
+        public void AddPractitioner(int id, int userId)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertPractitioner", connection);
@@ -185,11 +186,11 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void AddRoom(string connectionString, int id, int departmentId, string name)
+        public void AddRoom(int id, int departmentId, string name)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertUser", connection);
@@ -209,11 +210,11 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void AddTreatementType(string connectionString, int id, string name, DateTime duration, double price)
+        public void AddTreatementType(int id, string name, DateTime duration, double price)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spInsertUser", connection);
@@ -234,13 +235,18 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public List<string> GetallAppointments(string connectionString)
+        public List<Client> GetClients()
         {
-            List<string> listOfAppointments = new List<string>();
+            throw new NotImplementedException();
+        }
+
+        public List<Appointment> GetAppointments()
+        {
+            List<Appointment> listOfAppointments = new List<Appointment>();
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("spGetAppointments", connection);
@@ -249,17 +255,28 @@ namespace ApplicationClassLibrary
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfAppointments.Add();
+                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(1), reader.GetValue(2)));
                     }
                 }
 
-                return listOfÄppointments;
+                return listOfAppointments;
             }
             catch (Exception e)
             {
-                Console.WriteLine("Something goofed" + e.Message);
-                return null;
+                /// TODO: Actually handle the exception!
+                throw e;
             }
+        }
+    
+
+        public List<Department> GetDepartments()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Practitioner> GetPractitioners()
+        {
+            throw new NotImplementedException();
         }
     }
 }
