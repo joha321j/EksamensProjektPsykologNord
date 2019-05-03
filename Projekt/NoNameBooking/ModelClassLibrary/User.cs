@@ -12,7 +12,7 @@ namespace ModelClassLibrary
         public string Address { get; }
         public string Email { get; }
 
-        private readonly List<Appointment> _appointments = new List<Appointment>();
+        protected readonly List<Appointment> _appointments = new List<Appointment>();
 
         public User(string name = "", string address = "", string phoneNumber = "", string email ="")
         {

@@ -9,9 +9,10 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ViewModelClassLibrary;
+using ApplicationClassLibrary;
 
 namespace BookNyAftale
 {
@@ -20,65 +21,34 @@ namespace BookNyAftale
     /// </summary>
     public partial class AddClient : Window
     {
-        private readonly ClientRepoViewModel _addClientRepoViewModel;
-        public AddClient(ClientRepoViewModel clientRepoViewModel)
+
+        private readonly Controller _controller;
+
+        public AddClient()
         {
-            _addClientRepoViewModel = clientRepoViewModel;
             InitializeComponent();
+
+            _controller = Controller.GetInstance();
         }
 
         private void BtnSaveClient_Click(object sender, RoutedEventArgs e)
         {
-           
-            if (EnsureValidInput())
+            try
             {
                 CreateClient();
-
-                MessageBox.Show("Klienten er oprettet!", "Succes!", MessageBoxButton.OK, MessageBoxImage.None);
                 Close();
             }
-            
-        }
-
-        private bool EnsureValidInput()
-        {
-            string invalidInput = string.Empty;
-            bool validInput = false;
-
-
-            if (ContainsLetters(txtClientSSN.Text))
+            catch (InvalidInputException exception)
             {
-                invalidInput += "CPR-nummeret må kun indeholde tal!\n";
+                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            if (ContainsLetters(txtClientPhone.Text))
-            {
-                invalidInput += "Telefonnummeret må kun indeholde tal!\n";
-            }
-
-
-            if (ContainsLetters(txtClientZip.Text))
-            {
-                invalidInput += "Postnummeret må kun indeholde tal!\n";
-            }
-
-            if (string.Equals(invalidInput, string.Empty))
-            {
-                validInput = true;
-            }
-            else
-            {
-                MessageBox.Show(invalidInput, "Ugyldigt information!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-
-            return validInput;
         }
 
         private void CreateClient()
         {
             string clientAddress = txtClientAddress.Text + ";" + txtClientZip.Text + ";" + txtClientCity.Text;
 
-            _addClientRepoViewModel.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
+            _controller.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
                 clientAddress, txtClientSSN.Text, txtClientNote.Text);
         }
 

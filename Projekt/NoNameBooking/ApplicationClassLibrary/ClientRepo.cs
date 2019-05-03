@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using ModelClassLibrary;
 
-namespace ModelClassLibrary
+namespace ApplicationClassLibrary
 {
     public class ClientRepo
     {
         private static ClientRepo _instance;
 
         private readonly List<Client> _clients;
+
+        public EventHandler NewClientEventHandler;
 
         private ClientRepo()
         {
@@ -19,14 +22,14 @@ namespace ModelClassLibrary
             return _instance ?? (_instance = new ClientRepo());
         }
 
-        public Client CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
+        public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
             string clientAddress, string clientSsn, string clientNote)
         {
             Client newClient = new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
 
             _clients.Add(newClient);
 
-            return newClient;
+            NewClientEventHandler?.Invoke(newClient, EventArgs.Empty);
         }
 
 
@@ -36,5 +39,14 @@ namespace ModelClassLibrary
         }
 
 
+        public List<Client> GetClients()
+        {
+            return _clients;
+        }
+
+        public Client GetClient(string clientName)
+        {
+            return _clients.Find(client => string.Equals(client.Name, clientName));
+        }
     }
 }

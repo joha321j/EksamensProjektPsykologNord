@@ -16,13 +16,20 @@ namespace ModelClassLibrary
         {
 
         }
-        public Appointment(DateTime dateAndTime, List<User> participants, AppointmentType appointmentType, Room testRoom, string note, double price = 0)
+        public Appointment(DateTime dateAndTime, List<User> participants, AppointmentType appointmentType, Room room, string note, double price = 0)
         {
             DateAndTime = dateAndTime;
             Participants = participants;
             AppointmentType = appointmentType;
-            Location = testRoom;
+            Location = room;
             Note = note;
+
+            room.AddAppointment(this);
+
+            foreach (User participant in participants)
+            {
+                participant.AddAppointment(this);
+            }
 
             Price = Math.Abs(price) < 0.01 ? appointmentType.StandardPrice : price;
         }
