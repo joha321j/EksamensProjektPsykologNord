@@ -65,10 +65,5 @@ namespace ApplicationClassLibrary
 
             return availableDateTimes.ToList();
         }
-
-        public static DateTime CalculateTimeFromString(string timeString)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

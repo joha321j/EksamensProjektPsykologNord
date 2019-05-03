@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ApplicationClassLibrary
 {
@@ -46,6 +47,16 @@ namespace ApplicationClassLibrary
             }
 
             
+        }
+
+        public static DateTime ConvertShortTimeStringToDateTime(string timeString)
+        {
+            if (!DateTime.TryParse(timeString, out var dateTime))
+            {
+                throw new InvalidInputException("Dette burde aldrig ske.");
+            }
+
+            return dateTime;
         }
     }
 
