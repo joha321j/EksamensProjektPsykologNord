@@ -234,28 +234,31 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void SelectAppointment(string connectionString, )
+        public List<string> GetallAppointments(string connectionString)
         {
+            List<string> listOfAppointments = new List<string>();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("spSelectAppointment", connection);
+                    SqlCommand command = new SqlCommand("spGetAppointments", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-
+                        listOfAppointments.Add();
                     }
-
                 }
+
+                return listOfÄppointments;
             }
             catch (Exception e)
             {
-                /// TODO: Actually handle the exception!
-                throw e;
+                Console.WriteLine("Something goofed" + e.Message);
+                return null;
             }
         }
     }
