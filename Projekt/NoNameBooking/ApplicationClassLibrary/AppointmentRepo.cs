@@ -7,18 +7,20 @@ namespace ApplicationClassLibrary
 {
     public class AppointmentRepo
     {
+        private IPersistable _persistable;
         private static AppointmentRepo _instance;
 
         private readonly List<Appointment> _appointments;
 
-        private AppointmentRepo()
+        private AppointmentRepo(IPersistable persistable)
         {
-            _appointments = new List<Appointment>();
+            _persistable = persistable;
+            _appointments = _persistable.GetAppointments();
         }
 
-        public static AppointmentRepo GetInstance()
+        public static AppointmentRepo GetInstance(IPersistable persistable)
         {
-            return _instance ?? (_instance = new AppointmentRepo());
+            return _instance ?? (_instance = new AppointmentRepo(persistable));
         }
 
         public void AddAppointment(Appointment appointment)
