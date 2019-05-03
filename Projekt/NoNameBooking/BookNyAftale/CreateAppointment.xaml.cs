@@ -107,7 +107,7 @@ namespace BookNyAftale
             {
                 _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbTreatment.SelectionBoxItem.ToString(), txtNotes.Text);
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
             }
             catch (InvalidInputException exception)
             {
@@ -150,8 +150,8 @@ namespace BookNyAftale
         {
             List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
 
-            cmbbTreatment.ItemsSource = treatments;
-            cmbbTreatment.SelectedIndex = 0;
+            cmbbAppointmentType.ItemsSource = treatments;
+            cmbbAppointmentType.SelectedIndex = 0;
         }
 
         private void DpAppointmentDate_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)

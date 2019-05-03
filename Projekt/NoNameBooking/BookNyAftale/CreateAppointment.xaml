@@ -19,7 +19,7 @@
         <Button x:Name="btnAddClient" Content="Opret klient" HorizontalAlignment="Left" Margin="566,118,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddClient_Click"/>
         <ComboBox x:Name="cmbbDepartment" HorizontalAlignment="Left" Margin="100,182,0,0" VerticalAlignment="Top" Width="541" SelectionChanged="CmbbDepartment_SelectionChanged"/>
         <Label Content="Vælg afdeling:" HorizontalAlignment="Left" Margin="100,151,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbbTreatment" HorizontalAlignment="Left" Margin="100,323,0,0" VerticalAlignment="Top" Width="541"/>
+        <ComboBox x:Name="cmbbAppointmentType" HorizontalAlignment="Left" Margin="100,323,0,0" VerticalAlignment="Top" Width="541"/>
         <Label Content="Vælg ydelse:" HorizontalAlignment="Left" Margin="100,292,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtNotes" HorizontalAlignment="Left" Height="113" Margin="100,438,0,0" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" VerticalAlignment="Top" Width="541"/>
         <Label Content="Noter:" HorizontalAlignment="Left" Margin="100,407,0,0" VerticalAlignment="Top"/>
