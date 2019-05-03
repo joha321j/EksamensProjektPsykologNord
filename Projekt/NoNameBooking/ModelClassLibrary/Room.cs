@@ -9,8 +9,6 @@ namespace ModelClassLibrary
         public readonly List<Appointment> Appointments;
         public string Name { get; set; }
 
-        public int Id { get; set; }
-
         private readonly int _dayLength;
         private readonly DateTime _startTime;
 
