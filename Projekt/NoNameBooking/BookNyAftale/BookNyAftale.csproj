@@ -55,11 +55,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AllInvoices.xaml.cs">
+      <DependentUpon>AllInvoices.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateInvoice.xaml.cs">
+      <DependentUpon>CreateInvoice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SpecifcInvoice.xaml.cs">
       <DependentUpon>SpecifcInvoice.xaml</DependentUpon>
     </Compile>
     <Page Include="AddClient.xaml">
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AllInvoices.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateInvoice.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LandingPage.xaml">
