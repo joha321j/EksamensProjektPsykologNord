@@ -97,7 +97,8 @@ CREATE TABLE dbo.PN_Appointment
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	DateAndTime DateTime2 NOT NULL,
-	RoomId int NOT NULL FOREIGN KEY REFERENCES PN_Room(DepartmentId, Name), --TODO: Fix this so it works with a composite key, which requires you make one more row of data so you have both parts of the key.
+	DepartmentName nvarchar(120) NOT NULL,
+	RoomName nvarchar(120) NOT NULL FOREIGN KEY (RoomName, DepartmentName) REFERENCES PN_Room(Name,DepartmentName),
 	PractitionerId int NOT NULL FOREIGN KEY REFERENCES PN_Practitioner(Id),
 	Price float NOT NULL,
 	TreatmentTypeId int NOT NULL FOREIGN KEY REFERENCES PN_TreatmentType(Id),
