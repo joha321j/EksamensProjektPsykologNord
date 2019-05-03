@@ -108,7 +108,7 @@ namespace ApplicationClassLibrary
         public void CreateAppointment(DateTime dateAndTime, string timeString, string departmentName, string clientName,
             string practitionerName, string appointmentTypeString, string note)
         {
-            DateTime appointmentTime = DateTimeCalculator.CalculateTimeFromString(timeString);
+            DateTime appointmentTime = InputValidator.ConvertShortTimeStringToDateTime(timeString);
 
             dateAndTime = dateAndTime.AddHours(appointmentTime.Hour);
 

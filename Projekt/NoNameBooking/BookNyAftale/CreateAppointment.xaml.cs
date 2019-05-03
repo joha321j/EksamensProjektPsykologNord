@@ -103,9 +103,16 @@ namespace BookNyAftale
                 dateAndTime = (DateTime) dpAppointmentDate.SelectedDate;
             }
 
-            _controller.CreateAppointment(dateAndTime, cmbbAppointmentTime.SelectionBoxItem.ToString(),
-                cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                cmbbPractitioner.SelectionBoxItem.ToString(), cmbbTreatment.SelectionBoxItem.ToString(), txtNotes.Text);
+            try
+            {
+                _controller.CreateAppointment(dateAndTime, cmbbAppointmentTime.SelectionBoxItem.ToString(),
+                    cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbTreatment.SelectionBoxItem.ToString(), txtNotes.Text);
+            }
+            catch (InvalidInputException exception)
+            {
+                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
