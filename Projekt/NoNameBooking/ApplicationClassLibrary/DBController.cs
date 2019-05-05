@@ -40,6 +40,7 @@ namespace ApplicationClassLibrary
                 throw e;
             }
         }
+
         public void AddClient(int id, Boolean medicalRefferal, int journalId, int SSN, int userId)
         {
             try
@@ -290,7 +291,6 @@ namespace ApplicationClassLibrary
                 throw e;
             }
         }
-    
 
         public List<Department> GetDepartments()
         {
