@@ -280,6 +280,7 @@ namespace ApplicationClassLibrary
                     while (reader.Read())
                     {
                         listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(2), reader.GetValue(3), reader.GetValue(4), reader.GetValue(5), reader.GetValue(6))); //Database values og Appointment klasse parameter matcher ikke op.
+                        //BRUH HOW THE FUCK DO I GET THE ROOM? 
                     }
                 }
 
