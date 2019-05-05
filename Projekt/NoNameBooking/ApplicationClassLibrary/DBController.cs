@@ -193,7 +193,7 @@ namespace ApplicationClassLibrary
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("spInsertUser", connection);
+                    SqlCommand command = new SqlCommand("spInsertRoom", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@DepartmentI", departmentId);
@@ -217,7 +217,7 @@ namespace ApplicationClassLibrary
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("spInsertUser", connection);
+                    SqlCommand command = new SqlCommand("spInsertTreatmentType", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@TreatmentTypeId", id);
                     command.Parameters.AddWithValue("@Name", name);
@@ -237,7 +237,30 @@ namespace ApplicationClassLibrary
 
         public List<Client> GetClients()
         {
-            throw new NotImplementedException();
+            List<Appointment> listOfAppointments = new List<Appointment>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("spGetClients", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(1), reader.GetValue(2)));
+                    }
+                }
+
+                return listOfAppointments;
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
         }
 
         public List<Appointment> GetAppointments()
@@ -271,12 +294,58 @@ namespace ApplicationClassLibrary
 
         public List<Department> GetDepartments()
         {
-            throw new NotImplementedException();
+            List<Appointment> listOfAppointments = new List<Appointment>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("spGetDeparments", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(1), reader.GetValue(2)));
+                    }
+                }
+
+                return listOfAppointments;
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
         }
 
         public List<Practitioner> GetPractitioners()
         {
-            throw new NotImplementedException();
+            List<Appointment> listOfAppointments = new List<Appointment>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("spGetPractitioners", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(1), reader.GetValue(2)));
+                    }
+                }
+
+                return listOfAppointments;
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
         }
     }
 }
