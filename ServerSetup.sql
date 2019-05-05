@@ -38,15 +38,16 @@ IF OBJECT_ID('dbo.PN_Practitioner_TreatmentType', 'U') IS NOT NULL
 
 CREATE TABLE dbo.PN_Department
 (
-	Name nvarchar(120) NOT NULL PRIMARY KEY,
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Address	nvarchar(max) NOT NULL,
+	Name nvarchar(max) NOT NULL,
 );
 
 CREATE TABLE dbo.PN_Room
 (
-	Name nvarchar(120) NOT NULL,
-	DepartmentName nvarchar(120) NOT NULL FOREIGN KEY REFERENCES PN_Department(Name),
-	PRIMARY KEY(Name, DepartmentName)
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Name nvarchar(max) NOT NULL,
+	Departmentid int NOT NULL FOREIGN KEY REFERENCES PN_Department(Id),
 );
 
 CREATE TABLE dbo.PN_Journal
