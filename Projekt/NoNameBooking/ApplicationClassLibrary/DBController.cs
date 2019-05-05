@@ -237,24 +237,24 @@ namespace ApplicationClassLibrary
 
         public List<Client> GetClients()
         {
-            List<Appointment> listOfAppointments = new List<Appointment>();
+            List<Client> listOfClients = new List<Client>();
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("spGetClients", connection);
+                    SqlCommand command = new SqlCommand("spSelectClient", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(1), reader.GetValue(2)));
+                        listOfClients.Add(new Client(reader.GetValue(1), reader.GetValue(2), reader.GetValue(3))); //UserId?
                     }
                 }
 
-                return listOfAppointments;
+                return listOfClients;
             }
             catch (Exception e)
             {
@@ -278,7 +278,7 @@ namespace ApplicationClassLibrary
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(1), reader.GetValue(2)));
+                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(2), reader.GetValue(3), reader.GetValue(4), reader.GetValue(5), reader.GetValue(6))); //Database values og Appointment klasse parameter matcher ikke op.
                     }
                 }
 
@@ -294,7 +294,7 @@ namespace ApplicationClassLibrary
 
         public List<Department> GetDepartments()
         {
-            List<Appointment> listOfAppointments = new List<Appointment>();
+            List<Department> listOfDepartments = new List<Department>();
 
             try
             {
@@ -307,11 +307,11 @@ namespace ApplicationClassLibrary
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(1), reader.GetValue(2)));
+                        listOfDepartments.Add(new Department(reader.GetValue(1), reader.GetValue(2)));
                     }
                 }
 
-                return listOfAppointments;
+                return listOfDepartments;
             }
             catch (Exception e)
             {
@@ -322,7 +322,7 @@ namespace ApplicationClassLibrary
 
         public List<Practitioner> GetPractitioners()
         {
-            List<Appointment> listOfAppointments = new List<Appointment>();
+            List<Practitioner> listOfPractitioners = new List<Practitioner>();
 
             try
             {
@@ -335,11 +335,11 @@ namespace ApplicationClassLibrary
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(1), reader.GetValue(2)));
+                        listOfPractitioners.Add(new Practitioner(reader.GetValue(1)));
                     }
                 }
 
-                return listOfAppointments;
+                return listOfPractitioners;
             }
             catch (Exception e)
             {
