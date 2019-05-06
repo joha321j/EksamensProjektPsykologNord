@@ -240,6 +240,7 @@ namespace ApplicationClassLibrary
         public List<Client> GetClients()
         {
             List<Client> listOfClients = new List<Client>();
+            return listOfClients;
 
             try
             {
@@ -268,6 +269,8 @@ namespace ApplicationClassLibrary
         public List<Appointment> GetAppointments(List<User> users)
         {
             List<Appointment> listOfAppointments = new List<Appointment>();
+
+            return listOfAppointments;
 
             try
             {
@@ -298,6 +301,7 @@ namespace ApplicationClassLibrary
         {
             List<Department> listOfDepartments = new List<Department>();
 
+            return listOfDepartments;
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -326,6 +330,7 @@ namespace ApplicationClassLibrary
         {
             List<Practitioner> listOfPractitioners = new List<Practitioner>();
 
+            return listOfPractitioners;
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
