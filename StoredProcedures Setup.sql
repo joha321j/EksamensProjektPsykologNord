@@ -4,15 +4,15 @@ CREATE PROCEDURE SPInsertAppointment
 @RoomId int,
 @PractitionerId int,
 @Price float,
-@TreatmentTypeId int,
+@AppointmentTypeId int,
 @Note nvarchar(max)
 
 AS
 BEGIN
 
-	INSERT INTO PN_Appointment(Id, DateAndTime, RoomId, PractitionerId, Price, TreatmentTypeId, Note)
+	INSERT INTO PN_Appointment(Id, DateAndTime, RoomId, PractitionerId, Price, AppointmentTypeId, Note)
 	OUTPUT inserted.Id
-			VALUES(@AppointmentId, @DateAndTime, @RoomId, @PractitionerId, @Price, @TreatmentTypeId, @Note)
+			VALUES(@AppointmentId, @DateAndTime, @RoomId, @PractitionerId, @Price, @AppointmentTypeId, @Note)
 
 END
 GO
@@ -104,16 +104,16 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPInsertTreatmentType
-@TreatmentTypeId int,
+CREATE PROCEDURE SPInsertAppointmentType
+@AppointmentTypeId int,
 @Name nvarchar(max),
 @Duration datetime2(7),
 @StandardPrice float
 
 AS
 BEGIN
-	INSERT INTO PN_TreatmentType(Id, Name, Duration, StandardPrice)
-			VALUES(@TreatmentTypeId, @Name, @Duration, @StandardPrice)
+	INSERT INTO PN_AppointmentType(Id, Name, Duration, StandardPrice)
+			VALUES(@AppointmentTypeId, @Name, @Duration, @StandardPrice)
 END
 GO
 
@@ -123,8 +123,10 @@ CREATE PROCEDURE SPSelectAppointment
 AS
 BEGIN
 
-	SELECT * FROM PN_APPOINTMENT
-	WHERE Id like '%'+@AppointmentId+'%'
+	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.UserId, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note  
+	FROM PN_APPOINTMENT JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id join PN_Appointment.AppointmentTypeId = PN_AppointmentType.Id
+	WHERE Id = @AppointmentId
 END
 GO
 
@@ -193,14 +195,14 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPSelectTreatmentType
-@TreatmentTypeId int
+CREATE PROCEDURE SPSelectAppointmentType
+@AppointmentTypeId int
 
 AS
 BEGIN
 
-	SELECT * FROM PN_TreatmentType
-	WHERE Id like '%'+@TreatmentTypeId+'%'
+	SELECT * FROM PN_AppointmentType
+	WHERE Id like '%'+@AppointmentTypeId+'%'
 END
 GO
 
@@ -221,7 +223,7 @@ CREATE PROCEDURE SPUpdateAppointment
 @RoomId int,
 @PractitionerId int,
 @Price float,
-@TreatmentTypeId int,
+@AppointmentTypeId int,
 @Note nvarchar(max)
 
 AS
@@ -231,7 +233,7 @@ BEGIN
 			RoomId = @RoomId,
 			PractitionerId = @PractitionerId,
 			Price = @Price,
-			TreatmentTypeId = @TreatmentTypeId,
+			AppointmentTypeId = @AppointmentTTypeId,
 			Note = @Note
 	WHERE	Id = @AppointmentId
 END
@@ -323,19 +325,19 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPUpdateTreatmentType
-@TreatmentTypeId int,
+CREATE PROCEDURE SPUpdateAppointmentType
+@AppointmentTypeId int,
 @Name nvarchar(max),
 @Duration datetime2(7),
 @StandardPrice float
 
 AS
 BEGIN
-	UPDATE	PN_TreatmentType
+	UPDATE	PN_AppointmentType
 	SET		Name = @Name,
 			Duration = @Duration,
 			StandardPrice = @StandardPrice
-	WHERE	Id = @TreatmentTypeId
+	WHERE	Id = @AppointmentTypeId
 END
 GO
 
@@ -427,13 +429,13 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPDeleteTreatmentType
-@TreatmentTypeId int
+CREATE PROCEDURE SPDeleteAppointmentType
+@AppointmentTypeId int
 
 AS
 BEGIN
-	DELETE from PN_TreatmentType
-	WHERE Id = @TreatmentTypeId
+	DELETE from PN_AppointmentType
+	WHERE Id = @AppointmentTypeId
 END
 GO
 
