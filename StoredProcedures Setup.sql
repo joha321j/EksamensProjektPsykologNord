@@ -1,6 +1,49 @@
 use B_DB19_2018
 
-CREATE PROCEDURE SPInsertAppointment
+DROP PROC IF EXISTS SPInsertAppointment
+DROP PROC IF EXISTS SPInsertClient
+DROP PROC IF EXISTS SPInsertDepartment
+DROP PROC IF EXISTS SPInsertInvoice
+DROP PROC IF EXISTS SPInsertUser
+DROP PROC IF EXISTS SPInsertJournal_Entry
+DROP PROC IF EXISTS SPInsertPractitioner
+DROP PROC IF EXISTS SPInsertRoom
+DROP PROC IF EXISTS SPInsertAppointmentType
+DROP PROC IF EXISTS SPSelectAppointment
+DROP PROC IF EXISTS SPSelectClient
+DROP PROC IF EXISTS SPSelectDepartment
+DROP PROC IF EXISTS SPSelectInvoice
+DROP PROC IF EXISTS SPSelectJournal_Entry
+DROP PROC IF EXISTS SPSelectPractitioner
+DROP PROC IF EXISTS SPSelectRoom
+DROP PROC IF EXISTS SPSelectAppointmentType
+DROP PROC IF EXISTS SPSelectUser
+DROP PROC IF EXISTS SPUpdateClient
+DROP PROC IF EXISTS SPUpdateAppointment
+DROP PROC IF EXISTS SPUpdateDepartment
+DROP PROC IF EXISTS SPUpdateInvoice
+DROP PROC IF EXISTS SPUpdateJournal_Entry
+DROP PROC IF EXISTS SPUpdatePractitioner
+DROP PROC IF EXISTS SPUpdateRoom
+DROP PROC IF EXISTS SPUpdateAppointmentType
+DROP PROC IF EXISTS SPUdateUser
+DROP PROC IF EXISTS SPDeleteAppointment
+DROP PROC IF EXISTS SPDeleteClient
+DROP PROC IF EXISTS SPDeleteAppointment
+DROP PROC IF EXISTS SPDeleteDepartment
+DROP PROC IF EXISTS SPDeleteInvoice
+DROP PROC IF EXISTS SPDeleteJournal_Entry
+DROP PROC IF EXISTS SPDeletePractitioner
+DROP PROC IF EXISTS SPDeleteRoom
+DROP PROC IF EXISTS SPDeleteAppointmentType
+DROP PROC IF EXISTS SPDeleteUser
+DROP PROC IF EXISTS SPGetAllAppointments
+
+GO
+
+
+
+CREATE PROC SPInsertAppointment
 @DateAndTime datetime2,
 @RoomId int,
 @Price float,
@@ -20,13 +63,12 @@ CREATE PROCEDURE SPInsertClient
 @ClientId int,
 @MedicalRefferal bit,
 @JournalId int,
-@SocialSecurityNumber int,
-@UserId int
+@SocialSecurityNumber int
 
 AS
 BEGIN
-	INSERT INTO PN_Client(Id, MedicalReferral, Journalid, SocialSecurityNumber, UserId)
-			VALUES(@ClientId, @MedicalRefferal, @JournalId, @SocialSecurityNumber, @UserId)
+	INSERT INTO PN_Client(Id, MedicalReferral, Journalid, SocialSecurityNumber)
+			VALUES(@ClientId, @MedicalRefferal, @JournalId, @SocialSecurityNumber)
 END
 GO
 
@@ -43,19 +85,17 @@ END
 GO
 
 CREATE PROCEDURE SPInsertInvoice
-@InvoiceId int,
 @DueDate datetime2(7),
 @AppointmentId int
 
 AS
 BEGIN
-	INSERT INTO PN_Invoice(Id, DueDate, AppointmentId)
-			VALUES(@InvoiceId, @DueDate, @AppointmentId)
+	INSERT INTO PN_Invoice(DueDate, AppointmentId)
+			VALUES(@DueDate, @AppointmentId)
 END
 GO
 
 CREATE PROCEDURE SPInsertUser
-@UserId int,
 @Name nvarchar(max),
 @Address nvarchar(max),
 @PhoneNumber nvarchar(12),
@@ -63,43 +103,40 @@ CREATE PROCEDURE SPInsertUser
 
 AS
 BEGIN
-	INSERT INTO PN_User(Id, Name, Address, PhoneNumber, Email)
-			VALUES(@UserId, @Name, @Address, @PhoneNumber, @Email)
+	INSERT INTO PN_User(Name, Address, PhoneNumber, Email)
+			VALUES(@Name, @Address, @PhoneNumber, @Email)
 END
 GO
 
 CREATE PROCEDURE SPInsertJournal_Entry
-@Journal_EntryId int,
 @JournalId int,
 @Text nvarchar(max)
 
 AS
 BEGIN
-	INSERT INTO PN_Journal_Entry(Id,JournalId,Text)
-			VALUES(@Journal_EntryId, @JournalId, @Text)
+	INSERT INTO PN_Journal_Entry(JournalId,Text)
+			VALUES(@JournalId, @Text)
 END
 GO
 
 CREATE PROCEDURE SPInsertPractitioner
-@PractitonerId int,
 @UserId int
 
 AS
 BEGIN
-	INSERT INTO PN_Practitioner(Id, UserId)
-			VALUES(@PractitonerId, @UserId)
+	INSERT INTO PN_Practitioner(Id)
+			VALUES(@UserId)
 END
 GO
 
 CREATE PROCEDURE SPInsertRoom
-@RoomId int,
 @DepartmentId int,
 @Name nvarchar(max)
 
 AS
 BEGIN
-	INSERT INTO PN_Room(Id,DepartmentId,Name)
-			VALUES(@RoomId,@DepartmentId,@Name)
+	INSERT INTO PN_Room(DepartmentId,Name)
+			VALUES(@DepartmentId,@Name)
 END
 GO
 
@@ -121,13 +158,13 @@ CREATE PROCEDURE SPSelectAppointment
 AS
 BEGIN
 
-	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.UserId, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_User.Id  
+	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note 
 	FROM PN_APPOINTMENT 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
-	join PN_Appointment.AppointmentTypeId = PN_AppointmentType.Id 
+	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
 	JOIN PN_User_Appointment ON PN_Appointment.Id = PN_User_Appointment.AppointmentId
-	WHERE Id = @AppointmentId
+	WHERE PN_Appointment.Id = @AppointmentId
 END
 GO
 
@@ -220,7 +257,7 @@ GO
 
 CREATE PROCEDURE SPUpdateAppointment
 @AppointmentId int,
-@DateAndTime datetime2(7),
+@DateAndTime datetime2,
 @RoomId int,
 @PractitionerId int,
 @Price float,
@@ -231,30 +268,27 @@ AS
 BEGIN
 	UPDATE PN_Appointment
 	SET		DateAndTime	= @DateAndTime,
-			RoomId = @RoomId,
-			PractitionerId = @PractitionerId,
+			RoomId = @RoomId,			
 			Price = @Price,
-			AppointmentTypeId = @AppointmentTTypeId,
+			AppointmentTypeId = @AppointmentTypeId,
 			Note = @Note
 	WHERE	Id = @AppointmentId
 END
 GO
 
 CREATE PROCEDURE SPUpdateClient
-@ClientId int,
 @MedicalRefferal bit,
 @JournalId int,
 @SocialSecurityNumber int,
-@UserId int
+@ClintId int
 
 AS
 BEGIN
 	UPDATE PN_Client
 	SET		MedicalReferral = @MedicalRefferal,
 			Journalid = @JournalId,
-			SocialSecurityNumber = @SocialSecurityNumber,
-			UserId = @UserId
-	WHERE	Id = @ClientId
+			SocialSecurityNumber = @SocialSecurityNumber
+	WHERE	Id = @ClintId
 END
 GO
 
@@ -300,17 +334,17 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPUpdatePractitioner
-@PractitonerId int,
-@UserId int
+--CREATE PROCEDURE SPUpdatePractitioner
+--@PractitonerId int,
+--@UserId int
 
-AS
-BEGIN
-	UPDATE PN_Practitioner
-	SET		UserId = @UserId
-	WHERE   Id = @PractitonerId
-END
-GO
+--AS
+--BEGIN
+--	UPDATE PN_Practitioner
+	--SET		UserId = @UserId
+	--WHERE   Id = @PractitonerId
+--END
+--GO
 
 CREATE PROCEDURE SPUpdateRoom
 @RoomId int,
@@ -455,11 +489,11 @@ CREATE PROCEDURE SPGetAllAppointments
 AS
 BEGIN
 
-	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.UserId, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_User.Id  
+	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note
 	FROM PN_APPOINTMENT 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
-	join PN_Appointment.AppointmentTypeId = PN_AppointmentType.Id 
+	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
 	JOIN PN_User_Appointment ON PN_Appointment.Id = PN_User_Appointment.AppointmentId
 END
 GO
