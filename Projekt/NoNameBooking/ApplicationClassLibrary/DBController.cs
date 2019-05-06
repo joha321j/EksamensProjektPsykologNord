@@ -7,11 +7,12 @@ using ModelClassLibrary;
 
 namespace ApplicationClassLibrary
 {
-    class DBController : IPersistable
+    public class DBController : IPersistable
     {
         private static string _connectionString = "Server=EALSQL1.eal.local; Database = B_DB19_2018; User Id = B_STUDENT19; Password = B_OPENDB19; MultipleActiveResultSets=True;";
 
-        public void AddAppointment(int id, DateTime dateAndTime, string  roomName, string departmentName, int practitionerId, double price, int treatmentTypeId, string note)
+     
+        public void AddAppointment(int id, DateTime dateAndTime, string  roomName, string departmentName, List<int> userId, double price, int appointmentTypeId, string note)
         {
             try
             {
@@ -24,9 +25,9 @@ namespace ApplicationClassLibrary
                     command.Parameters.AddWithValue("@DateAndTime", dateAndTime);
                     command.Parameters.AddWithValue("@RoomName", roomName);
                     command.Parameters.AddWithValue("@DepartmentName", departmentName);
-                    command.Parameters.AddWithValue("@PractitionerId", practitionerId);
+                    command.Parameters.AddWithValue("@PractitionerId", userId);
                     command.Parameters.AddWithValue("@Price", price);
-                    command.Parameters.AddWithValue("@TreatmentTypeId", treatmentTypeId);
+                    command.Parameters.AddWithValue("@TreatmentTypeId", appointmentTypeId);
                     command.Parameters.AddWithValue("@Note", note);
 
                     command.ExecuteNonQuery();
@@ -211,7 +212,7 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void AddTreatementType(int id, string name, DateTime duration, double price)
+        public void AddAppointmentType(int id, string name, DateTime duration, double price)
         {
             try
             {
@@ -251,7 +252,7 @@ namespace ApplicationClassLibrary
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfClients.Add(new Client(reader.GetValue(1), reader.GetValue(2), reader.GetValue(3))); //UserId?
+                       // listOfClients.Add(new Client(reader.GetValue(1), reader.GetValue(2), reader.GetValue(3))); //UserId?
                     }
                 }
 
@@ -264,7 +265,7 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public List<Appointment> GetAppointments()
+        public List<Appointment> GetAppointments(List<User> users)
         {
             List<Appointment> listOfAppointments = new List<Appointment>();
 
@@ -279,7 +280,7 @@ namespace ApplicationClassLibrary
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfAppointments.Add(new Appointment(reader.GetValue(1), reader.GetValue(2), reader.GetValue(3), reader.GetValue(4), reader.GetValue(5), reader.GetValue(6))); //Database values og Appointment klasse parameter matcher ikke op.
+                        listOfAppointments.Add(new Appointment()); //Database values og Appointment klasse parameter matcher ikke op.
                         //BRUH HOW THE FUCK DO I GET THE ROOM? 
                     }
                 }
@@ -308,7 +309,7 @@ namespace ApplicationClassLibrary
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfDepartments.Add(new Department(reader.GetValue(1), reader.GetValue(2)));
+                        //listOfDepartments.Add(new Department(reader.GetValue(1), reader.GetValue(2)));
                     }
                 }
 
@@ -336,7 +337,7 @@ namespace ApplicationClassLibrary
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfPractitioners.Add(new Practitioner(reader.GetValue(1)));
+                       // listOfPractitioners.Add(new Practitioner(reader.GetValue(1)));
                     }
                 }
 
@@ -347,6 +348,11 @@ namespace ApplicationClassLibrary
                 /// TODO: Actually handle the exception!
                 throw e;
             }
+        }
+
+        public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
+        {
+            throw new NotImplementedException();
         }
     }
 }

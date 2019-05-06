@@ -38,6 +38,10 @@ DROP PROC IF EXISTS SPDeleteRoom
 DROP PROC IF EXISTS SPDeleteAppointmentType
 DROP PROC IF EXISTS SPDeleteUser
 DROP PROC IF EXISTS SPGetAllAppointments
+DROP PROC IF EXISTS SPGetAllClients
+DROP PROC IF EXISTS SPGetAllPractitioners
+DROP PROC IF EXISTS SPGetAllDepartments
+DROP PROC IF EXISTS SPGetRoomsFromDepartment
 
 GO
 
@@ -135,8 +139,8 @@ CREATE PROCEDURE SPInsertRoom
 
 AS
 BEGIN
-	INSERT INTO PN_Room(DepartmentId,Name)
-			VALUES(@DepartmentId,@Name)
+	INSERT INTO PN_Room(Name, DepartmentId)
+			VALUES(@Name, @DepartmentId)
 END
 GO
 
@@ -490,10 +494,46 @@ AS
 BEGIN
 
 	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_User_Appointment.UserId
 	FROM PN_APPOINTMENT 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
 	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
 	JOIN PN_User_Appointment ON PN_Appointment.Id = PN_User_Appointment.AppointmentId
+END
+GO
+
+CREATE PROC SPGetAllClients
+AS
+BEGIN
+	SELECT PN_User.Id, PN_User.Name, PN_User.Email, PN_User.PhoneNumber, PN_User.Address, PN_Client.SocialSecurityNumber, 
+	PN_Client.Note, PN_Client.Journalid, PN_Client.MedicalReferral
+	FROM PN_User
+	JOIN PN_Client ON PN_User.Id = PN_Client.Id
+END
+GO
+
+CREATE PROC SPGetAllPractitioners
+AS
+BEGIN
+	SELECT PN_User.Id, PN_User.Name, PN_User.Email, PN_User.PhoneNumber, PN_User.Address
+	FROM PN_User
+	JOIN PN_Practitioner ON PN_User.Id = PN_Practitioner.Id
+END
+GO
+
+CREATE PROC SPGetAllDepartments
+AS
+BEGIN
+	SELECT PN_Department.Id, PN_Department.Name, PN_Department.Address
+	FROM PN_Department
+END
+GO
+
+CREATE PROC SPGetRoomsFromDepartment @DepartmentId int
+AS
+BEGIN
+	SELECT PN_Room.Id, PN_Room.Name
+	FROM PN_Room
+	WHERE PN_Room.DepartmentId = @DepartmentId
 END
 GO

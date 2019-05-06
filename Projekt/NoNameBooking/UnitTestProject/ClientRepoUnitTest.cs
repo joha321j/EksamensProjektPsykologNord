@@ -10,17 +10,19 @@ namespace UnitTestProject
     public class ClientRepoUnitTest
     {
         private ClientRepo _clientRepo;
+        private DBController _dbController;
 
         [TestInitialize]
         public void ClientRepoTestInitialize()
         {
-            _clientRepo = ClientRepo.GetInstance();
+            _dbController = new DBController();
+            _clientRepo = ClientRepo.GetInstance(_dbController);
         }
 
         [TestMethod]
         public void ClientRepoCreation()
         {
-            ClientRepo testClientRepo = ClientRepo.GetInstance();
+            ClientRepo testClientRepo = ClientRepo.GetInstance(_dbController);
 
             Assert.IsNotNull(testClientRepo);
         }
@@ -28,7 +30,7 @@ namespace UnitTestProject
         [TestMethod]
         public void ClientRepoSingleton()
         {
-            ClientRepo firstRepo = ClientRepo.GetInstance();
+            ClientRepo firstRepo = ClientRepo.GetInstance(_dbController);
             
             Assert.AreEqual(firstRepo, _clientRepo);
         }

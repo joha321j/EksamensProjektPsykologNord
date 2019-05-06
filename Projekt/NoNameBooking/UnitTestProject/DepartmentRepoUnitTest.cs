@@ -18,6 +18,7 @@ namespace UnitTestProject
         private DepartmentRepo _instance;
         private Department _departmentOne;
         private Department _departmentTwo;
+        private DBController _dbController;
 
         [TestCleanup]
         public void DepartmentRepoCleanUp()
@@ -28,7 +29,8 @@ namespace UnitTestProject
         [TestInitialize]
         public void DepartmentRepoSetup()
         {
-            _instance = DepartmentRepo.GetInstance();
+            _dbController = new DBController();
+            _instance = DepartmentRepo.GetInstance(_dbController);
             _departmentOne = new Department("TestDepartmentOne", "TestAddressOne");
             _departmentTwo = new Department("TestDepartmentTwo", "TestAddressTwo");
 
@@ -37,7 +39,7 @@ namespace UnitTestProject
         [TestMethod]
         public void GetInstanceTest()
         {
-            DepartmentRepo testinstance = DepartmentRepo.GetInstance();
+            DepartmentRepo testinstance = DepartmentRepo.GetInstance(_dbController);
 
             Assert.AreEqual(_instance, testinstance);
         }

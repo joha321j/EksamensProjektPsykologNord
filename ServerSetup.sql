@@ -48,7 +48,7 @@ CREATE TABLE dbo.PN_Room
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Name nvarchar(max),
-	DepartmentName int NOT NULL FOREIGN KEY REFERENCES PN_Department(Id),
+	DepartmentId int NOT NULL FOREIGN KEY REFERENCES PN_Department(Id),
 );
 
 CREATE TABLE dbo.PN_Journal
@@ -76,6 +76,7 @@ CREATE TABLE dbo.PN_Client
 (
 	Id int NOT NULL FOREIGN KEY REFERENCES PN_User(Id) PRIMARY KEY,
 	MedicalReferral bit NOT NULL,
+	Note NVARCHAR(MAX),
 	Journalid int NOT NULL FOREIGN KEY REFERENCES PN_Journal(Id),
 	SocialSecurityNumber int NOT NULL	
 );

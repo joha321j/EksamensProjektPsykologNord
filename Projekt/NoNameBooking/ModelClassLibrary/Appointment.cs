@@ -5,6 +5,7 @@ namespace ModelClassLibrary
 {
     public class Appointment
     {
+        public int Id { get; set; }
         public DateTime DateAndTime { get; set; }
         public Room Location { get; set; }
         public List<User> Participants { get; set; }
@@ -16,8 +17,9 @@ namespace ModelClassLibrary
         {
 
         }
-        public Appointment(DateTime dateAndTime, List<User> participants, AppointmentType appointmentType, Room room, string note, double price = 0)
+        public Appointment(DateTime dateAndTime, List<User> participants, AppointmentType appointmentType, Room room, string note, double price = 0, int id = -1)
         {
+            Id = id;
             DateAndTime = dateAndTime;
             Participants = participants;
             AppointmentType = appointmentType;
