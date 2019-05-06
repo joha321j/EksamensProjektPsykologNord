@@ -312,7 +312,7 @@ GO
 
 CREATE PROCEDURE SPUpdateInvoice
 @InvoiceId int,
-@DueDate datetime2(7),
+@DueDate datetime2,
 @AppointmentId int
 
 AS
