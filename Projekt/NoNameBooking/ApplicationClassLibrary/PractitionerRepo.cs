@@ -51,5 +51,10 @@ namespace ApplicationClassLibrary
         {
             _instance = null;
         }
+
+        public List<Practitioner> GetPractitioners()
+        {
+            return _practitioners;
+        }
     }
 }

@@ -25,7 +25,17 @@ namespace ApplicationClassLibrary
 
             _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
 
-            _appointmentRepo = AppointmentRepo.GetInstance(_persistable);
+            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers());
+        }
+
+        private List<User> GetUsers()
+        {
+            List<User> tempUsers = new List<User>();
+            tempUsers.AddRange(_clientRepo.GetClients());
+            tempUsers.AddRange(_practitionerRepo.GetPractitioners());
+
+            return tempUsers;
+
         }
 
         private void NewClientEventHandler(object sender, EventArgs e)
