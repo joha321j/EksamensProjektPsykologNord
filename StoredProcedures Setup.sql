@@ -1,8 +1,8 @@
+use B_DB19_2018
+
 CREATE PROCEDURE SPInsertAppointment
-@AppointmentId int,
-@DateAndTime datetime2(7),
+@DateAndTime datetime2,
 @RoomId int,
-@PractitionerId int,
 @Price float,
 @AppointmentTypeId int,
 @Note nvarchar(max)
@@ -10,9 +10,8 @@ CREATE PROCEDURE SPInsertAppointment
 AS
 BEGIN
 
-	INSERT INTO PN_Appointment(Id, DateAndTime, RoomId, PractitionerId, Price, AppointmentTypeId, Note)
-	OUTPUT inserted.Id
-			VALUES(@AppointmentId, @DateAndTime, @RoomId, @PractitionerId, @Price, @AppointmentTypeId, @Note)
+	INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note)
+			VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note)
 
 END
 GO
@@ -105,15 +104,14 @@ END
 GO
 
 CREATE PROCEDURE SPInsertAppointmentType
-@AppointmentTypeId int,
 @Name nvarchar(max),
 @Duration datetime2(7),
 @StandardPrice float
 
 AS
 BEGIN
-	INSERT INTO PN_AppointmentType(Id, Name, Duration, StandardPrice)
-			VALUES(@AppointmentTypeId, @Name, @Duration, @StandardPrice)
+	INSERT INTO PN_AppointmentType(Name, Duration, StandardPrice)
+			VALUES(@Name, @Duration, @StandardPrice)
 END
 GO
 
@@ -124,8 +122,11 @@ AS
 BEGIN
 
 	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.UserId, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note  
-	FROM PN_APPOINTMENT JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id join PN_Appointment.AppointmentTypeId = PN_AppointmentType.Id
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_User.Id  
+	FROM PN_APPOINTMENT 
+	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
+	join PN_Appointment.AppointmentTypeId = PN_AppointmentType.Id 
+	JOIN PN_User_Appointment ON PN_Appointment.Id = PN_User_Appointment.AppointmentId
 	WHERE Id = @AppointmentId
 END
 GO
@@ -446,5 +447,19 @@ AS
 BEGIN
 	DELETE from PN_User
 	WHERE Id = @UserId
+END
+GO
+
+CREATE PROCEDURE SPGetAllAppointments
+
+AS
+BEGIN
+
+	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.UserId, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_User.Id  
+	FROM PN_APPOINTMENT 
+	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
+	join PN_Appointment.AppointmentTypeId = PN_AppointmentType.Id 
+	JOIN PN_User_Appointment ON PN_Appointment.Id = PN_User_Appointment.AppointmentId
 END
 GO
