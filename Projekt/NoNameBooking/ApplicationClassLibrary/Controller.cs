@@ -122,8 +122,10 @@ namespace ApplicationClassLibrary
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
 
+            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
+
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
-                tempPractitioner.GetAppointmentType(appointmentTypeString), note);
+                tempAppointmentType, note);
         }
     }
 }
