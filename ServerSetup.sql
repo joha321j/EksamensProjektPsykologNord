@@ -1,51 +1,17 @@
 use B_DB19_2018
 
-IF OBJECT_ID('dbo.PN_Department', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Department;
-
-IF OBJECT_ID('dbo.PN_Room', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Room;
-
-IF OBJECT_ID('dbo.PN_Journal', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Journal;
-
-IF OBJECT_ID('dbo.PN_Journal_Entry', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Journal_Entry;
-
-IF OBJECT_ID('dbo.PN_User', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_User;
-
-IF OBJECT_ID('dbo.PN_Client', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Cliént;
-
-IF OBJECT_ID('dbo.PN_Practitioner', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Practitioner;
-  
-IF OBJECT_ID('dbo.PN_TreatmentType', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_TreatmentType;
-  
-IF OBJECT_ID('dbo.PN_Appointment', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Appointment;
-
-IF OBJECT_ID('dbo.PN_Invoice', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Invoice;
-
-IF OBJECT_ID('dbo.PN_Client_Apppointment', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Invoice;
-
-IF OBJECT_ID('dbo.PN_Practitioner_TreatmentType', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Invoice;
-
 CREATE TABLE dbo.PN_Department
 (
-	Address	nvarchar(120) NOT NULL,
-	Name nvarchar(120) NOT NULL PRIMARY KEY,
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Address	nvarchar(max) NOT NULL,
+	Name nvarchar(max) NOT NULL,
 );
 
 CREATE TABLE dbo.PN_Room
 (
-	Name nvarchar(120) NOT NULL PRIMARY KEY,
-	DepartmentName nvarchar(120) NOT NULL FOREIGN KEY REFERENCES PN_Department(Name),
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Name nvarchar(max),
+	DepartmentName int NOT NULL FOREIGN KEY REFERENCES PN_Department(Id),
 );
 
 CREATE TABLE dbo.PN_Journal
@@ -84,7 +50,7 @@ CREATE TABLE dbo.PN_Practitioner
 	UserId int NOT NULL FOREIGN KEY REFERENCES PN_User(Id),
 );
 
-CREATE TABLE dbo.PN_TreatmentType
+CREATE TABLE dbo.PN_AppointmentType
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Name nvarchar(max) NOT NULL,
@@ -96,10 +62,10 @@ CREATE TABLE dbo.PN_Appointment
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	DateAndTime DateTime2 NOT NULL,
-	RoomName nvarchar(120) NOT NULL FOREIGN KEY REFERENCES PN_Room(Name),
-	PractitionerId int NOT NULL FOREIGN KEY REFERENCES PN_Practitioner(Id),
+	RoomId int NOT NULL FOREIGN KEY REFERENCES PN_Room(Id),
+	--UserId int NOT NULL FOREIGN KEY REFERENCES PN_User(Id),
 	Price float NOT NULL,
-	TreatmentTypeId int NOT NULL FOREIGN KEY REFERENCES PN_TreatmentType(Id),
+	AppointmentTypeId int NOT NULL FOREIGN KEY REFERENCES PN_AppointmentType(Id),
 	Note nvarchar(max) NOT NULL,
 );
 
@@ -110,16 +76,16 @@ CREATE TABLE dbo.PN_Invoice
 	AppointmentId int NOT NULL FOREIGN KEY REFERENCES PN_Appointment(Id),
 );
 
-CREATE TABLE dbo.PN_Client_Appointment
+CREATE TABLE dbo.PN_User_Appointment
 (
-	ClientId int NOT NULL FOREIGN KEY REFERENCES PN_Client(Id),
+	UserId int NOT NULL FOREIGN KEY REFERENCES PN_User(Id),
 	AppointmentId int NOT NULL FOREIGN KEY REFERENCES PN_Appointment(Id),
-	PRIMARY KEY(ClientId, AppointmentId),
+	PRIMARY KEY(UserId, AppointmentId),
 );
 
-CREATE TABLE dbo.PN_Practitioner_TreatmentType
+CREATE TABLE dbo.PN_Practitioner_AppointmentType
 (
 	PractitionerId int NOT NULL FOREIGN KEY REFERENCES PN_Practitioner(Id),
-	TreatmentTypeId int NOT NULL FOREIGN KEY REFERENCES PN_TreatmentType(Id),
-	PRIMARY KEY(PractitionerId, TreatmentTypeId),
+	AppointmentTypeId int NOT NULL FOREIGN KEY REFERENCES PN_AppointmentType(Id),
+	PRIMARY KEY(PractitionerId, AppointmentTypeId),
 );
