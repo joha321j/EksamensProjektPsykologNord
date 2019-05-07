@@ -21,11 +21,11 @@ namespace ApplicationClassLibrary
             _clientRepo = ClientRepo.GetInstance(_persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
-            _departmentRepo = DepartmentRepo.GetInstance(_persistable);
-
             _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
 
-            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers());
+            _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
+
+            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
         }
 
         private List<User> GetUsers()
