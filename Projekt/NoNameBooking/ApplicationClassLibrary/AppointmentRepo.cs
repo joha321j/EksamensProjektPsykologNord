@@ -46,5 +46,11 @@ namespace ApplicationClassLibrary
         {
             return _appointments;
         }
+
+        public void RemoveAppointment(Appointment appointment)
+        {
+            _appointments.Remove(appointment);
+            
+        }
     }
 }
