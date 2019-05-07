@@ -7,18 +7,20 @@ namespace ApplicationClassLibrary
 {
     public class AppointmentRepo
     {
+        private IPersistable _persistable;
         private static AppointmentRepo _instance;
 
         private readonly List<Appointment> _appointments;
 
-        private AppointmentRepo()
+        private AppointmentRepo(IPersistable persistable, List<User> users)
         {
-            _appointments = new List<Appointment>();
+            _persistable = persistable;
+            _appointments = _persistable.GetAppointments(users);
         }
 
-        public static AppointmentRepo GetInstance()
+        public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users)
         {
-            return _instance ?? (_instance = new AppointmentRepo());
+            return _instance ?? (_instance = new AppointmentRepo(persistable, users));
         }
 
         public void AddAppointment(Appointment appointment)
@@ -30,6 +32,7 @@ namespace ApplicationClassLibrary
         {
             Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note);
             AddAppointment(tempAppointment);
+            //_persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
         }
 
         private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note)

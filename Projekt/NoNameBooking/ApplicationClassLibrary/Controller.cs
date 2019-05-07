@@ -6,6 +6,7 @@ namespace ApplicationClassLibrary
 {
     public class Controller
     {
+        private IPersistable _persistable;
         private static Controller _instance;
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
@@ -16,14 +17,25 @@ namespace ApplicationClassLibrary
 
         private Controller()
         {
-            _clientRepo = ClientRepo.GetInstance();
+            _persistable = new DBController();
+            _clientRepo = ClientRepo.GetInstance(_persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
-            _departmentRepo = DepartmentRepo.GetInstance();
+            _departmentRepo = DepartmentRepo.GetInstance(_persistable);
 
-            _practitionerRepo = PractitionerRepo.GetInstance();
+            _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
 
-            _appointmentRepo = AppointmentRepo.GetInstance();
+            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers());
+        }
+
+        private List<User> GetUsers()
+        {
+            List<User> tempUsers = new List<User>();
+            tempUsers.AddRange(_clientRepo.GetClients());
+            tempUsers.AddRange(_practitionerRepo.GetPractitioners());
+
+            return tempUsers;
+
         }
 
         private void NewClientEventHandler(object sender, EventArgs e)
