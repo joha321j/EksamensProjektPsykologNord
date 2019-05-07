@@ -54,6 +54,7 @@ CREATE TABLE dbo.PN_Room
 CREATE TABLE dbo.PN_Journal
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Name NVARCHAR(max) NOT NULL
 );
 
 CREATE TABLE dbo.PN_Journal_Entry
@@ -78,19 +79,21 @@ CREATE TABLE dbo.PN_Client
 	MedicalReferral bit NOT NULL,
 	Note NVARCHAR(MAX),
 	Journalid int NOT NULL FOREIGN KEY REFERENCES PN_Journal(Id),
-	SocialSecurityNumber int NOT NULL	
+	SocialSecurityNumber NVARCHAR(12) NOT NULL	
 );
 
 CREATE TABLE dbo.PN_Practitioner
 (
-	Id int NOT NULL FOREIGN KEY REFERENCES PN_User(Id) PRIMARY KEY
+	Id int NOT NULL FOREIGN KEY REFERENCES PN_User(Id) PRIMARY KEY,
+	StartTime DATETIME2 NOT NULL,
+	DayLength TIME NOT NULL
 );
 
 CREATE TABLE dbo.PN_AppointmentType
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Name nvarchar(max) NOT NULL,
-	Duration DateTime2 NOT NULL,
+	Duration TIME NOT NULL,
 	StandardPrice float NOT NULL,
 );
 
