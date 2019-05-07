@@ -138,10 +138,9 @@ namespace ApplicationClassLibrary
                 tempAppointmentType, note);
         }
 
-        public void RemoveAppointment(DateTime dateAndTime, string timeString, string departmentName, string clientName,
-            string practitionerName, string appointmentTypeString, string note)
+        public void RemoveAppointment(DateTime dateAndTime, string clientName)
         {            
-            _appointmentRepo.RemoveAppointment(dateAndTime, timeString, departmentName, clientName, practitionerName, appointmentTypeString, note);
+            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
         }
     }
 }

@@ -359,5 +359,10 @@ namespace ApplicationClassLibrary
         {
             throw new NotImplementedException();
         }
+
+        public void RemoveAppointment(string clientName, DateTime dateAndTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
