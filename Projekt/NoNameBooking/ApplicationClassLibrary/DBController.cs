@@ -351,7 +351,7 @@ namespace ApplicationClassLibrary
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand commandDepartment = new SqlCommand("spGetALLDeparments", connection);
+                    SqlCommand commandDepartment = new SqlCommand("spGetALLDepartments", connection);
                     commandDepartment.CommandType = CommandType.StoredProcedure;
 
                     SqlCommand commandRoom = new SqlCommand("SPGetRoomsFromDepartment");
