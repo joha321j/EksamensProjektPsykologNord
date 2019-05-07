@@ -125,5 +125,11 @@ namespace ApplicationClassLibrary
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
                 tempAppointmentType, note);
         }
+
+        public void RemoveAppointment(DateTime dateAndTime, string timeString, string departmentName, string clientName,
+            string practitionerName, string appointmentTypeString, string note)
+        {            
+            _appointmentRepo.RemoveAppointment(dateAndTime, timeString, departmentName, clientName, practitionerName, appointmentTypeString, note);
+        }
     }
 }
