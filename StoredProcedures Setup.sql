@@ -42,6 +42,7 @@ DROP PROC IF EXISTS SPGetAllClients
 DROP PROC IF EXISTS SPGetAllPractitioners
 DROP PROC IF EXISTS SPGetAllDepartments
 DROP PROC IF EXISTS SPGetRoomsFromDepartment
+DROP PROC IF EXISTS SPGetPractitionersFromDepartment
 
 GO
 
@@ -493,12 +494,13 @@ CREATE PROCEDURE SPGetAllAppointments
 AS
 BEGIN
 
-	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_User_Appointment.UserId
+	SELECT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_User_Appointment.UserId
 	FROM PN_APPOINTMENT 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
 	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
 	JOIN PN_User_Appointment ON PN_Appointment.Id = PN_User_Appointment.AppointmentId
+	ORDER BY  PN_User_Appointment.AppointmentId
 END
 GO
 
@@ -537,3 +539,13 @@ BEGIN
 	WHERE PN_Room.DepartmentId = @DepartmentId
 END
 GO
+
+CREATE PROC SPGetPractitionersFromDepartment @DepartmentId int
+AS
+BEGIN
+	SELECT PN_Dartment_Practitioner.PractitionerId
+	FROM PN_Dartment_Practitioner
+	WHERE PN_Dartment_Practitioner.DeparmentId = @DepartmentId
+END
+GO
+

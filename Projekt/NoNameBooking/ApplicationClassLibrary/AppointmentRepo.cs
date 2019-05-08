@@ -10,17 +10,17 @@ namespace ApplicationClassLibrary
         private IPersistable _persistable;
         private static AppointmentRepo _instance;
 
-        private readonly List<Appointment> _appointments;
+        private readonly List<Appointment> _appointments = new List<Appointment>();
 
-        private AppointmentRepo(IPersistable persistable, List<User> users)
+        private AppointmentRepo(IPersistable persistable, List<User> users, List<Department> departments)
         {
             _persistable = persistable;
-            _appointments = _persistable.GetAppointments(users);
+            //_appointments = _persistable.GetAppointments(users, departments);
         }
 
-        public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users)
+        public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users, List<Department> departments)
         {
-            return _instance ?? (_instance = new AppointmentRepo(persistable, users));
+            return _instance ?? (_instance = new AppointmentRepo(persistable, users, departments));
         }
 
         public void AddAppointment(Appointment appointment)

@@ -87,7 +87,6 @@ VALUES
 INSERT INTO PN_User_Appointment(UserId, AppointmentId)
 VALUES
 (1,1),
-(3,1),
 (2,4),
 (5,4),
 (4,4),
@@ -102,7 +101,8 @@ VALUES
 (5,7),
 (3,7),
 (5,8),
-(3,8)
+(3,8),
+(3,1)
 
 INSERT INTO PN_Practitioner_AppointmentType(PractitionerId,AppointmentTypeId)
 VALUES
@@ -111,3 +111,10 @@ VALUES
 (4,1),
 (4,2),
 (4,3)
+
+INSERT INTO PN_Dartment_Practitioner(DeparmentId, PractitionerId)
+VALUES
+(1,3),
+(2,3),
+(1,4),
+(3,4)
