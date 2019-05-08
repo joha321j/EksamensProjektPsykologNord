@@ -142,5 +142,10 @@ namespace ApplicationClassLibrary
         {            
             _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
         }
+
+        public List<AppointmentView> GetAllAppointmentsByPracId(int id)
+        {                        
+            return _appointmentRepo.GetAppointmentsByPracId(id);
+        }
     }
 }

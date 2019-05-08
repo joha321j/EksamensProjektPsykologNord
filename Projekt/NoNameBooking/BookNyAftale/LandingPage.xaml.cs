@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ApplicationClassLibrary;
 
 namespace BookNyAftale
 {
@@ -20,22 +21,31 @@ namespace BookNyAftale
     /// </summary>
     public partial class LandingPage : Window
     {
+        private readonly Controller _controller;
         public LandingPage()
         {
             InitializeComponent();
+            _controller = Controller.GetInstance();
             int openingTime = 9;
-            
+            List<AppointmentView> appoViews = new List<AppointmentView>();
+            ListViewItem listItemTime;
+            ListViewItem listItemMonday;
+            ListViewItem listItemTuesday;
+            ListViewItem listItemWednesday;
+            ListViewItem listItemThursday;
+            ListViewItem listItemFriday;
+            ListViewItem listItemSaturday;
+            ListViewItem listItemSunday;
             for (int i = 0; i < 12; i++)
             {
-                ListViewItem listItemTime = new ListViewItem();
-                ListViewItem listItemMonday = new ListViewItem();
-                ListViewItem listItemTuesday = new ListViewItem();
-                ListViewItem listItemWednesday = new ListViewItem();
-                ListViewItem listItemThursday = new ListViewItem();
-                ListViewItem listItemFriday = new ListViewItem();
-                ListViewItem listItemSaturday = new ListViewItem();
-                ListViewItem listItemSunday = new ListViewItem();
-
+                 listItemTime = new ListViewItem();
+                 listItemMonday = new ListViewItem();
+                 listItemTuesday = new ListViewItem();
+                 listItemWednesday = new ListViewItem();
+                 listItemThursday = new ListViewItem();
+                 listItemFriday = new ListViewItem();
+                 listItemSaturday = new ListViewItem();
+                 listItemSunday = new ListViewItem();
 
                 listItemTime.Content = openingTime + ":00";
                 listItemMonday.Content = " ";
@@ -156,6 +166,19 @@ namespace BookNyAftale
                 ((GridView)lvSaturday.View).Columns[0].Header = "Lørdag: " + DateTime.Today.AddDays(-1).ToString("dd/MM");
                 ((GridView)lvSunday.View).Columns[0].Header = "Søndag: " + DateTime.Today.AddDays(0).ToString("dd/MM");
             }
+            //ComboBoxItem calendarPicked = (ComboBoxItem)cmbbCalendar.SelectedItem;
+            appoViews = _controller.GetAllAppointmentsByPracId(3);
+            foreach (AppointmentView item in appoViews)
+            {
+                if (item.dateAndTime.DayOfWeek == DayOfWeek.Monday)
+                {
+                    listItemMonday = new ListViewItem();
+                    listItemMonday.Content = "aftale";
+                    listItemMonday.Background = Brushes.Magenta;
+                    lvMonday.Items.Add(listItemMonday);
+                }
+            }
+                _controller.GetAllAppointmentsByPracId(3);
         }
     }       
 }

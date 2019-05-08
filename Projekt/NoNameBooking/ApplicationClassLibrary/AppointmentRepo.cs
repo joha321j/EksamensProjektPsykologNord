@@ -50,6 +50,25 @@ namespace ApplicationClassLibrary
             return _appointments;
         }
 
+        public List<AppointmentView> GetAppointmentsByPracId(int id)
+        {
+            
+            List<AppointmentView> appointments = new List<AppointmentView>();
+            foreach (Appointment item in _appointments)
+            {
+                foreach (User person in item.Participants)
+                {
+                    if (person.Id == id)
+                    {
+                        AppointmentView appView = new AppointmentView(item.Id,item.DateAndTime);
+
+                        appointments.Add(appView);
+                    }
+                }
+            }
+            return appointments;
+        }
+
         public void RemoveAppointment(string clientName, DateTime dateTime)
         {            
             _persistable.RemoveAppointment(clientName, dateTime);            

@@ -27,8 +27,8 @@ namespace BookNyAftale
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
 
-            CreateAppointment createAppointment = new CreateAppointment();
-            createAppointment.Show();
+            LandingPage landingPage = new LandingPage();
+            landingPage.Show();
             this.Close();
         }
     }

@@ -171,6 +171,10 @@
       <Project>{77ad1380-e0f9-44f1-a870-d8d47ca8982c}</Project>
       <Name>ApplicationClassLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModelClassLibrary\ModelClassLibrary.csproj">
+      <Project>{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}</Project>
+      <Name>ModelClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
