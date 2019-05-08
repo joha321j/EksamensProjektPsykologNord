@@ -1,29 +1,71 @@
 \section{Modellering af Semplito og dets komponenter}
-\subsection{DCD}
+\subsection{Designklassediagram}
 \label{DCD}
 
 For at bedre overskue associationerne mellem klasserne i vores program, samt for at give et overblik over hvilke metoder klasserne skal have, har vi lavet et DCD. 
 
-DCD'en er baseret på vores objekt- og domænemodel, se afsnit \ref{objektmodel} og \ref{domaenemodel} og er blevet opdateret løbende i projektet. DCD'en har været med til at sikre kodestandarden blev overholdt. Dertil har det gjort det nemmere at bestemme ansvaret for hver klasse.
+DCD'et er baseret på vores objekt- og domænemodel, se afsnit \ref{objektmodel} og \ref{domaenemodel} og er blevet opdateret løbende i projektet.
+DCD'et har været med til at sikre, at kodestandarden blev overholdt.
+Dertil har det gjort det nemmere at bestemme ansvaret for hver klasse.
+
+For at holde det overskueligt har vi både lavet et samlet DCD, men også lavet mindre DCD'er, der er bundet til en bestemt use case, og derfor kun indeholder de klasser, som er relevante for use casen.
 
 % Mangler evt. noget mere om hvordan den er blevet holdt op til programmet. 
 
 \subsection{Pakkediagram - Lagdeling}
 \label{Pakkediagram}
 
-Ud over vores DCD lavede vi også et pakkediagram. Pakkediagrammet er til stor hjælp når man skal finde rundt i programmet forskellige klasser og lag. Ligesom DCD'en kan den give et overblik over hvilke klasser har kendskab til hinanden, men uden at vise metoderne, som kan gøre det sværere at overskue relationerne mellem de forskellige klasser. Samtidigt viser pakkediagrammet mere omkring programmets lagdeling, som ikke er meningen med en DCD.
+Ud over vores DCD lavede vi også et pakkediagram.
+Pakkediagrammet er til stor hjælp når man skal finde rundt i programmet forskellige klasser og lag.
+Ligesom DCD'et kan det give et overblik over hvilke klasser, der har kendskab til hinanden, men uden at vise metoderne, som kan gøre det sværere at overskue relationerne mellem de forskellige klasser.
+Samtidigt viser pakkediagrammet mere omkring programmets lagdeling, da klasserne er opdelt i de lag, som vi har opdelt vores system i.
+
+Pakkediagrammet giver os et bedre overblik over programmet som helhed, hvor DCD'et giver mulighed for at kigge nærmere på klasserne.
+
+Både pakkediagrammet og DCD'et har været brugt i mange gode diskussioner i gruppen, i forbindelse med vores valg af softwarearkitektur.
+Vores valg af lagdeling vil blive diskuteret nærmere i afsnit \ref{lagdeling}.
 
 %Indsæt billede
 %splendidum erat dum permansit
 % Add more if needed or vital.
 
-\subsection{DBD - Database Diagram}
+\subsection{Databasediagram(DBD)}
 \label{DBD}
 
-Vi har også opstillet et databasediagram, fremover kaldet DBD, for at bedre overskue opstillingen af databasen. Diagrammet i sig selv har været til stor hjælp, især ved normalisering af vores tabeller. 
+Vi har også opstillet et DBD, for at bedre overskue opstillingen af databasen.
+Opstillingen af DBD'et er gjort med udgangspunkt i vores domænemodel og DCD.
+Ved at betragte domænemodellen og diskutere hvilke domæneklasser, der vil være nødvendige at kunne tilgås for alle brugere af systemet ligegyldigt hvor og hvornår de er, har vi designet DBD'et som kan ses på figur \ref{fig:DBD}.
+
+Diagrammet i sig selv har været til stor hjælp, især ved normalisering af vores tabeller. 
+
+%Indsæt billede
+
+\subsubsection{Relationel database}
+
+Vi har valgt at bruge en relationel database; hvor alt data er repræsenteret som tupler grupperet i relationer.
+Den relationelle model blev først beskrevet af Edgar F. Codd i 1969.
+Vi har valgt at bruge denne type af database, da vi har mange domæneklasser, der har forskellige sammenhænge, som det kan ses på figur \ref{system:domaene}.
+
+Hvis vi blot havde vores database som en lang liste af data ville det give problemer.
+Man kan forestille sig, at PsykologNord ansætter en ny behandler, som endnu ikke har nogen aftaler.
+Det ville betyde, at vi ville have en masse tomme værdier i resten af den række, hvor behandlerens informationer står.\cite{database}
+
+Istedet deles den store tabel op i mindre tabeller, der indeholder referencer til hinanden.
+
+\subsubsection{Normalisering af databasediagrammet}
+
+Hvor mange forskellige tabeller skal man så lave? Til at finde ud af dette bruger man det, som Codd kalder normalformer.
+Der eksistere et hav af normalformer, men i denne rapport vil der arbejdes med første, anden og tredje.
+
+
+
+\subsubsection{Views}
+
+
+\subsubsection{Stored Procedures}
 %Der skal skrives mere.
 
 
-%Indsæt billede
+
 
 
