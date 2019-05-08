@@ -271,7 +271,6 @@ namespace ApplicationClassLibrary
         public List<Appointment> GetAppointments(List<User> users, List<Department> departments)
         {
             List<Appointment> listOfAppointments = new List<Appointment>();
-            int tempId = 0;
             List<User> tempUsers = new List<User>();
 
             try
@@ -282,26 +281,36 @@ namespace ApplicationClassLibrary
                     SqlCommand command = new SqlCommand("SPGetAllAppointments", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        
-                        int tempId2 = reader.GetInt32(0);
-                        if (tempId2 != tempId || tempId == 0)
-                        {
-                            Practitioner tempPractitioner = GetPractitionerHelp(users);
-                            AppointmentType tempAppointmentType =
-                                tempPractitioner.GetAppointmentType(reader.GetInt32(4));
-                            Room tempRoom = FindRoom(departments, reader.GetInt32(2));
-                            Appointment tempAppointment = 
-                                new Appointment(reader.GetDateTime(1), tempUsers, tempAppointmentType, tempRoom, reader.GetString(8), reader.GetDouble(9), tempId);
-                            tempId = tempId2;
-                            tempUsers.Clear();
-                            listOfAppointments.Add(tempAppointment);
-                        }
+                    SqlCommand getUsersCommand = new SqlCommand("SPGetUsersFromAppointmentId", connection);
+                    getUsersCommand.CommandType = CommandType.StoredProcedure;
 
-                       User tempUser = users.Find(user => user.Id.Equals(reader.GetInt32(10)));
-                       tempUsers.Add(tempUser);
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            getUsersCommand.Parameters.AddWithValue("AppointmentId", reader.GetInt32(0));
+
+                            using (SqlDataReader userReader = getUsersCommand.ExecuteReader())
+                            {
+                                while (userReader.Read())
+                                {
+                                    User tempUser = users.Find(user => user.Id == userReader.GetInt32(0));
+                                    tempUsers.Add(tempUser);
+                                }
+                            }
+
+                            Room tempRoom = FindRoom(departments, reader.GetInt32(2));
+                            AppointmentType tempAppointmentType = new AppointmentType(reader.GetString(5),
+                                reader.GetDouble(7), reader.GetTimeSpan(6), reader.GetInt32(4));
+                            Appointment newAppointment = new Appointment(reader.GetDateTime(1), tempUsers,
+                                tempAppointmentType, tempRoom, reader.GetString(8), reader.GetDouble(9),
+                                reader.GetInt32(0));
+
+                            listOfAppointments.Add(newAppointment);
+
+                            tempUsers.Clear();
+                            getUsersCommand.Parameters.Clear();
+                        }
                     }
                 }
 
@@ -351,42 +360,56 @@ namespace ApplicationClassLibrary
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand commandDepartment = new SqlCommand("spGetALLDepartments", connection);
+                    SqlCommand commandDepartment = new SqlCommand("SPGetAllDepartments", connection);
                     commandDepartment.CommandType = CommandType.StoredProcedure;
 
-                    SqlCommand commandRoom = new SqlCommand("SPGetRoomsFromDepartment");
+                    SqlCommand commandRoom = new SqlCommand("SPGetRoomsFromDepartment", connection);
                     commandRoom.CommandType = CommandType.StoredProcedure;
 
-                    SqlCommand commandPractitioners = new SqlCommand("SPGetRoomsFromDepartment");
-                    commandRoom.CommandType = CommandType.StoredProcedure;
+                    SqlCommand commandPractitioners = new SqlCommand("SPGetPractitionersFromDepartment", connection);
+                    commandPractitioners.CommandType = CommandType.StoredProcedure;
 
-                    SqlDataReader reader = commandDepartment.ExecuteReader();
-                    while (reader.Read())
+                    using(SqlDataReader reader = commandDepartment.ExecuteReader())
                     {
-                        Department tempDepartment = new Department(reader.GetString(0), reader.GetString(1));
-
-                        List<Room> tempRooms = new List<Room>();
-                        commandRoom.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
-                        SqlDataReader readRoom = commandRoom.ExecuteReader();
-
-                        while (readRoom.Read())
+                        while (reader.Read())
                         {
-                            Room tempRoom = new Room(readRoom.GetString(1),default(DateTime), 24, readRoom.GetInt32(0));
-                            tempRooms.Add(tempRoom);
+                            Department tempDepartment = new Department(reader.GetValue(0).ToString(), reader.GetValue(1).ToString());
+
+                            List<Room> tempRooms = new List<Room>();
+                            commandRoom.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
+                            commandPractitioners.Parameters.AddWithValue("DepartmentId", reader.GetValue(0));
+
+                            using (SqlDataReader readRoom = commandRoom.ExecuteReader())
+                            {
+
+                                while (readRoom.Read())
+                                {
+                                    Room tempRoom = new Room(readRoom.GetString(1), default(DateTime), 24, readRoom.GetInt32(0));
+                                    tempRooms.Add(tempRoom);
+                                }
+
+                                
+
+                            }
+
+                            using (SqlDataReader readPractitioners = commandPractitioners.ExecuteReader())
+                            {
+                                
+
+                                while (readPractitioners.Read())
+                                {
+                                    Practitioner tempPractitioner = GetPractitionerHelp(readPractitioners.GetInt32(0), practitioners);
+                                    tempDepartment.AddPractitioner(tempPractitioner);
+                                }
+
+                                tempDepartment.Rooms = tempRooms;
+
+                                listOfDepartments.Add(tempDepartment);
+                            }
+
+                            commandRoom.Parameters.Clear();
+                            commandPractitioners.Parameters.Clear();
                         }
-
-                        commandPractitioners.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
-                        SqlDataReader readPractitioners = commandPractitioners.ExecuteReader();
-
-                        while (readPractitioners.Read())
-                        {
-                            Practitioner tempPractitioner = GetPractitionerHelp(readPractitioners.GetInt32(0), practitioners);
-                            tempDepartment.AddPractitioner(tempPractitioner);
-                        }
-
-                        tempDepartment.Rooms = tempRooms;
-
-                        listOfDepartments.Add(tempDepartment);
                     }
                 }
 
@@ -408,7 +431,7 @@ namespace ApplicationClassLibrary
                     return practitioner;
                 }
             }
-            throw new CultureNotFoundException();
+            throw new CultureNotFoundException("SUT MIN PIIIIIIIIIIIIIK");
         }
 
         public List<Practitioner> GetPractitioners()
@@ -421,15 +444,40 @@ namespace ApplicationClassLibrary
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
+
+
                     SqlCommand command = new SqlCommand("SPGetAllPractitioners", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    SqlCommand appointmentCommand = new SqlCommand("SPGetAppointmentTypeByPractitionerId", connection);
+                    appointmentCommand.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        Practitioner tempPractitioner = new Practitioner(reader.GetDateTime(5), reader.GetTimeSpan(6), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
-                        listOfPractitioners.Add(tempPractitioner);
+                        while (reader.Read())
+                        {
+                            List<AppointmentType> appointmentTypes = new List<AppointmentType>();
+                            appointmentCommand.Parameters.AddWithValue("PractitionerId", reader.GetInt32(0));
+                            using (SqlDataReader appointmentReader = appointmentCommand.ExecuteReader())
+                            {
+                                while (appointmentReader.Read())
+                                {
+                                    AppointmentType tempAppointmentType =
+                                        new AppointmentType(appointmentReader.GetString(0),
+                                            appointmentReader.GetDouble(1), appointmentReader.GetTimeSpan(2),
+                                            appointmentReader.GetInt32(3));
+                                    appointmentTypes.Add(tempAppointmentType);
+                                }
+                            }
+                           
+                            Practitioner tempPractitioner = new Practitioner(reader.GetInt32(0), appointmentTypes, reader.GetDateTime(5), reader.GetTimeSpan(6),
+                                reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                            listOfPractitioners.Add(tempPractitioner);
+
+                            appointmentCommand.Parameters.Clear();
+                        }
                     }
+
                 }
 
                 return listOfPractitioners;
@@ -442,6 +490,11 @@ namespace ApplicationClassLibrary
         }
 
         public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAppointment(string clientName, DateTime dateAndTime)
         {
             throw new NotImplementedException();
         }

@@ -137,5 +137,15 @@ namespace ApplicationClassLibrary
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
                 tempAppointmentType, note);
         }
+
+        public void RemoveAppointment(DateTime dateAndTime, string clientName)
+        {            
+            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
+        }
+
+        public List<AppointmentView> GetAllAppointmentsByPracId(int id)
+        {                        
+            return _appointmentRepo.GetAppointmentsByPracId(id);
+        }
     }
 }

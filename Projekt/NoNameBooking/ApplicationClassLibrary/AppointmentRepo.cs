@@ -15,7 +15,7 @@ namespace ApplicationClassLibrary
         private AppointmentRepo(IPersistable persistable, List<User> users, List<Department> departments)
         {
             _persistable = persistable;
-            //_appointments = _persistable.GetAppointments(users, departments);
+            _appointments = _persistable.GetAppointments(users, departments);
         }
 
         public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users, List<Department> departments)
@@ -48,6 +48,30 @@ namespace ApplicationClassLibrary
         public List<Appointment> GetAppointments()
         {
             return _appointments;
+        }
+
+        public List<AppointmentView> GetAppointmentsByPracId(int id)
+        {
+            
+            List<AppointmentView> appointments = new List<AppointmentView>();
+            foreach (Appointment item in _appointments)
+            {
+                foreach (User person in item.Participants)
+                {
+                    if (person.Id == id)
+                    {
+                        AppointmentView appView = new AppointmentView(item.Id,item.DateAndTime);
+
+                        appointments.Add(appView);
+                    }
+                }
+            }
+            return appointments;
+        }
+
+        public void RemoveAppointment(string clientName, DateTime dateTime)
+        {            
+            _persistable.RemoveAppointment(clientName, dateTime);            
         }
     }
 }
