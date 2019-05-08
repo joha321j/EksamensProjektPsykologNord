@@ -351,42 +351,52 @@ namespace ApplicationClassLibrary
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand commandDepartment = new SqlCommand("spGetALLDepartments", connection);
+                    SqlCommand commandDepartment = new SqlCommand("SPGetAllDepartments", connection);
                     commandDepartment.CommandType = CommandType.StoredProcedure;
 
-                    SqlCommand commandRoom = new SqlCommand("SPGetRoomsFromDepartment");
+                    SqlCommand commandRoom = new SqlCommand("SPGetRoomsFromDepartment", connection);
                     commandRoom.CommandType = CommandType.StoredProcedure;
 
-                    SqlCommand commandPractitioners = new SqlCommand("SPGetRoomsFromDepartment");
-                    commandRoom.CommandType = CommandType.StoredProcedure;
+                    SqlCommand commandPractitioners = new SqlCommand("SPGetPractitionersFromDepartment", connection);
+                    commandPractitioners.CommandType = CommandType.StoredProcedure;
 
-                    SqlDataReader reader = commandDepartment.ExecuteReader();
-                    while (reader.Read())
+                    using(SqlDataReader reader = commandDepartment.ExecuteReader())
                     {
-                        Department tempDepartment = new Department(reader.GetString(0), reader.GetString(1));
-
-                        List<Room> tempRooms = new List<Room>();
-                        commandRoom.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
-                        SqlDataReader readRoom = commandRoom.ExecuteReader();
-
-                        while (readRoom.Read())
+                        while (reader.Read())
                         {
-                            Room tempRoom = new Room(readRoom.GetString(1),default(DateTime), 24, readRoom.GetInt32(0));
-                            tempRooms.Add(tempRoom);
+                            Department tempDepartment = new Department(reader.GetValue(0).ToString(), reader.GetValue(1).ToString());
+
+                            List<Room> tempRooms = new List<Room>();
+                            commandRoom.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
+
+                            using (SqlDataReader readRoom = commandRoom.ExecuteReader())
+                            {
+
+                                while (readRoom.Read())
+                                {
+                                    Room tempRoom = new Room(readRoom.GetString(1), default(DateTime), 24, readRoom.GetInt32(0));
+                                    tempRooms.Add(tempRoom);
+                                }
+
+                                commandPractitioners.Parameters.AddWithValue("DepartmentId", reader.GetValue(0));
+
+                            }
+
+                            using (SqlDataReader readPractitioners = commandPractitioners.ExecuteReader())
+                            {
+                                
+
+                                while (readPractitioners.Read())
+                                {
+                                    Practitioner tempPractitioner = GetPractitionerHelp(readPractitioners.GetInt32(0), practitioners);
+                                    tempDepartment.AddPractitioner(tempPractitioner);
+                                }
+
+                                tempDepartment.Rooms = tempRooms;
+
+                                listOfDepartments.Add(tempDepartment);
+                            }
                         }
-
-                        commandPractitioners.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
-                        SqlDataReader readPractitioners = commandPractitioners.ExecuteReader();
-
-                        while (readPractitioners.Read())
-                        {
-                            Practitioner tempPractitioner = GetPractitionerHelp(readPractitioners.GetInt32(0), practitioners);
-                            tempDepartment.AddPractitioner(tempPractitioner);
-                        }
-
-                        tempDepartment.Rooms = tempRooms;
-
-                        listOfDepartments.Add(tempDepartment);
                     }
                 }
 

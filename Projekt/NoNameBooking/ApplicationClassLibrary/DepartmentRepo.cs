@@ -14,7 +14,7 @@ namespace ApplicationClassLibrary
         private DepartmentRepo(IPersistable persistable, List<Practitioner> practitioners)
         {
             _persistable = persistable;
-            //_departments = _persistable.GetDepartments(practitioners);
+            _departments = _persistable.GetDepartments(practitioners);
         }
 
         public static DepartmentRepo GetInstance(IPersistable persistable, List<Practitioner> practitioners)

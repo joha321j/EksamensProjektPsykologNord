@@ -15,7 +15,7 @@ namespace ApplicationClassLibrary
         private AppointmentRepo(IPersistable persistable, List<User> users, List<Department> departments)
         {
             _persistable = persistable;
-            //_appointments = _persistable.GetAppointments(users, departments);
+            _appointments = _persistable.GetAppointments(users, departments);
         }
 
         public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users, List<Department> departments)
