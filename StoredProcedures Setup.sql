@@ -44,6 +44,7 @@ DROP PROC IF EXISTS SPGetAllDepartments
 DROP PROC IF EXISTS SPGetRoomsFromDepartment
 DROP PROC IF EXISTS SPGetPractitionersFromDepartment
 DROP PROC IF EXISTS SPGetAppointmentTypeByPractitionerId
+DROP PROC IF EXISTS SPGetUsersFromAppointmentId
 
 GO
 
@@ -495,8 +496,8 @@ CREATE PROCEDURE SPGetAllAppointments
 AS
 BEGIN
 
-	SELECT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_User_Appointment.UserId
+	SELECT DISTINCT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price
 	FROM PN_APPOINTMENT 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
 	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
@@ -504,6 +505,16 @@ BEGIN
 	ORDER BY  PN_User_Appointment.AppointmentId
 END
 GO
+
+CREATE PROCEDURE SPGetUsersFromAppointmentId @AppointmentId INT
+AS
+BEGIN
+SELECT PN_User_Appointment.UserId
+FROM PN_User_Appointment
+WHERE PN_User_Appointment.AppointmentId = @AppointmentId
+END
+GO
+
 
 CREATE PROC SPGetAllClients
 AS
@@ -518,7 +529,7 @@ GO
 CREATE PROC SPGetAllPractitioners
 AS
 BEGIN
-	SELECT PN_User.Id, PN_User.Name, PN_User.Email, PN_User.PhoneNumber, PN_User.Address
+	SELECT PN_User.Id, PN_User.Name, PN_User.Email, PN_User.PhoneNumber, PN_User.Address, PN_Practitioner.StartTime, PN_Practitioner.DayLength
 	FROM PN_User
 	JOIN PN_Practitioner ON PN_User.Id = PN_Practitioner.Id
 END
