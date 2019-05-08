@@ -7,7 +7,7 @@ namespace ModelClassLibrary
 {
     public class User
     {
-        public int Id { get; set; }
+        public int Id { get; }
         public string Name { get; }
         public string PhoneNumber { get; }
         public string Address { get; }
@@ -21,6 +21,7 @@ namespace ModelClassLibrary
             Address = address;
             PhoneNumber = phoneNumber;
             Email = email;
+            Id = id;
         }
 
         public void AddAppointment(Appointment appointment)
