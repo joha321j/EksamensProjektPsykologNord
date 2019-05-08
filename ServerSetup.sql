@@ -15,8 +15,8 @@ IF OBJECT_ID('dbo.PN_Appointment', 'U') IS NOT NULL
 IF OBJECT_ID('dbo.PN_AppointmentType', 'U') IS NOT NULL 
   DROP TABLE dbo.PN_AppointmentType; 
 
-IF OBJECT_ID('dbo.PN_Dartment_Practitioner', 'U') IS NOT NULL 
-  DROP TABLE dbo.PN_Dartment_Practitioner; 
+IF OBJECT_ID('dbo.PN_Department_Practitioner', 'U') IS NOT NULL 
+  DROP TABLE dbo.PN_Department_Practitioner; 
 
 IF OBJECT_ID('dbo.PN_Practitioner', 'U') IS NOT NULL 
   DROP TABLE dbo.PN_Practitioner; 
@@ -133,9 +133,9 @@ CREATE TABLE dbo.PN_Practitioner_AppointmentType
 	PRIMARY KEY(PractitionerId, AppointmentTypeId),
 );
 
-CREATE TABLE dbo.PN_Dartment_Practitioner
+CREATE TABLE dbo.PN_Department_Practitioner
 (
-	DeparmentId int NOT NULL FOREIGN KEY REFERENCES PN_Department(Id),
+	DepartmentId int NOT NULL FOREIGN KEY REFERENCES PN_Department(Id),
 	PractitionerId int NOT NULL FOREIGN KEY REFERENCES PN_Practitioner(Id),
-	PRIMARY KEY(PractitionerId, DeparmentId),	
+	PRIMARY KEY(PractitionerId, DepartmentId),	
 );
