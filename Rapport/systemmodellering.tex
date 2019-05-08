@@ -35,9 +35,15 @@ Aftale objektet er vores samleobjekt, da det binder de andre objekter sammen.
 
 \subsection{Domænemodel}
 
-På baggrund af objektmodellen kan vi så bygge videre til det næste artefakt, domænemodellen. Her bygger vi videre på de associationer som vi fandt frem til i objektmodellen. F.eks. med ifht. mængderne. 
+På baggrund af objektmodellen kan vi så bygge videre til det næste artefakt, domænemodellen.
+En domænemodel er en generalisering af objektmodellen.
+Det er nødvendigt at lave en domænemodel, da en virksomhed ikke nødvendigvis er statisk.
+Hvis man kun arbejder videre med en objektmodel modellerer man kun virkeligheden, som den er i det øjeblik, hvor modellen bliver konstrueret.
+Så I vores tilfælde ville der bygges et system, som håndtere lige præcis de tre psykologer nævnt i objektmodellen, med lige præcis de terapityper, og så videre.
+Men vi ved, at de har et ønske om at udvide, så derfor er det vigtigt at generalisere vores model, så den kan skaleres op og ned.
 
-Ved domænemodellering kommer vi samtidig tættere på klasser, som skal indeholde forskellige attributter.
+Domænemodellen bygges på de associationer og sammenhænge, som vi kan se i objektmodellen, f.eks kan vi se, at en aftale altid skal have mindst én klient, en klinik har et eller flere lokaler og så fremdeles.
+Objekterne bliver oversat til domæneklasser, og deres sammenhænge bliver vist med associationer og multipliciteter.
 
 \begin{figure}[H]
     \caption{Domænemodel for Book Aftale}
