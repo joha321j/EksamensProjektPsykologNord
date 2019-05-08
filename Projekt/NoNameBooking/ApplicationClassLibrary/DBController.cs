@@ -375,7 +375,7 @@ namespace ApplicationClassLibrary
                             tempRooms.Add(tempRoom);
                         }
 
-                        commandPractitioners.Parameters.AddWithValue("DeparmentId", reader.GetInt32(0));
+                        commandPractitioners.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
                         SqlDataReader readPractitioners = commandPractitioners.ExecuteReader();
 
                         while (readPractitioners.Read())
@@ -415,19 +415,20 @@ namespace ApplicationClassLibrary
         {
             List<Practitioner> listOfPractitioners = new List<Practitioner>();
 
-            return listOfPractitioners;
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("spGetAllPractitioners", connection);
+                    SqlCommand command = new SqlCommand("SPGetAllPractitioners", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        
+                        Practitioner tempPractitioner = new Practitioner(reader.GetDateTime(5), reader.GetTimeSpan(6), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                        listOfPractitioners.Add(tempPractitioner);
                     }
                 }
 

@@ -9,12 +9,12 @@ namespace ApplicationClassLibrary
         private readonly IPersistable _persistable;
         private static DepartmentRepo _instance;
 
-        private readonly List<Department> _departments;
+        private readonly List<Department> _departments = new List<Department>();
 
         private DepartmentRepo(IPersistable persistable, List<Practitioner> practitioners)
         {
             _persistable = persistable;
-            _departments = _persistable.GetDepartments(practitioners);
+            //_departments = _persistable.GetDepartments(practitioners);
         }
 
         public static DepartmentRepo GetInstance(IPersistable persistable, List<Practitioner> practitioners)
