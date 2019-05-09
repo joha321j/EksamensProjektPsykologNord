@@ -7,18 +7,20 @@ namespace ApplicationClassLibrary
 {
     public class AppointmentRepo
     {
+        private IPersistable _persistable;
         private static AppointmentRepo _instance;
 
-        private readonly List<Appointment> _appointments;
+        private readonly List<Appointment> _appointments = new List<Appointment>();
 
-        private AppointmentRepo()
+        private AppointmentRepo(IPersistable persistable, List<User> users, List<Department> departments)
         {
-            _appointments = new List<Appointment>();
+            _persistable = persistable;
+            _appointments = _persistable.GetAppointments(users, departments);
         }
 
-        public static AppointmentRepo GetInstance()
+        public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users, List<Department> departments)
         {
-            return _instance ?? (_instance = new AppointmentRepo());
+            return _instance ?? (_instance = new AppointmentRepo(persistable, users, departments));
         }
 
         public void AddAppointment(Appointment appointment)
@@ -30,6 +32,7 @@ namespace ApplicationClassLibrary
         {
             Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note);
             AddAppointment(tempAppointment);
+            //_persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
         }
 
         private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note)
@@ -45,6 +48,30 @@ namespace ApplicationClassLibrary
         public List<Appointment> GetAppointments()
         {
             return _appointments;
+        }
+
+        public List<AppointmentView> GetAppointmentsByPracId(int id)
+        {
+            
+            List<AppointmentView> appointments = new List<AppointmentView>();
+            foreach (Appointment item in _appointments)
+            {
+                foreach (User person in item.Participants)
+                {
+                    if (person.Id == id)
+                    {
+                        AppointmentView appView = new AppointmentView(item.Id,item.DateAndTime);
+
+                        appointments.Add(appView);
+                    }
+                }
+            }
+            return appointments;
+        }
+
+        public void RemoveAppointment(string clientName, DateTime dateTime)
+        {            
+            _persistable.RemoveAppointment(clientName, dateTime);            
         }
     }
 }

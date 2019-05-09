@@ -6,20 +6,22 @@ namespace ApplicationClassLibrary
 {
     public class ClientRepo
     {
+        private static IPersistable _persistable;
         private static ClientRepo _instance;
 
         private readonly List<Client> _clients;
 
         public EventHandler NewClientEventHandler;
 
-        private ClientRepo()
+        private ClientRepo(IPersistable persistable)
         {
-            _clients = new List<Client>();
+            _persistable = persistable;
+            _clients = _persistable.GetClients();
         }
 
-        public static ClientRepo GetInstance()
+        public static ClientRepo GetInstance(IPersistable persistable)
         {
-            return _instance ?? (_instance = new ClientRepo());
+            return _instance ?? (_instance = new ClientRepo(persistable));
         }
 
         public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
