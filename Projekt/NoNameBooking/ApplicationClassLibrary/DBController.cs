@@ -271,8 +271,7 @@ namespace ApplicationClassLibrary
         public List<Appointment> GetAppointments(List<User> users, List<Department> departments)
         {
             List<Appointment> listOfAppointments = new List<Appointment>();
-            List<User> tempUsers = new List<User>();
-
+            
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -288,6 +287,7 @@ namespace ApplicationClassLibrary
                     {
                         while (reader.Read())
                         {
+                            List<User> tempUsers = new List<User>();
                             getUsersCommand.Parameters.AddWithValue("AppointmentId", reader.GetInt32(0));
 
                             using (SqlDataReader userReader = getUsersCommand.ExecuteReader())
@@ -307,8 +307,7 @@ namespace ApplicationClassLibrary
                                 reader.GetInt32(0));
 
                             listOfAppointments.Add(newAppointment);
-
-                            tempUsers.Clear();
+                            
                             getUsersCommand.Parameters.Clear();
                         }
                     }

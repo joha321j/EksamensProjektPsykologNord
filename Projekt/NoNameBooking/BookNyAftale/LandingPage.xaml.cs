@@ -170,11 +170,11 @@ namespace BookNyAftale
             appoViews = _controller.GetAllAppointmentsByPracId(3);
             foreach (AppointmentView item in appoViews)
             {
-                
-                    listItemMonday = new ListViewItem();
-                    listItemMonday.Content = "aftale";
-                    listItemMonday.Background = Brushes.Magenta;
-                    lvMonday.Items.Add(listItemMonday);
+                    
+                listItemMonday = new ListViewItem();                
+                listItemMonday.Content = "aftale";
+                listItemMonday.Background = Brushes.Magenta;
+                lvMonday.Items.Add(listItemMonday);
                 
             }
                 _controller.GetAllAppointmentsByPracId(3);
