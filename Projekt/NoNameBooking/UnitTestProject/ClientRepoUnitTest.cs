@@ -47,7 +47,8 @@ namespace UnitTestProject
 
             _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSSN, clientNote);
 
-            Assert.AreEqual(_clientRepo.GetClientAmount(), 1);
+            Assert.AreEqual(_clientRepo.GetClient(clientName).Name, clientName);
+            Assert.AreEqual(_clientRepo.GetClient(clientName).Address, clientAddress);
         }
 
     }

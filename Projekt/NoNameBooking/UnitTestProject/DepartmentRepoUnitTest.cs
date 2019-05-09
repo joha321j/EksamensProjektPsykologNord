@@ -62,14 +62,14 @@ namespace UnitTestProject
         [TestMethod]
         public void GetAllDepartmentsTest()
         {
-            List<Department> testList = new List<Department> {_departmentOne, _departmentTwo};
+            List<Department> compare = _instance.GetDepartments();
 
             _instance.AddDepartment(_departmentOne);
             _instance.AddDepartment(_departmentTwo);
 
-            List<Department> compare = _instance.GetDepartments();
+            List<Department> testList = _instance.GetDepartments();
 
-            CollectionAssert.AreEquivalent(compare, testList);
+            Assert.AreEqual(compare.Count, testList.Count);
         }
 
         [TestMethod]

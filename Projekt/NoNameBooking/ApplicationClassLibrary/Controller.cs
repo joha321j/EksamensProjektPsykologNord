@@ -28,7 +28,7 @@ namespace ApplicationClassLibrary
             _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
         }
 
-        private List<User> GetUsers()
+        public List<User> GetUsers()
         {
             List<User> tempUsers = new List<User>();
             tempUsers.AddRange(_clientRepo.GetClients());
@@ -40,7 +40,7 @@ namespace ApplicationClassLibrary
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler.Invoke(((Client) sender).Name, e);
+            NewClientCreatedEventHandler?.Invoke(((Client) sender).Name, e);
         }
 
         public static Controller GetInstance()

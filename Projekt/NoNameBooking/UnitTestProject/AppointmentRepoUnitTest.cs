@@ -15,6 +15,7 @@ namespace UnitTestProject
     {
         private AppointmentRepo _instance;
         private DBController _dbController;
+        private Controller _controller;
         private DepartmentRepo _departmentRepo;
         List<User> users = new List<User>();
         List<Practitioner> practitioners = new List<Practitioner>();
@@ -24,7 +25,10 @@ namespace UnitTestProject
         public void AppointmentRepoSetup()
         {
             _dbController = new DBController();
+            _controller = Controller.GetInstance();
             _departmentRepo = DepartmentRepo.GetInstance(_dbController, practitioners);
+            departments = _departmentRepo.GetDepartments();
+            users = _controller.GetUsers();
             _instance = AppointmentRepo.GetInstance(_dbController, users, departments);
         }
 
@@ -32,6 +36,7 @@ namespace UnitTestProject
         public void AppointmentRepoCleanUp()
         {
             _instance.ResetInstance();
+            _departmentRepo.ResetInstance();
         }
        
         [TestMethod]

@@ -398,7 +398,7 @@ namespace ApplicationClassLibrary
 
                                 while (readPractitioners.Read())
                                 {
-                                    Practitioner tempPractitioner = GetPractitionerHelp(readPractitioners.GetInt32(0), practitioners);
+                                    Practitioner tempPractitioner = practitioners.Find(x => x.Id == readPractitioners.GetInt32(0));
                                     tempDepartment.AddPractitioner(tempPractitioner);
                                 }
 
@@ -420,18 +420,6 @@ namespace ApplicationClassLibrary
                 /// TODO: Actually handle the exception!
                 throw e;
             }
-        }
-
-        private Practitioner GetPractitionerHelp(int practitionerId, List<Practitioner> practitioners)
-        {
-            foreach (Practitioner practitioner in practitioners)
-            {
-                if (practitioner.Id == practitionerId)
-                {
-                    return practitioner;
-                }
-            }
-            throw new CultureNotFoundException("SUT MIN PIIIIIIIIIIIIIK");
         }
 
         public List<Practitioner> GetPractitioners()
