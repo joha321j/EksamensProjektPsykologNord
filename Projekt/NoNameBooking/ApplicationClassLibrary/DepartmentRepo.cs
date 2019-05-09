@@ -6,18 +6,20 @@ namespace ApplicationClassLibrary
 {
     public class DepartmentRepo
     {
+        private readonly IPersistable _persistable;
         private static DepartmentRepo _instance;
 
-        private readonly List<Department> _departments;
+        private readonly List<Department> _departments = new List<Department>();
 
-        private DepartmentRepo()
+        private DepartmentRepo(IPersistable persistable, List<Practitioner> practitioners)
         {
-            _departments = new List<Department>();
+            _persistable = persistable;
+            _departments = _persistable.GetDepartments(practitioners);
         }
 
-        public static DepartmentRepo GetInstance()
+        public static DepartmentRepo GetInstance(IPersistable persistable, List<Practitioner> practitioners)
         {
-            return _instance ?? (_instance = new DepartmentRepo());
+            return _instance ?? (_instance = new DepartmentRepo(persistable, practitioners));
         }
 
         public List<Department> GetDepartments()
