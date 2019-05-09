@@ -21,22 +21,7 @@ namespace ApplicationClassLibrary
 
             _departmentRepo = DepartmentRepo.GetInstance();
 
-<<<<<<< HEAD
             _practitionerRepo = PractitionerRepo.GetInstance();
-=======
-            _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
-
-            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
-        }
-
-        private List<User> GetUsers()
-        {
-            List<User> tempUsers = new List<User>();
-            tempUsers.AddRange(_clientRepo.GetClients());
-            tempUsers.AddRange(_practitionerRepo.GetPractitioners());
-
-            return tempUsers;
->>>>>>> parent of 9a8ffb7... Rettede Tests - All work now
 
             _appointmentRepo = AppointmentRepo.GetInstance();
         }

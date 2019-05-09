@@ -14,25 +14,11 @@ namespace UnitTestProject
     public class AppointmentRepoUnitTest
     {
         private AppointmentRepo _instance;
-<<<<<<< HEAD
-=======
-        private DBController _dbController;
-        private DepartmentRepo _departmentRepo;
-        List<User> users = new List<User>();
-        List<Practitioner> practitioners = new List<Practitioner>();
-        List<Department> departments = new List<Department>();
->>>>>>> parent of 9a8ffb7... Rettede Tests - All work now
 
         [TestInitialize]
         public void AppointmentRepoSetup()
         {
-<<<<<<< HEAD
             _instance = AppointmentRepo.GetInstance();
-=======
-            _dbController = new DBController();
-            _departmentRepo = DepartmentRepo.GetInstance(_dbController, practitioners);
-            _instance = AppointmentRepo.GetInstance(_dbController, users, departments);
->>>>>>> parent of 9a8ffb7... Rettede Tests - All work now
         }
 
         [TestCleanup]
