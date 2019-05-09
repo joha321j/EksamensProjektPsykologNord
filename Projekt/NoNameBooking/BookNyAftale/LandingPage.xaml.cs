@@ -170,7 +170,244 @@ namespace BookNyAftale
             appoViews = _controller.GetAllAppointmentsByPracId(3);
             foreach (AppointmentView item in appoViews)
             {
-                    
+                switch (item.dateAndTime.DayOfWeek)
+                {
+                    case DayOfWeek.Sunday:
+                        
+                        listItemSunday = new ListViewItem();
+                        switch (item.dateAndTime.Hour)
+                        {
+                            case 09:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(0,listItemSunday);
+                                break;
+                            case 10:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(1, listItemSunday);
+                                break;
+                            case 11:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(2, listItemSunday);
+                                break;
+                            case 12:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(3, listItemSunday);
+                                break;
+                            case 13:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(4, listItemSunday);
+                                break;
+                            case 14:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(5, listItemSunday);
+                                break;
+                            case 15:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(6, listItemSunday);
+                                break;
+                            case 16:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(7, listItemSunday);
+                                break;
+                            case 17:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(8, listItemSunday);
+                                break;
+                            case 18:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(8, listItemSunday);
+                                break;
+                            case 19:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(9, listItemSunday);
+                                break;
+                            case 20:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(10, listItemSunday);
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        break;
+                    case DayOfWeek.Monday:
+                        listItemSunday = new ListViewItem();
+                        switch (item.dateAndTime.Hour)
+                        {
+                            case 09:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(0, listItemMonday);
+                                break;
+                            case 10:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(1, listItemMonday);
+                                break;
+                            case 11:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(2, listItemMonday);
+                                break;
+                            case 12:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(3, listItemMonday);
+                                break;
+                            case 13:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(4, listItemMonday);
+                                break;
+                            case 14:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(5, listItemMonday);
+                                break;
+                            case 15:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(6, listItemMonday);
+                                break;
+                            case 16:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(7, listItemMonday);
+                                break;
+                            case 17:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(8, listItemMonday);
+                                break;
+                            case 18:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(9, listItemMonday);
+                                break;
+                            case 19:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(10, listItemMonday);
+                                break;
+                            case 20:
+                                listItemMonday = new ListViewItem();
+                                listItemMonday.Content = item.dateAndTime;
+                                listItemMonday.Background = Brushes.Magenta;
+                                lvMonday.Items.Insert(11, listItemMonday);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case DayOfWeek.Tuesday:
+                        listItemSunday = new ListViewItem();
+                        switch (item.dateAndTime.Hour)
+                        {
+                            case 12:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(4, listItemSunday);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case DayOfWeek.Wednesday:
+                        listItemSunday = new ListViewItem();
+                        switch (item.dateAndTime.Hour)
+                        {
+                            case 12:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(5, listItemSunday);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case DayOfWeek.Thursday:
+                        listItemSunday = new ListViewItem();
+                        switch (item.dateAndTime.Hour)
+                        {
+                            case 12:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(5, listItemSunday);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case DayOfWeek.Friday:
+                        listItemSunday = new ListViewItem();
+                        switch (item.dateAndTime.Hour)
+                        {
+                            case 12:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(2, listItemSunday);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case DayOfWeek.Saturday:
+                        listItemSunday = new ListViewItem();
+                        switch (item.dateAndTime.Hour)
+                        {
+                            case 12:
+                                listItemSunday = new ListViewItem();
+                                listItemSunday.Content = item.dateAndTime;
+                                listItemSunday.Background = Brushes.Magenta;
+                                lvSunday.Items.Insert(1, listItemSunday);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
                 listItemMonday = new ListViewItem();                
                 listItemMonday.Content = "aftale";
                 listItemMonday.Background = Brushes.Magenta;
