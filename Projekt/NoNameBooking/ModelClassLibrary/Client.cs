@@ -9,8 +9,8 @@ namespace ModelClassLibrary
         public Journal Journal { get; }
 
         public Client(string clientName = "", string clientEmail = "", string clientPhoneNumber = "",
-            string clientAddress = "", string clientSsn = "-1", string clientNote = "", int id = -1)
-            : base(clientName, clientAddress, clientPhoneNumber, clientEmail, id)
+            string clientAddress = "", string clientSsn = "-1", string clientNote = "")
+            : base(clientName, clientAddress, clientPhoneNumber, clientEmail)
         {
             ClientSsn = clientSsn;
             ClientNote = clientNote;

@@ -18,8 +18,6 @@ namespace UnitTestProject
         private DepartmentRepo _instance;
         private Department _departmentOne;
         private Department _departmentTwo;
-        private DBController _dbController;
-        private List<Practitioner> practitioners = new List<Practitioner>();
 
         [TestCleanup]
         public void DepartmentRepoCleanUp()
@@ -30,8 +28,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void DepartmentRepoSetup()
         {
-            _dbController = new DBController();
-            _instance = DepartmentRepo.GetInstance(_dbController, practitioners);
+            _instance = DepartmentRepo.GetInstance();
             _departmentOne = new Department("TestDepartmentOne", "TestAddressOne");
             _departmentTwo = new Department("TestDepartmentTwo", "TestAddressTwo");
 
@@ -40,7 +37,7 @@ namespace UnitTestProject
         [TestMethod]
         public void GetInstanceTest()
         {
-            DepartmentRepo testinstance = DepartmentRepo.GetInstance(_dbController, practitioners);
+            DepartmentRepo testinstance = DepartmentRepo.GetInstance();
 
             Assert.AreEqual(_instance, testinstance);
         }
@@ -62,14 +59,14 @@ namespace UnitTestProject
         [TestMethod]
         public void GetAllDepartmentsTest()
         {
-            List<Department> compare = _instance.GetDepartments();
+            List<Department> testList = new List<Department> {_departmentOne, _departmentTwo};
 
             _instance.AddDepartment(_departmentOne);
             _instance.AddDepartment(_departmentTwo);
 
-            List<Department> testList = _instance.GetDepartments();
+            List<Department> compare = _instance.GetDepartments();
 
-            Assert.AreEqual(compare.Count, testList.Count);
+            CollectionAssert.AreEquivalent(compare, testList);
         }
 
         [TestMethod]

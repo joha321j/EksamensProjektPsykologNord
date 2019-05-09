@@ -6,7 +6,6 @@ namespace ApplicationClassLibrary
 {
     public class Controller
     {
-        private IPersistable _persistable;
         private static Controller _instance;
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
@@ -17,30 +16,19 @@ namespace ApplicationClassLibrary
 
         private Controller()
         {
-            _persistable = new DBController();
-            _clientRepo = ClientRepo.GetInstance(_persistable);
+            _clientRepo = ClientRepo.GetInstance();
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
-            _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
+            _departmentRepo = DepartmentRepo.GetInstance();
 
-            _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
+            _practitionerRepo = PractitionerRepo.GetInstance();
 
-            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
-        }
-
-        public List<User> GetUsers()
-        {
-            List<User> tempUsers = new List<User>();
-            tempUsers.AddRange(_clientRepo.GetClients());
-            tempUsers.AddRange(_practitionerRepo.GetPractitioners());
-
-            return tempUsers;
-
+            _appointmentRepo = AppointmentRepo.GetInstance();
         }
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler?.Invoke(((Client) sender).Name, e);
+            NewClientCreatedEventHandler.Invoke(((Client) sender).Name, e);
         }
 
         public static Controller GetInstance()
@@ -132,20 +120,8 @@ namespace ApplicationClassLibrary
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
 
-            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
-
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
-                tempAppointmentType, note);
-        }
-
-        public void RemoveAppointment(DateTime dateAndTime, string clientName)
-        {            
-            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
-        }
-
-        public List<AppointmentView> GetAllAppointmentsByPracId(int id)
-        {                        
-            return _appointmentRepo.GetAppointmentsByPracId(id);
+                tempPractitioner.GetAppointmentType(appointmentTypeString), note);
         }
     }
 }

@@ -19,14 +19,6 @@ namespace ModelClassLibrary
             AppointmentTypes = new List<AppointmentType>();
         }
 
-        public Practitioner(int id, List<AppointmentType> appointmentTypes, DateTime start, TimeSpan dayLength, string practitionerName = "", string practitionerEmail = "", string practitionerPhoneNumber = "",
-            string practitionerAddress = "") : base(practitionerName, practitionerAddress, practitionerPhoneNumber, practitionerEmail, id)
-        {
-            Start = start;
-            DayLength = dayLength;
-            AppointmentTypes = appointmentTypes;
-        }
-
         public List<DateTime> GetAvailability(DateTime startDate, DateTime endDate)
         {
             // Get all possible available DateTimes.
@@ -80,11 +72,6 @@ namespace ModelClassLibrary
         public AppointmentType GetAppointmentType(string appointmentTypeString)
         {
             return AppointmentTypes.Find(appointment => String.Equals(appointment.Name, appointmentTypeString));
-        }
-
-        public AppointmentType GetAppointmentType(int appointmentType)
-        {
-            return AppointmentTypes.Find(type => type.Id == appointmentType);
         }
     }
 }

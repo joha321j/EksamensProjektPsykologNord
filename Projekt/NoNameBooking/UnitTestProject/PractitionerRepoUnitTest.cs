@@ -16,16 +16,11 @@ namespace UnitTestProject
         private PractitionerRepo testInstance;
         private Practitioner testPractitionerOne;
         private Practitioner testPractitionerTwo;
-        private DBController _dbController;
-
-
-
 
         [TestInitialize]
         public void PractitionerRepoSetup()
         {
-            _dbController = new DBController();
-            testInstance = PractitionerRepo.GetInstance(_dbController);
+            testInstance = PractitionerRepo.GetInstance();
 
 
             testPractitionerOne = new Practitioner(DateTime.Today.AddHours(9), TimeSpan.FromHours(12),"pracNameOne");
@@ -44,7 +39,7 @@ namespace UnitTestProject
         [TestMethod]
         public void CreationTest()
         {
-            PractitionerRepo compareTestRepo = PractitionerRepo.GetInstance(_dbController);
+            PractitionerRepo compareTestRepo = PractitionerRepo.GetInstance();
             
             Assert.AreEqual(testInstance, compareTestRepo);
         }
