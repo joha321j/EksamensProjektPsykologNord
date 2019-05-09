@@ -1,8 +1,34 @@
 \section{Programmering}
-\subsection{Kodestandarder og TDD}
-\label{Kodestandarder og TDD}
+\subsection{Kodestandarder}
+\label{Kodestandarder}
 
-Før vi kodet en enkelt linje af kode, havde vi en kodestandard på plads. Uden en kodestandard kunne koden hurtigt gået hen og været uoverskuelig. Ligeledes er kodestandarder en effektiv måde at lave kvalitetssikring på selve koden. I vores projekt har der ikke været den største diskussion om hvad kodestandarderne skulle være. De har dog altid være brugbare i tilfælde af tvivl omkring hvorledes noget skulle navngives eller struktures. Vi gjorde brug af Microsofts C\# kodestandard, da vi hurtigt blev enige om at den gav mest mening.
+Før vi havde kodet en eneste linje kode, havde vi en kodestandard på plads.
+Uden en kodestandard kunne koden hurtigt gå hen og blive uoverskuelig.
+Ligeledes er kodestandarder en effektiv måde at lave kvalitetssikring på selve koden, da det giver nogle meget overskuelige og håndgribelige krav at gå ud fra.
+I vores projekt har der ikke været den største diskussion om, hvad kodestandarderne skulle være, da vi alle er meget enige om, at den standard, der bliver sat af Microsoft selv, er god\cite{microsoftcsharp}. 
+Vi har ikke haft problemer med, at vi ikke har overholdt kodestandarderne, men de har været med til at give folk et sted at starte, når vi laver kode-review.
 
+\subsection{Test-driven development(TDD)}
+\label{TDD}
 
-Derved betød det også f.eks. at alle ting som var interne i sin klasse havde et understregningstegn før sig. Dertil aftalte vi i gruppen at vi ville kører Test-Driven Development, fremover forkortet til TDD. Årsagen til dette var pga. vores introduktion til det tidligere på studiet og en fælles interesse i at afprøve det. Det betød således at vi altid skulle opsætte tests før skrev andet kode. Det gjorde at vi fik lavet markant flere tests end ved almindelig udvikling.
+Vi blev enige om, at vi ville prøve at køre TDD.
+Vi var alle til et foredrag afholdt af Carlos Cunha fra Polytechnic Institute of Viseu, School of Technology, der omhandlede TDD, og vi synes det var en spændende tilgangsvinkel til softwareudvikling.
+Derudover har det at skrive tests været en fælles svaghed for os alle i løbet af første studieår, og vi så det som en god måde at blive bedre til det.
+
+Idéen med TDD er, at man skriver tests, der beskriver den ønskede funktionalitet, inden man implementere funktionaliteten.
+Testsne er skrevet ud fra en klasses offentligt tilgængelige snitflade.
+Fokusset er på en klasses opførsel, ikke dens implementering.
+
+Metodikken ved TDD er:
+Hurtigt skriv en test, kør alle tests og se den nye test fejle, lav en lille ændring i ens program, kør alle tests og se dem alle bestå, refaktorer til at undgå duplikeret kode, sikr at alle tests stadig består.
+
+En stor gevinst ved TDD er, at du er sikker på, at du har tests, der dokumenterer dit systems funktionalitet, så når der laves ændringer og refaktoreringer, er du sikker på, at programmet stadig virker som ønsket.
+Det har været en stor gevinst for os, da vi alle stadig er uerfarne programører, og vi derfor flere gange har haft skrevet funktionalitet om, når vi har fundet en bedre måde at gøre det på.
+
+\subsection{Lagdeling}
+\label{lagdeling}
+
+Inden vi begyndte at udvikle progammet havde udviklingsgruppen en diskussion om, hvordan vi ønskede at lagdele vores program.
+Vi blev enige om at bruge en streng trelagsdeling, selvom man normalt ville bruge en afslappet trelagsdeling i informationssystemer.
+En streng lagdeling betyder, at et lag kun kender til og kan tale med laget lige under sig.
+I en afslappet lagdeling kan et lag derimod kalde lag, der ligger flere lag under sig. \cite{larman}
