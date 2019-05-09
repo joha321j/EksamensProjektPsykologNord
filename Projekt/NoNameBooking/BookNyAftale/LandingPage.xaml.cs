@@ -27,7 +27,6 @@ namespace BookNyAftale
             Controller controller = Controller.GetInstance();
             int openingTime = 9;
             List<AppointmentView> appoViews = new List<AppointmentView>();
-            ListViewItem listItemTime;
             ListViewItem listItemMonday;
             ListViewItem listItemTuesday;
             ListViewItem listItemWednesday;
@@ -37,7 +36,7 @@ namespace BookNyAftale
             ListViewItem listItemSunday;
             for (int i = 0; i < 12; i++)
             {
-                 listItemTime = new ListViewItem();
+                 ListViewItem listItemTime = new ListViewItem();
                  listItemMonday = new ListViewItem();
                  listItemTuesday = new ListViewItem();
                  listItemWednesday = new ListViewItem();
@@ -180,52 +179,66 @@ namespace BookNyAftale
                 switch (item.dateAndTime.DayOfWeek)
                 {
                     case DayOfWeek.Sunday:
-                        listItemSunday = new ListViewItem();
-                        listItemSunday.Content = item.dateAndTime.ToString("dd/MM HH:mm");
-                        listItemSunday.Background = Brushes.Magenta;
+                        listItemSunday = new ListViewItem
+                        {
+                            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
+                            Background = Brushes.Magenta
+                        };
                         lvSunday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
                         lvSunday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemSunday);
                         break;
                     case DayOfWeek.Monday:
-                        listItemMonday = new ListViewItem();
-                        listItemMonday.Content = item.dateAndTime.ToString("dd/MM HH:mm");
-                        listItemMonday.Background = Brushes.Magenta;
+                        listItemMonday = new ListViewItem
+                        {
+                            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
+                            Background = Brushes.Magenta
+                        };
                         lvMonday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
                         lvMonday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemMonday);
                         break;
                     case DayOfWeek.Tuesday:
-                        listItemTuesday = new ListViewItem();
-                        listItemTuesday.Content = item.dateAndTime.ToString("dd/MM HH:mm");
-                        listItemTuesday.Background = Brushes.Magenta;
+                        listItemTuesday = new ListViewItem
+                        {
+                            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
+                            Background = Brushes.Magenta
+                        };
                         lvTuesday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
                         lvTuesday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemTuesday);
                         break;
                     case DayOfWeek.Wednesday:
-                        listItemWednesday = new ListViewItem();
-                        listItemWednesday.Content = item.dateAndTime.ToString("dd/MM HH:mm");
-                        listItemWednesday.Background = Brushes.Magenta;
+                        listItemWednesday = new ListViewItem
+                        {
+                            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
+                            Background = Brushes.Magenta
+                        };
                         lvWednesday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
                         lvWednesday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemWednesday);
                         break;
                     case DayOfWeek.Thursday:
-                        listItemThursday = new ListViewItem();
-                        listItemThursday.Content = item.dateAndTime.ToString("dd/MM HH:mm");
-                        listItemThursday.Background = Brushes.Magenta;
+                        listItemThursday = new ListViewItem
+                        {
+                            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
+                            Background = Brushes.Magenta
+                        };
                         lvThursday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
                         lvThursday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemThursday);
                         break;
                     case DayOfWeek.Friday:
-                        listItemFriday = new ListViewItem();
-                        listItemFriday.Content = item.dateAndTime.ToString("dd/MM HH:mm");
-                        listItemFriday.Background = Brushes.Magenta;
+                        listItemFriday = new ListViewItem
+                        {
+                            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
+                            Background = Brushes.Magenta
+                        };
                         lvFriday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
                         lvFriday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemFriday);
                         break;
                     case DayOfWeek.Saturday:
 
-                        listItemSaturday= new ListViewItem();
-                        listItemSaturday.Content = item.dateAndTime.ToString("dd/MM HH:mm");
-                        listItemSaturday.Background = Brushes.Magenta;
+                        listItemSaturday = new ListViewItem
+                        {
+                            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
+                            Background = Brushes.Magenta
+                        };
                         lvSaturday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
                         lvSaturday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemSaturday);
                         break;
