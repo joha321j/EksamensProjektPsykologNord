@@ -57,7 +57,7 @@ I stedet deles den store tabel op i mindre tabeller, der indeholder referencer t
 Hvor mange forskellige tabeller skal man så lave? Til at finde ud af dette bruger man det, som Codd kalder normalformer.
 Der eksistere et hav af normalformer, men i denne rapport vil der arbejdes med første, anden, tredje og Boyce-Codd normalform.
 
-Man bruger normalisering og normalformerne til at reducere redundans og forbedre præcisionen og konsistens af dataerne i ens database.
+Man bruger normalisering og normalformerne til at reducere redundans og forbedre præcisionen og konsistens af dataene i ens database.
 
 Første normalform er opfyldt, når følgende gælder:
 \begin{itemize}
@@ -78,9 +78,14 @@ Det betyder altså, at hvis vores ovenstående eksempel skal være på tredje no
 For at opnå Boyce-Codd normalform skal tabellen være på tredje normalform, og alle determinanter skal være kandidatnøgler.
 En determinant er den frie variable i en funktionel afhængighed. Har man funktionen \(f(n) = 5n^2 \), vil \(n\) være determinanten.\cite{database}
 
-
 \subsubsection{Views}
 
+Et view er en virtuel tabel, hvis indhold defineres ud fra en forespørgsel.
+Et view kan bruges som et filter til databasen, så man kan bestemme, hvordan hver enkelte bruger ser databasen.
+Desuden kan det også bruges til at samle flere databaser og præsentere dem til brugeren som én database.
+
+Vi bruger ikke på nuværende tidspunkt views i vores database, men det kunne have været fordelagtigt, at de stored procedures vi bruger til at hente informationer fra databasen hentede data fra views i stedet for at hente data direkte fra databasen.
+Hvis vi ændrer databaseopbygningen nu, skal vi også ændre vores stored procedures og muligvis også vores kode i vores program, hvor hvis vi brugte views ville vi blot skulle ændre viewet, så det præsenterer dataene på samme måde som inden ændringen i databasen.
 
 \subsubsection{Stored Procedures}
 %Der skal skrives mere.
