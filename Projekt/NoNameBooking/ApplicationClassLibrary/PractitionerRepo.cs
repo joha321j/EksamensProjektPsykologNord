@@ -43,8 +43,6 @@ namespace ApplicationClassLibrary
             _practitioners.Add(practitioner);
         }
 
-
-
         public void ResetInstance()
         {
             _instance = null;
