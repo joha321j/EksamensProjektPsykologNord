@@ -29,6 +29,53 @@ Det har været en stor gevinst for os, da vi alle stadig er uerfarne programøre
 \label{lagdeling}
 
 Inden vi begyndte at udvikle progammet havde udviklingsgruppen en diskussion om, hvordan vi ønskede at lagdele vores program.
-Vi blev enige om at bruge en streng trelagsdeling, selvom man normalt ville bruge en afslappet trelagsdeling i informationssystemer.
+Vi blev enige om at bruge en trelagsdeling
 En streng lagdeling betyder, at et lag kun kender til og kan tale med laget lige under sig.
-I en afslappet lagdeling kan et lag derimod kalde lag, der ligger flere lag under sig. \cite{larman}
+I en afslappet lagdeling kan et lag derimod kalde lag, der ligger flere lag under sig.\cite{larman}
+
+Normalt kører man en afslappet lagdeling i informationssystemer, og en streng lagdeling i netværksprotokoller.
+Ligegyldigt om man kører en afslappet eller streng lagdeling vil UI laget ikke kalde ens domænelag direkte, medmindre man ikke har et applikationslag.
+Et applikationslag er ikke altid nødvendigt, men vi har valgt at have et, da programmet er komplekst nok til, at vi ikke kun kan have én softwareklasse til at håndtere programmets tilstand.\cite{larman}
+Vores nuværende system har ikke nok lag til, at man kan tale om en streng eller afslappet lagdeling, da vi kun har de tre lag vist i figur \ref{fig:pakkediagram}.
+
+For at sikre vores lagdeling har vi valgt at have lagene som selvstændige projekter.
+Dette betyder, at hvert lag ligger i sit ejet namespace, og dermed gør det nemt at se, præcis hvilke lag et givent lag kender til.
+Vores UI er en WPF-applikation, applikationslaget og domænelaget er 2 klassebiblioteker. 
+
+\subsection{Designmønstre}
+\label{designmoenstre}
+Designmønstre hjælper programmører med at løse problemer, som andre har løst tidligere.
+Når en person har fundet en god og genbrugelig løsning til et problem, er der ikke nogen grund til, at vi skal bruge tid på at opfinde den dybe tallerken igen.
+
+Vi har i vores program gjort brug af flere designmønstre, som vi vil præsentere i dette afsnit.
+
+\subsubsection{Facade}
+\label{facade}
+
+Idéen med en facade er at give en samlet snitflade for flere snitflader i et undersystem.
+I stedet for, at du som kunde i en restaurant går ud og spørger hver enkelt kok, hvad han kan tilberede af retter, får du et menukort, hvor du kan se de retter, som restauranten tilbyder.
+
+Vi bruger en facade mellem vores applikationslag og vores UI-lag, da UI-laget ikke behøver vide noget om, hvordan vores applikationslag ser ud, men blot skal vide, hvilken funktionalitet laget tilbyder.
+Dette giver os en svag kobling mellem de to lag, og derved kan vi nemt ændre på applikationslaget uden at skulle bekymre os om, hvordan det påvirker UI-laget.
+
+Vi har valgt at implementere denne facade som en controller, hvilket vil blive beskrevet yderligere i afsnit \ref{controller}.
+
+
+\subsubsection{Singleton}
+\label{singleton}
+
+\subsubsection{Observer}
+\label{observer}
+
+\subsection{GRASP}
+\label{grasp}
+
+\subsubsection{Controller}
+\label{controller}
+Vi gør brug af en controller til at facilitere kald fra UI'et, der kræver kald ned i applikations- og domænelaget.
+Dette betyder, at vi indkapsulerer en system operation.
+En system operation er noget, som en bruger af systemet ønsker at opnå, f.eks at booke en ny aftale.
+
+Vi opnår så systemoperationen ved, at controlleren kalder de nødvendige metoder i resten af systemet.
+
+Vores controller er også en facade mellem UI- og applikationslagene, se afsnit \ref{facade}.
