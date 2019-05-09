@@ -53,17 +53,26 @@ Vi har i vores program gjort brug af flere designmønstre, som vi vil præsenter
 \label{facade}
 
 Idéen med en facade er at give en samlet snitflade for flere snitflader i et undersystem.
-I stedet for, at du som kunde i en restaurant går ud og spørger hver enkelt kok, hvad han kan tilberede af retter, får du et menukort, hvor du kan se de retter, som restauranten tilbyder.
+I stedet for at du som kunde i en restaurant, går ud og spørger hver enkelt kok, hvad han kan tilberede af retter, får du et menukort, hvor du kan se de retter, som restauranten tilbyder.
 
 Vi bruger en facade mellem vores applikationslag og vores UI-lag, da UI-laget ikke behøver vide noget om, hvordan vores applikationslag ser ud, men blot skal vide, hvilken funktionalitet laget tilbyder.
-Dette giver os en svag kobling mellem de to lag, og derved kan vi nemt ændre på applikationslaget uden at skulle bekymre os om, hvordan det påvirker UI-laget.
+Dette giver os en svag kobling mellem de to lag, og derved kan vi nemt ændre på applikationslaget uden at skulle bekymre os om, hvordan det påvirker UI-laget.\cite{gangoffour}
+På figur \ref{fig:pakkediagram} kan det ses, at alle klasser i UI'et går igennem vores Controller klasse.
 
-Vi har valgt at implementere denne facade som en controller, hvilket vil blive beskrevet yderligere i afsnit \ref{controller}.
-
+Vi har valgt at implementere denne facade som en controller, hvilket vil blive beskrevet nærmere i afsnit \ref{controller}.
 
 \subsubsection{Singleton}
 \label{singleton}
 
+En singleton er en klasse, der kun har én instans og har et globalt tilgangspunkt for klassen.
+Singletonmønstret giver mening, da der findes softwareklasser, hvor der kun må findes én eneste udgave af klassen.
+Vores system skal kun have én kundeliste og kun én liste over behandlere, derfor er de implementerede som singletons.
+
+Singletonmønstret har flere fordele: kontrolleret adgang til klassens ene instans.
+Undgå rod i namespacet ved ikke at have det som globale variable.
+Hvis man ændrer mening, og det ikke længere skal være en singleton, er det simpelt at redigere koden, så klassen tillader at blive instantieret flere gange. Faktisk kan man med singleton mønstret bestemme præcis hvor mange instanser af en klasse, som man ønsker.
+
+På figur \ref{code:singleton} kan vores implementation af singletonmønstret ses.
 \subsubsection{Observer}
 \label{observer}
 
@@ -73,9 +82,11 @@ Vi har valgt at implementere denne facade som en controller, hvilket vil blive b
 \subsubsection{Controller}
 \label{controller}
 Vi gør brug af en controller til at facilitere kald fra UI'et, der kræver kald ned i applikations- og domænelaget.
-Dette betyder, at vi indkapsulerer en system operation.
-En system operation er noget, som en bruger af systemet ønsker at opnå, f.eks at booke en ny aftale.
+Dette betyder, at vi indkapsulerer en systemoperation.
+En systemoperation er noget, som en bruger af systemet ønsker at opnå, f.eks at booke en ny aftale.
 
 Vi opnår så systemoperationen ved, at controlleren kalder de nødvendige metoder i resten af systemet.
+
+Da vi, som nævnt i afsnit \ref{lagdeling}, har et applikationslag er det oplagt at bruge en controller til netop at give os det ønskede lag mellem UI og domæne.
 
 Vores controller er også en facade mellem UI- og applikationslagene, se afsnit \ref{facade}.
