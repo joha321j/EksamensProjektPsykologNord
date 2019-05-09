@@ -6,7 +6,6 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow" Height="720" Width="1080"
          WindowState="Maximized">
     <Grid >
