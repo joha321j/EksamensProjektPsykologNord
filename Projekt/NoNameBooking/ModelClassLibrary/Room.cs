@@ -6,18 +6,15 @@ namespace ModelClassLibrary
 {
     public class Room : IBookable
     {
-        public int Id { get; set; }
         public readonly List<Appointment> Appointments;
         public string Name { get; set; }
 
         private readonly int _dayLength;
         private readonly DateTime _startTime;
 
-        public Room(string name, DateTime startHour = default(DateTime), int dayLength = 24, int id = -1)
+        public Room(string name, DateTime startHour = default(DateTime), int dayLength = 24)
         {
             Name = name;
-
-            Id = id;
 
             Appointments = new List<Appointment>();
 

@@ -37,9 +37,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SqlClient, Version=4.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SqlClient.4.6.0\lib\net461\System.Data.SqlClient.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -86,14 +83,6 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AppointmentCalendarClick.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EditAppointment.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AllInvoices.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -120,12 +109,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AppointmentCalendarClick.xaml.cs">
-      <DependentUpon>AppointmentCalendarClick.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EditAppointment.xaml.cs">
-      <DependentUpon>EditAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
@@ -173,10 +156,6 @@
     <ProjectReference Include="..\ApplicationClassLibrary\ApplicationClassLibrary.csproj">
       <Project>{77ad1380-e0f9-44f1-a870-d8d47ca8982c}</Project>
       <Name>ApplicationClassLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModelClassLibrary\ModelClassLibrary.csproj">
-      <Project>{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}</Project>
-      <Name>ModelClassLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

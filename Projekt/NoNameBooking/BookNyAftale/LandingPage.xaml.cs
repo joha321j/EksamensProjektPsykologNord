@@ -12,7 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ApplicationClassLibrary;
 
 namespace BookNyAftale
 {
@@ -186,6 +185,13 @@ namespace BookNyAftale
         private void CmbbCalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void BtnCreateAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            CreateAppointment createAppointment = new CreateAppointment();
+
+            createAppointment.Show();
         }
     }       
 }

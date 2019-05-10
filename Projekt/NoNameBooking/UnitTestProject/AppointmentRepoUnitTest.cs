@@ -14,35 +14,23 @@ namespace UnitTestProject
     public class AppointmentRepoUnitTest
     {
         private AppointmentRepo _instance;
-        private DBController _dbController;
-        private Controller _controller;
-        private DepartmentRepo _departmentRepo;
-        List<User> users = new List<User>();
-        List<Practitioner> practitioners = new List<Practitioner>();
-        List<Department> departments = new List<Department>();
 
         [TestInitialize]
         public void AppointmentRepoSetup()
         {
-            _dbController = new DBController();
-            _controller = Controller.GetInstance();
-            _departmentRepo = DepartmentRepo.GetInstance(_dbController, practitioners);
-            departments = _departmentRepo.GetDepartments();
-            users = _controller.GetUsers();
-            _instance = AppointmentRepo.GetInstance(_dbController, users, departments);
+            _instance = AppointmentRepo.GetInstance();
         }
 
         [TestCleanup]
         public void AppointmentRepoCleanUp()
         {
             _instance.ResetInstance();
-            _departmentRepo.ResetInstance();
         }
        
         [TestMethod]
         public void AppointmentRepoCreationTest()
         {
-            AppointmentRepo compareInstance = AppointmentRepo.GetInstance(_dbController, users, departments);
+            AppointmentRepo compareInstance = AppointmentRepo.GetInstance();
 
             Assert.AreEqual(_instance, compareInstance);
         }

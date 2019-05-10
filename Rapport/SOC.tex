@@ -5,14 +5,18 @@
 %\textbf{Precondition:} Der skal være mindst et brugerobject og der skal være mindst et klientobject I systemet, der skal også være en klinik, begge aktører skal være ledige på det valgte tidspunkt, der skal samtidig også være et lokale ledigt I den valgte klinik på det valgte tidspunkt. 
 %
 %\textbf{Postconditions:}   
- 
-Med alle use casene modelleret kan vi går videre til at modellere hvad koden skal gøre. Hertil har vi så oprettet SOC'er for de mest relevante metoder, så vi ved præcis hvordan funktionen skal virke.
 
+\subsection{Systemoperationskontrakt(SOC)}
+\label{SOC}
+
+Vi kan nu lave SOC'er ud fra interaktionerne mellem brugeren og systemet, illustreret med en fuldtoptrukken pil, der går fra bruger til system i figur \ref{forretning:ssd}.
+
+SOC'er beskriver, hvad der sker af tilstandsændringer i systemet, når brugeren interagerer med systemet.
+Derfor er dette artefakt mere teknisk tungt, da det er meningen en systemudvikler skal læse det, og ikke en PO.
 
 \subsubsection{Operationer for Use Case: Book ny aftale}\label{Operation:Book ny aftale}
 
-\noindent
-
+{\setlength{\parindent}{0cm}
 \textbf{Operation:} createClient(clientName: string, clientEmail: string, clientPhoneNumber: string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
 
 \textbf{Cross References:} Use Case: Book ny aftale 
@@ -24,8 +28,9 @@ Med alle use casene modelleret kan vi går videre til at modellere hvad koden sk
 			\item Client instance c was created 
 			\item Attributes of c were initialized
 		\end{itemize}
- 
+		}
 
+{\setlength{\parindent}{0cm}
 \textbf{Operation:} createAppointment(dateAndTime: DateTime, users : User[2..*], appointmentType: TreatmentType, note: string, room: Room) 
 
 \textbf{Cross References:} Use Case: Book ny aftale 
@@ -44,4 +49,5 @@ Med alle use casene modelleret kan vi går videre til at modellere hvad koden sk
             \item Attributes of a were intialized
             \item a was associated with c, u and r
         \end{itemize}
+        }
         
