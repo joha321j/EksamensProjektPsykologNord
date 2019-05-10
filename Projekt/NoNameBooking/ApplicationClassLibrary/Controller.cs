@@ -6,6 +6,7 @@ namespace ApplicationClassLibrary
 {
     public class Controller
     {
+        private IPersistable _persistable;
         private static Controller _instance;
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
@@ -16,19 +17,30 @@ namespace ApplicationClassLibrary
 
         private Controller()
         {
-            _clientRepo = ClientRepo.GetInstance();
+            _persistable = new DBController();
+            _clientRepo = ClientRepo.GetInstance(_persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
-            _departmentRepo = DepartmentRepo.GetInstance();
+            _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
 
-            _practitionerRepo = PractitionerRepo.GetInstance();
+            _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
 
-            _appointmentRepo = AppointmentRepo.GetInstance();
+            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
+        }
+
+        public List<User> GetUsers()
+        {
+            List<User> tempUsers = new List<User>();
+            tempUsers.AddRange(_clientRepo.GetClients());
+            tempUsers.AddRange(_practitionerRepo.GetPractitioners());
+
+            return tempUsers;
+
         }
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler.Invoke(((Client) sender).Name, e);
+            NewClientCreatedEventHandler?.Invoke(((Client) sender).Name, e);
         }
 
         public static Controller GetInstance()
@@ -119,6 +131,8 @@ namespace ApplicationClassLibrary
             Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
+
+            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
 
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
                 tempAppointmentType, note);

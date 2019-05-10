@@ -7,6 +7,7 @@ namespace ModelClassLibrary
 {
     public class User
     {
+        public int Id { get; }
         public string Name { get; }
         public string PhoneNumber { get; }
         public string Address { get; }
@@ -14,12 +15,13 @@ namespace ModelClassLibrary
 
         protected readonly List<Appointment> Appointments = new List<Appointment>();
 
-        public User(string name = "", string address = "", string phoneNumber = "", string email ="")
+        public User(string name = "", string address = "", string phoneNumber = "", string email ="", int id = -1)
         {
             Name = name;
             Address = address;
             PhoneNumber = phoneNumber;
             Email = email;
+            Id = id;
         }
 
         public void AddAppointment(Appointment appointment)

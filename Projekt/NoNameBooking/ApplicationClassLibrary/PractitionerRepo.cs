@@ -6,17 +6,19 @@ namespace ApplicationClassLibrary
 {
     public class PractitionerRepo
     {
+        private IPersistable _persistable;
         private readonly List<Practitioner> _practitioners;
         private static PractitionerRepo _instance;
 
-        private PractitionerRepo()
+        private PractitionerRepo(IPersistable persistable)
         {
-            _practitioners = new List<Practitioner>();
+            _persistable = persistable;
+            _practitioners = _persistable.GetPractitioners();
 
         }
-        public static PractitionerRepo GetInstance()
+        public static PractitionerRepo GetInstance(IPersistable persistable)
         {
-            return _instance ?? (_instance = new PractitionerRepo());
+            return _instance ?? (_instance = new PractitionerRepo(persistable));
         }
 
         public Practitioner GetPractitioner(string practitionerName)
@@ -46,6 +48,11 @@ namespace ApplicationClassLibrary
         public void ResetInstance()
         {
             _instance = null;
+        }
+
+        public List<Practitioner> GetPractitioners()
+        {
+            return _practitioners;
         }
     }
 }

@@ -6,20 +6,17 @@ namespace ModelClassLibrary
     public class Department
     {
         private readonly List<Practitioner> _practitioners;
-        public int Id { get; }
         public string Name { get; set; }
         public string Address { get; }
         public List<Room> Rooms { get; set; }
 
 
-        public Department(string name, string address, int id =-1)
+        public Department(string name, string address)
         {
             _practitioners = new List<Practitioner>();
 
             Name = name;
             Address = address;
-
-            Id = id;
 
             Rooms = new List<Room>();
         }

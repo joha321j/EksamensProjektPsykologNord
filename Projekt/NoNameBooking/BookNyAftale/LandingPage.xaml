@@ -95,7 +95,7 @@
             <Button Content="Indstillinger" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="5" Name="btnSettings"/>
             <Button Content="Apps" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="6" Name="btnApps"/>
         </Grid>
-        <Button Content="Opret Aftale" HorizontalAlignment="Center" Margin="10,95,987,0" VerticalAlignment="Top" Width="75" Name="btnCreateAppointment" Click="BtnCreateAppointment_Click"/>
+        <Button Content="Opret Aftale" HorizontalAlignment="Center" Margin="10,95,987,0" VerticalAlignment="Top" Width="75" Name="btnCreateAppointment"/>
         <Button Content="Åbningstider" HorizontalAlignment="Center" Margin="100,95,898,0" VerticalAlignment="Top" Width="75" Name="btnOpening"/>
         <Button Content="Print" HorizontalAlignment="Center" Margin="190,95,807,0" VerticalAlignment="Top" Width="75" Name="btnPrintCalendar"/>
         <Button Content="Skjul" HorizontalAlignment="Center" Margin="280,95,714,0" VerticalAlignment="Top" Width="75" Name="btnHideInfo"/>
