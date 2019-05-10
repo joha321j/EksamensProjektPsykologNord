@@ -32,7 +32,7 @@ namespace ApplicationClassLibrary
         {
             Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note);
             AddAppointment(tempAppointment);
-            //_persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
+            _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
         }
 
         private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note)
