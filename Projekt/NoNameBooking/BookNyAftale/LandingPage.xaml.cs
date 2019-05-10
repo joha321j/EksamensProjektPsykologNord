@@ -16,27 +16,20 @@ using ApplicationClassLibrary;
 
 namespace BookNyAftale
 {
-    /// <summary>
-    /// Interaction logic for LandingPage.xaml
-    /// </summary>
     public partial class LandingPage : Window
     {
         private readonly List<ListView> _listViews = new List<ListView>();
+        private Controller _controller;
+        private int _openingTime;
+        private int _openingHours;
+
         public LandingPage()
         {
             InitializeComponent();
-            Controller controller = Controller.GetInstance();
-            int openingTime = 9;
-            int timeCounter = openingTime;
-            List<AppointmentView> appoViews = new List<AppointmentView>();
-            ListViewItem listItemMonday;
-            ListViewItem listItemTuesday;
-            ListViewItem listItemWednesday;
-            ListViewItem listItemThursday;
-            ListViewItem listItemFriday;
-            ListViewItem listItemSaturday;
-            ListViewItem listItemSunday;
-
+            _controller = Controller.GetInstance();
+            _openingTime = 9;
+            _openingHours = 12;
+            
             _listViews.Add(lvMonday);
             _listViews.Add(lvTuesday);
             _listViews.Add(lvWednesday);
@@ -45,17 +38,27 @@ namespace BookNyAftale
             _listViews.Add(lvSaturday);
             _listViews.Add(lvSunday);
 
+            PopulateCalendarTimes();
 
-            for (int i = 0; i < 12; i++)
+            UpdateCalendarDates();
+
+            UpdateAppointmentView(DateTime.Today, DateTime.Today.AddDays(20), 3);
+        }
+
+        private void PopulateCalendarTimes()
+        {
+            int timeCounter = _openingTime;
+
+            for (int i = 0; i < _openingHours; i++)
             {
                 ListViewItem listItemTime = new ListViewItem();
-                listItemMonday = new ListViewItem();
-                listItemTuesday = new ListViewItem();
-                listItemWednesday = new ListViewItem();
-                listItemThursday = new ListViewItem();
-                listItemFriday = new ListViewItem();
-                listItemSaturday = new ListViewItem();
-                listItemSunday = new ListViewItem();
+                ListViewItem listItemMonday = new ListViewItem();
+                ListViewItem listItemTuesday = new ListViewItem();
+                ListViewItem listItemWednesday = new ListViewItem();
+                ListViewItem listItemThursday = new ListViewItem();
+                ListViewItem listItemFriday = new ListViewItem();
+                ListViewItem listItemSaturday = new ListViewItem();
+                ListViewItem listItemSunday = new ListViewItem();
 
                 listItemTime.Content = timeCounter + ":00";
                 listItemMonday.Content = " ";
@@ -65,7 +68,7 @@ namespace BookNyAftale
                 listItemFriday.Content = " ";
                 listItemSaturday.Content = " ";
                 listItemSunday.Content = " ";
-                if (openingTime%2 == 0)
+                if (timeCounter % 2 == 0)
                 {
                     listItemTime.Background = Brushes.LightGray;
                     listItemMonday.Background = Brushes.LightGray;
@@ -95,25 +98,48 @@ namespace BookNyAftale
                 lvFriday.Items.Add(listItemFriday);
                 lvSaturday.Items.Add(listItemSaturday);
                 lvSunday.Items.Add(listItemSunday);
-                lvTime.Items.Add(listItemTime);                   
+                lvTime.Items.Add(listItemTime);
                 timeCounter++;
             }
-            
+        }
+
+        public void UpdateAppointmentView(DateTime startDate, DateTime endDate, int userId)
+        {
+
+            List<AppointmentView> appoViews = _controller.GetAllAppointmentsByPracId(userId, startDate, endDate);
+            //ComboBoxItem calendarPicked = (ComboBoxItem)cmbbCalendar.SelectedItem;
+
+            foreach (AppointmentView item in appoViews)
+            {
+                ListView listView =
+                    _listViews.Find(view => view.Name.Equals("lv" + item.dateAndTime.DayOfWeek.ToString()));
+                ListViewItem listViewItem = new ListViewItem()
+                {
+                    Content = item.dateAndTime.ToString("dd/MM HH:mm"),
+                    Background = Brushes.Magenta
+                };
+                listView.Items.RemoveAt(item.dateAndTime.Hour - _openingTime);
+                listView.Items.Insert(item.dateAndTime.Hour - _openingTime, listViewItem);
+            }
+        }
+
+        private void UpdateCalendarDates()
+        {
+
+
             if (DateTime.Today.DayOfWeek == DayOfWeek.Monday)
             {
-                appoViews = controller.GetAllAppointmentsByPracId(3, DateTime.Today, DateTime.Today.AddDays(6));
-                btnToday.Content = DateTime.Today.ToString("dd/MM") + " - "+DateTime.Today.AddDays(6).ToString("dd/MM");
+                btnToday.Content = DateTime.Today.ToString("dd/MM") + " - " + DateTime.Today.AddDays(6).ToString("dd/MM");
                 ((GridView)lvMonday.View).Columns[0].Header = "Mandag: " + DateTime.Today.ToString("dd/MM");
                 ((GridView)lvTuesday.View).Columns[0].Header = "Tirsdag: " + DateTime.Today.AddDays(1).ToString("dd/MM");
                 ((GridView)lvWednesday.View).Columns[0].Header = "Onsdag: " + DateTime.Today.AddDays(2).ToString("dd/MM");
                 ((GridView)lvThursday.View).Columns[0].Header = "Torsdag: " + DateTime.Today.AddDays(3).ToString("dd/MM");
-                ((GridView)lvFriday .View).Columns[0].Header = "Fredag: " + DateTime.Today.AddDays(4).ToString("dd/MM");
+                ((GridView)lvFriday.View).Columns[0].Header = "Fredag: " + DateTime.Today.AddDays(4).ToString("dd/MM");
                 ((GridView)lvSaturday.View).Columns[0].Header = "Lørdag: " + DateTime.Today.AddDays(5).ToString("dd/MM");
                 ((GridView)lvSunday.View).Columns[0].Header = "Søndag: " + DateTime.Today.AddDays(6).ToString("dd/MM");
             }
             else if (DateTime.Today.DayOfWeek == DayOfWeek.Tuesday)
             {
-                appoViews = controller.GetAllAppointmentsByPracId(3, DateTime.Today.AddDays(-1), DateTime.Today.AddDays(5));
                 btnToday.Content = DateTime.Today.AddDays(-1).ToString("dd/MM") + " - " + DateTime.Today.AddDays(5).ToString("dd/MM");
                 ((GridView)lvMonday.View).Columns[0].Header = "Mandag: " + DateTime.Today.AddDays(-1).ToString("dd/MM");
                 ((GridView)lvTuesday.View).Columns[0].Header = "Tirsdag: " + DateTime.Today.ToString("dd/MM");
@@ -125,7 +151,6 @@ namespace BookNyAftale
             }
             else if (DateTime.Today.DayOfWeek == DayOfWeek.Wednesday)
             {
-                appoViews = controller.GetAllAppointmentsByPracId(3, DateTime.Today.AddDays(-2), DateTime.Today.AddDays(4));
                 btnToday.Content = DateTime.Today.AddDays(-2).ToString("dd/MM") + " - " + DateTime.Today.AddDays(4).ToString("dd/MM");
                 ((GridView)lvMonday.View).Columns[0].Header = "Mandag: " + DateTime.Today.AddDays(-2).ToString("dd/MM");
                 ((GridView)lvTuesday.View).Columns[0].Header = "Tirsdag: " + DateTime.Today.AddDays(-1).ToString("dd/MM");
@@ -137,7 +162,6 @@ namespace BookNyAftale
             }
             else if (DateTime.Today.DayOfWeek == DayOfWeek.Thursday)
             {
-                appoViews = controller.GetAllAppointmentsByPracId(3, DateTime.Today.AddDays(-3), DateTime.Today.AddDays(3));
                 btnToday.Content = DateTime.Today.AddDays(-3).ToString("dd/MM") + " - " + DateTime.Today.AddDays(3).ToString("dd/MM");
                 ((GridView)lvMonday.View).Columns[0].Header = "Mandag: " + DateTime.Today.AddDays(-3).ToString("dd/MM");
                 ((GridView)lvTuesday.View).Columns[0].Header = "Tirsdag: " + DateTime.Today.AddDays(-2).ToString("dd/MM");
@@ -149,19 +173,17 @@ namespace BookNyAftale
             }
             else if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
             {
-                appoViews = controller.GetAllAppointmentsByPracId(3, DateTime.Today.AddDays(-4), DateTime.Today.AddDays(2));
                 btnToday.Content = DateTime.Today.AddDays(-4).ToString("dd/MM") + " - " + DateTime.Today.AddDays(2).ToString("dd/MM");
                 ((GridView)lvMonday.View).Columns[0].Header = "Mandag: " + DateTime.Today.AddDays(-4).ToString("dd/MM");
                 ((GridView)lvTuesday.View).Columns[0].Header = "Tirsdag: " + DateTime.Today.AddDays(-3).ToString("dd/MM");
                 ((GridView)lvWednesday.View).Columns[0].Header = "Onsdag: " + DateTime.Today.AddDays(-2).ToString("dd/MM");
                 ((GridView)lvThursday.View).Columns[0].Header = "Torsdag: " + DateTime.Today.AddDays(-1).ToString("dd/MM");
                 ((GridView)lvFriday.View).Columns[0].Header = "Fredag: " + DateTime.Today.AddDays(0).ToString("dd/MM");
-                ((GridView)lvSaturday.View).Columns[0].Header = "Lørdag: " + DateTime.Today.AddDays(2).ToString("dd/MM");
-                ((GridView)lvSunday.View).Columns[0].Header = "Søndag: " + DateTime.Today.AddDays(3).ToString("dd/MM");
+                ((GridView)lvSaturday.View).Columns[0].Header = "Lørdag: " + DateTime.Today.AddDays(1).ToString("dd/MM");
+                ((GridView)lvSunday.View).Columns[0].Header = "Søndag: " + DateTime.Today.AddDays(2).ToString("dd/MM");
             }
             else if (DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
             {
-                appoViews = controller.GetAllAppointmentsByPracId(3, DateTime.Today.AddDays(-5), DateTime.Today.AddDays(1));
                 btnToday.Content = DateTime.Today.AddDays(-5).ToString("dd/MM") + " - " + DateTime.Today.AddDays(1).ToString("dd/MM");
                 ((GridView)lvMonday.View).Columns[0].Header = "Mandag: " + DateTime.Today.AddDays(-5).ToString("dd/MM");
                 ((GridView)lvTuesday.View).Columns[0].Header = "Tirsdag: " + DateTime.Today.AddDays(-4).ToString("dd/MM");
@@ -173,7 +195,6 @@ namespace BookNyAftale
             }
             else if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday)
             {
-                appoViews = controller.GetAllAppointmentsByPracId(3, DateTime.Today.AddDays(-6), DateTime.Today);
                 btnToday.Content = DateTime.Today.AddDays(0).ToString("dd/MM") + " - " + DateTime.Today.AddDays(0).ToString("dd/MM");
                 ((GridView)lvMonday.View).Columns[0].Header = "Mandag: " + DateTime.Today.AddDays(-6).ToString("dd/MM");
                 ((GridView)lvTuesday.View).Columns[0].Header = "Tirsdag: " + DateTime.Today.AddDays(-5).ToString("dd/MM");
@@ -183,94 +204,6 @@ namespace BookNyAftale
                 ((GridView)lvSaturday.View).Columns[0].Header = "Lørdag: " + DateTime.Today.AddDays(-1).ToString("dd/MM");
                 ((GridView)lvSunday.View).Columns[0].Header = "Søndag: " + DateTime.Today.AddDays(0).ToString("dd/MM");
             }
-
-
-            appoViews = controller.GetAllAppointmentsByPracId(3, DateTime.Today.AddDays(-6), DateTime.Today.AddDays(20));
-            //ComboBoxItem calendarPicked = (ComboBoxItem)cmbbCalendar.SelectedItem;
-
-            foreach (AppointmentView item in appoViews)
-            {
-
-                ListView listView =
-                    _listViews.Find(view => view.Name.Equals("lv" + item.dateAndTime.DayOfWeek.ToString()));
-                ListViewItem listViewItem = new ListViewItem()
-                {
-                    Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                    Background = Brushes.Magenta
-                };
-                listView.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
-                listView.Items.Insert(item.dateAndTime.Hour - openingTime, listViewItem);
-
-                //switch (item.dateAndTime.DayOfWeek)
-                //{
-                //    case DayOfWeek.Sunday:
-                //        listItemSunday = new ListViewItem
-                //        {
-                //            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                //            Background = Brushes.Magenta
-                //        };
-                //        lvSunday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
-                //        lvSunday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemSunday);
-                //        break;
-                //    case DayOfWeek.Monday:
-                //        listItemMonday = new ListViewItem
-                //        {
-                //            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                //            Background = Brushes.Magenta
-                //        };
-                //        lvMonday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
-                //        lvMonday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemMonday);
-                //        break;
-                //    case DayOfWeek.Tuesday:
-                //        listItemTuesday = new ListViewItem
-                //        {
-                //            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                //            Background = Brushes.Magenta
-                //        };
-                //        lvTuesday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
-                //        lvTuesday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemTuesday);
-                //        break;
-                //    case DayOfWeek.Wednesday:
-                //        listItemWednesday = new ListViewItem
-                //        {
-                //            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                //            Background = Brushes.Magenta
-                //        };
-                //        lvWednesday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
-                //        lvWednesday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemWednesday);
-                //        break;
-                //    case DayOfWeek.Thursday:
-                //        listItemThursday = new ListViewItem
-                //        {
-                //            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                //            Background = Brushes.Magenta
-                //        };
-                //        lvThursday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
-                //        lvThursday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemThursday);
-                //        break;
-                //    case DayOfWeek.Friday:
-                //        listItemFriday = new ListViewItem
-                //        {
-                //            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                //            Background = Brushes.Magenta
-                //        };
-                //        lvFriday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
-                //        lvFriday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemFriday);
-                //        break;
-                //    case DayOfWeek.Saturday:
-
-                //        listItemSaturday = new ListViewItem
-                //        {
-                //            Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                //            Background = Brushes.Magenta
-                //        };
-                //        lvSaturday.Items.RemoveAt(item.dateAndTime.Hour - openingTime);
-                //        lvSaturday.Items.Insert(item.dateAndTime.Hour - openingTime, listItemSaturday);
-                //        break;
-                //    default:
-                //        break;
-                //}                               
-            }                
         }
     }       
 }
