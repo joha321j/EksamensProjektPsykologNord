@@ -360,7 +360,7 @@ namespace ApplicationClassLibrary
                     {
                         while (reader.Read())
                         {
-                            Department tempDepartment = new Department(reader.GetValue(0).ToString(), reader.GetValue(1).ToString());
+                            Department tempDepartment = new Department(reader.GetValue(1).ToString(), reader.GetValue(2).ToString(), reader.GetInt32(0));
 
                             List<Room> tempRooms = new List<Room>();
                             commandRoom.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
