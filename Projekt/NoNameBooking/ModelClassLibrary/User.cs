@@ -12,7 +12,7 @@ namespace ModelClassLibrary
         public string Address { get; }
         public string Email { get; }
 
-        protected readonly List<Appointment> _appointments = new List<Appointment>();
+        protected readonly List<Appointment> Appointments = new List<Appointment>();
 
         public User(string name = "", string address = "", string phoneNumber = "", string email ="")
         {
@@ -24,17 +24,17 @@ namespace ModelClassLibrary
 
         public void AddAppointment(Appointment appointment)
         {
-            _appointments.Add(appointment);
+            Appointments.Add(appointment);
         }
 
         public Appointment GetAppointment(Appointment appointment)
         {
-            return _appointments.Find(a => a.Equals(appointment));
+            return Appointments.Find(a => a.Equals(appointment));
         }
 
         public Appointment GetAppointment()
         {
-            return _appointments.Last();
+            return Appointments.Last();
         }
     }
 }
