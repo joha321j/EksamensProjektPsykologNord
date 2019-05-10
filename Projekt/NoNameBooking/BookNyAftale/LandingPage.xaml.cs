@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ApplicationClassLibrary;
+using System.Xml;
 
 namespace BookNyAftale
 {
@@ -116,7 +117,8 @@ namespace BookNyAftale
                 ListViewItem listViewItem = new ListViewItem()
                 {
                     Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                    Background = Brushes.Magenta
+                    Background = Brushes.Magenta,
+                    Tag = item.Id
                 };
                 listView.Items.RemoveAt(item.dateAndTime.Hour - _openingTime);
                 listView.Items.Insert(item.dateAndTime.Hour - _openingTime, listViewItem);
@@ -204,6 +206,22 @@ namespace BookNyAftale
                 ((GridView)lvSaturday.View).Columns[0].Header = "Lørdag: " + DateTime.Today.AddDays(-1).ToString("dd/MM");
                 ((GridView)lvSunday.View).Columns[0].Header = "Søndag: " + DateTime.Today.AddDays(0).ToString("dd/MM");
             }
+        }
+
+        private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
+            ListViewItem item = sender as ListViewItem;
+            if (item != null)
+            {
+                int appoId = ((int)item.Tag);
+                string spasser = item.Content.ToString();
+            }
+            
+            
+            //EditAppointment edit = new EditAppointment();
+            //edit.Show();
+            //this.Close();
         }
     }       
 }

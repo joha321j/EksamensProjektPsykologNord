@@ -26,7 +26,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Column="1" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvMonday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Grid.Column="1" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvMonday" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="Item_DoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Mandag: {Binding Dato}" Width="143"/>
