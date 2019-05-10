@@ -150,5 +150,12 @@ namespace ApplicationClassLibrary
             List<AppointmentView> returnList = appointmentViews.FindAll(appointment => appointment.dateAndTime > startDate && appointment.dateAndTime < endDate);
             return returnList;
         }
+
+        public DateTime GetMondayDate(DateTime today)
+        {
+            int weekNumber = DateTimeCalculator.GetIso8601WeekOfYear(today);
+
+            return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
+        }
     }
 }
