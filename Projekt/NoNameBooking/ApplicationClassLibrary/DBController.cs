@@ -323,18 +323,6 @@ namespace ApplicationClassLibrary
             }
         }
 
-        private Practitioner GetPractitionerHelp(List<User> users)
-        {
-            foreach (User user in users)
-            {
-                if (user.GetType() == typeof(Practitioner))
-                {
-                    return (Practitioner) user;
-                }
-            }
-            throw new CultureNotFoundException();
-        }
-
         private Room FindRoom(List<Department> departments, int roomId)
         {
             foreach (Department department in departments)
