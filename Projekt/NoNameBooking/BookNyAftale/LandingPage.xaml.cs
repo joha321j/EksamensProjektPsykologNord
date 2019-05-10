@@ -22,6 +22,10 @@ namespace BookNyAftale
         private Controller _controller;
         private int _openingTime;
         private int _openingHours;
+        private readonly DateTime _mondayDateCurrentWeek;
+        private DateTime _mondayDate;
+        private readonly int _forwardAmount;
+        private int _currentUserId;
 
         public LandingPage()
         {
@@ -29,6 +33,8 @@ namespace BookNyAftale
             _controller = Controller.GetInstance();
             _openingTime = 9;
             _openingHours = 12;
+            _forwardAmount = 7;
+            _currentUserId = 3;
             
             _listViews.Add(lvMonday);
             _listViews.Add(lvTuesday);
@@ -37,19 +43,24 @@ namespace BookNyAftale
             _listViews.Add(lvFriday);
             _listViews.Add(lvSaturday);
             _listViews.Add(lvSunday);
+            _listViews.Add(lvTime);
 
-            PopulateCalendarTimes();
+            ResetCalendarView();
 
-            DateTime mondayDate = _controller.GetMondayDate(DateTime.Today);
+            _mondayDateCurrentWeek = _controller.GetMondayDate(DateTime.Today);
+            _mondayDate = _mondayDateCurrentWeek;
 
-            UpdateCalendarDatesWeekPage(mondayDate);
+            UpdateCalendarDatesWeekPage(_mondayDateCurrentWeek);
 
-            UpdateAppointmentView(DateTime.Today, DateTime.Today.AddDays(20), 3);
+            UpdateAppointmentView(_mondayDateCurrentWeek, _mondayDateCurrentWeek.AddDays(_forwardAmount),
+                _currentUserId);
         }
 
-        private void PopulateCalendarTimes()
+        private void ResetCalendarView()
         {
             int timeCounter = _openingTime;
+
+            _listViews.ForEach(listView => listView.Items.Clear());
 
             for (int i = 0; i < _openingHours; i++)
             {
@@ -137,6 +148,39 @@ namespace BookNyAftale
             ((GridView) lvSaturday.View).Columns[0].Header = "Lørdag: " + startDate.AddDays(5).ToString(dateFormat);
             ((GridView) lvSunday.View).Columns[0].Header = "Søndag: " + startDate.AddDays(6).ToString(dateFormat);
 
+        }
+
+        private void BtnForward_OnClick(object sender, RoutedEventArgs e)
+        {
+            _mondayDate = _mondayDate.AddDays(_forwardAmount);
+
+            ResetCalendarView();
+
+            UpdateCalendarDatesWeekPage(_mondayDate);
+
+            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+        }
+
+        private void BtnBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            _mondayDate = _mondayDate.AddDays(_forwardAmount * -1);
+
+            ResetCalendarView();
+
+            UpdateCalendarDatesWeekPage(_mondayDate);
+
+            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+        }
+
+        private void BtnToday_OnClick(object sender, RoutedEventArgs e)
+        {
+            _mondayDate = _mondayDateCurrentWeek;
+
+            ResetCalendarView();
+
+            UpdateCalendarDatesWeekPage(_mondayDate);
+
+            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
         }
     }       
 }
