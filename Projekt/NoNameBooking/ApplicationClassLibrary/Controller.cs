@@ -121,7 +121,27 @@ namespace ApplicationClassLibrary
             List<User> users = new List<User>() {tempClient, tempPractitioner};
 
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
-                tempPractitioner.GetAppointmentType(appointmentTypeString), note);
+                tempAppointmentType, note);
+        }
+
+        public void RemoveAppointment(DateTime dateAndTime, string clientName)
+        {            
+            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
+        }
+
+        public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)
+        {
+            List<AppointmentView> appointmentViews = _appointmentRepo.GetAppointmentsByPracId(id);
+            
+            List<AppointmentView> returnList = appointmentViews.FindAll(appointment => appointment.dateAndTime > startDate && appointment.dateAndTime < endDate);
+            return returnList;
+        }
+
+        public DateTime GetMondayDate(DateTime today)
+        {
+            int weekNumber = DateTimeCalculator.GetIso8601WeekOfYear(today);
+
+            return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
         }
     }
 }
