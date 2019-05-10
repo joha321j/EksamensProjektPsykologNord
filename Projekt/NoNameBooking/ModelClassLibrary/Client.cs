@@ -4,16 +4,16 @@ namespace ModelClassLibrary
 {
     public class Client : User
     {
-        internal string SocialSecurityNumber { get; }
-        public string Note { get; }
+        internal string ClientSsn { get; }
+        public string ClientNote { get; }
         public Journal Journal { get; }
 
         public Client(string clientName = "", string clientEmail = "", string clientPhoneNumber = "",
-            string clientAddress = "", string socialSecurityNumber = "-1", string note = "", int id = -1)
+            string clientAddress = "", string clientSsn = "-1", string clientNote = "", int id = -1)
             : base(clientName, clientAddress, clientPhoneNumber, clientEmail, id)
         {
-            SocialSecurityNumber = socialSecurityNumber;
-            Note = note;
+            ClientSsn = clientSsn;
+            ClientNote = clientNote;
             Journal = new Journal();
         }
     }
