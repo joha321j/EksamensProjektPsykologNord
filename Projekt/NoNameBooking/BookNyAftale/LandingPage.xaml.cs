@@ -187,5 +187,12 @@ namespace BookNyAftale
         {
             throw new NotImplementedException();
         }
+
+        private void BtnCreateAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            CreateAppointment createAppointment = new CreateAppointment();
+            
+            createAppointment.Show();
+        }
     }       
 }

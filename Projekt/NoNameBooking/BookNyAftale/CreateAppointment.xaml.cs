@@ -115,12 +115,12 @@ namespace BookNyAftale
             }
         }
 
-        private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbbDepartment_SelectionChanged(object sender, EventArgs e)
         {
             UpdatePractitionerComboBox();
         }
 
-        private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbbPractitioner_SelectionChanged(object sender, EventArgs e)
         {
             UpdateTreatmentComboBox();
             UpdateAppointmentDates();
