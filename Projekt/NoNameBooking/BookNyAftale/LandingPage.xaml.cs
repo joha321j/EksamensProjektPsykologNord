@@ -19,7 +19,7 @@ namespace BookNyAftale
     public partial class LandingPage : Window
     {
         private readonly List<ListView> _listViews = new List<ListView>();
-        private Controller _controller;
+        private readonly Controller _controller;
         private int _openingTime;
         private int _openingHours;
         private readonly DateTime _mondayDateCurrentWeek;
@@ -181,6 +181,11 @@ namespace BookNyAftale
             UpdateCalendarDatesWeekPage(_mondayDate);
 
             UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+        }
+
+        private void CmbbCalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }       
 }
