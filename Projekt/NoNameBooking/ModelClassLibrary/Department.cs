@@ -65,9 +65,9 @@ namespace ModelClassLibrary
             return GetAvailability(selectedDateValue, selectedDateValue.AddDays(1));
         }
 
-        public Room GetAvailableRoom(DateTime dateAndTime)
+        public Room GetAvailableRoom(DateTime dateAndTime, TimeSpan appointmentDuration)
         {
-            throw new NotImplementedException();
+            return Rooms.Find(room => room.IsAvailable(dateAndTime, appointmentDuration));
         }
     }
 }

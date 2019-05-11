@@ -124,15 +124,15 @@ namespace ApplicationClassLibrary
 
             dateAndTime = dateAndTime.AddHours(appointmentTime.Hour);
 
-            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
-            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime);
-
             Client tempClient = _clientRepo.GetClient(clientName);
+
             Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
+            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
+
+            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
+            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime, tempAppointmentType.Duration);
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
-
-            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
 
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
                 tempAppointmentType, note);
