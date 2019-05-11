@@ -14,6 +14,7 @@ namespace ApplicationClassLibrary
         private readonly AppointmentRepo _appointmentRepo;
 
         public EventHandler NewClientCreatedEventHandler;
+        public EventHandler NewAppointmentCreatedEventHandler;
 
         private Controller()
         {
@@ -40,7 +41,12 @@ namespace ApplicationClassLibrary
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler?.Invoke(((Client) sender).Name, e);
+            NewClientCreatedEventHandler?.Invoke(((Client) sender)?.Name, e);
+        }
+
+        private void NewAppointmentEventHandler(object sender, EventArgs e)
+        {
+            NewAppointmentCreatedEventHandler?.Invoke(sender, e);
         }
 
         public static Controller GetInstance()

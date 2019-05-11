@@ -113,6 +113,8 @@ namespace BookNyAftale
             {
                 MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            Close();
         }
 
         private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)
