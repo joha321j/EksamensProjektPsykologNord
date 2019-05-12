@@ -79,9 +79,9 @@ CREATE TABLE dbo.PN_User
 CREATE TABLE dbo.PN_Client
 (
 	Id int NOT NULL FOREIGN KEY REFERENCES PN_User(Id) PRIMARY KEY,
-	MedicalReferral bit NOT NULL,
+	MedicalReferral bit,
 	Note NVARCHAR(MAX),
-	Journalid int NOT NULL FOREIGN KEY REFERENCES PN_Journal(Id),
+	Journalid int FOREIGN KEY REFERENCES PN_Journal(Id),
 	SocialSecurityNumber NVARCHAR(12) NOT NULL	
 );
 

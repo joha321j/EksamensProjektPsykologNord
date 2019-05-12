@@ -107,14 +107,14 @@ CREATE PROCEDURE SPInsertUserOutId
 @Name nvarchar(max),
 @Address nvarchar(max),
 @PhoneNumber nvarchar(12),
-@Email nvarchar(max),
-@Id int OUTPUT
+@Email nvarchar(max)
 
 AS
 BEGIN
 	INSERT INTO PN_User(Name, Address, PhoneNumber, Email)
-			VALUES(@Name, @Address, @PhoneNumber, @Email)
-	SELECT @Id = SCOPE_IDENTITY()
+	OUTPUT inserted.Id
+	VALUES(@Name, @Address, @PhoneNumber, @Email)
+
 END
 GO
 
