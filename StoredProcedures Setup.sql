@@ -4,7 +4,7 @@ DROP PROC IF EXISTS SPInsertAppointment
 DROP PROC IF EXISTS SPInsertClient
 DROP PROC IF EXISTS SPInsertDepartment
 DROP PROC IF EXISTS SPInsertInvoice
-DROP PROC IF EXISTS SPInsertUser
+DROP PROC IF EXISTS SPInsertUserOutId
 DROP PROC IF EXISTS SPInsertJournal_Entry
 DROP PROC IF EXISTS SPInsertPractitioner
 DROP PROC IF EXISTS SPInsertRoom
@@ -70,12 +70,13 @@ CREATE PROCEDURE SPInsertClient
 @ClientId int,
 @MedicalRefferal bit,
 @JournalId int,
+@Note NVARCHAR(MAX),
 @SocialSecurityNumber int
 
 AS
 BEGIN
-	INSERT INTO PN_Client(Id, MedicalReferral, Journalid, SocialSecurityNumber)
-			VALUES(@ClientId, @MedicalRefferal, @JournalId, @SocialSecurityNumber)
+	INSERT INTO PN_Client(Id, MedicalReferral, Note, Journalid, SocialSecurityNumber)
+			VALUES(@ClientId, @MedicalRefferal, @Note, @JournalId, @SocialSecurityNumber)
 END
 GO
 
@@ -102,16 +103,18 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPInsertUser
+CREATE PROCEDURE SPInsertUserOutId
 @Name nvarchar(max),
 @Address nvarchar(max),
 @PhoneNumber nvarchar(12),
-@Email nvarchar(max)
+@Email nvarchar(max),
+@Id int OUTPUT
 
 AS
 BEGIN
 	INSERT INTO PN_User(Name, Address, PhoneNumber, Email)
 			VALUES(@Name, @Address, @PhoneNumber, @Email)
+	SELECT @Id = SCOPE_IDENTITY()
 END
 GO
 

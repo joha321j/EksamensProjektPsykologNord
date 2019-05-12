@@ -473,5 +473,62 @@ namespace ApplicationClassLibrary
         {
             throw new NotImplementedException();
         }
+
+        public int SaveUser(string clientName, string clientAddress, string clientPhoneNumber, string clientEmail)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand("SPInsertUserOutId", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@Name", clientName);
+                    command.Parameters.AddWithValue("@Address", clientAddress);
+                    command.Parameters.AddWithValue("@PhoneNumber", clientPhoneNumber);
+                    command.Parameters.AddWithValue("@Email", clientEmail);
+
+                    int userId = (int) command.ExecuteScalar();
+
+                    return userId;
+                }
+            }
+            catch(Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
+        }
+
+        public void SaveClient(int clientId, string clientNote, string clientSsn)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand("SPInsertClient", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@ClientId", clientId);
+                    //We haven't made this yet
+                    command.Parameters.AddWithValue("@MedicalRefferal", DBNull.Value);
+                    command.Parameters.AddWithValue("@JournalId", DBNull.Value);
+
+                    command.Parameters.AddWithValue("@Note", clientNote);
+                    command.Parameters.AddWithValue("@SocialSecurityNumber", clientSsn);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
+        }
     }
 }
