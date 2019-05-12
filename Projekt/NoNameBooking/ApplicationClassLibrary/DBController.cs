@@ -374,9 +374,6 @@ namespace ApplicationClassLibrary
                                     Room tempRoom = new Room(readRoom.GetString(1), default(DateTime), 24, readRoom.GetInt32(0));
                                     tempRooms.Add(tempRoom);
                                 }
-
-                                
-
                             }
 
                             using (SqlDataReader readPractitioners = commandPractitioners.ExecuteReader())
