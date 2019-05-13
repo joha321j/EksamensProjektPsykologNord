@@ -240,7 +240,7 @@ namespace BookNyAftale
             {
                 int appoId = ((int)item.Tag);
                 string appoDate = item.Content.ToString();
-                EditAppointment edit = new EditAppointment();
+                EditAppointment edit = new EditAppointment(appoId);
                 edit.Show();
 
             }

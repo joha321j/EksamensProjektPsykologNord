@@ -566,5 +566,28 @@ namespace ApplicationClassLibrary
                 throw e;
             }
         }
+
+        public Appointment GetAppointmentById(int appointmentId)
+        {
+            Appointment appo = new Appointment();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("SPGetAppointmentById", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@AppoinmentId", appointmentId);
+                List<User> tempUsers = new List<User>();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    appo.DateAndTime = ((DateTime)reader.GetValue(1));
+                    appo.AppointmentType = ((AppointmentType)reader.GetValue(5));
+                    appo.Location = ((Room)reader.GetValue(3));
+                    appo.Note = reader.GetValue(8).ToString();
+                    appo.Participants = tempUsers;
+                }
+                
+            }
+            return appo;
+        }
     }
 }

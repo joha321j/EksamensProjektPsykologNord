@@ -24,12 +24,12 @@ namespace BookNyAftale
     public partial class EditAppointment : Window
     {
         private readonly Controller _controller;
-        public EditAppointment()
+        public EditAppointment(int appointmentId)
         {
             InitializeComponent();
             _controller = Controller.GetInstance();
-
             UpdateDepartmentComboBox();
+            AppointmentView appointment;
         }
         private void UpdatePractitionerComboBox()
         {
