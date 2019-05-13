@@ -14,6 +14,7 @@ namespace ApplicationClassLibrary
         private readonly AppointmentRepo _appointmentRepo;
 
         public EventHandler NewClientCreatedEventHandler;
+        public EventHandler NewAppointmentCreatedEventHandler;
 
         private Controller()
         {
@@ -28,7 +29,7 @@ namespace ApplicationClassLibrary
             _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
         }
 
-        private List<User> GetUsers()
+        public List<User> GetUsers()
         {
             List<User> tempUsers = new List<User>();
             tempUsers.AddRange(_clientRepo.GetClients());
@@ -40,7 +41,12 @@ namespace ApplicationClassLibrary
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler.Invoke(((Client) sender).Name, e);
+            NewClientCreatedEventHandler?.Invoke(((Client) sender)?.Name, e);
+        }
+
+        private void NewAppointmentEventHandler(object sender, EventArgs e)
+        {
+            NewAppointmentCreatedEventHandler?.Invoke(sender, e);
         }
 
         public static Controller GetInstance()
@@ -124,15 +130,15 @@ namespace ApplicationClassLibrary
 
             dateAndTime = dateAndTime.AddHours(appointmentTime.Hour);
 
-            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
-            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime);
-
             Client tempClient = _clientRepo.GetClient(clientName);
+
             Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
+            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
+
+            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
+            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime, tempAppointmentType.Duration);
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
-
-            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
 
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
                 tempAppointmentType, note);
@@ -149,6 +155,13 @@ namespace ApplicationClassLibrary
             
             List<AppointmentView> returnList = appointmentViews.FindAll(appointment => appointment.dateAndTime > startDate && appointment.dateAndTime < endDate);
             return returnList;
+        }
+
+        public DateTime GetMondayDate(DateTime today)
+        {
+            int weekNumber = DateTimeCalculator.GetIso8601WeekOfYear(today);
+
+            return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
         }
     }
 }

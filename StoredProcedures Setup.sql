@@ -1,10 +1,11 @@
 use B_DB19_2018
 
-DROP PROC IF EXISTS SPInsertAppointment
+DROP PROC IF EXISTS SPInsertAppointmentForUser
+DROP PROC IF EXISTS SPInsertAppointmentOutId
 DROP PROC IF EXISTS SPInsertClient
 DROP PROC IF EXISTS SPInsertDepartment
 DROP PROC IF EXISTS SPInsertInvoice
-DROP PROC IF EXISTS SPInsertUser
+DROP PROC IF EXISTS SPInsertUserOutId
 DROP PROC IF EXISTS SPInsertJournal_Entry
 DROP PROC IF EXISTS SPInsertPractitioner
 DROP PROC IF EXISTS SPInsertRoom
@@ -44,12 +45,21 @@ DROP PROC IF EXISTS SPGetAllDepartments
 DROP PROC IF EXISTS SPGetRoomsFromDepartment
 DROP PROC IF EXISTS SPGetPractitionersFromDepartment
 DROP PROC IF EXISTS SPGetAppointmentTypeByPractitionerId
+DROP PROC IF EXISTS SPGetUsersFromAppointmentId
 
 GO
 
+CREATE PROC SPInsertAppointmentForUser
+@UserId int,
+@AppointmentId int
+AS
+BEGIN
+	INSERT INTO PN_User_Appointment(UserId, AppointmentId)
+	VALUES(@UserId, @AppointmentId)
+END
+GO
 
-
-CREATE PROC SPInsertAppointment
+CREATE PROC SPInsertAppointmentOutId
 @DateAndTime datetime2,
 @RoomId int,
 @Price float,
@@ -60,7 +70,8 @@ AS
 BEGIN
 
 	INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note)
-			VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note)
+	OUTPUT inserted.Id
+	VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note)
 
 END
 GO
@@ -69,12 +80,13 @@ CREATE PROCEDURE SPInsertClient
 @ClientId int,
 @MedicalRefferal bit,
 @JournalId int,
+@Note NVARCHAR(MAX),
 @SocialSecurityNumber int
 
 AS
 BEGIN
-	INSERT INTO PN_Client(Id, MedicalReferral, Journalid, SocialSecurityNumber)
-			VALUES(@ClientId, @MedicalRefferal, @JournalId, @SocialSecurityNumber)
+	INSERT INTO PN_Client(Id, MedicalReferral, Note, Journalid, SocialSecurityNumber)
+			VALUES(@ClientId, @MedicalRefferal, @Note, @JournalId, @SocialSecurityNumber)
 END
 GO
 
@@ -101,7 +113,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPInsertUser
+CREATE PROCEDURE SPInsertUserOutId
 @Name nvarchar(max),
 @Address nvarchar(max),
 @PhoneNumber nvarchar(12),
@@ -110,7 +122,9 @@ CREATE PROCEDURE SPInsertUser
 AS
 BEGIN
 	INSERT INTO PN_User(Name, Address, PhoneNumber, Email)
-			VALUES(@Name, @Address, @PhoneNumber, @Email)
+	OUTPUT inserted.Id
+	VALUES(@Name, @Address, @PhoneNumber, @Email)
+
 END
 GO
 
@@ -495,8 +509,8 @@ CREATE PROCEDURE SPGetAllAppointments
 AS
 BEGIN
 
-	SELECT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_User_Appointment.UserId
+	SELECT DISTINCT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price
 	FROM PN_APPOINTMENT 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
 	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
@@ -504,6 +518,16 @@ BEGIN
 	ORDER BY  PN_User_Appointment.AppointmentId
 END
 GO
+
+CREATE PROCEDURE SPGetUsersFromAppointmentId @AppointmentId INT
+AS
+BEGIN
+SELECT PN_User_Appointment.UserId
+FROM PN_User_Appointment
+WHERE PN_User_Appointment.AppointmentId = @AppointmentId
+END
+GO
+
 
 CREATE PROC SPGetAllClients
 AS
@@ -518,7 +542,7 @@ GO
 CREATE PROC SPGetAllPractitioners
 AS
 BEGIN
-	SELECT PN_User.Id, PN_User.Name, PN_User.Email, PN_User.PhoneNumber, PN_User.Address
+	SELECT PN_User.Id, PN_User.Name, PN_User.Email, PN_User.PhoneNumber, PN_User.Address, PN_Practitioner.StartTime, PN_Practitioner.DayLength
 	FROM PN_User
 	JOIN PN_Practitioner ON PN_User.Id = PN_Practitioner.Id
 END

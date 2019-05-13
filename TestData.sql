@@ -112,7 +112,7 @@ VALUES
 (4,2),
 (4,3)
 
-INSERT INTO PN_Dartment_Practitioner(DeparmentId, PractitionerId)
+INSERT INTO PN_Department_Practitioner(DepartmentId, PractitionerId)
 VALUES
 (1,3),
 (2,3),

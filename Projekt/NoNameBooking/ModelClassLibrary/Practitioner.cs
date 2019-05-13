@@ -41,7 +41,7 @@ namespace ModelClassLibrary
 
         private List<DateTime> RemoveBookedDateTimes(List<DateTime> availableDateTimes)
         {
-            foreach (Appointment appointment in _appointments)
+            foreach (Appointment appointment in Appointments)
             {
                 DateTime tempDate = appointment.DateAndTime;
                 for (int i = 0; i < appointment.AppointmentType.Duration.TotalHours; i++)

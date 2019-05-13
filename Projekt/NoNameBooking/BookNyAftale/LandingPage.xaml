@@ -95,7 +95,7 @@
             <Button Content="Indstillinger" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="5" Name="btnSettings"/>
             <Button Content="Apps" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="75" Grid.Column="6" Name="btnApps"/>
         </Grid>
-        <Button Content="Opret Aftale" HorizontalAlignment="Center" Margin="10,95,987,0" VerticalAlignment="Top" Width="75" Name="btnCreateAppointment"/>
+        <Button Content="Opret Aftale" HorizontalAlignment="Center" Margin="10,95,987,0" VerticalAlignment="Top" Width="75" Name="btnCreateAppointment" Click="BtnCreateAppointment_Click"/>
         <Button Content="Åbningstider" HorizontalAlignment="Center" Margin="100,95,898,0" VerticalAlignment="Top" Width="75" Name="btnOpening"/>
         <Button Content="Print" HorizontalAlignment="Center" Margin="190,95,807,0" VerticalAlignment="Top" Width="75" Name="btnPrintCalendar"/>
         <Button Content="Skjul" HorizontalAlignment="Center" Margin="280,95,714,0" VerticalAlignment="Top" Width="75" Name="btnHideInfo"/>
@@ -109,9 +109,9 @@
             <Button Content="Uge" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="85" Height="30" Name="btnWeek"/>
             <Button Content="Dag" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="85" Height="30" Name="btnDay"/>
         </Grid>
-        <ComboBox HorizontalAlignment="Center" Margin="889,95,5,0" VerticalAlignment="Top" Width="178" Name="cmbbCalendar"/>
-        <Button Content="I dag" HorizontalAlignment="Center" Margin="889,133,69,0" VerticalAlignment="Top" Width="114" Name="btnToday"/>
-        <Button Content="-" HorizontalAlignment="Center" Margin="1010,133,34,0" VerticalAlignment="Top" Width="28" Name="btnBack"/>
-        <Button Content="+" HorizontalAlignment="Center" Margin="1031,133,0,0" VerticalAlignment="Top" Width="28" Name="btnForward"/>
+        <ComboBox HorizontalAlignment="Center" Margin="889,95,5,0" VerticalAlignment="Top" Width="178" Name="cmbbCalendar" SelectionChanged="CmbbCalendar_SelectionChanged"/>
+        <Button Content="I dag" HorizontalAlignment="Center" Margin="889,133,69,0" VerticalAlignment="Top" Width="114" Name="btnToday" Click="BtnToday_OnClick"/>
+        <Button Content="-" HorizontalAlignment="Center" Margin="1010,133,34,0" VerticalAlignment="Top" Width="28" Name="btnBack" Click="BtnBack_OnClick"/>
+        <Button Content="+" HorizontalAlignment="Center" Margin="1031,133,0,0" VerticalAlignment="Top" Width="28" Name="btnForward" Click="BtnForward_OnClick"/>
     </Grid>
 </Window>

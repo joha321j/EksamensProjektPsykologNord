@@ -27,8 +27,11 @@ namespace ApplicationClassLibrary
         public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
             string clientAddress, string clientSsn, string clientNote)
         {
-            Client newClient = new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
+            int clientId = _persistable.SaveUser(clientName, clientAddress, clientPhoneNumber, clientEmail);
+            _persistable.SaveClient(clientId, clientNote, clientSsn);
 
+            Client newClient = new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
+            
             _clients.Add(newClient);
 
             NewClientEventHandler?.Invoke(newClient, EventArgs.Empty);

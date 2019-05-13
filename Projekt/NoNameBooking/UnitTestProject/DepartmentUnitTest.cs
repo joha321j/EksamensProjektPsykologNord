@@ -119,6 +119,32 @@ namespace UnitTestProject
         }
 
         [TestMethod]
+        public void GetAvailableRoomsTest()
+        {
+            Department testDepartment2 = new Department("Kaare sex dungeon", "Hej 24");
+            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(2));
+
+            User testUserOne = new User("testMike", "TestVibevænget 24", "69696969", "Mike@Johannes.mike");
+            User testUserTwo = new User("testMike2", "TestVibevænget 241", "69696968", "Mike@Cancer.Rasmus");
+            List<User> testUsers = new List<User>() { testUserOne, testUserTwo };
+
+            DateTime testDateTime = DateTime.Today.AddDays(1).AddHours(10);
+
+            Room testRoom = new Room("Youtube");
+            Room testRoom2 = new Room("TestRum");
+
+            testDepartment2.Rooms.Add(testRoom);
+            testDepartment2.Rooms.Add(testRoom2);
+
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+
+            Room availableRoom = testDepartment2.GetAvailableRoom(testDateTime, testType.Duration);
+
+            Assert.AreEqual(testRoom2, availableRoom);
+
+        }
+
+        [TestMethod]
         public void AddPractitionerTest()
         {
             Practitioner prac = new Practitioner(DateTime.Today, TimeSpan.FromHours(9));

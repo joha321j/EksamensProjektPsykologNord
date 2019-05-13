@@ -10,12 +10,12 @@ namespace UnitTestProject
     public class ClientRepoUnitTest
     {
         private ClientRepo _clientRepo;
-        private DBController _dbController;
+        private TestDBController _dbController;
 
         [TestInitialize]
         public void ClientRepoTestInitialize()
         {
-            _dbController = new DBController();
+            _dbController = new TestDBController();
             _clientRepo = ClientRepo.GetInstance(_dbController);
         }
 
@@ -47,7 +47,8 @@ namespace UnitTestProject
 
             _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSSN, clientNote);
 
-            Assert.AreEqual(_clientRepo.GetClientAmount(), 1);
+            Assert.AreEqual(_clientRepo.GetClient(clientName).Name, clientName);
+            Assert.AreEqual(_clientRepo.GetClient(clientName).Address, clientAddress);
         }
 
     }

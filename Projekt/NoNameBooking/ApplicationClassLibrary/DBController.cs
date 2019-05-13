@@ -322,18 +322,6 @@ namespace ApplicationClassLibrary
             }
         }
 
-        private Practitioner GetPractitionerHelp(List<User> users)
-        {
-            foreach (User user in users)
-            {
-                if (user.GetType() == typeof(Practitioner))
-                {
-                    return (Practitioner) user;
-                }
-            }
-            throw new CultureNotFoundException();
-        }
-
         private Room FindRoom(List<Department> departments, int roomId)
         {
             foreach (Department department in departments)
@@ -372,7 +360,7 @@ namespace ApplicationClassLibrary
                     {
                         while (reader.Read())
                         {
-                            Department tempDepartment = new Department(reader.GetValue(0).ToString(), reader.GetValue(1).ToString());
+                            Department tempDepartment = new Department(reader.GetValue(1).ToString(), reader.GetValue(2).ToString(), reader.GetInt32(0));
 
                             List<Room> tempRooms = new List<Room>();
                             commandRoom.Parameters.AddWithValue("DepartmentId", reader.GetInt32(0));
@@ -386,9 +374,6 @@ namespace ApplicationClassLibrary
                                     Room tempRoom = new Room(readRoom.GetString(1), default(DateTime), 24, readRoom.GetInt32(0));
                                     tempRooms.Add(tempRoom);
                                 }
-
-                                
-
                             }
 
                             using (SqlDataReader readPractitioners = commandPractitioners.ExecuteReader())
@@ -397,7 +382,7 @@ namespace ApplicationClassLibrary
 
                                 while (readPractitioners.Read())
                                 {
-                                    Practitioner tempPractitioner = GetPractitionerHelp(readPractitioners.GetInt32(0), practitioners);
+                                    Practitioner tempPractitioner = practitioners.Find(x => x.Id == readPractitioners.GetInt32(0));
                                     tempDepartment.AddPractitioner(tempPractitioner);
                                 }
 
@@ -419,18 +404,6 @@ namespace ApplicationClassLibrary
                 /// TODO: Actually handle the exception!
                 throw e;
             }
-        }
-
-        private Practitioner GetPractitionerHelp(int practitionerId, List<Practitioner> practitioners)
-        {
-            foreach (Practitioner practitioner in practitioners)
-            {
-                if (practitioner.Id == practitionerId)
-                {
-                    return practitioner;
-                }
-            }
-            throw new CultureNotFoundException("SUT MIN PIIIIIIIIIIIIIK");
         }
 
         public List<Practitioner> GetPractitioners()
@@ -490,12 +463,108 @@ namespace ApplicationClassLibrary
 
         public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
         {
-            throw new NotImplementedException();
+            double price = 0.0;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand appointmentCommand = new SqlCommand("SPInsertAppointmentOutId", connection);
+                    appointmentCommand.CommandType = CommandType.StoredProcedure;
+
+                    appointmentCommand.Parameters.Add("@DateAndTime", SqlDbType.DateTime2).Value = dateAndTime;
+                    appointmentCommand.Parameters.AddWithValue("@RoomId", room.Id);
+                    appointmentCommand.Parameters.AddWithValue("@Price", price);
+                    appointmentCommand.Parameters.AddWithValue("@AppointmentTypeId", appointmentType.Id);
+                    appointmentCommand.Parameters.AddWithValue("@Note", note);
+
+                    int appointmentId = (int)appointmentCommand.ExecuteScalar();
+
+                    SqlCommand userAppointmentCommand = new SqlCommand("SPInsertAppointmentForUser", connection);
+                    userAppointmentCommand.CommandType = CommandType.StoredProcedure;
+
+                    SqlParameter UserId = userAppointmentCommand.Parameters.Add("@UserId", SqlDbType.Int);
+                    SqlParameter appointmentIdtemp = userAppointmentCommand.Parameters.Add("@AppointmentId", SqlDbType.Int);
+
+                    appointmentIdtemp.Value = appointmentId;
+                    foreach (User user in users)
+                    {
+                        UserId.Value = user.Id;
+
+                        userAppointmentCommand.ExecuteNonQuery();
+
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception! 
+                throw e;
+            }
         }
 
         public void RemoveAppointment(int appointmentId)
         {
             throw new NotImplementedException();
+        }
+
+        public int SaveUser(string clientName, string clientAddress, string clientPhoneNumber, string clientEmail)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand("SPInsertUserOutId", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@Name", clientName);
+                    command.Parameters.AddWithValue("@Address", clientAddress);
+                    command.Parameters.AddWithValue("@PhoneNumber", clientPhoneNumber);
+                    command.Parameters.AddWithValue("@Email", clientEmail);
+
+                    int userId = (int) command.ExecuteScalar();
+
+                    return userId;
+                }
+            }
+            catch(Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
+        }
+
+        public void SaveClient(int clientId, string clientNote, string clientSsn)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand("SPInsertClient", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@ClientId", clientId);
+                    //We haven't made this yet
+                    command.Parameters.AddWithValue("@MedicalRefferal", DBNull.Value);
+                    command.Parameters.AddWithValue("@JournalId", DBNull.Value);
+
+                    command.Parameters.AddWithValue("@Note", clientNote);
+                    command.Parameters.AddWithValue("@SocialSecurityNumber", clientSsn);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception!
+                throw e;
+            }
         }
     }
 }
