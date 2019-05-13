@@ -463,7 +463,46 @@ namespace ApplicationClassLibrary
 
         public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
         {
-            throw new NotImplementedException();
+            double price = 0.0;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    SqlCommand appointmentCommand = new SqlCommand("SPInsertAppointmentOutId", connection);
+                    appointmentCommand.CommandType = CommandType.StoredProcedure;
+
+                    appointmentCommand.Parameters.Add("@DateAndTime", SqlDbType.DateTime2).Value = dateAndTime;
+                    appointmentCommand.Parameters.AddWithValue("@RoomId", room.Id);
+                    appointmentCommand.Parameters.AddWithValue("@Price", price);
+                    appointmentCommand.Parameters.AddWithValue("@AppointmentTypeId", appointmentType.Id);
+                    appointmentCommand.Parameters.AddWithValue("@Note", note);
+
+                    int appointmentId = (int)appointmentCommand.ExecuteScalar();
+
+                    SqlCommand userAppointmentCommand = new SqlCommand("SPInsertAppointmentForUser", connection);
+                    userAppointmentCommand.CommandType = CommandType.StoredProcedure;
+
+                    SqlParameter UserId = userAppointmentCommand.Parameters.Add("@UserId", SqlDbType.Int);
+                    SqlParameter appointmentIdtemp = userAppointmentCommand.Parameters.Add("@AppointmentId", SqlDbType.Int);
+
+                    appointmentIdtemp.Value = appointmentId;
+                    foreach (User user in users)
+                    {
+                        UserId.Value = user.Id;
+
+                        userAppointmentCommand.ExecuteNonQuery();
+
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                /// TODO: Actually handle the exception! 
+                throw e;
+            }
         }
 
         public void RemoveAppointment(string clientName, DateTime dateAndTime)

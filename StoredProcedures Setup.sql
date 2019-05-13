@@ -1,6 +1,7 @@
 use B_DB19_2018
 
-DROP PROC IF EXISTS SPInsertAppointment
+DROP PROC IF EXISTS SPInsertAppointmentForUser
+DROP PROC IF EXISTS SPInsertAppointmentOutId
 DROP PROC IF EXISTS SPInsertClient
 DROP PROC IF EXISTS SPInsertDepartment
 DROP PROC IF EXISTS SPInsertInvoice
@@ -48,9 +49,17 @@ DROP PROC IF EXISTS SPGetUsersFromAppointmentId
 
 GO
 
+CREATE PROC SPInsertAppointmentForUser
+@UserId int,
+@AppointmentId int
+AS
+BEGIN
+	INSERT INTO PN_User_Appointment(UserId, AppointmentId)
+	VALUES(@UserId, @AppointmentId)
+END
+GO
 
-
-CREATE PROC SPInsertAppointment
+CREATE PROC SPInsertAppointmentOutId
 @DateAndTime datetime2,
 @RoomId int,
 @Price float,
@@ -61,7 +70,8 @@ AS
 BEGIN
 
 	INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note)
-			VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note)
+	OUTPUT inserted.Id
+	VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note)
 
 END
 GO
