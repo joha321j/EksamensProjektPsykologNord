@@ -11,6 +11,6 @@ namespace ApplicationClassLibrary
         List<Department> GetDepartments(List<Practitioner> practitioners);
         List<Practitioner> GetPractitioners();
         void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note);
-        void RemoveAppointment(string clientName, DateTime dateAndTime);
+        void RemoveAppointment(int appointmentId);
     }
 }

@@ -138,9 +138,9 @@ namespace ApplicationClassLibrary
                 tempAppointmentType, note);
         }
 
-        public void RemoveAppointment(DateTime dateAndTime, string clientName)
+        public void RemoveAppointment(int appointmentId)
         {            
-            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
+            _appointmentRepo.RemoveAppointment(appointmentId);
         }
 
         public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)

@@ -210,18 +210,43 @@ namespace BookNyAftale
 
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+            ListView lvView = ((ListView)e.Source);
             ListViewItem item = sender as ListViewItem;
+            switch (lvView.Name)
+            {
+                case "lvMonday":
+                     item = lvMonday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvTuesday":
+                    item = lvTuesday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvWednesday":
+                    item = lvWednesday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvThursday":
+                    item = lvThursday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvFriday":
+                    item = lvFriday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvSaturday":
+                    item = lvSaturday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvSunday":
+                    item = lvSunday.SelectedItems[0] as ListViewItem;
+                    break;
+                default:
+                    break;
+            }
+            
             if (item != null)
             {
                 int appoId = ((int)item.Tag);
-                string spasser = item.Content.ToString();
+                string appoDate = item.Content.ToString();
+                EditAppointment edit = new EditAppointment();
+                edit.Show();
+
             }
-            
-            
-            //EditAppointment edit = new EditAppointment();
-            //edit.Show();
-            //this.Close();
         }
     }       
 }

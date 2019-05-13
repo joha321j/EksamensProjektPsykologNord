@@ -69,9 +69,9 @@ namespace ApplicationClassLibrary
             return appointments;
         }
 
-        public void RemoveAppointment(string clientName, DateTime dateTime)
+        public void RemoveAppointment(int appointmentId)
         {            
-            _persistable.RemoveAppointment(clientName, dateTime);            
+            _persistable.RemoveAppointment(appointmentId);            
         }
     }
 }

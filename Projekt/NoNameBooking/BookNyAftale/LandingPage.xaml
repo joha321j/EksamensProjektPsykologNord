@@ -33,42 +33,42 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Column="2" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvTuesday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Grid.Column="2" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvTuesday" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="Item_DoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Tirsdag" Width="143"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Column="3" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvWednesday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Grid.Column="3" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvWednesday" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="Item_DoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Onsdag" Width="143"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Column="4" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvThursday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Grid.Column="4" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvThursday" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="Item_DoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Torsdag" Width="143"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Column="5" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvFriday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Grid.Column="5" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvFriday" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="Item_DoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Fredag" Width="143"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Column="6" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvSaturday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Grid.Column="6" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvSaturday" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="Item_DoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Lørdag" Width="143"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Column="7" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvSunday" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Grid.Column="7" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="143" Name="lvSunday" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="Item_DoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Søndag" Width="143"/>
