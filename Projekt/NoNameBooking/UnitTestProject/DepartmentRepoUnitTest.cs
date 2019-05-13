@@ -18,7 +18,7 @@ namespace UnitTestProject
         private DepartmentRepo _instance;
         private Department _departmentOne;
         private Department _departmentTwo;
-        private DBController _dbController;
+        private TestDBController _dbController;
         private List<Practitioner> practitioners = new List<Practitioner>();
 
         [TestCleanup]
@@ -30,7 +30,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void DepartmentRepoSetup()
         {
-            _dbController = new DBController();
+            _dbController = new TestDBController();
             _instance = DepartmentRepo.GetInstance(_dbController, practitioners);
             _departmentOne = new Department("TestDepartmentOne", "TestAddressOne");
             _departmentTwo = new Department("TestDepartmentTwo", "TestAddressTwo");

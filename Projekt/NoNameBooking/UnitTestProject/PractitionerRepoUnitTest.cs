@@ -16,7 +16,7 @@ namespace UnitTestProject
         private PractitionerRepo testInstance;
         private Practitioner testPractitionerOne;
         private Practitioner testPractitionerTwo;
-        private DBController _dbController;
+        private TestDBController _dbController;
 
 
 
@@ -24,7 +24,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void PractitionerRepoSetup()
         {
-            _dbController = new DBController();
+            _dbController = new TestDBController();
             testInstance = PractitionerRepo.GetInstance(_dbController);
 
 

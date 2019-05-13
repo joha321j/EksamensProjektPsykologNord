@@ -65,6 +65,7 @@
     <Compile Include="PractitionerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomUnitTest.cs" />
+    <Compile Include="TestDBController.cs" />
     <Compile Include="UserUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
