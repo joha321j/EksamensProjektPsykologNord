@@ -6,6 +6,7 @@ namespace ApplicationClassLibrary
 {
     public class Controller
     {
+        private IPersistable _persistable;
         private static Controller _instance;
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
@@ -13,22 +14,39 @@ namespace ApplicationClassLibrary
         private readonly AppointmentRepo _appointmentRepo;
 
         public EventHandler NewClientCreatedEventHandler;
+        public EventHandler NewAppointmentCreatedEventHandler;
 
         private Controller()
         {
-            _clientRepo = ClientRepo.GetInstance();
+            _persistable = new DBController();
+            _clientRepo = ClientRepo.GetInstance(_persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
-            _departmentRepo = DepartmentRepo.GetInstance();
+            _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
 
-            _practitionerRepo = PractitionerRepo.GetInstance();
+            _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
 
-            _appointmentRepo = AppointmentRepo.GetInstance();
+            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
+        }
+
+        public List<User> GetUsers()
+        {
+            List<User> tempUsers = new List<User>();
+            tempUsers.AddRange(_clientRepo.GetClients());
+            tempUsers.AddRange(_practitionerRepo.GetPractitioners());
+
+            return tempUsers;
+
         }
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler.Invoke(((Client) sender).Name, e);
+            NewClientCreatedEventHandler?.Invoke(((Client) sender)?.Name, e);
+        }
+
+        private void NewAppointmentEventHandler(object sender, EventArgs e)
+        {
+            NewAppointmentCreatedEventHandler?.Invoke(sender, e);
         }
 
         public static Controller GetInstance()
@@ -112,16 +130,38 @@ namespace ApplicationClassLibrary
 
             dateAndTime = dateAndTime.AddHours(appointmentTime.Hour);
 
-            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
-            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime);
-
             Client tempClient = _clientRepo.GetClient(clientName);
+
             Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
+            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
+
+            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
+            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime, tempAppointmentType.Duration);
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
 
             _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
-                tempPractitioner.GetAppointmentType(appointmentTypeString), note);
+                tempAppointmentType, note);
+        }
+
+        public void RemoveAppointment(DateTime dateAndTime, string clientName)
+        {            
+            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
+        }
+
+        public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)
+        {
+            List<AppointmentView> appointmentViews = _appointmentRepo.GetAppointmentsByPracId(id);
+            
+            List<AppointmentView> returnList = appointmentViews.FindAll(appointment => appointment.dateAndTime > startDate && appointment.dateAndTime < endDate);
+            return returnList;
+        }
+
+        public DateTime GetMondayDate(DateTime today)
+        {
+            int weekNumber = DateTimeCalculator.GetIso8601WeekOfYear(today);
+
+            return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
         }
     }
 }

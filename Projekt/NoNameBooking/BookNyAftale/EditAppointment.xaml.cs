@@ -16,27 +16,21 @@ using System.Windows.Shapes;
 using ApplicationClassLibrary;
 using DateTime = System.DateTime;
 
-
 namespace BookNyAftale
 {
     /// <summary>
-    /// Interaction logic for CreateAppointment.xaml
+    /// Interaction logic for EditAppointment.xaml
     /// </summary>
-    public partial class CreateAppointment : Window
+    public partial class EditAppointment : Window
     {
         private readonly Controller _controller;
-
-        public CreateAppointment()
+        public EditAppointment()
         {
             InitializeComponent();
             _controller = Controller.GetInstance();
 
-            _controller.NewClientCreatedEventHandler += ClientRepoClientCreationHandler;
-
-            UpdateClientComboBox(null);
             UpdateDepartmentComboBox();
         }
-
         private void UpdatePractitionerComboBox()
         {
             List<string> practitionerNames =
@@ -70,7 +64,7 @@ namespace BookNyAftale
                 cmbbAppointmentTime.ItemsSource = availableTimes;
             }
 
-            cmbbAppointmentTime.SelectedIndex = 0; 
+            cmbbAppointmentTime.SelectedIndex = 0;
         }
 
         private void UpdateClientComboBox(object sender)
@@ -100,7 +94,7 @@ namespace BookNyAftale
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
             {
-                date = (DateTime) dpAppointmentDate.SelectedDate;
+                date = (DateTime)dpAppointmentDate.SelectedDate;
             }
 
             try
@@ -113,16 +107,14 @@ namespace BookNyAftale
             {
                 MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            Close();
         }
 
-        private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)
+        private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdatePractitionerComboBox();
         }
 
-        private void CmbbPractitioner_DropDownClosed(object sender, EventArgs e)
+        private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateTreatmentComboBox();
             UpdateAppointmentDates();
@@ -133,8 +125,8 @@ namespace BookNyAftale
             if (dpAppointmentDate.DisplayDateStart != null && dpAppointmentDate.DisplayDateEnd != null)
             {
                 List<DateTime> blockedDates = _controller.GetBusyDates(cmbbPractitioner.SelectionBoxItem.ToString(),
-                    cmbbDepartment.SelectionBoxItem.ToString(), (DateTime) dpAppointmentDate.DisplayDateStart,
-                    (DateTime) dpAppointmentDate.DisplayDateEnd);
+                    cmbbDepartment.SelectionBoxItem.ToString(), (DateTime)dpAppointmentDate.DisplayDateStart,
+                    (DateTime)dpAppointmentDate.DisplayDateEnd);
 
                 dpAppointmentDate.BlackoutDates.Clear();
 
