@@ -144,9 +144,9 @@ namespace ApplicationClassLibrary
                 tempAppointmentType, note);
         }
 
-        public void RemoveAppointment(DateTime dateAndTime, string clientName)
+        public void RemoveAppointment(int appointmentId)
         {            
-            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
+            _appointmentRepo.RemoveAppointment(appointmentId);
         }
 
         public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)
@@ -169,6 +169,16 @@ namespace ApplicationClassLibrary
             List<Practitioner> practitioners = _practitionerRepo.GetPractitioners();
 
             return practitioners.ConvertAll(practitioner => practitioner.Name);
+        }
+        
+        public AppointmentView GetAppointmentById(int appoId)
+        {
+            return _appointmentRepo.GetAppointmentById(appoId);
+        }
+
+        public UserView isClient(UserView user)
+        {
+            return _clientRepo.isClient(user);
         }
     }
 }

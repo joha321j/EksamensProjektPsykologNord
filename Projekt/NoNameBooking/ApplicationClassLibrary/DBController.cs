@@ -505,7 +505,7 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void RemoveAppointment(string clientName, DateTime dateAndTime)
+        public void RemoveAppointment(int appointmentId)
         {
             throw new NotImplementedException();
         }
@@ -565,6 +565,6 @@ namespace ApplicationClassLibrary
                 /// TODO: Actually handle the exception!
                 throw e;
             }
-        }
+        }       
     }
 }

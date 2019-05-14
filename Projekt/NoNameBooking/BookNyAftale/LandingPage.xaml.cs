@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ApplicationClassLibrary;
+using System.Xml;
 
 namespace BookNyAftale
 {
@@ -152,7 +153,8 @@ namespace BookNyAftale
                 ListViewItem listViewItem = new ListViewItem()
                 {
                     Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                    Background = Brushes.Magenta
+                    Background = Brushes.Magenta,
+                    Tag = item.Id
                 };
                 listView.Items.RemoveAt(item.dateAndTime.Hour - _openingTime);
                 listView.Items.Insert(item.dateAndTime.Hour - _openingTime, listViewItem);
@@ -216,6 +218,47 @@ namespace BookNyAftale
             CreateAppointment createAppointment = new CreateAppointment();
             
             createAppointment.Show();
+        }
+
+        private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListView lvView = ((ListView)e.Source);
+            ListViewItem item = sender as ListViewItem;
+            switch (lvView.Name)
+            {
+                case "lvMonday":
+                     item = lvMonday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvTuesday":
+                    item = lvTuesday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvWednesday":
+                    item = lvWednesday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvThursday":
+                    item = lvThursday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvFriday":
+                    item = lvFriday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvSaturday":
+                    item = lvSaturday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvSunday":
+                    item = lvSunday.SelectedItems[0] as ListViewItem;
+                    break;
+                default:
+                    break;
+            }
+            
+            if (item != null)
+            {
+                int appoId = ((int)item.Tag);
+                string appoDate = item.Content.ToString();
+                EditAppointment edit = new EditAppointment(appoId);
+                edit.Show();
+
+            }
         }
     }       
 }
