@@ -13,12 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ApplicationClassLibrary;
+using System.Xml;
 
 namespace BookNyAftale
 {
     public partial class LandingPage : Window
     {
         private readonly List<ListView> _listViews = new List<ListView>();
+        private List<PractitionerView> _practitionerViews;
         private readonly Controller _controller;
         private int _openingTime;
         private int _openingHours;
@@ -33,11 +35,16 @@ namespace BookNyAftale
             _controller = Controller.GetInstance();
             _controller.NewAppointmentCreatedEventHandler += UpdateCalendar;
 
-            _openingTime = 9;
-            _openingHours = 12;
+            PopulatePractitionerComboBox();
+
+            _openingTime = _practitionerViews[0].Start.Hour;
+            _openingHours = _practitionerViews[0].DayLength.Hours;
+            _currentUserId = _practitionerViews[0].Id;
+
+            cmbbPractitioner.SelectedItem = _practitionerViews[0].Name;
+
             _forwardAmount = 7;
-            _currentUserId = 3;
-            
+
             _listViews.Add(lvMonday);
             _listViews.Add(lvTuesday);
             _listViews.Add(lvWednesday);
@@ -56,6 +63,18 @@ namespace BookNyAftale
 
             UpdateAppointmentView(_mondayDateCurrentWeek, _mondayDateCurrentWeek.AddDays(_forwardAmount),
                 _currentUserId);
+        }
+
+        private void PopulatePractitionerComboBox()
+        {
+            _practitionerViews = _controller.GetPractitioners();
+
+            cmbbPractitioner.Items.Clear();
+
+            foreach (PractitionerView practitionerName in _practitionerViews)
+            {
+                cmbbPractitioner.Items.Add(practitionerName.Name);
+            }
         }
 
         private void UpdateCalendar(object sender, EventArgs e)
@@ -133,14 +152,21 @@ namespace BookNyAftale
             foreach (AppointmentView item in appoViews)
             {
                 ListView listView =
-                    _listViews.Find(view => view.Name.Equals("lv" + item.dateAndTime.DayOfWeek.ToString()));
-                ListViewItem listViewItem = new ListViewItem()
+                    _listViews.Find(view => view.Name.Equals("lv" + item.DateAndTime.DayOfWeek.ToString()));
+
+                for (int i = 0; i < item.TypeView.Duration.Hours; i++)
                 {
-                    Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                    Background = Brushes.Magenta
-                };
-                listView.Items.RemoveAt(item.dateAndTime.Hour - _openingTime);
-                listView.Items.Insert(item.dateAndTime.Hour - _openingTime, listViewItem);
+                    ListViewItem listViewItem = new ListViewItem()
+                    {
+                        Content = item.DateAndTime.AddHours(i).ToString("dd/MM HH:mm"),
+                        Background = Brushes.Magenta,
+                        Tag = item.Id
+                    };
+
+                    listView.Items.RemoveAt(item.DateAndTime.Hour + i - _openingTime);
+                    listView.Items.Insert(item.DateAndTime.Hour + i - _openingTime, listViewItem);
+                }
+                
             }
         }
 
@@ -191,9 +217,21 @@ namespace BookNyAftale
             UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
         }
 
-        private void CmbbCalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbbPractitioner_DropDownClosedEvent(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            PractitionerView selectedPractitionerView =
+                _practitionerViews.Find(practitioner => practitioner.Name.Equals(cmbbPractitioner.SelectionBoxItem.ToString()));
+
+            _openingTime = selectedPractitionerView.Start.Hour;
+            _openingHours = selectedPractitionerView.DayLength.Hours;
+            _currentUserId = selectedPractitionerView.Id;
+
+            ResetCalendarView();
+
+            UpdateCalendarDatesWeekPage(_mondayDate);
+
+            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+
         }
 
         private void BtnCreateAppointment_Click(object sender, RoutedEventArgs e)
@@ -201,6 +239,47 @@ namespace BookNyAftale
             CreateAppointment createAppointment = new CreateAppointment();
             
             createAppointment.Show();
+        }
+
+        private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListView lvView = ((ListView)e.Source);
+            ListViewItem item = sender as ListViewItem;
+            switch (lvView.Name)
+            {
+                case "lvMonday":
+                     item = lvMonday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvTuesday":
+                    item = lvTuesday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvWednesday":
+                    item = lvWednesday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvThursday":
+                    item = lvThursday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvFriday":
+                    item = lvFriday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvSaturday":
+                    item = lvSaturday.SelectedItems[0] as ListViewItem;
+                    break;
+                case "lvSunday":
+                    item = lvSunday.SelectedItems[0] as ListViewItem;
+                    break;
+                default:
+                    break;
+            }
+            
+            if (item != null)
+            {
+                int appoId = ((int)item.Tag);
+                string appoDate = item.Content.ToString();
+                EditAppointment edit = new EditAppointment(appoId);
+                edit.Show();
+
+            }
         }
     }       
 }
