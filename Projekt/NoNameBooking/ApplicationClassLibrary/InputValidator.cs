@@ -28,11 +28,6 @@ namespace ApplicationClassLibrary
             }
         }
 
-        /// <summary>
-        /// Tries to parse the input as an int, if it fails it throws an expection.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="inputType"></param>
         private static void IntValidator(string input, string inputType)
         {
             input = input.Trim();
@@ -58,7 +53,7 @@ namespace ApplicationClassLibrary
         {
             if (!DateTime.TryParse(timeString, out var dateTime))
             {
-                throw new InvalidInputException("Der skete en fejl med datoen");
+                throw new InvalidInputException("Dette burde aldrig ske.");
             }
 
             return dateTime;

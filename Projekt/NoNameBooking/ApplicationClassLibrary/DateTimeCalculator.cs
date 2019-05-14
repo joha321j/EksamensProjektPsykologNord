@@ -7,14 +7,6 @@ namespace ApplicationClassLibrary
 {
     public class DateTimeCalculator
     {
-        /// <summary>
-        /// Returns a list of DateTimes where the practitioner is not available
-        /// </summary>
-        /// <param name="practitionerAvailableDates"></param>
-        /// <param name="departmentAvailableDates"></param>
-        /// <param name="startDate"></param>
-        /// <param name="endDate"></param>
-        /// <returns></returns>
         public static List<DateTime> GetBusyDates(List<DateTime> practitionerAvailableDates,
             List<DateTime> departmentAvailableDates, DateTime startDate, DateTime endDate)
         {
@@ -75,11 +67,6 @@ namespace ApplicationClassLibrary
             return availableDateTimes.ToList();
         }
 
-        /// <summary>
-        /// Returns the weeknumber as an int.
-        /// </summary>
-        /// <param name="time"></param>
-        /// <returns></returns>
         public static int GetIso8601WeekOfYear(DateTime time)
         {
             DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
@@ -90,12 +77,6 @@ namespace ApplicationClassLibrary
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        /// <summary>
-        /// Finds out which date of the week in the system is first.
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="weekOfYear"></param>
-        /// <returns></returns>
         public static DateTime FirstDateOfWeek(int year, int weekOfYear)
         {
             DateTime jan1 = new DateTime(year, 1, 1);
