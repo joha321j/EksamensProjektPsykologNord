@@ -33,6 +33,8 @@ namespace BookNyAftale
             _controller = Controller.GetInstance();
             _controller.NewAppointmentCreatedEventHandler += UpdateCalendar;
 
+            PopulatePractitionerComboBox();
+
             _openingTime = 9;
             _openingHours = 12;
             _forwardAmount = 7;
@@ -56,6 +58,19 @@ namespace BookNyAftale
 
             UpdateAppointmentView(_mondayDateCurrentWeek, _mondayDateCurrentWeek.AddDays(_forwardAmount),
                 _currentUserId);
+        }
+
+        private void PopulatePractitionerComboBox()
+        {
+            List<string> practitionerNames =
+                _controller.GetPractitioners();
+
+            cmbbPractitioner.Items.Clear();
+
+            foreach (string practitionerName in practitionerNames)
+            {
+                cmbbPractitioner.Items.Add(practitionerName);
+            }
         }
 
         private void UpdateCalendar(object sender, EventArgs e)
@@ -191,7 +206,7 @@ namespace BookNyAftale
             UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
         }
 
-        private void CmbbCalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             throw new NotImplementedException();
         }

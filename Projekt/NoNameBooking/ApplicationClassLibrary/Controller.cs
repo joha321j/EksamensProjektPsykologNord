@@ -163,5 +163,12 @@ namespace ApplicationClassLibrary
 
             return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
         }
+
+        public List<string> GetPractitioners()
+        {
+            List<Practitioner> practitioners = _practitionerRepo.GetPractitioners();
+
+            return practitioners.ConvertAll(practitioner => practitioner.Name);
+        }
     }
 }
