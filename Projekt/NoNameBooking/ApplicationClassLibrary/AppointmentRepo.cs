@@ -73,5 +73,24 @@ namespace ApplicationClassLibrary
         {            
             _persistable.RemoveAppointment(appointmentId);            
         }
+
+        public AppointmentView GetAppointmentById(int appoId)
+        {
+            Appointment appo = new Appointment();
+            appo = _appointments.Find(app => app.Id == appoId);
+            List<UserView> userViews = new List<UserView>();
+            int i = 0;
+            foreach (User user in appo.Participants)
+            {
+                UserView view = new UserView(appo.Participants[i].Id, appo.Participants[i].Name, appo.Participants[1].PhoneNumber, appo.Participants[1].Address, appo.Participants[1].Email);
+                userViews.Add(view);
+                i++;
+            }
+            AppointmentTypeView typeView = new AppointmentTypeView(appo.AppointmentType.Id, appo.AppointmentType.Name, appo.AppointmentType.Duration, appo.AppointmentType.StandardPrice);
+            RoomView roomView = new RoomView(appo.Location.Id, appo.Location.Name);
+            AppointmentView appoView = new AppointmentView(appo.Id, appo.DateAndTime, userViews, typeView, roomView, appo.Note, appo.Price);
+                                    
+            return appoView;
+        }
     }
 }

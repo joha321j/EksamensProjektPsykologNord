@@ -163,5 +163,15 @@ namespace ApplicationClassLibrary
 
             return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
         }
+
+        public AppointmentView GetAppointmentById(int appoId)
+        {
+            return _appointmentRepo.GetAppointmentById(appoId);
+        }
+
+        public UserView isClient(UserView user)
+        {
+            return _clientRepo.isClient(user);
+        }
     }
 }
