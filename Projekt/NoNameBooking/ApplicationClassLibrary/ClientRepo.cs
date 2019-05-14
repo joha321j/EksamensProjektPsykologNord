@@ -65,7 +65,11 @@ namespace ApplicationClassLibrary
                 
             }
             return userView;
-
+        }
+        
+        public void Reset()
+        {
+            _instance = null;
         }
     }
 }
