@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ModelClassLibrary;
 
-namespace ApplicationClassLibrary
+namespace PersistencyClassLibrary
 {
     public interface IPersistable
     {

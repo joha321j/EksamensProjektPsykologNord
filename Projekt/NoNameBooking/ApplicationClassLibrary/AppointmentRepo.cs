@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ModelClassLibrary;
+using PersistencyClassLibrary;
 
 namespace ApplicationClassLibrary
 {
@@ -60,7 +61,9 @@ namespace ApplicationClassLibrary
                 {
                     if (person.Id == id)
                     {
-                        AppointmentView appView = new AppointmentView(item.Id,item.DateAndTime);
+                        AppointmentView appView = new AppointmentView(item.Id, item.DateAndTime,
+                            new AppointmentTypeView(item.AppointmentType.Id, item.AppointmentType.Name,
+                                item.AppointmentType.Duration, item.AppointmentType.StandardPrice));
 
                         appointments.Add(appView);
                     }

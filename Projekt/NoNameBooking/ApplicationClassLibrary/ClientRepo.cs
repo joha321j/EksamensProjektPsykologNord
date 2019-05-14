@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ModelClassLibrary;
+using PersistencyClassLibrary;
 
 namespace ApplicationClassLibrary
 {
@@ -57,6 +58,11 @@ namespace ApplicationClassLibrary
         public bool IsClient(UserView user)
         {
             return _clients.Exists(client => client.Id == user.Id);
+        }
+        
+        public void Reset()
+        {
+            _instance = null;
         }
     }
 }

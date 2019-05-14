@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApplicationClassLibrary;
 using ModelClassLibrary;
+using PersistencyClassLibrary;
 
 namespace UnitTestProject
 {
@@ -33,6 +34,11 @@ namespace UnitTestProject
         public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
         {
             //Done
+        }
+
+        public void RemoveAppointment(int appointmentId)
+        {
+            throw new NotImplementedException();
         }
 
         public void RemoveAppointment(string clientName, DateTime dateAndTime)
