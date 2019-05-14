@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,18 @@ namespace BookNyAftale
         public LandingPage()
         {
             InitializeComponent();
-            _controller = Controller.GetInstance();
+            try
+            {
+                _controller = Controller.GetInstance();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse", "Fejl!!!", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                Environment.Exit(0);
+            }
+
+
             _controller.NewAppointmentCreatedEventHandler += UpdateCalendar;
 
             PopulatePractitionerComboBox();
