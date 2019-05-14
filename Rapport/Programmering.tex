@@ -36,11 +36,14 @@ I en afslappet lagdeling kan et lag derimod kalde lag, der ligger flere lag unde
 Normalt kører man en afslappet lagdeling i informationssystemer, og en streng lagdeling i netværksprotokoller.
 Ligegyldigt om man kører en afslappet eller streng lagdeling vil UI laget ikke kalde ens domænelag direkte, medmindre man ikke har et applikationslag.
 Et applikationslag er ikke altid nødvendigt, men vi har valgt at have et, da programmet er komplekst nok til, at vi ikke kun kan have én softwareklasse til at håndtere programmets tilstand.\cite{larman}
-Vores nuværende system har ikke nok lag til, at man kan tale om en streng eller afslappet lagdeling, da vi kun har de tre lag vist i figur \ref{fig:pakkediagram}.
+
+Som det kan ses på figur \ref{fig:pakkediagram} har vi 4 lag: et UI lag, et applikationslag, et domænelag og et persistenslag.
+Vi har en afslappet lagdeling, da det kan ses, at vores applikationslag både kalder domænelaget og persistenslaget.
+I en streng lag
 
 For at sikre vores lagdeling har vi valgt at have lagene som selvstændige projekter.
 Dette betyder, at hvert lag ligger i sit ejet namespace, og dermed gør det nemt at se, præcis hvilke lag et givent lag kender til.
-Vores UI er en WPF-applikation, applikationslaget og domænelaget er 2 klassebiblioteker. 
+Vores UI er en WPF-applikation, applikationslaget, domænelaget og persistenslaget er 2 klassebiblioteker.
 
 \subsection{Designmønstre}
 \label{designmoenstre}
