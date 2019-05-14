@@ -144,6 +144,40 @@ namespace ApplicationClassLibrary
                 tempAppointmentType, note);
         }
 
+        public List<UserView> GetPractitionerFromAppointmentView(AppointmentView appoView)
+        {
+            List<UserView> users = appoView.Users;
+
+            List<UserView> practitioner = new List<UserView>();
+
+            foreach (UserView user in users)
+            {
+                if (_practitionerRepo.IsPractitioner(user))
+                {
+                    practitioner.Add(user);
+                }
+            }
+
+            return practitioner;
+        }
+
+        public List<UserView> GetClientsFromAppointmentView(AppointmentView appoView)
+        {
+            List<UserView> users = appoView.Users;
+
+            List<UserView> clients = new List<UserView>();
+
+            foreach (UserView user in users)
+            {
+                if (_clientRepo.IsClient(user))
+                {
+                    clients.Add(user);
+                }
+            }
+
+            return clients;
+        }
+
         public void RemoveAppointment(int appointmentId)
         {            
             _appointmentRepo.RemoveAppointment(appointmentId);
@@ -167,11 +201,6 @@ namespace ApplicationClassLibrary
         public AppointmentView GetAppointmentById(int appoId)
         {
             return _appointmentRepo.GetAppointmentById(appoId);
-        }
-
-        public UserView isClient(UserView user)
-        {
-            return _clientRepo.isClient(user);
         }
     }
 }

@@ -54,5 +54,10 @@ namespace ApplicationClassLibrary
         {
             return _practitioners;
         }
+
+        internal bool IsPractitioner(UserView user)
+        {
+            return _practitioners.Exists(practitioner => practitioner.Id == user.Id);
+        }
     }
 }

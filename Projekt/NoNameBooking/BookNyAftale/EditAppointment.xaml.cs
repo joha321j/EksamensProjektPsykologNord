@@ -112,7 +112,11 @@ namespace BookNyAftale
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdatePractitionerComboBox();
+            if (cmbbPractitioner.SelectedValue.ToString() == "")
+            {
+                UpdatePractitionerComboBox();
+            }
+            
         }
 
         private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -143,7 +147,7 @@ namespace BookNyAftale
 
         private void UpdateTreatmentComboBox()
         {
-            List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
+            List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectedItem.ToString());
 
             cmbbAppointmentType.ItemsSource = treatments;
             cmbbAppointmentType.SelectedIndex = 0;
@@ -162,12 +166,20 @@ namespace BookNyAftale
 
         public void updateWPF(AppointmentView appoView)
         {
-            UserView client = new UserView();
-            foreach (UserView user in appoView.Users)
+            List<UserView> clients = _controller.GetClientsFromAppointmentView(appoView);
+            List<UserView> practitioners = _controller.GetPractitionerFromAppointmentView(appoView);
+            foreach (UserView client in clients)
             {
-                client = _controller.isClient(user);
+                cmbbClient.Items.Add(client.Name);
+                cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(client.Name);
+                cmbbClient.IsEnabled = false;
+                
             }
-            cmbbClient.Items.Add(client.Name);
+            foreach (UserView prac in practitioners)
+            {
+                cmbbPractitioner.Items.Add(prac.Name);
+                cmbbPractitioner.SelectedIndex = cmbbPractitioner.Items.IndexOf(prac.Name);
+            }
         }
     }
 }

@@ -54,17 +54,9 @@ namespace ApplicationClassLibrary
             return _clients.Find(client => string.Equals(client.Name, clientName));
         }
 
-        public UserView isClient(UserView user)
+        public bool IsClient(UserView user)
         {
-            Client client = _clients.Find(find => find.Id == user.Id);
-            UserView userView = new UserView();
-            if (client != null )
-            {
-                 userView = new UserView(client.Id, client.Name, client.PhoneNumber, client.Address, client.Email);
-                
-            }
-            return userView;
-
+            return _clients.Exists(client => client.Id == user.Id);
         }
     }
 }
