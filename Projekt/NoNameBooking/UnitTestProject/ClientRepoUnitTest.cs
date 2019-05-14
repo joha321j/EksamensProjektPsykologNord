@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using ApplicationClassLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PersistencyClassLibrary;
 
 namespace UnitTestProject
 {
@@ -10,13 +11,19 @@ namespace UnitTestProject
     public class ClientRepoUnitTest
     {
         private ClientRepo _clientRepo;
-        private TestDBController _dbController;
+        private IPersistable _dbController;
 
         [TestInitialize]
         public void ClientRepoTestInitialize()
         {
             _dbController = new TestDBController();
             _clientRepo = ClientRepo.GetInstance(_dbController);
+        }
+
+        [TestCleanup]
+        public void ClientRepoCleanUp()
+        {
+            _clientRepo.Reset();
         }
 
         [TestMethod]
