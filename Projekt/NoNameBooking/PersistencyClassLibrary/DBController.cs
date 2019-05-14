@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using ApplicationClassLibrary;
 using ModelClassLibrary;
 
-namespace ApplicationClassLibrary
+namespace PersistencyClassLibrary
 {
     public class DBController : IPersistable
     {
