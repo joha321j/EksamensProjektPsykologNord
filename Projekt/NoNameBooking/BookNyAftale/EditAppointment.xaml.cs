@@ -168,18 +168,27 @@ namespace BookNyAftale
         {
             List<UserView> clients = _controller.GetClientsFromAppointmentView(appoView);
             List<UserView> practitioners = _controller.GetPractitionerFromAppointmentView(appoView);
-            foreach (UserView client in clients)
+            if (clients.Count == 2)
             {
-                cmbbClient.Items.Add(client.Name);
-                cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(client.Name);
+                cmbbClient.Items.Add(clients[0].Name+" & "+clients[1].Name);
+                cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(clients[0].Name);
                 cmbbClient.IsEnabled = false;
-                
             }
+            else if (clients.Count == 1)
+            {
+                cmbbClient.Items.Add(clients[0].Name);
+                cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(clients[0].Name);
+                cmbbClient.IsEnabled = false;
+            }
+                
+                
+            
             foreach (UserView prac in practitioners)
             {
                 cmbbPractitioner.Items.Add(prac.Name);
                 cmbbPractitioner.SelectedIndex = cmbbPractitioner.Items.IndexOf(prac.Name);
             }
+
         }
     }
 }
