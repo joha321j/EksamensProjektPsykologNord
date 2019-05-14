@@ -152,15 +152,21 @@ namespace BookNyAftale
             foreach (AppointmentView item in appoViews)
             {
                 ListView listView =
-                    _listViews.Find(view => view.Name.Equals("lv" + item.dateAndTime.DayOfWeek.ToString()));
-                ListViewItem listViewItem = new ListViewItem()
+                    _listViews.Find(view => view.Name.Equals("lv" + item.DateAndTime.DayOfWeek.ToString()));
+
+                for (int i = 0; i < item.TypeView.Duration.Hours; i++)
                 {
-                    Content = item.dateAndTime.ToString("dd/MM HH:mm"),
-                    Background = Brushes.Magenta,
-                    Tag = item.Id
-                };
-                listView.Items.RemoveAt(item.dateAndTime.Hour - _openingTime);
-                listView.Items.Insert(item.dateAndTime.Hour - _openingTime, listViewItem);
+                    ListViewItem listViewItem = new ListViewItem()
+                    {
+                        Content = item.DateAndTime.AddHours(i).ToString("dd/MM HH:mm"),
+                        Background = Brushes.Magenta,
+                        Tag = item.Id
+                    };
+
+                    listView.Items.RemoveAt(item.DateAndTime.Hour + i - _openingTime);
+                    listView.Items.Insert(item.DateAndTime.Hour + i - _openingTime, listViewItem);
+                }
+                
             }
         }
 
