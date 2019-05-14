@@ -184,6 +184,11 @@ namespace ApplicationClassLibrary
             _appointmentRepo.RemoveAppointment(appointmentId);
         }
 
+        public DepartmentView GetDepartmentViewFromRoomId(int id)
+        {
+           return _departmentRepo.GetDepartmentViewFromRoomId(id);
+        }
+
         public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)
         {
             List<AppointmentView> appointmentViews = _appointmentRepo.GetAppointmentsByPracId(id);
@@ -213,5 +218,6 @@ namespace ApplicationClassLibrary
         {
             return _appointmentRepo.GetAppointmentById(appoId);
         }
+
     }
 }

@@ -30,7 +30,7 @@ namespace BookNyAftale
             _controller = Controller.GetInstance();
             UpdateDepartmentComboBox();
             AppointmentView appoView = GetAppointmentById(appointmentId);
-            updateWPF(appoView);
+            UpdateEditWPF(appoView);
         }
         private void UpdatePractitionerComboBox()
         {
@@ -164,14 +164,14 @@ namespace BookNyAftale
             return view;
         }
 
-        public void updateWPF(AppointmentView appoView)
+        public void UpdateEditWPF(AppointmentView appoView)
         {
             List<UserView> clients = _controller.GetClientsFromAppointmentView(appoView);
             List<UserView> practitioners = _controller.GetPractitionerFromAppointmentView(appoView);
-            if (clients.Count == 2)
+            if (clients.Count >= 2)
             {
                 cmbbClient.Items.Add(clients[0].Name+" & "+clients[1].Name);
-                cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(clients[0].Name);
+                cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(clients[0].Name+" & "+clients[1].Name);
                 cmbbClient.IsEnabled = false;
             }
             else if (clients.Count == 1)
@@ -179,16 +179,16 @@ namespace BookNyAftale
                 cmbbClient.Items.Add(clients[0].Name);
                 cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(clients[0].Name);
                 cmbbClient.IsEnabled = false;
-            }
-                
-                
-            
+            }                                            
             foreach (UserView prac in practitioners)
             {
                 cmbbPractitioner.Items.Add(prac.Name);
-                cmbbPractitioner.SelectedIndex = cmbbPractitioner.Items.IndexOf(prac.Name);
+                cmbbPractitioner.SelectedIndex = cmbbPractitioner.Items.IndexOf(prac.Name);                
             }
 
+            DepartmentView departmentView = _controller.GetDepartmentViewFromRoomId(appoView.RoomView.Id);
+            cmbbDepartment.SelectedIndex = cmbbDepartment.Items.IndexOf(departmentView.Name);
+            dpAppointmentDate.SelectedDate = appoView.DateAndTime.Date;
         }
     }
 }
