@@ -27,6 +27,7 @@ namespace ApplicationClassLibrary
             _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
 
             _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
+            _appointmentRepo.NewAppointmentEventHandler += NewAppointmentEventHandler;
         }
 
         public List<User> GetUsers()

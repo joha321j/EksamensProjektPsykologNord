@@ -12,6 +12,8 @@ namespace ApplicationClassLibrary
 
         private readonly List<Appointment> _appointments = new List<Appointment>();
 
+        public event EventHandler NewAppointmentEventHandler;
+
         private AppointmentRepo(IPersistable persistable, List<User> users, List<Department> departments)
         {
             _persistable = persistable;
@@ -33,6 +35,7 @@ namespace ApplicationClassLibrary
             Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note);
             AddAppointment(tempAppointment);
             _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
+            NewAppointmentEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
         }
 
         private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note)
@@ -73,5 +76,7 @@ namespace ApplicationClassLibrary
         {            
             _persistable.RemoveAppointment(clientName, dateTime);            
         }
+
+
     }
 }
