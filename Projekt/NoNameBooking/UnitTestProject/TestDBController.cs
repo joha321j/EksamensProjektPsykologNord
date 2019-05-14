@@ -35,6 +35,11 @@ namespace UnitTestProject
             //Done
         }
 
+        public void RemoveAppointment(int appointmentId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void RemoveAppointment(string clientName, DateTime dateAndTime)
         {
             //Done

@@ -20,6 +20,7 @@ namespace BookNyAftale
     public partial class LandingPage : Window
     {
         private readonly List<ListView> _listViews = new List<ListView>();
+        private List<PractitionerView> _practitionerViews;
         private readonly Controller _controller;
         private int _openingTime;
         private int _openingHours;
@@ -36,11 +37,14 @@ namespace BookNyAftale
 
             PopulatePractitionerComboBox();
 
-            _openingTime = 9;
-            _openingHours = 12;
+            _openingTime = _practitionerViews[0].Start.Hour;
+            _openingHours = _practitionerViews[0].DayLength.Hours;
+            _currentUserId = _practitionerViews[0].Id;
+
+            cmbbPractitioner.SelectedItem = _practitionerViews[0].Name;
+
             _forwardAmount = 7;
-            _currentUserId = 3;
-            
+
             _listViews.Add(lvMonday);
             _listViews.Add(lvTuesday);
             _listViews.Add(lvWednesday);
@@ -63,14 +67,13 @@ namespace BookNyAftale
 
         private void PopulatePractitionerComboBox()
         {
-            List<string> practitionerNames =
-                _controller.GetPractitioners();
+            _practitionerViews = _controller.GetPractitioners();
 
             cmbbPractitioner.Items.Clear();
 
-            foreach (string practitionerName in practitionerNames)
+            foreach (PractitionerView practitionerName in _practitionerViews)
             {
-                cmbbPractitioner.Items.Add(practitionerName);
+                cmbbPractitioner.Items.Add(practitionerName.Name);
             }
         }
 
@@ -208,9 +211,21 @@ namespace BookNyAftale
             UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
         }
 
-        private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbbPractitioner_DropDownClosedEvent(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            PractitionerView selectedPractitionerView =
+                _practitionerViews.Find(practitioner => practitioner.Name.Equals(cmbbPractitioner.SelectionBoxItem.ToString()));
+
+            _openingTime = selectedPractitionerView.Start.Hour;
+            _openingHours = selectedPractitionerView.DayLength.Hours;
+            _currentUserId = selectedPractitionerView.Id;
+
+            ResetCalendarView();
+
+            UpdateCalendarDatesWeekPage(_mondayDate);
+
+            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+
         }
 
         private void BtnCreateAppointment_Click(object sender, RoutedEventArgs e)

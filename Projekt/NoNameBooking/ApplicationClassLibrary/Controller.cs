@@ -153,7 +153,8 @@ namespace ApplicationClassLibrary
         {
             List<AppointmentView> appointmentViews = _appointmentRepo.GetAppointmentsByPracId(id);
             
-            List<AppointmentView> returnList = appointmentViews.FindAll(appointment => appointment.dateAndTime > startDate && appointment.dateAndTime < endDate);
+            List<AppointmentView> returnList = appointmentViews.FindAll(appointment =>
+                appointment.dateAndTime > startDate && appointment.dateAndTime < endDate);
             return returnList;
         }
 
@@ -164,11 +165,13 @@ namespace ApplicationClassLibrary
             return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
         }
 
-        public List<string> GetPractitioners()
+        public List<PractitionerView> GetPractitioners()
         {
             List<Practitioner> practitioners = _practitionerRepo.GetPractitioners();
 
-            return practitioners.ConvertAll(practitioner => practitioner.Name);
+            return practitioners.ConvertAll(practitioner => new PractitionerView(practitioner.Id, practitioner.Name,
+                practitioner.PhoneNumber, practitioner.Address, practitioner.Email, practitioner.Start,
+                practitioner.DayLength));
         }
         
         public AppointmentView GetAppointmentById(int appoId)

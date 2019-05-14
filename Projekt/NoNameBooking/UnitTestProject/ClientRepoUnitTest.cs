@@ -10,7 +10,7 @@ namespace UnitTestProject
     public class ClientRepoUnitTest
     {
         private ClientRepo _clientRepo;
-        private TestDBController _dbController;
+        private IPersistable _dbController;
 
         [TestInitialize]
         public void ClientRepoTestInitialize()
