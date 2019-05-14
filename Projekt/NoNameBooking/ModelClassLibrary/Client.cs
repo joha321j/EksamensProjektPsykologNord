@@ -4,7 +4,7 @@ namespace ModelClassLibrary
 {
     public class Client : User
     {
-        internal string SocialSecurityNumber { get; }
+        private string SocialSecurityNumber { get; }
         public string Note { get; }
         public Journal Journal { get; }
 

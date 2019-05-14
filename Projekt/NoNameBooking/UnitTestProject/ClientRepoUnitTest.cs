@@ -19,6 +19,12 @@ namespace UnitTestProject
             _clientRepo = ClientRepo.GetInstance(_dbController);
         }
 
+        [TestCleanup]
+        public void ClientRepoCleanUp()
+        {
+            _clientRepo.Reset();
+        }
+
         [TestMethod]
         public void ClientRepoCreation()
         {

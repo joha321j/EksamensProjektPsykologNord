@@ -54,5 +54,10 @@ namespace ApplicationClassLibrary
         {
             return _clients.Find(client => string.Equals(client.Name, clientName));
         }
+
+        public void Reset()
+        {
+            _instance = null;
+        }
     }
 }
