@@ -2,7 +2,7 @@
 \subsection{Designklassediagram(DCD)}
 \label{DCD}
 
-For at bedre overskue associationerne mellem klasserne i vores program, samt for at give et overblik over hvilke metoder klasserne skal have, har vi lavet et DCD. 
+For at bedre overskue associationerne mellem klasserne i vores program, samt for at give et overblik over hvilke metoder klasserne har, har vi lavet et DCD. 
 
 DCD'et er baseret på vores objekt- og domænemodel, se afsnit \ref{objektmodel} og \ref{domaenemodel} og er blevet opdateret løbende i projektet.
 DCD'et har været med til at sikre, at kodestandarden blev overholdt.
@@ -10,10 +10,29 @@ Dertil har det gjort det nemmere at bestemme ansvaret for hver klasse.
 
 For at holde det overskueligt har vi både lavet et samlet DCD, men også lavet mindre DCD'er, der er bundet til en bestemt use case, og derfor kun indeholder de klasser, som er relevante for use casen.
 
-% Mangler evt. noget mere om hvordan den er blevet holdt op til programmet. 
+På figur \ref{fig:DCD} kan domænelaget af DCD'en for use casen: Book Ny Aftale ses.
+I bilagene på figur \ref{bilag:DCD} kan en samlet DCD for hele systemet ses.
+
+% Mangler evt. noget mere om hvordan den er blevet holdt op til programmet. also pictures
+
+\begin{sidewaysfigure}
+    \caption{DCD for Semplito - Bookingsystemet}
+    \centering
+        \includegraphics[width=\textwidth]{DCD.png}
+    \label{fig:DCD}
+\end{sidewaysfigure}
 
 \subsection{Sekvensdiagram(SD)}
 \label{SD}
+
+TODO: SKRIV OM SD
+
+\begin{sidewaysfigure}
+    \caption{SD for SOC Operation - createAppointment}
+    \centering
+        \includegraphics[width=\textwidth]{SD.png}
+    \label{fig:SD}
+\end{sidewaysfigure}
 
 \subsection{Pakkediagram - Lagdeling}
 \label{Pakkediagram}
@@ -28,9 +47,12 @@ Pakkediagrammet giver os et bedre overblik over programmet som helhed, hvor DCD'
 Både pakkediagrammet og DCD'et har været brugt i mange gode diskussioner i gruppen, i forbindelse med vores valg af softwarearkitektur.
 Vores valg af lagdeling vil blive diskuteret nærmere i afsnit \ref{lagdeling}.
 
-%Indsæt billede
-%splendidum erat dum permansit
-% Add more if needed or vital.
+\begin{figure}[H]
+    \caption{Pakkediagram for systemet}
+    \centering
+        \includegraphics[width=\textwidth]{Pakkediagram.png}
+    \label{fig:pakkediagram}
+\end{figure}
 
 \subsection{Databasediagram(DBD)}
 \label{DBD}
@@ -41,7 +63,12 @@ Ved at betragte domænemodellen og diskutere hvilke domæneklasser, der vil vær
 
 Diagrammet i sig selv har været til stor hjælp, især ved normalisering af vores tabeller. 
 
-%Indsæt billede
+\begin{figure}[H]
+    \caption{Databasediagram for systemet}
+    \centering
+        \includegraphics[width=\textwidth]{DBD.png}
+    \label{fig:DBD}
+\end{figure}
 
 \subsubsection{Relationel database}
 

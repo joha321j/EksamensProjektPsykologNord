@@ -3,10 +3,10 @@
 \label{Kodestandarder}
 
 Før vi havde kodet en eneste linje kode, havde vi en kodestandard på plads.
-Uden en kodestandard kunne koden hurtigt gå hen og blive uoverskuelig.
+Uden en kodestandard kan koden hurtigt gå hen og blive uoverskuelig.
 Ligeledes er kodestandarder en effektiv måde at lave kvalitetssikring på selve koden, da det giver nogle meget overskuelige og håndgribelige krav at gå ud fra.
 I vores projekt har der ikke været den største diskussion om, hvad kodestandarderne skulle være, da vi alle er meget enige om, at den standard, der bliver sat af Microsoft selv, er god\cite{microsoftcsharp}. 
-Vi har ikke haft problemer med, at vi ikke har overholdt kodestandarderne, men de har været med til at give folk et sted at starte, når vi laver kode-review.
+Vi har ikke haft problemer med, at vi ikke har overholdt kodestandarderne, men de har været med til at give folk et sted at starte, når vi laver kode-review. Se afsnit \ref{versionstyring} for en uddybning af kodereviews.
 
 \subsection{Test-driven development(TDD)}
 \label{TDD}
@@ -23,7 +23,7 @@ Metodikken ved TDD er:
 Hurtigt skriv en test, kør alle tests og se den nye test fejle, lav en lille ændring i ens program, kør alle tests og se dem alle bestå, refaktorer til at undgå duplikeret kode, sikr at alle tests stadig består.
 
 En stor gevinst ved TDD er, at du er sikker på, at du har tests, der dokumenterer dit systems funktionalitet, så når der laves ændringer og refaktoreringer, er du sikker på, at programmet stadig virker som ønsket.
-Det har været en stor gevinst for os, da vi alle stadig er uerfarne programører, og vi derfor flere gange har haft skrevet funktionalitet om, når vi har fundet en bedre måde at gøre det på.
+Det har været en stor gevinst for os, da vi alle stadig er uerfarne programører, og vi derfor flere gange refaktoreret vores kode.
 
 \subsection{Lagdeling}
 \label{lagdeling}
@@ -39,7 +39,6 @@ Et applikationslag er ikke altid nødvendigt, men vi har valgt at have et, da pr
 
 Som det kan ses på figur \ref{fig:pakkediagram} har vi 4 lag: et UI lag, et applikationslag, et domænelag og et persistenslag.
 Vi har en afslappet lagdeling, da det kan ses, at vores applikationslag både kalder domænelaget og persistenslaget.
-I en streng lag
 
 For at sikre vores lagdeling har vi valgt at have lagene som selvstændige projekter.
 Dette betyder, at hvert lag ligger i sit ejet namespace, og dermed gør det nemt at se, præcis hvilke lag et givent lag kender til.
@@ -79,8 +78,12 @@ På figur \ref{code:singleton} kan vores implementation af singletonmønstret se
 \subsubsection{Observer}
 \label{observer}
 
+TODO: SKRIV NOGET SPÆNDENDE OM OBSERVER
+
 \subsection{GRASP}
 \label{grasp}
+
+TODO: DITTO MEN GRASP
 
 \subsubsection{Controller}
 \label{controller}
