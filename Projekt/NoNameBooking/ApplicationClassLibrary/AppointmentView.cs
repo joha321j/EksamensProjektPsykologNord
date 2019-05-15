@@ -13,6 +13,7 @@ namespace ApplicationClassLibrary
         public RoomView RoomView { get; set; }
         public string Note { get; set; }
         public double Price { get; set; }
+        public string AppointmentTitle { get; set; }
         public AppointmentView(int id, DateTime dateAndTime, AppointmentTypeView appointmentType)
         {
             Id = id;
