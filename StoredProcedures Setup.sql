@@ -20,7 +20,6 @@ DROP PROC IF EXISTS SPSelectRoom
 DROP PROC IF EXISTS SPSelectAppointmentType
 DROP PROC IF EXISTS SPSelectUser
 DROP PROC IF EXISTS SPUpdateClient
-DROP PROC IF EXISTS SPUpdateAppointment
 DROP PROC IF EXISTS SPUpdateDepartment
 DROP PROC IF EXISTS SPUpdateInvoice
 DROP PROC IF EXISTS SPUpdateJournal_Entry
@@ -28,7 +27,6 @@ DROP PROC IF EXISTS SPUpdatePractitioner
 DROP PROC IF EXISTS SPUpdateRoom
 DROP PROC IF EXISTS SPUpdateAppointmentType
 DROP PROC IF EXISTS SPUdateUser
-DROP PROC IF EXISTS SPDeleteAppointment
 DROP PROC IF EXISTS SPDeleteClient
 DROP PROC IF EXISTS SPDeleteAppointment
 DROP PROC IF EXISTS SPDeleteDepartment
@@ -47,7 +45,41 @@ DROP PROC IF EXISTS SPGetPractitionersFromDepartment
 DROP PROC IF EXISTS SPGetAppointmentTypeByPractitionerId
 DROP PROC IF EXISTS SPGetUsersFromAppointmentId
 DROP PROC IF EXISTS SPGetAppointmentsById
+DROP PROC IF EXISTS SPDeleteAppointment
+DROP PROC IF EXISTS SPGetAppointmentById
+DROP PROC IF EXISTS SPUpdateAppointment
 
+GO
+
+CREATE PROC SPUpdateAppointment
+@AppointmentId int,
+@DateAndTime datetime2,
+@Note nvarchar(max)
+AS
+BEGIN
+	UPDATE PN_Appointment
+	SET 
+	DateAndTime = @DateAndTime,
+	Note = @Note
+	WHERE PN_Appointment.Id = @AppointmentId
+END
+GO
+
+
+CREATE PROC SPDeleteAppointment
+@AppointmentId int
+AS
+BEGIN
+	DELETE FROM PN_User_Appointment
+	WHERE PN_User_Appointment.AppointmentId IN
+	(
+		SELECT PN_User_Appointment.AppointmentId
+		FROM PN_User_Appointment
+		WHERE PN_User_Appointment.AppointmentId = @AppointmentId
+	)
+	DELETE FROM PN_Invoice WHERE PN_Invoice.AppointmentId = @AppointmentId
+	DELETE FROM PN_Appointment WHERE PN_Appointment.Id = @AppointmentId
+END
 GO
 
 CREATE PROC SPInsertAppointmentForUser
@@ -76,435 +108,6 @@ BEGIN
 
 END
 GO
-
-CREATE PROCEDURE SPInsertClient
-@ClientId int,
-@MedicalRefferal bit,
-@JournalId int,
-@Note NVARCHAR(MAX),
-@SocialSecurityNumber int
-
-AS
-BEGIN
-	INSERT INTO PN_Client(Id, MedicalReferral, Note, Journalid, SocialSecurityNumber)
-			VALUES(@ClientId, @MedicalRefferal, @Note, @JournalId, @SocialSecurityNumber)
-END
-GO
-
-CREATE PROCEDURE SPInsertDepartment
-@DepartmentId int,
-@Address nvarchar(max),
-@Name nvarchar(max)
-
-AS
-BEGIN
-	INSERT INTO PN_Department(Id, Address, Name)
-			VALUES(@DepartmentId, @Address, @Name)
-END
-GO
-
-CREATE PROCEDURE SPInsertInvoice
-@DueDate datetime2(7),
-@AppointmentId int
-
-AS
-BEGIN
-	INSERT INTO PN_Invoice(DueDate, AppointmentId)
-			VALUES(@DueDate, @AppointmentId)
-END
-GO
-
-CREATE PROCEDURE SPInsertUserOutId
-@Name nvarchar(max),
-@Address nvarchar(max),
-@PhoneNumber nvarchar(12),
-@Email nvarchar(max)
-
-AS
-BEGIN
-	INSERT INTO PN_User(Name, Address, PhoneNumber, Email)
-	OUTPUT inserted.Id
-	VALUES(@Name, @Address, @PhoneNumber, @Email)
-
-END
-GO
-
-CREATE PROCEDURE SPInsertJournal_Entry
-@JournalId int,
-@Text nvarchar(max)
-
-AS
-BEGIN
-	INSERT INTO PN_Journal_Entry(JournalId,Text)
-			VALUES(@JournalId, @Text)
-END
-GO
-
-CREATE PROCEDURE SPInsertPractitioner
-@UserId int
-
-AS
-BEGIN
-	INSERT INTO PN_Practitioner(Id)
-			VALUES(@UserId)
-END
-GO
-
-CREATE PROCEDURE SPInsertRoom
-@DepartmentId int,
-@Name nvarchar(max)
-
-AS
-BEGIN
-	INSERT INTO PN_Room(Name, DepartmentId)
-			VALUES(@Name, @DepartmentId)
-END
-GO
-
-CREATE PROCEDURE SPInsertAppointmentType
-@Name nvarchar(max),
-@Duration datetime2(7),
-@StandardPrice float
-
-AS
-BEGIN
-	INSERT INTO PN_AppointmentType(Name, Duration, StandardPrice)
-			VALUES(@Name, @Duration, @StandardPrice)
-END
-GO
-
-CREATE PROCEDURE SPSelectAppointment
-@AppointmentId int
-
-AS
-BEGIN
-
-	SELECT PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note 
-	FROM PN_APPOINTMENT 
-	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
-	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
-	JOIN PN_User_Appointment ON PN_Appointment.Id = PN_User_Appointment.AppointmentId
-	WHERE PN_Appointment.Id = @AppointmentId
-END
-GO
-
-CREATE PROCEDURE SPSelectClient
-@ClientId int
-
-AS
-BEGIN
-
-	SELECT * FROM PN_Client
-	WHERE Id like '%'+@ClientId+'%'
-END
-GO
-
-CREATE PROCEDURE SPSelectDepartment
-@DepartmentId int
-
-AS
-BEGIN
-
-	SELECT * FROM PN_Department
-	WHERE Id like '%'+@DepartmentId+'%'
-END
-GO
-
-CREATE PROCEDURE SPSelectInvoice
-@InvoiceId int
-
-AS
-BEGIN
-
-	SELECT * FROM PN_Invoice
-	WHERE Id like '%'+@InvoiceId+'%'
-END
-GO
-
-CREATE PROCEDURE SPSelectJournal_Entry
-@Journal_EntryId int
-
-AS
-BEGIN
-
-	SELECT * FROM PN_Journal_Entry
-	WHERE Id like '%'+@Journal_EntryId+'%'
-END
-GO
-
-CREATE PROCEDURE SPSelectPractitioner
-@PractitionerId int
-
-AS
-BEGIN
-
-	SELECT * FROM PN_Practitioner
-	WHERE Id like '%'+@PractitionerId+'%'
-END
-GO
-CREATE PROCEDURE SPSelectRoom
-@RoomId int
-
-AS
-BEGIN
-
-	SELECT * FROM PN_Room
-	WHERE Id like '%'+@RoomId+'%'
-END
-GO
-
-CREATE PROCEDURE SPSelectAppointmentType
-@AppointmentTypeId int
-
-AS
-BEGIN
-
-	SELECT * FROM PN_AppointmentType
-	WHERE Id like '%'+@AppointmentTypeId+'%'
-END
-GO
-
-CREATE PROCEDURE SPSelectUser
-@UserId int
-
-AS
-BEGIN
-
-	SELECT * FROM PN_User
-	WHERE Id like '%'+@UserId+'%'
-END
-GO
-
-CREATE PROCEDURE SPUpdateAppointment
-@AppointmentId int,
-@DateAndTime datetime2,
-@RoomId int,
-@PractitionerId int,
-@Price float,
-@AppointmentTypeId int,
-@Note nvarchar(max)
-
-AS
-BEGIN
-	UPDATE PN_Appointment
-	SET		DateAndTime	= @DateAndTime,
-			RoomId = @RoomId,			
-			Price = @Price,
-			AppointmentTypeId = @AppointmentTypeId,
-			Note = @Note
-	WHERE	Id = @AppointmentId
-END
-GO
-
-CREATE PROCEDURE SPUpdateClient
-@MedicalRefferal bit,
-@JournalId int,
-@SocialSecurityNumber int,
-@ClintId int
-
-AS
-BEGIN
-	UPDATE PN_Client
-	SET		MedicalReferral = @MedicalRefferal,
-			Journalid = @JournalId,
-			SocialSecurityNumber = @SocialSecurityNumber
-	WHERE	Id = @ClintId
-END
-GO
-
-CREATE PROCEDURE SPUpdateDepartment
-@DepartmentId int,
-@Address nvarchar(max),
-@Name nvarchar(max)
-
-AS
-BEGIN
-	UPDATE PN_Department
-	SET		Address = @Address,
-			Name = @Name
-	WHERE	Id = @DepartmentId
-END
-GO
-
-CREATE PROCEDURE SPUpdateInvoice
-@InvoiceId int,
-@DueDate datetime2,
-@AppointmentId int
-
-AS
-BEGIN
-	UPDATE PN_Invoice
-	SET		DueDate = @DueDate,
-			AppointmentId = @AppointmentId
-	WHERE	Id = @InvoiceId
-END
-GO
-
-CREATE PROCEDURE SPUpdateJournal_Entry
-@Journal_EntryId int,
-@JournalId int,
-@Text nvarchar(max)
-
-AS
-BEGIN
-	UPDATE PN_Journal_Entry
-	SET		JournalId = @JournalId,
-			Text = @Text
-	WHERE	Id = @Journal_EntryId
-END
-GO
-
---CREATE PROCEDURE SPUpdatePractitioner
---@PractitonerId int,
---@UserId int
-
---AS
---BEGIN
---	UPDATE PN_Practitioner
-	--SET		UserId = @UserId
-	--WHERE   Id = @PractitonerId
---END
---GO
-
-CREATE PROCEDURE SPUpdateRoom
-@RoomId int,
-@DepartmentId int,
-@Name nvarchar(max)
-
-AS
-BEGIN
-	UPDATE PN_ROOM
-	SET		DepartmentId = @DepartmentId,
-			Name = @Name
-	WHERE	Id = @RoomId
-END
-GO
-
-CREATE PROCEDURE SPUpdateAppointmentType
-@AppointmentTypeId int,
-@Name nvarchar(max),
-@Duration datetime2(7),
-@StandardPrice float
-
-AS
-BEGIN
-	UPDATE	PN_AppointmentType
-	SET		Name = @Name,
-			Duration = @Duration,
-			StandardPrice = @StandardPrice
-	WHERE	Id = @AppointmentTypeId
-END
-GO
-
-CREATE PROCEDURE SPUdateUser
-@UserId int,
-@Name nvarchar(max),
-@Address nvarchar(max),
-@PhoneNumber nvarchar(12),
-@Email nvarchar(max)
-
-AS
-BEGIN
-	UPDATE PN_User
-	SET		name = @Name,
-			Address = @Address,
-			PhoneNumber = @PhoneNumber,
-			Email = @Email
-	WHERE	Id = @UserId
-END
-GO
-
-CREATE PROCEDURE SPDeleteAppointment
-@AppointmentId int
-
-AS
-BEGIN
-	DELETE from PN_Appointment
-	WHERE	Id = @AppointmentId
-END
-GO
-
-CREATE PROCEDURE SPDeleteClient
-@ClientId int
-
-AS
-BEGIN
-	DELETE from PN_Client
-	WHERE	Id = @ClientId
-END
-GO
-
-CREATE PROCEDURE SPDeleteDepartment
-@DepartmentId int
-
-AS
-BEGIN
-	DELETE from PN_Department
-	WHERE	Id = @DepartmentId
-END
-GO
-
-CREATE PROCEDURE SPDeleteInvoice
-@InvoiceId int
-
-AS
-BEGIN
-	DELETE from PN_Invoice
-	WHERE Id = @InvoiceId
-END
-GO
-
-CREATE PROCEDURE SPDeleteJournal_Entry
-@Journal_EntryId int
-
-AS
-BEGIN
-	DELETE from PN_Journal_Entry
-	WHERE Id = @Journal_EntryId
-END
-GO
-
-CREATE PROCEDURE SPDeletePractitioner
-@PractitionerId int
-
-AS
-BEGIN
-	DELETE from PN_Practitioner
-	WHERE Id = @PractitionerId
-END
-GO
-
-CREATE PROCEDURE SPDeleteRoom
-@RoomId int
-
-AS
-BEGIN
-	DELETE from PN_Room
-	WHERE id = @RoomId
-END
-GO
-
-CREATE PROCEDURE SPDeleteAppointmentType
-@AppointmentTypeId int
-
-AS
-BEGIN
-	DELETE from PN_AppointmentType
-	WHERE Id = @AppointmentTypeId
-END
-GO
-
-CREATE PROCEDURE SPDeleteUser
-@UserId int
-
-AS
-BEGIN
-	DELETE from PN_User
-	WHERE Id = @UserId
-END
-GO
-
 CREATE PROCEDURE SPGetAllAppointments
 
 AS
