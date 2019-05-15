@@ -97,6 +97,14 @@ namespace ApplicationClassLibrary
             return treatments.ConvertAll(treatmentType => treatmentType.Name);
         }
 
+        /// <summary>
+        /// Returns a list of unavailable dates based on available dates for practitioners and department.
+        /// </summary>
+        /// <param name="practitionerName"></param>
+        /// <param name="departmentName"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public List<DateTime> GetBusyDates(string practitionerName, string departmentName, DateTime startDate,
             DateTime endDate)
         {
@@ -112,6 +120,13 @@ namespace ApplicationClassLibrary
             return busyDates;
         }
 
+        /// <summary>
+        /// Returns a list of times you can select.
+        /// </summary>
+        /// <param name="selectedDateValue"></param>
+        /// <param name="practitionerName"></param>
+        /// <param name="departmentName"></param>
+        /// <returns></returns>
         public List<string> GetAvailableTimes(DateTime selectedDateValue, string practitionerName, string departmentName)
         {
             List<DateTime> practitionerTimes =

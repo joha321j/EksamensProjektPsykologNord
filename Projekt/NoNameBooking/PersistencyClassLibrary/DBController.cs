@@ -11,6 +11,11 @@ namespace PersistencyClassLibrary
     {
         private static string _connectionString = "Server=EALSQL1.eal.local; Database = B_DB19_2018; User Id = B_STUDENT19; Password = B_OPENDB19; MultipleActiveResultSets=True;";
 
+        /// <summary>
+        /// Gets all the clients in the database and returns them as list of client objects.
+        /// </summary>
+        /// <returns></returns>
+
         public List<Client> GetClients()
         {
             List<Client> listOfClients = new List<Client>();
@@ -40,6 +45,12 @@ namespace PersistencyClassLibrary
             }
         }
 
+        /// <summary>
+        /// Gets all appointsments from the database and inserts users into these appointments from another table.
+        /// </summary>
+        /// <param name="users"></param>
+        /// <param name="departments"></param>
+        /// <returns></returns>
         public List<Appointment> GetAppointments(List<User> users, List<Department> departments)
         {
             List<Appointment> listOfAppointments = new List<Appointment>();
@@ -71,7 +82,7 @@ namespace PersistencyClassLibrary
                                 }
                             }
 
-                            Room tempRoom = FindRoom(departments, reader.GetInt32(2));
+                            Room tempRoom = FindRoom(departments, reader.GetInt32(2)); //FindRoom is a private help method to find the associcated rooms.
                             AppointmentType tempAppointmentType = new AppointmentType(reader.GetString(5),
                                 reader.GetDouble(7), reader.GetTimeSpan(6), reader.GetInt32(4));
                             Appointment newAppointment = new Appointment(reader.GetDateTime(1), tempUsers,
@@ -94,6 +105,12 @@ namespace PersistencyClassLibrary
             }
         }
 
+        /// <summary>
+        /// Finds the room with the given id.
+        /// </summary>
+        /// <param name="departments"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
         private Room FindRoom(List<Department> departments, int roomId)
         {
             foreach (Department department in departments)
@@ -110,6 +127,11 @@ namespace PersistencyClassLibrary
             throw new CultureNotFoundException();
         }
 
+        /// <summary>
+        /// Gets all the departments from the database and returns them as a list of depart object.
+        /// </summary>
+        /// <param name="practitioners"></param>
+        /// <returns> List of Department objects </returns>
         public List<Department> GetDepartments(List<Practitioner> practitioners)
         {
             List<Department> listOfDepartments = new List<Department>();
@@ -178,6 +200,10 @@ namespace PersistencyClassLibrary
             }
         }
 
+        /// <summary>
+        /// Gets all the practitioners from database and returns them as a list of practitioner objects.
+        /// </summary>
+        /// <returns></returns>
         public List<Practitioner> GetPractitioners()
         {
             List<Practitioner> listOfPractitioners = new List<Practitioner>();
@@ -233,9 +259,17 @@ namespace PersistencyClassLibrary
             }
         }
 
+        /// <summary>
+        /// Saves the appointment to the database.
+        /// </summary>
+        /// <param name="dateAndTime"></param>
+        /// <param name="room"></param>
+        /// <param name="users"></param>
+        /// <param name="appointmentType"></param>
+        /// <param name="note"></param>
         public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
         {
-            double price = 0.0;
+            double price = 0.0; //Only here because of a missing feature where you could change the price according to discounts.
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -282,6 +316,14 @@ namespace PersistencyClassLibrary
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Saves parts of the client's information in user table in the database.
+        /// </summary>
+        /// <param name="clientName"></param>
+        /// <param name="clientAddress"></param>
+        /// <param name="clientPhoneNumber"></param>
+        /// <param name="clientEmail"></param>
+        /// <returns></returns>
         public int SaveUser(string clientName, string clientAddress, string clientPhoneNumber, string clientEmail)
         {
             try
@@ -310,6 +352,12 @@ namespace PersistencyClassLibrary
             }
         }
 
+        /// <summary>
+        /// Saves parts of the client's infomation in the client table in the database.
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="clientNote"></param>
+        /// <param name="clientSsn"></param>
         public void SaveClient(int clientId, string clientNote, string clientSsn)
         {
             try
@@ -322,9 +370,8 @@ namespace PersistencyClassLibrary
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.AddWithValue("@ClientId", clientId);
-                    //We haven't made this yet
-                    command.Parameters.AddWithValue("@MedicalRefferal", DBNull.Value);
-                    command.Parameters.AddWithValue("@JournalId", DBNull.Value);
+                    command.Parameters.AddWithValue("@MedicalRefferal", DBNull.Value); //We haven't made this yet, therefore it passes as null
+                    command.Parameters.AddWithValue("@JournalId", DBNull.Value);      // Ditto
 
                     command.Parameters.AddWithValue("@Note", clientNote);
                     command.Parameters.AddWithValue("@SocialSecurityNumber", clientSsn);
