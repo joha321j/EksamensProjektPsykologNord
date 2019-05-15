@@ -35,5 +35,11 @@ namespace ModelClassLibrary
 
             Price = Math.Abs(price) < 0.01 ? appointmentType.StandardPrice : price;
         }
+
+        public Appointment(int id, DateTime dateAndTime)
+        {
+            Id = id;
+            DateAndTime = dateAndTime;
+        }
     }
 }

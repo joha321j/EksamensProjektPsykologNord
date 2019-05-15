@@ -205,6 +205,11 @@ namespace ApplicationClassLibrary
             return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
         }
 
+        public void EditAppointment(AppointmentView appointmentView)
+        {
+            _appointmentRepo.EditAppointment(appointmentView);
+        }
+
         public List<PractitionerView> GetPractitioners()
         {
             List<Practitioner> practitioners = _practitionerRepo.GetPractitioners();
@@ -213,7 +218,27 @@ namespace ApplicationClassLibrary
                 practitioner.PhoneNumber, practitioner.Address, practitioner.Email, practitioner.Start,
                 practitioner.DayLength));
         }
-        
+
+        public double GetAppointmenmtPrice(int appoId)
+        {
+            AppointmentView tempAppo = _appointmentRepo.GetAppointmentById(appoId);
+            return tempAppo.Price;
+        }
+
+        public RoomView GetRoomByAppointmentId(int appointmentId, string departmentName)
+        {
+            RoomView roomView = _departmentRepo.GetRoomByAppointmentId(appointmentId, departmentName);
+            return roomView;
+        }
+
+        public AppointmentTypeView GetAppointmentTypeByName(string typeName, string practitionerName)
+        {
+            AppointmentType tempType = _practitionerRepo.GetTreatmentByTreatmentName(typeName, practitionerName);
+            AppointmentTypeView appoTypeView = new AppointmentTypeView(tempType.Id,tempType.Name,tempType.Duration,tempType.StandardPrice);
+
+            return appoTypeView;
+        }
+
         public AppointmentView GetAppointmentById(int appoId)
         {
             return _appointmentRepo.GetAppointmentById(appoId);

@@ -185,17 +185,34 @@ namespace BookNyAftale
                 cmbbPractitioner.Items.Add(prac.Name);
                 cmbbPractitioner.SelectedIndex = cmbbPractitioner.Items.IndexOf(prac.Name);                
             }
+            cmbbPractitioner.IsEnabled = false;
 
             DepartmentView departmentView = _controller.GetDepartmentViewFromRoomId(appoView.RoomView.Id);
             cmbbDepartment.SelectedIndex = cmbbDepartment.Items.IndexOf(departmentView.Name);
-            dpAppointmentDate.SelectedDate = appoView.DateAndTime.Date;
-            txtNotes.Text = appoView.Note;
+            cmbbDepartment.IsEnabled = false;
+            dpAppointmentDate.SelectedDate = appoView.DateAndTime.Date;           
+            cmbbAppointmentTime.SelectedIndex = cmbbAppointmentTime.Items.IndexOf(appoView.DateAndTime.ToString("H:mm"));
+            txtNotes.Text = appoView.Note;            
             lblHiddenId.Content = appoView.Id;
         }
 
         private void BtnRemoveAppointment_Click(object sender, RoutedEventArgs e)
         {            
             _controller.RemoveAppointment(int.Parse(lblHiddenId.Content.ToString()));
+            this.Close();
+        }
+
+        private void BtnSaveAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            int appoId = int.Parse(lblHiddenId.Content.ToString());
+            DateTime dateTime = new DateTime(dpAppointmentDate.SelectedDate.Value.Year, dpAppointmentDate.SelectedDate.Value.Month, dpAppointmentDate.SelectedDate.Value.Day,
+                ((int)cmbbAppointmentTime.SelectedValue), 00, 00);
+            
+            AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
+            RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
+            AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
+            AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users,typeView, room, txtNotes.Text, tempAppoView.Price);
+            _controller.EditAppointment(appoView);
         }
     }
 }

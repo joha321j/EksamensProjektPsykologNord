@@ -506,7 +506,14 @@ namespace PersistencyClassLibrary
 
         public void RemoveAppointment(int appointmentId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SPDeleteAppointment", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AppointmentId", appointmentId);
+                command.ExecuteNonQuery();
+            }
         }
 
         public int SaveUser(string clientName, string clientAddress, string clientPhoneNumber, string clientEmail)

@@ -95,5 +95,11 @@ namespace ApplicationClassLibrary
                                     
             return appoView;
         }
+
+        public void EditAppointment(AppointmentView appointmentView)
+        {            
+            Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime);
+            _persistable.EditAppointment(appointment);
+        }
     }
 }
