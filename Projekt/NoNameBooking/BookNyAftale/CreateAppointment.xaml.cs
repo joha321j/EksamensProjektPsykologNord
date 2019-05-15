@@ -1,21 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ApplicationClassLibrary;
-using DateTime = System.DateTime;
-
 
 namespace BookNyAftale
 {
@@ -25,6 +12,13 @@ namespace BookNyAftale
     public partial class CreateAppointment : Window
     {
         private readonly Controller _controller;
+
+        private bool _departmentChosen;
+        private bool _practitionerChosen;
+        private bool _appointmentTypeChosen;
+        private bool _dateChosen;
+        private bool _timeChosen;
+        private bool _clientChosen;
 
         public CreateAppointment()
         {
@@ -119,13 +113,29 @@ namespace BookNyAftale
 
         private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)
         {
-            UpdatePractitionerComboBox();
+
+            if ((string) cmbbDepartment.SelectionBoxItem != string.Empty)
+            {
+                UpdatePractitionerComboBox();
+
+                _departmentChosen = true;
+
+                cmbbPractitioner.IsEnabled = _departmentChosen;
+            }
+            
         }
 
         private void CmbbPractitioner_DropDownClosed(object sender, EventArgs e)
         {
-            UpdateTreatmentComboBox();
-            UpdateAppointmentDates();
+            if ((string) cmbbPractitioner.SelectionBoxItem != string.Empty)
+            {
+                UpdateTreatmentComboBox();
+                UpdateAppointmentDates();
+
+                _practitionerChosen = true;
+                cmbbAppointmentType.IsEnabled = _practitionerChosen;
+            }
+            
         }
 
         private void UpdateAppointmentDates()
@@ -158,7 +168,49 @@ namespace BookNyAftale
 
         private void DpAppointmentDate_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateAppointmentTimeComboBox();
+            if (dpAppointmentDate.SelectedDate != null)
+            {
+                UpdateAppointmentTimeComboBox();
+                _dateChosen = true;
+                cmbbAppointmentTime.IsEnabled = _dateChosen;
+            }
+            
+        }
+
+        private void CmbbAppointmentType_OnDropDownClosed(object sender, EventArgs e)
+        {
+            if ((string) cmbbAppointmentType.SelectionBoxItem != string.Empty)
+            {
+                _appointmentTypeChosen = true;
+                dpAppointmentDate.IsEnabled = _appointmentTypeChosen;
+            }
+            
+        }
+
+
+
+        private void CmbbAppointmentTime_OnDropDownClosed(object sender, EventArgs e)
+        {
+            if ((string) cmbbAppointmentTime.SelectionBoxItem != string.Empty)
+            {
+                _timeChosen = true;
+
+                if (_practitionerChosen && _appointmentTypeChosen && _dateChosen && _departmentChosen && _timeChosen && _clientChosen)
+                {
+                    btnCreateAppointment.IsEnabled = true;
+                }
+            }
+            
+
+
+        }
+
+        private void CmbbClient_OnDropDownClosed(object sender, EventArgs e)
+        {
+            if ((string) cmbbClient.SelectionBoxItem != string.Empty)
+            {
+                _clientChosen = true;
+            }
         }
     }
 }

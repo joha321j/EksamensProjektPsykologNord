@@ -34,9 +34,8 @@ namespace PersistencyClassLibrary
 
                 return listOfClients;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                /// TODO: Actually handle the exception!
                 throw e;
             }
         }
@@ -88,7 +87,7 @@ namespace PersistencyClassLibrary
 
                 return listOfAppointments;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -172,7 +171,7 @@ namespace PersistencyClassLibrary
 
                 return listOfDepartments;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -227,7 +226,7 @@ namespace PersistencyClassLibrary
 
                 return listOfPractitioners;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -271,7 +270,7 @@ namespace PersistencyClassLibrary
 
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception! 
                 throw e;
@@ -311,7 +310,7 @@ namespace PersistencyClassLibrary
                     return userId;
                 }
             }
-            catch(Exception e)
+            catch(SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -340,7 +339,7 @@ namespace PersistencyClassLibrary
                     command.ExecuteNonQuery();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -349,7 +348,17 @@ namespace PersistencyClassLibrary
 
         public void EditAppointment(Appointment appointment)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SPUpdateAppointment", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AppointmentId", appointment.Id);
+                command.Parameters.AddWithValue("@DateAndTime", appointment.DateAndTime);
+                command.Parameters.AddWithValue("@Note", appointment.Note);
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
