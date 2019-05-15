@@ -245,6 +245,7 @@ namespace BookNyAftale
         {
             ListView lvView = ((ListView)e.Source);
             ListViewItem item = sender as ListViewItem;
+            
             switch (lvView.Name)
             {
                 case "lvMonday":
@@ -272,7 +273,7 @@ namespace BookNyAftale
                     break;
             }
             
-            if (item != null)
+            if (item.Tag != null)
             {
                 int appoId = ((int)item.Tag);
                 string appoDate = item.Content.ToString();

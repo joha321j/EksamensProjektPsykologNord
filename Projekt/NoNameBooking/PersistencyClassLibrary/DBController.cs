@@ -564,6 +564,7 @@ namespace PersistencyClassLibrary
                 /// TODO: Actually handle the exception!
                 throw e;
             }
-        }       
+        }
+       
     }
 }

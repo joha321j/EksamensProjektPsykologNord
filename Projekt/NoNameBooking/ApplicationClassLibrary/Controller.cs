@@ -180,7 +180,7 @@ namespace ApplicationClassLibrary
         }
 
         public void RemoveAppointment(int appointmentId)
-        {            
+        {                        
             _appointmentRepo.RemoveAppointment(appointmentId);
         }
 

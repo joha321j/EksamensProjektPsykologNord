@@ -189,6 +189,13 @@ namespace BookNyAftale
             DepartmentView departmentView = _controller.GetDepartmentViewFromRoomId(appoView.RoomView.Id);
             cmbbDepartment.SelectedIndex = cmbbDepartment.Items.IndexOf(departmentView.Name);
             dpAppointmentDate.SelectedDate = appoView.DateAndTime.Date;
+            txtNotes.Text = appoView.Note;
+            lblHiddenId.Content = appoView.Id;
+        }
+
+        private void BtnRemoveAppointment_Click(object sender, RoutedEventArgs e)
+        {            
+            _controller.RemoveAppointment(int.Parse(lblHiddenId.Content.ToString()));
         }
     }
 }
