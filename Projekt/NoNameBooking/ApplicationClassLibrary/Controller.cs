@@ -28,6 +28,7 @@ namespace ApplicationClassLibrary
             _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
 
             _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
+            _appointmentRepo.NewAppointmentEventHandler += NewAppointmentEventHandler;
         }
 
         public List<User> GetUsers()
@@ -160,16 +161,17 @@ namespace ApplicationClassLibrary
                 tempAppointmentType, note);
         }
 
-        public void RemoveAppointment(DateTime dateAndTime, string clientName)
+        public void RemoveAppointment(int appointmentId)
         {            
-            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
+            _appointmentRepo.RemoveAppointment(appointmentId);
         }
 
         public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)
         {
             List<AppointmentView> appointmentViews = _appointmentRepo.GetAppointmentsByPracId(id);
             
-            List<AppointmentView> returnList = appointmentViews.FindAll(appointment => appointment.dateAndTime > startDate && appointment.dateAndTime < endDate);
+            List<AppointmentView> returnList = appointmentViews.FindAll(appointment =>
+                appointment.DateAndTime > startDate && appointment.DateAndTime < endDate);
             return returnList;
         }
 
@@ -178,6 +180,25 @@ namespace ApplicationClassLibrary
             int weekNumber = DateTimeCalculator.GetIso8601WeekOfYear(today);
 
             return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
+        }
+
+        public List<PractitionerView> GetPractitioners()
+        {
+            List<Practitioner> practitioners = _practitionerRepo.GetPractitioners();
+
+            return practitioners.ConvertAll(practitioner => new PractitionerView(practitioner.Id, practitioner.Name,
+                practitioner.PhoneNumber, practitioner.Address, practitioner.Email, practitioner.Start,
+                practitioner.DayLength));
+        }
+        
+        public AppointmentView GetAppointmentById(int appoId)
+        {
+            return _appointmentRepo.GetAppointmentById(appoId);
+        }
+
+        public UserView isClient(UserView user)
+        {
+            return _clientRepo.isClient(user);
         }
     }
 }

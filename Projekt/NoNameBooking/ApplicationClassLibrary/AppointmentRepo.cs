@@ -13,6 +13,8 @@ namespace ApplicationClassLibrary
 
         private readonly List<Appointment> _appointments = new List<Appointment>();
 
+        public event EventHandler NewAppointmentEventHandler;
+
         private AppointmentRepo(IPersistable persistable, List<User> users, List<Department> departments)
         {
             _persistable = persistable;
@@ -34,6 +36,7 @@ namespace ApplicationClassLibrary
             Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note);
             AddAppointment(tempAppointment);
             _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
+            NewAppointmentEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
         }
 
         private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note)
@@ -61,7 +64,9 @@ namespace ApplicationClassLibrary
                 {
                     if (person.Id == id)
                     {
-                        AppointmentView appView = new AppointmentView(item.Id,item.DateAndTime);
+                        AppointmentView appView = new AppointmentView(item.Id, item.DateAndTime,
+                            new AppointmentTypeView(item.AppointmentType.Id, item.AppointmentType.Name,
+                                item.AppointmentType.Duration, item.AppointmentType.StandardPrice));
 
                         appointments.Add(appView);
                     }
@@ -70,9 +75,30 @@ namespace ApplicationClassLibrary
             return appointments;
         }
 
-        public void RemoveAppointment(string clientName, DateTime dateTime)
+        public void RemoveAppointment(int appointmentId)
         {            
-            _persistable.RemoveAppointment(clientName, dateTime);            
+            _persistable.RemoveAppointment(appointmentId);            
         }
+
+        public AppointmentView GetAppointmentById(int appoId)
+        {
+            Appointment appo = new Appointment();
+            appo = _appointments.Find(app => app.Id == appoId);
+            List<UserView> userViews = new List<UserView>();
+            int i = 0;
+            foreach (User user in appo.Participants)
+            {
+                UserView view = new UserView(appo.Participants[i].Id, appo.Participants[i].Name, appo.Participants[1].PhoneNumber, appo.Participants[1].Address, appo.Participants[1].Email);
+                userViews.Add(view);
+                i++;
+            }
+            AppointmentTypeView typeView = new AppointmentTypeView(appo.AppointmentType.Id, appo.AppointmentType.Name, appo.AppointmentType.Duration, appo.AppointmentType.StandardPrice);
+            RoomView roomView = new RoomView(appo.Location.Id, appo.Location.Name);
+            AppointmentView appoView = new AppointmentView(appo.Id, appo.DateAndTime, userViews, typeView, roomView, appo.Note, appo.Price);
+                                    
+            return appoView;
+        }
+
+
     }
 }

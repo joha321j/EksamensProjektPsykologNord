@@ -24,12 +24,13 @@ namespace BookNyAftale
     public partial class EditAppointment : Window
     {
         private readonly Controller _controller;
-        public EditAppointment()
+        public EditAppointment(int appointmentId)
         {
             InitializeComponent();
             _controller = Controller.GetInstance();
-
             UpdateDepartmentComboBox();
+            AppointmentView appoView = GetAppointmentById(appointmentId);
+            updateWPF(appoView);
         }
         private void UpdatePractitionerComboBox()
         {
@@ -151,6 +152,22 @@ namespace BookNyAftale
         private void DpAppointmentDate_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateAppointmentTimeComboBox();
+        }
+
+        public AppointmentView GetAppointmentById(int appoId)
+        {
+            AppointmentView view = _controller.GetAppointmentById(appoId);
+            return view;
+        }
+
+        public void updateWPF(AppointmentView appoView)
+        {
+            UserView client = new UserView();
+            foreach (UserView user in appoView.Users)
+            {
+                client = _controller.isClient(user);
+            }
+            cmbbClient.Items.Add(client.Name);
         }
     }
 }

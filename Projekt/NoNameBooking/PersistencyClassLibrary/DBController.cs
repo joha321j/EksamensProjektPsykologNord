@@ -15,6 +15,7 @@ namespace PersistencyClassLibrary
         /// Gets all the clients in the database and returns them as list of client objects.
         /// </summary>
         /// <returns></returns>
+
         public List<Client> GetClients()
         {
             List<Client> listOfClients = new List<Client>();
@@ -38,9 +39,8 @@ namespace PersistencyClassLibrary
 
                 return listOfClients;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                /// TODO: Actually handle the exception!
                 throw e;
             }
         }
@@ -98,7 +98,7 @@ namespace PersistencyClassLibrary
 
                 return listOfAppointments;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -193,7 +193,7 @@ namespace PersistencyClassLibrary
 
                 return listOfDepartments;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -252,7 +252,7 @@ namespace PersistencyClassLibrary
 
                 return listOfPractitioners;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -304,14 +304,14 @@ namespace PersistencyClassLibrary
 
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception! 
                 throw e;
             }
         }
 
-        public void RemoveAppointment(string clientName, DateTime dateAndTime)
+        public void RemoveAppointment(int appointmentId)
         {
             throw new NotImplementedException();
         }
@@ -345,7 +345,7 @@ namespace PersistencyClassLibrary
                     return userId;
                 }
             }
-            catch(Exception e)
+            catch(SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
@@ -379,11 +379,11 @@ namespace PersistencyClassLibrary
                     command.ExecuteNonQuery();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 /// TODO: Actually handle the exception!
                 throw e;
             }
-        }
+        }       
     }
 }
