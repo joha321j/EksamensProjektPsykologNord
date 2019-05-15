@@ -86,7 +86,11 @@ namespace ApplicationClassLibrary
 
         public void RemoveAppointment(int appointmentId)
         {            
-            _persistable.RemoveAppointment(appointmentId);            
+            _persistable.RemoveAppointment(appointmentId);
+            Appointment appointment = _appointments.Find(appo => appo.Id == appointmentId);
+            _appointments.Remove(appointment);
+            
+            NewAppointmentEventHandler?.Invoke(appointmentId, EventArgs.Empty);
         }
 
         public AppointmentView GetAppointmentById(int appoId)
@@ -115,6 +119,7 @@ namespace ApplicationClassLibrary
             tempAppo.DateAndTime = appointmentView.DateAndTime;
             tempAppo.Note = appointmentView.Note;
             _persistable.EditAppointment(appointment);
+            NewAppointmentEventHandler?.Invoke(appointment, EventArgs.Empty);
         }
     }
 }
