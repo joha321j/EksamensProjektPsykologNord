@@ -184,9 +184,7 @@ BEGIN
     SELECT PN_AppointmentType.Name, PN_AppointmentType.StandardPrice, PN_AppointmentType.Duration, PN_AppointmentType.Id
     FROM
     PN_AppointmentType
-    JOIN
-    PN_Practitioner_AppointmentType
-    ON PN_AppointmentType.Id = PN_Practitioner_AppointmentType.AppointmentTypeId
+    JOIN PN_Practitioner_AppointmentType ON PN_AppointmentType.Id = PN_Practitioner_AppointmentType.AppointmentTypeId
     WHERE
     PN_Practitioner_AppointmentType.PractitionerId = @PractitionerId
 END
