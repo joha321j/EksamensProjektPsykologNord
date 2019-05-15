@@ -20,7 +20,6 @@ DROP PROC IF EXISTS SPSelectRoom
 DROP PROC IF EXISTS SPSelectAppointmentType
 DROP PROC IF EXISTS SPSelectUser
 DROP PROC IF EXISTS SPUpdateClient
-DROP PROC IF EXISTS SPUpdateAppointment
 DROP PROC IF EXISTS SPUpdateDepartment
 DROP PROC IF EXISTS SPUpdateInvoice
 DROP PROC IF EXISTS SPUpdateJournal_Entry
@@ -28,7 +27,6 @@ DROP PROC IF EXISTS SPUpdatePractitioner
 DROP PROC IF EXISTS SPUpdateRoom
 DROP PROC IF EXISTS SPUpdateAppointmentType
 DROP PROC IF EXISTS SPUdateUser
-DROP PROC IF EXISTS SPDeleteAppointment
 DROP PROC IF EXISTS SPDeleteClient
 DROP PROC IF EXISTS SPDeleteAppointment
 DROP PROC IF EXISTS SPDeleteDepartment
@@ -48,8 +46,25 @@ DROP PROC IF EXISTS SPGetAppointmentTypeByPractitionerId
 DROP PROC IF EXISTS SPGetUsersFromAppointmentId
 DROP PROC IF EXISTS SPGetAppointmentsById
 DROP PROC IF EXISTS SPDeleteAppointment
+DROP PROC IF EXISTS SPGetAppointmentById
+DROP PROC IF EXISTS SPUpdateAppointment
 
 GO
+
+CREATE PROC SPUpdateAppointment
+@AppointmentId int,
+@DateAndTime datetime2,
+@Note nvarchar(max)
+AS
+BEGIN
+	UPDATE PN_Appointment
+	SET 
+	DateAndTime = @DateAndTime,
+	Note = @Note
+	WHERE PN_Appointment.Id = @AppointmentId
+END
+GO
+
 
 CREATE PROC SPDeleteAppointment
 @AppointmentId int
@@ -62,6 +77,7 @@ BEGIN
 		FROM PN_User_Appointment
 		WHERE PN_User_Appointment.AppointmentId = @AppointmentId
 	)
+	DELETE FROM PN_Invoice WHERE PN_Invoice.AppointmentId = @AppointmentId
 	DELETE FROM PN_Appointment WHERE PN_Appointment.Id = @AppointmentId
 END
 GO
@@ -292,27 +308,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPUpdateAppointment
-@AppointmentId int,
-@DateAndTime datetime2,
-@RoomId int,
-@PractitionerId int,
-@Price float,
-@AppointmentTypeId int,
-@Note nvarchar(max)
-
-AS
-BEGIN
-	UPDATE PN_Appointment
-	SET		DateAndTime	= @DateAndTime,
-			RoomId = @RoomId,			
-			Price = @Price,
-			AppointmentTypeId = @AppointmentTypeId,
-			Note = @Note
-	WHERE	Id = @AppointmentId
-END
-GO
-
 CREATE PROCEDURE SPUpdateClient
 @MedicalRefferal bit,
 @JournalId int,
@@ -428,16 +423,6 @@ BEGIN
 			PhoneNumber = @PhoneNumber,
 			Email = @Email
 	WHERE	Id = @UserId
-END
-GO
-
-CREATE PROCEDURE SPDeleteAppointment
-@AppointmentId int
-
-AS
-BEGIN
-	DELETE from PN_Appointment
-	WHERE	Id = @AppointmentId
 END
 GO
 
