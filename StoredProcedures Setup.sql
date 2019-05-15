@@ -47,7 +47,23 @@ DROP PROC IF EXISTS SPGetPractitionersFromDepartment
 DROP PROC IF EXISTS SPGetAppointmentTypeByPractitionerId
 DROP PROC IF EXISTS SPGetUsersFromAppointmentId
 DROP PROC IF EXISTS SPGetAppointmentsById
+DROP PROC IF EXISTS SPDeleteAppointment
 
+GO
+
+CREATE PROC SPDeleteAppointment
+@AppointmentId int
+AS
+BEGIN
+	DELETE FROM PN_User_Appointment
+	WHERE PN_User_Appointment.AppointmentId IN
+	(
+		SELECT PN_User_Appointment.AppointmentId
+		FROM PN_User_Appointment
+		WHERE PN_User_Appointment.AppointmentId = @AppointmentId
+	)
+	DELETE FROM PN_Appointment WHERE PN_Appointment.Id = @AppointmentId
+END
 GO
 
 CREATE PROC SPInsertAppointmentForUser
