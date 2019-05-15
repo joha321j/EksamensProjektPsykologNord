@@ -349,7 +349,17 @@ namespace PersistencyClassLibrary
 
         public void EditAppointment(Appointment appointment)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SPUpdateAppointment", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AppointmentId", appointment.Id);
+                command.Parameters.AddWithValue("@DateAndTime", appointment.DateAndTime);
+                command.Parameters.AddWithValue("@Note", appointment.Note);
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

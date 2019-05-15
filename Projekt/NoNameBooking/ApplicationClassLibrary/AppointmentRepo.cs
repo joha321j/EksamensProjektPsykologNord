@@ -98,7 +98,7 @@ namespace ApplicationClassLibrary
 
         public void EditAppointment(AppointmentView appointmentView)
         {            
-            Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime);
+            Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note);
             _persistable.EditAppointment(appointment);
         }
     }

@@ -192,7 +192,8 @@ namespace BookNyAftale
             cmbbDepartment.IsEnabled = false;
             dpAppointmentDate.SelectedDate = appoView.DateAndTime.Date;           
             cmbbAppointmentTime.SelectedIndex = cmbbAppointmentTime.Items.IndexOf(appoView.DateAndTime.ToString("H:mm"));
-            txtNotes.Text = appoView.Note;            
+            txtNotes.Text = appoView.Note;
+            cmbbAppointmentType.IsEnabled = false;
             lblHiddenId.Content = appoView.Id;
         }
 
@@ -205,14 +206,17 @@ namespace BookNyAftale
         private void BtnSaveAppointment_Click(object sender, RoutedEventArgs e)
         {
             int appoId = int.Parse(lblHiddenId.Content.ToString());
+            string selectedTime = cmbbAppointmentTime.SelectedValue.ToString();
+            string selectedHour = selectedTime.Split(':')[0];
             DateTime dateTime = new DateTime(dpAppointmentDate.SelectedDate.Value.Year, dpAppointmentDate.SelectedDate.Value.Month, dpAppointmentDate.SelectedDate.Value.Day,
-                ((int)cmbbAppointmentTime.SelectedValue), 00, 00);
+                int.Parse(selectedHour), 00, 00);
             
             AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
             RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
             AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
             AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users,typeView, room, txtNotes.Text, tempAppoView.Price);
             _controller.EditAppointment(appoView);
+            this.Close();
         }
     }
 }
