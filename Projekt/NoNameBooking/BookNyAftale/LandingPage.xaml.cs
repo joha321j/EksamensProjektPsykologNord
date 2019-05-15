@@ -159,8 +159,7 @@ namespace BookNyAftale
                     
                     List<UserView> userViews =  _controller.GetClientsFromAppointmentView(item);
                     ListViewItem listViewItem = new ListViewItem()
-                    {
-                        //item.DateAndTime.AddHours(i).ToString("dd/MM HH:mm")
+                    {                        
                         Content = userViews[0].Name,
                         Background = Brushes.Magenta,
                         Tag = item.Id
