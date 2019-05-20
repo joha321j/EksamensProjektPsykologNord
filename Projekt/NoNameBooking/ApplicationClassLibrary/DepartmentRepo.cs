@@ -10,7 +10,7 @@ namespace ApplicationClassLibrary
         private readonly IPersistable _persistable;
         private static DepartmentRepo _instance;
 
-        private readonly List<Department> _departments = new List<Department>();
+        private readonly List<Department> _departments;
 
         private DepartmentRepo(IPersistable persistable, List<Practitioner> practitioners)
         {
