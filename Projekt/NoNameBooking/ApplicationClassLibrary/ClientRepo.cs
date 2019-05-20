@@ -10,7 +10,7 @@ namespace ApplicationClassLibrary
         private static IPersistable _persistable;
         private static ClientRepo _instance;
 
-        private readonly List<Client> _clients;
+        private List<Client> _clients;
 
         public EventHandler NewClientEventHandler;
 
@@ -63,6 +63,11 @@ namespace ApplicationClassLibrary
         public void Reset()
         {
             _instance = null;
+        }
+
+        public void Update()
+        {
+            _clients = _persistable.GetClients();
         }
     }
 }

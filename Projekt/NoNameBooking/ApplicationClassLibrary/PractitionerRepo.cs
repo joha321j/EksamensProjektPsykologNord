@@ -8,7 +8,7 @@ namespace ApplicationClassLibrary
     public class PractitionerRepo
     {
         private IPersistable _persistable;
-        private readonly List<Practitioner> _practitioners;
+        private List<Practitioner> _practitioners;
         private static PractitionerRepo _instance;
 
         private PractitionerRepo(IPersistable persistable)
@@ -66,6 +66,11 @@ namespace ApplicationClassLibrary
             Practitioner tempPrac = _practitioners.Find(prac => prac.Name == practitionerName);
             AppointmentType appoType = tempPrac.GetAppointmentType(typeName);
             return appoType;
+        }
+
+        public void Update()
+        {
+            _practitioners = _persistable.GetPractitioners();
         }
     }
 }

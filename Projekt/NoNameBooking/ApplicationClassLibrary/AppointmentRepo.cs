@@ -11,7 +11,7 @@ namespace ApplicationClassLibrary
         private IPersistable _persistable;
         private static AppointmentRepo _instance;
 
-        private readonly List<Appointment> _appointments = new List<Appointment>();
+        private List<Appointment> _appointments;
 
         public event EventHandler NewAppointmentEventHandler;
 
@@ -120,6 +120,11 @@ namespace ApplicationClassLibrary
             tempAppo.Note = appointmentView.Note;
             _persistable.EditAppointment(appointment);
             NewAppointmentEventHandler?.Invoke(appointment, EventArgs.Empty);
+        }
+
+        public void Update()
+        {
+            _appointments = GetAppointments();
         }
     }
 }

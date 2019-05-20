@@ -124,6 +124,8 @@ namespace BookNyAftale
                         MessageBoxImage.Error);
                     Close();
                 }
+
+                _controller.UpdateRepos();
                 UpdateAppointmentDates();
                 UpdateAppointmentTimeComboBox();
             }
@@ -220,8 +222,6 @@ namespace BookNyAftale
                     btnCreateAppointment.IsEnabled = true;
                 }
             }
-            
-
 
         }
 

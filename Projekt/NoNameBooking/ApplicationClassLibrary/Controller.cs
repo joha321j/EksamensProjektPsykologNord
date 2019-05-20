@@ -260,5 +260,12 @@ namespace ApplicationClassLibrary
             return _appointmentRepo.GetAppointmentById(appoId);
         }
 
+        public void UpdateRepos()
+        {
+            _practitionerRepo.Update();
+            _clientRepo.Update();
+            _appointmentRepo.Update();
+
+        }
     }
 }
