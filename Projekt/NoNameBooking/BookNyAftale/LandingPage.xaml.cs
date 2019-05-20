@@ -75,6 +75,7 @@ namespace BookNyAftale
 
             UpdateAppointmentView(_mondayDateCurrentWeek, _mondayDateCurrentWeek.AddDays(_forwardAmount),
                 _currentUserId);
+            _controller.EmailTest();
         }
 
         private void PopulatePractitionerComboBox()

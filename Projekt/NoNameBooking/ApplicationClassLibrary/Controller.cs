@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ModelClassLibrary;
-using PersistencyClassLibrary;
+using PersistencyClassLibrary; 
 
 namespace ApplicationClassLibrary
 {
@@ -260,5 +260,9 @@ namespace ApplicationClassLibrary
             return _appointmentRepo.GetAppointmentById(appoId);
         }
 
+        public void EmailTest()
+        {
+            _appointmentRepo.sendEmail();
+        }
     }
 }
