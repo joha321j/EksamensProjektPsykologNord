@@ -124,6 +124,8 @@ namespace BookNyAftale
                         MessageBoxImage.Error);
                     Close();
                 }
+                UpdateAppointmentDates();
+                UpdateAppointmentTimeComboBox();
             }
 
 
