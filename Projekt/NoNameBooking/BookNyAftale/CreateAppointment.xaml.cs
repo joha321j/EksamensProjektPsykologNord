@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using ApplicationClassLibrary;
+using PersistencyClassLibrary;
 
 namespace BookNyAftale
 {
@@ -104,9 +105,14 @@ namespace BookNyAftale
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
                     cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
             }
-            catch (Exception exception) when (exception is InvalidInputException || exception is SqlException)
+            catch (Exception exception) when (exception is InvalidInputException || exception is SqlException || exception is SqlAppointmentAlreadyExistsException)
             {
-                if (exception is InvalidInputException)
+                if (exception is SqlAppointmentAlreadyExistsException)
+                {
+                    MessageBox.Show("Kunne ikke oprette en aftale dette tidspunkt.\nPrøv igen med et andet tidspunkt", "Aftale eksistere allerede",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (exception is InvalidInputException)
                 {
                     MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -116,10 +122,11 @@ namespace BookNyAftale
                         "Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
                         "Fejl!!!", MessageBoxButton.OK,
                         MessageBoxImage.Error);
+                    Close();
                 }
             }
 
-            Close();
+
         }
 
         private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)
