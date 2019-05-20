@@ -63,7 +63,7 @@ namespace ApplicationClassLibrary
             InputValidator.EnsureValidSsn(clientSsn);
             InputValidator.EnsureValidZip(clientAddress);
 
-            _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
+            _clientRepo.CreateAndAddClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
         }
 
         public List<string> GetClientNames()

@@ -58,24 +58,22 @@ namespace ApplicationClassLibrary
         {
             
             List<AppointmentView> appointments = new List<AppointmentView>();
-            foreach (Appointment item in _appointments)
+            foreach (Appointment appointment in _appointments)
             {
-                foreach (User person in item.Participants)
+                foreach (User person in appointment.Participants)
                 {
                     if (person.Id == id)
                     {
                         List<UserView> userViews = new List<UserView>();
-                        int i = 0;
-                        foreach (User user in item.Participants)
+                        foreach (User user in appointment.Participants)
                         {
-                            UserView view = new UserView(item.Participants[i].Id, item.Participants[i].Name, item.Participants[1].PhoneNumber, item.Participants[1].Address, item.Participants[1].Email);
+                            UserView view = new UserView(user.Id, user.Name, user.PhoneNumber, user.Address, user.Email);
                             userViews.Add(view);
-                            i++;
                         }
-                        RoomView roomView = new RoomView(item.Location.Id,item.Location.Name);
-                        AppointmentView appView = new AppointmentView(item.Id, item.DateAndTime, userViews,
-                            new AppointmentTypeView(item.AppointmentType.Id, item.AppointmentType.Name,
-                                item.AppointmentType.Duration, item.AppointmentType.StandardPrice), roomView, item.Note,item.Price);
+                        RoomView roomView = new RoomView(appointment.Location.Id,appointment.Location.Name);
+                        AppointmentView appView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews,
+                            new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name,
+                                appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice), roomView, appointment.Note,appointment.Price);
 
                         appointments.Add(appView);
                     }

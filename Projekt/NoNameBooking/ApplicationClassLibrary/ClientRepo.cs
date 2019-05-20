@@ -25,17 +25,22 @@ namespace ApplicationClassLibrary
             return _instance ?? (_instance = new ClientRepo(persistable));
         }
 
-        public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
+        public void CreateAndAddClient(string clientName, string clientEmail, string clientPhoneNumber,
             string clientAddress, string clientSsn, string clientNote)
         {
             int clientId = _persistable.SaveUser(clientName, clientAddress, clientPhoneNumber, clientEmail);
             _persistable.SaveClient(clientId, clientNote, clientSsn);
 
-            Client newClient = new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
+            Client newClient = CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
             
             _clients.Add(newClient);
 
             NewClientEventHandler?.Invoke(newClient, EventArgs.Empty);
+        }
+
+        private Client CreateClient(string clientName, string clientEmail, string clientPhoneNumber, string clientAddress, string clientSsn, string clientNote, int clientId)
+        {
+            return new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
         }
 
 
