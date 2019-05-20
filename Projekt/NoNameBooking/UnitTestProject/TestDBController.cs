@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApplicationClassLibrary;
 using ModelClassLibrary;
 using PersistencyClassLibrary;
 
 namespace UnitTestProject
 {
-    class TestDBController : IPersistable
+    class TestDbController : IPersistable
     {
         public List<Client> GetClients()
         {
@@ -54,6 +50,11 @@ namespace UnitTestProject
         public void SaveClient(int clientId, string clientNote, string clientSsn)
         {
            //done
+        }
+
+        public void EditAppointment(Appointment appointment)
+        {
+            throw new NotImplementedException();
         }
     }
 }

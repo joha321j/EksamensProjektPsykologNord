@@ -16,7 +16,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void ClientRepoTestInitialize()
         {
-            _dbController = new TestDBController();
+            _dbController = new TestDbController();
             _clientRepo = ClientRepo.GetInstance(_dbController);
         }
 

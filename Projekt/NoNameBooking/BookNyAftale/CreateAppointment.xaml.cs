@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using ApplicationClassLibrary;
@@ -103,9 +104,19 @@ namespace BookNyAftale
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
                     cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
             }
-            catch (InvalidInputException exception)
+            catch (Exception exception) when (exception is InvalidInputException || exception is SqlException)
             {
-                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (exception is InvalidInputException)
+                {
+                    MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
+                        "Fejl!!!", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
             }
 
             Close();
