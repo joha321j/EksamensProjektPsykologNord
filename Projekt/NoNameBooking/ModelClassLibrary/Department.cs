@@ -69,5 +69,11 @@ namespace ModelClassLibrary
         {
             return Rooms.Find(room => room.IsAvailable(dateAndTime, appointmentDuration));
         }
+
+        public Room GetRoomByAppointmnetId(int appointmentId)
+        {
+            Room tempRoom = Rooms.Find(room => room.Appointments.Find(appo => appo.Id == appointmentId) != null);
+            return tempRoom;            
+        }
     }
 }

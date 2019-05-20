@@ -28,6 +28,7 @@ namespace ApplicationClassLibrary
             _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
 
             _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
+            _appointmentRepo.NewAppointmentEventHandler += NewAppointmentEventHandler;
         }
 
         public List<User> GetUsers()
@@ -96,6 +97,14 @@ namespace ApplicationClassLibrary
             return treatments.ConvertAll(treatmentType => treatmentType.Name);
         }
 
+        /// <summary>
+        /// Returns a list of unavailable dates based on available dates for practitioners and department.
+        /// </summary>
+        /// <param name="practitionerName"></param>
+        /// <param name="departmentName"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public List<DateTime> GetBusyDates(string practitionerName, string departmentName, DateTime startDate,
             DateTime endDate)
         {
@@ -111,6 +120,13 @@ namespace ApplicationClassLibrary
             return busyDates;
         }
 
+        /// <summary>
+        /// Returns a list of times you can select.
+        /// </summary>
+        /// <param name="selectedDateValue"></param>
+        /// <param name="practitionerName"></param>
+        /// <param name="departmentName"></param>
+        /// <returns></returns>
         public List<string> GetAvailableTimes(DateTime selectedDateValue, string practitionerName, string departmentName)
         {
             List<DateTime> practitionerTimes =
@@ -145,9 +161,48 @@ namespace ApplicationClassLibrary
                 tempAppointmentType, note);
         }
 
+        public List<UserView> GetPractitionerFromAppointmentView(AppointmentView appoView)
+        {
+            List<UserView> users = appoView.Users;
+
+            List<UserView> practitioner = new List<UserView>();
+
+            foreach (UserView user in users)
+            {
+                if (_practitionerRepo.IsPractitioner(user))
+                {
+                    practitioner.Add(user);
+                }
+            }
+
+            return practitioner;
+        }
+
+        public List<UserView> GetClientsFromAppointmentView(AppointmentView appoView)
+        {
+            List<UserView> users = appoView.Users;
+
+            List<UserView> clients = new List<UserView>();
+
+            foreach (UserView user in users)
+            {
+                if (_clientRepo.IsClient(user))
+                {
+                    clients.Add(user);
+                }
+            }
+
+            return clients;
+        }
+
         public void RemoveAppointment(int appointmentId)
-        {            
+        {                        
             _appointmentRepo.RemoveAppointment(appointmentId);
+        }
+
+        public DepartmentView GetDepartmentViewFromRoomId(int id)
+        {
+           return _departmentRepo.GetDepartmentViewFromRoomId(id);
         }
 
         public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)
@@ -166,6 +221,11 @@ namespace ApplicationClassLibrary
             return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
         }
 
+        public void EditAppointment(AppointmentView appointmentView)
+        {
+            _appointmentRepo.EditAppointment(appointmentView);
+        }
+
         public List<PractitionerView> GetPractitioners()
         {
             List<Practitioner> practitioners = _practitionerRepo.GetPractitioners();
@@ -174,15 +234,31 @@ namespace ApplicationClassLibrary
                 practitioner.PhoneNumber, practitioner.Address, practitioner.Email, practitioner.Start,
                 practitioner.DayLength));
         }
-        
+
+        public double GetAppointmenmtPrice(int appoId)
+        {
+            AppointmentView tempAppo = _appointmentRepo.GetAppointmentById(appoId);
+            return tempAppo.Price;
+        }
+
+        public RoomView GetRoomByAppointmentId(int appointmentId, string departmentName)
+        {
+            RoomView roomView = _departmentRepo.GetRoomByAppointmentId(appointmentId, departmentName);
+            return roomView;
+        }
+
+        public AppointmentTypeView GetAppointmentTypeByName(string typeName, string practitionerName)
+        {
+            AppointmentType tempType = _practitionerRepo.GetTreatmentByTreatmentName(typeName, practitionerName);
+            AppointmentTypeView appoTypeView = new AppointmentTypeView(tempType.Id,tempType.Name,tempType.Duration,tempType.StandardPrice);
+
+            return appoTypeView;
+        }
+
         public AppointmentView GetAppointmentById(int appoId)
         {
             return _appointmentRepo.GetAppointmentById(appoId);
         }
 
-        public UserView isClient(UserView user)
-        {
-            return _clientRepo.isClient(user);
-        }
     }
 }

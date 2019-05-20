@@ -168,9 +168,11 @@ namespace BookNyAftale
 
                 for (int i = 0; i < item.TypeView.Duration.Hours; i++)
                 {
+                    
+                    List<UserView> userViews =  _controller.GetClientsFromAppointmentView(item);
                     ListViewItem listViewItem = new ListViewItem()
-                    {
-                        Content = item.DateAndTime.AddHours(i).ToString("dd/MM HH:mm"),
+                    {                        
+                        Content = userViews[0].Name,
                         Background = Brushes.Magenta,
                         Tag = item.Id
                     };
@@ -257,6 +259,7 @@ namespace BookNyAftale
         {
             ListView lvView = ((ListView)e.Source);
             ListViewItem item = sender as ListViewItem;
+            
             switch (lvView.Name)
             {
                 case "lvMonday":
@@ -284,7 +287,7 @@ namespace BookNyAftale
                     break;
             }
             
-            if (item != null)
+            if (item.Tag != null)
             {
                 int appoId = ((int)item.Tag);
                 string appoDate = item.Content.ToString();
