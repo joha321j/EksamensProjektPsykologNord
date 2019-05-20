@@ -48,9 +48,43 @@ DROP PROC IF EXISTS SPGetAppointmentsById
 DROP PROC IF EXISTS SPDeleteAppointment
 DROP PROC IF EXISTS SPGetAppointmentById
 DROP PROC IF EXISTS SPUpdateAppointment
+DROP PROC IF EXISTS SPInsertUserOutId
 
 GO
 
+CREATE PROC SPDeleteUser @UserId int
+AS
+BEGIN
+DELETE FROM PN_User
+WHERE PN_User.Id = @UserId
+END
+GO
+
+CREATE PROC SPInsertClient
+@ClientId int,
+@MedicalRefferal bit,
+@JournalId int,
+@Note NVARCHAR(MAX),
+@SocialSecurityNumber NVARCHAR(MAX)
+AS
+BEGIN
+INSERT INTO PN_Client(Id, MedicalReferral, Journalid, Note, SocialSecurityNumber)
+VALUES(@ClientId, @MedicalRefferal, @JournalId, @Note, @SocialSecurityNumber)
+END
+GO
+
+CREATE PROC SPInsertUserOutId
+@Name NVARCHAR(MAX),
+@Address NVARCHAR(MAX),
+@PhoneNumber NVARCHAR(MAX),
+@Email NVARCHAR(MAX)
+AS
+BEGIN
+INSERT INTO PN_User(Name, Address, PhoneNumber, Email)
+OUTPUT inserted.Id
+VALUES (@Name, @Address, @PhoneNumber, @Email)
+END
+GO
 
 CREATE PROC SPUpdateAppointment
 @AppointmentId int,
