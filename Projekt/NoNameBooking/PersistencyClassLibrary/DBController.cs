@@ -274,6 +274,7 @@ namespace PersistencyClassLibrary
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
+                    int appointmentId;
                     connection.Open();
 
                     SqlCommand appointmentCommand = new SqlCommand("SPInsertAppointmentOutId", connection);
@@ -285,7 +286,16 @@ namespace PersistencyClassLibrary
                     appointmentCommand.Parameters.AddWithValue("@AppointmentTypeId", appointmentType.Id);
                     appointmentCommand.Parameters.AddWithValue("@Note", note);
 
-                    int appointmentId = (int)appointmentCommand.ExecuteScalar();
+                    try
+                    {
+                        appointmentId = (int)appointmentCommand.ExecuteScalar();
+                    }
+                    catch (NullReferenceException)
+                    {
+                        throw new SqlAppointmentAlreadyExistsException();
+                    }
+                   
+                    
 
                     SqlCommand userAppointmentCommand = new SqlCommand("SPInsertAppointmentForUser", connection);
                     userAppointmentCommand.CommandType = CommandType.StoredProcedure;

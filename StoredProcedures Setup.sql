@@ -83,37 +83,6 @@ BEGIN
 END
 GO
 
-CREATE PROC SPUpdateAppointment
-@AppointmentId int,
-@DateAndTime datetime2,
-@Note nvarchar(max)
-AS
-BEGIN
-	UPDATE PN_Appointment
-	SET 
-	DateAndTime = @DateAndTime,
-	Note = @Note
-	WHERE PN_Appointment.Id = @AppointmentId
-END
-GO
-
-
-CREATE PROC SPDeleteAppointment
-@AppointmentId int
-AS
-BEGIN
-	DELETE FROM PN_User_Appointment
-	WHERE PN_User_Appointment.AppointmentId IN
-	(
-		SELECT PN_User_Appointment.AppointmentId
-		FROM PN_User_Appointment
-		WHERE PN_User_Appointment.AppointmentId = @AppointmentId
-	)
-	DELETE FROM PN_Invoice WHERE PN_Invoice.AppointmentId = @AppointmentId
-	DELETE FROM PN_Appointment WHERE PN_Appointment.Id = @AppointmentId
-END
-GO
-
 CREATE PROC SPInsertAppointmentForUser
 @UserId int,
 @AppointmentId int
@@ -182,18 +151,6 @@ BEGIN
 	WHERE	Id = @Journal_EntryId
 END
 GO
-
---CREATE PROCEDURE SPUpdatePractitioner
---@PractitonerId int,
---@UserId int
-
---AS
---BEGIN
---	UPDATE PN_Practitioner
-	--SET		UserId = @UserId
-	--WHERE   Id = @PractitonerId
---END
---GO
 
 CREATE PROCEDURE SPUpdateRoom
 @RoomId int,
@@ -281,13 +238,15 @@ CREATE PROC SPInsertAppointmentOutId
 @Note nvarchar(max)
 
 AS
-BEGIN
-
-
+	IF NOT EXISTS
+	 (SELECT PN_Appointment.DateAndTime, PN_Appointment.RoomId FROM PN_Appointment
+		WHERE PN_Appointment.DateAndTime = @DateAndTime AND
+		PN_Appointment.RoomId = @RoomId
+	 )
+	BEGIN
 	INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note)
 	OUTPUT inserted.Id
 	VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note)
-
 END
 GO
 CREATE PROCEDURE SPGetAllAppointments
