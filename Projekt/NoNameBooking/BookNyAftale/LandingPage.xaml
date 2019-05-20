@@ -111,7 +111,7 @@
         </Grid>
         <ComboBox HorizontalAlignment="Center" Margin="889,95,5,0" VerticalAlignment="Top" Width="178" Name="cmbbPractitioner" DropDownClosed="CmbbPractitioner_DropDownClosedEvent"/>
         <Button Content="I dag" HorizontalAlignment="Center" Margin="889,133,69,0" VerticalAlignment="Top" Width="114" Name="btnToday" Click="BtnToday_OnClick"/>
-        <Button Content="-" HorizontalAlignment="Center" Margin="1010,133,34,0" VerticalAlignment="Top" Width="28" Name="btnBack" Click="BtnBack_OnClick"/>
-        <Button Content="+" HorizontalAlignment="Center" Margin="1031,133,0,0" VerticalAlignment="Top" Width="28" Name="btnForward" Click="BtnForward_OnClick"/>
+        <Button Content="←" HorizontalAlignment="Center" Margin="1010,133,34,0" VerticalAlignment="Top" Width="28" Name="btnBack" Click="BtnBack_OnClick"/>
+        <Button Content="→" HorizontalAlignment="Center" Margin="1031,133,0,0" VerticalAlignment="Top" Width="28" Name="btnForward" Click="BtnForward_OnClick"/>
     </Grid>
 </Window>

@@ -140,12 +140,12 @@ namespace ApplicationClassLibrary
             return availableTimes.ConvertAll(time => time.ToShortTimeString());
         }
 
-        public void CreateAppointment(DateTime dateAndTime, string timeString, string departmentName, string clientName,
+        public void CreateAppointment(DateTime date, string timeString, string departmentName, string clientName,
             string practitionerName, string appointmentTypeString, string note)
         {
             DateTime appointmentTime = InputValidator.ConvertShortTimeStringToDateTime(timeString);
 
-            dateAndTime = dateAndTime.AddHours(appointmentTime.Hour);
+            date = date.AddHours(appointmentTime.Hour);
 
             Client tempClient = _clientRepo.GetClient(clientName);
 
@@ -153,11 +153,11 @@ namespace ApplicationClassLibrary
             AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
 
             Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
-            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime, tempAppointmentType.Duration);
+            Room tempRoom = tempDepartment.GetAvailableRoom(date, tempAppointmentType.Duration);
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
 
-            _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
+            _appointmentRepo.CreateAndAddAppointment(date, tempRoom, users,
                 tempAppointmentType, note);
         }
 

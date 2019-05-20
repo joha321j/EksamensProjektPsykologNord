@@ -51,6 +51,38 @@ DROP PROC IF EXISTS SPUpdateAppointment
 
 GO
 
+
+CREATE PROC SPUpdateAppointment
+@AppointmentId int,
+@DateAndTime datetime2,
+@Note nvarchar(max)
+AS
+BEGIN
+	UPDATE PN_Appointment
+	SET 
+	DateAndTime = @DateAndTime,
+	Note = @Note
+	WHERE PN_Appointment.Id = @AppointmentId
+END
+GO
+
+
+CREATE PROC SPDeleteAppointment
+@AppointmentId int
+AS
+BEGIN
+	DELETE FROM PN_User_Appointment
+	WHERE PN_User_Appointment.AppointmentId IN
+	(
+		SELECT PN_User_Appointment.AppointmentId
+		FROM PN_User_Appointment
+		WHERE PN_User_Appointment.AppointmentId = @AppointmentId
+	)
+	DELETE FROM PN_Invoice WHERE PN_Invoice.AppointmentId = @AppointmentId
+	DELETE FROM PN_Appointment WHERE PN_Appointment.Id = @AppointmentId
+END
+GO
+
 CREATE PROC SPUpdateAppointment
 @AppointmentId int,
 @DateAndTime datetime2,
@@ -92,6 +124,155 @@ BEGIN
 END
 GO
 
+
+CREATE PROCEDURE SPUpdateClient
+@MedicalRefferal bit,
+@JournalId int,
+@SocialSecurityNumber int,
+@ClintId int
+
+AS
+BEGIN
+	UPDATE PN_Client
+	SET		MedicalReferral = @MedicalRefferal,
+			Journalid = @JournalId,
+			SocialSecurityNumber = @SocialSecurityNumber
+	WHERE	Id = @ClintId
+END
+GO
+
+CREATE PROCEDURE SPUpdateDepartment
+@DepartmentId int,
+@Address nvarchar(max),
+@Name nvarchar(max)
+
+AS
+BEGIN
+	UPDATE PN_Department
+	SET		Address = @Address,
+			Name = @Name
+	WHERE	Id = @DepartmentId
+END
+GO
+
+CREATE PROCEDURE SPUpdateInvoice
+@InvoiceId int,
+@DueDate datetime2,
+@AppointmentId int
+
+AS
+BEGIN
+	UPDATE PN_Invoice
+	SET		DueDate = @DueDate,
+			AppointmentId = @AppointmentId
+	WHERE	Id = @InvoiceId
+END
+GO
+
+CREATE PROCEDURE SPUpdateJournal_Entry
+@Journal_EntryId int,
+@JournalId int,
+@Text nvarchar(max)
+
+AS
+BEGIN
+	UPDATE PN_Journal_Entry
+	SET		JournalId = @JournalId,
+			Text = @Text
+	WHERE	Id = @Journal_EntryId
+END
+GO
+
+--CREATE PROCEDURE SPUpdatePractitioner
+--@PractitonerId int,
+--@UserId int
+
+--AS
+--BEGIN
+--	UPDATE PN_Practitioner
+	--SET		UserId = @UserId
+	--WHERE   Id = @PractitonerId
+--END
+--GO
+
+CREATE PROCEDURE SPUpdateRoom
+@RoomId int,
+@DepartmentId int,
+@Name nvarchar(max)
+
+AS
+BEGIN
+	UPDATE PN_ROOM
+	SET		DepartmentId = @DepartmentId,
+			Name = @Name
+	WHERE	Id = @RoomId
+END
+GO
+
+CREATE PROCEDURE SPUpdateAppointmentType
+@AppointmentTypeId int,
+@Name nvarchar(max),
+@Duration datetime2(7),
+@StandardPrice float
+
+AS
+BEGIN
+	UPDATE	PN_AppointmentType
+	SET		Name = @Name,
+			Duration = @Duration,
+			StandardPrice = @StandardPrice
+	WHERE	Id = @AppointmentTypeId
+END
+GO
+
+CREATE PROCEDURE SPUdateUser
+@UserId int,
+@Name nvarchar(max),
+@Address nvarchar(max),
+@PhoneNumber nvarchar(12),
+@Email nvarchar(max)
+
+AS
+BEGIN
+	UPDATE PN_User
+	SET		name = @Name,
+			Address = @Address,
+			PhoneNumber = @PhoneNumber,
+			Email = @Email
+	WHERE	Id = @UserId
+END
+GO
+
+CREATE PROCEDURE SPDeleteClient
+@ClientId int
+
+AS
+BEGIN
+	DELETE from PN_Client
+	WHERE	Id = @ClientId
+END
+GO
+
+CREATE PROCEDURE SPDeleteDepartment
+@DepartmentId int
+
+AS
+BEGIN
+	DELETE from PN_Department
+	WHERE	Id = @DepartmentId
+END
+GO
+
+CREATE PROCEDURE SPDeleteInvoice
+@InvoiceId int
+
+AS
+BEGIN
+	DELETE from PN_Invoice
+	WHERE Id = @InvoiceId
+END
+GO
+
 CREATE PROC SPInsertAppointmentOutId
 @DateAndTime datetime2,
 @RoomId int,
@@ -101,6 +282,7 @@ CREATE PROC SPInsertAppointmentOutId
 
 AS
 BEGIN
+
 
 	INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note)
 	OUTPUT inserted.Id
