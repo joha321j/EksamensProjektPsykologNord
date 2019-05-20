@@ -57,5 +57,21 @@ namespace ApplicationClassLibrary
 
             return tempDepartment.GetAvailableTimes(selectedDateValue);
         }
+
+        public DepartmentView GetDepartmentViewFromRoomId(int id)
+        {
+            DepartmentView department;
+            Department tempDepartment = _departments.Find(depart => depart.Rooms.Exists(room => room.Id == id));
+            department = new DepartmentView(tempDepartment.Id,tempDepartment.Name);
+            return department;
+        }
+
+        internal RoomView GetRoomByAppointmentId(int appointmentId, string departmentName)
+        {
+            Department tempDepartment = _departments.Find(depart => depart.Name == departmentName);            
+            Room tempRoom = tempDepartment.GetRoomByAppointmnetId(appointmentId);
+            RoomView roomView = new RoomView(tempRoom.Id, tempRoom.Name);
+            return roomView;
+        }
     }
 }

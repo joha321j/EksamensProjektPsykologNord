@@ -17,6 +17,6 @@ namespace PersistencyClassLibrary
         
         int SaveUser(string clientName, string clientAddress, string clientPhoneNumber, string clientEmail);
         void SaveClient(int clientId, string clientNote, string clientSsn);
-
+        void EditAppointment(Appointment appointment);
     }
 }

@@ -313,7 +313,14 @@ namespace PersistencyClassLibrary
 
         public void RemoveAppointment(int appointmentId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SPDeleteAppointment", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AppointmentId", appointmentId);
+                command.ExecuteNonQuery();
+            }
         }
 
         /// <summary>
@@ -384,6 +391,21 @@ namespace PersistencyClassLibrary
                 /// TODO: Actually handle the exception!
                 throw e;
             }
-        }       
+        }
+
+        public void EditAppointment(Appointment appointment)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SPUpdateAppointment", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AppointmentId", appointment.Id);
+                command.Parameters.AddWithValue("@DateAndTime", appointment.DateAndTime);
+                command.Parameters.AddWithValue("@Note", appointment.Note);
+
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

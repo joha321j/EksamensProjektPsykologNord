@@ -55,5 +55,17 @@ namespace ApplicationClassLibrary
         {
             return _practitioners;
         }
+
+        internal bool IsPractitioner(UserView user)
+        {
+            return _practitioners.Exists(practitioner => practitioner.Id == user.Id);
+        }
+
+        internal AppointmentType GetTreatmentByTreatmentName(string typeName, string practitionerName)
+        {
+            Practitioner tempPrac = _practitioners.Find(prac => prac.Name == practitionerName);
+            AppointmentType appoType = tempPrac.GetAppointmentType(typeName);
+            return appoType;
+        }
     }
 }

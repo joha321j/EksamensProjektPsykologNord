@@ -30,7 +30,7 @@ namespace BookNyAftale
             _controller = Controller.GetInstance();
             UpdateDepartmentComboBox();
             AppointmentView appoView = GetAppointmentById(appointmentId);
-            updateWPF(appoView);
+            UpdateEditWPF(appoView);
         }
         private void UpdatePractitionerComboBox()
         {
@@ -112,7 +112,11 @@ namespace BookNyAftale
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdatePractitionerComboBox();
+            if (cmbbPractitioner.SelectedValue.ToString() == "")
+            {
+                UpdatePractitionerComboBox();
+            }
+            
         }
 
         private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -143,7 +147,7 @@ namespace BookNyAftale
 
         private void UpdateTreatmentComboBox()
         {
-            List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
+            List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectedItem.ToString());
 
             cmbbAppointmentType.ItemsSource = treatments;
             cmbbAppointmentType.SelectedIndex = 0;
@@ -160,14 +164,59 @@ namespace BookNyAftale
             return view;
         }
 
-        public void updateWPF(AppointmentView appoView)
+        public void UpdateEditWPF(AppointmentView appoView)
         {
-            UserView client = new UserView();
-            foreach (UserView user in appoView.Users)
+            List<UserView> clients = _controller.GetClientsFromAppointmentView(appoView);
+            List<UserView> practitioners = _controller.GetPractitionerFromAppointmentView(appoView);
+            if (clients.Count >= 2)
             {
-                client = _controller.isClient(user);
+                cmbbClient.Items.Add(clients[0].Name+" & "+clients[1].Name);
+                cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(clients[0].Name+" & "+clients[1].Name);
+                cmbbClient.IsEnabled = false;
             }
-            cmbbClient.Items.Add(client.Name);
+            else if (clients.Count == 1)
+            {
+                cmbbClient.Items.Add(clients[0].Name);
+                cmbbClient.SelectedIndex = cmbbClient.Items.IndexOf(clients[0].Name);
+                cmbbClient.IsEnabled = false;
+            }                                            
+            foreach (UserView prac in practitioners)
+            {
+                cmbbPractitioner.Items.Add(prac.Name);
+                cmbbPractitioner.SelectedIndex = cmbbPractitioner.Items.IndexOf(prac.Name);                
+            }
+            cmbbPractitioner.IsEnabled = false;
+
+            DepartmentView departmentView = _controller.GetDepartmentViewFromRoomId(appoView.RoomView.Id);
+            cmbbDepartment.SelectedIndex = cmbbDepartment.Items.IndexOf(departmentView.Name);
+            cmbbDepartment.IsEnabled = false;
+            dpAppointmentDate.SelectedDate = appoView.DateAndTime.Date;           
+            cmbbAppointmentTime.SelectedIndex = cmbbAppointmentTime.Items.IndexOf(appoView.DateAndTime.ToString("H:mm"));
+            txtNotes.Text = appoView.Note;
+            cmbbAppointmentType.IsEnabled = false;
+            lblHiddenId.Content = appoView.Id;
+        }
+
+        private void BtnRemoveAppointment_Click(object sender, RoutedEventArgs e)
+        {            
+            _controller.RemoveAppointment(int.Parse(lblHiddenId.Content.ToString()));
+            this.Close();
+        }
+
+        private void BtnSaveAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            int appoId = int.Parse(lblHiddenId.Content.ToString());
+            string selectedTime = cmbbAppointmentTime.SelectedValue.ToString();
+            string selectedHour = selectedTime.Split(':')[0];
+            DateTime dateTime = new DateTime(dpAppointmentDate.SelectedDate.Value.Year, dpAppointmentDate.SelectedDate.Value.Month, dpAppointmentDate.SelectedDate.Value.Day,
+                int.Parse(selectedHour), 00, 00);
+            
+            AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
+            RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
+            AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
+            AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users,typeView, room, txtNotes.Text, tempAppoView.Price);
+            _controller.EditAppointment(appoView);
+            this.Close();
         }
     }
 }
