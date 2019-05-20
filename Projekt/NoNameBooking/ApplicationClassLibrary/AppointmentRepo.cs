@@ -19,7 +19,7 @@ namespace ApplicationClassLibrary
         {
             _persistable = persistable;
             _appointments = _persistable.GetAppointments(users, departments);
-            UpdateAppointmentEmailList updateAppointmentEmailList = new UpdateAppointmentEmailList(_appointments);
+            AppointmentNotification updateAppointmentEmailList = new AppointmentNotification(_appointments, this);
         }
 
         public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users, List<Department> departments)
@@ -125,7 +125,7 @@ namespace ApplicationClassLibrary
 
         public void sendEmail()
         {
-            UpdateAppointmentEmailList emailList = new UpdateAppointmentEmailList(_appointments);
+            AppointmentNotification emailList = new AppointmentNotification(_appointments);
             emailList.emailUpdateThread();
         }
     }

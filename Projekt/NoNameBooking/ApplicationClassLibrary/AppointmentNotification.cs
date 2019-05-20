@@ -7,23 +7,25 @@ using System.Threading;
 
 namespace ApplicationClassLibrary
 {
-    class UpdateAppointmentEmailList
+    class AppointmentNotification
     {
         List<Appointment> appointments = new List<Appointment>();
         MailNotification mailNotification = new MailNotification();
         private IPersistable _persistable;
         private readonly ClientRepo _clientRepo;
+        private readonly AppointmentRepo _appointsmentRepo;
 
-        public UpdateAppointmentEmailList(Appointment appointment)
-        {
-            appointments.Add(appointment);
-            _clientRepo = ClientRepo.GetInstance(_persistable);
-        }
-
-        public UpdateAppointmentEmailList(List<Appointment> tempAppointments)
+        public AppointmentNotification(List<Appointment> tempAppointments, AppointmentRepo appointmentRepo)
         {
             appointments = tempAppointments;
             _clientRepo = ClientRepo.GetInstance(_persistable);
+            _appointsmentRepo = appointmentRepo;
+            appointmentRepo.NewAppointmentEventHandler += UpdateAppointsments;
+        }
+
+        private void UpdateAppointsments(object sender, EventArgs e)
+        {
+            appointments = _appointsmentRepo.GetAppointments();
         }
 
         public void emailUpdateThread()

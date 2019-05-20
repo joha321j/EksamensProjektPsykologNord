@@ -16,11 +16,11 @@ namespace ApplicationClassLibrary
             message.From.Add(new MailboxAddress("Kaare Veggerby Sandbøl", "kaar1498@edu.eal.dk"));
             message.To.Add(new MailboxAddress(user.Name, user.Email));
 
-            message.Subject = "Test-Email";
+            message.Subject = "Test-Email to "+ user.Name;
 
             message.Body = new TextPart("plain")
             {
-                Text = @"This is a test email to" + user.Name + "." +
+                Text = @"This is a test email to " + user.Name + "." +
                 "\n We hope you recieved this message in good health" +
                 "\n Kinds regards" +
                 "\n Semplito Booking"
