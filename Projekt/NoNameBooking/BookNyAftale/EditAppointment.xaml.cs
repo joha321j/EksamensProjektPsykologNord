@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -30,7 +30,7 @@ namespace BookNyAftale
             _controller = Controller.GetInstance();
             UpdateDepartmentComboBox();
             AppointmentView appoView = GetAppointmentById(appointmentId);
-            UpdateEditWPF(appoView);
+            UpdateEditWpf(appoView);
         }
         private void UpdatePractitionerComboBox()
         {
@@ -66,48 +66,6 @@ namespace BookNyAftale
             }
 
             cmbbAppointmentTime.SelectedIndex = 0;
-        }
-
-        private void UpdateClientComboBox(object sender)
-        {
-            List<string> clients = _controller.GetClientNames();
-
-            cmbbClient.ItemsSource = clients;
-            cmbbClient.SelectedIndex = 0;
-
-
-            cmbbClient.SelectedItem = sender;
-        }
-
-        private void BtnAddClient_Click(object sender, RoutedEventArgs e)
-        {
-            AddClient addClient = new AddClient();
-            addClient.Show();
-        }
-
-        private void ClientRepoClientCreationHandler(object sender, EventArgs args)
-        {
-            UpdateClientComboBox(sender);
-        }
-
-        private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
-        {
-            DateTime date = default(DateTime);
-            if (dpAppointmentDate.SelectedDate != null)
-            {
-                date = (DateTime)dpAppointmentDate.SelectedDate;
-            }
-
-            try
-            {
-                _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
-                    cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
-            }
-            catch (InvalidInputException exception)
-            {
-                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -164,7 +122,7 @@ namespace BookNyAftale
             return view;
         }
 
-        public void UpdateEditWPF(AppointmentView appoView)
+        public void UpdateEditWpf(AppointmentView appoView)
         {
             List<UserView> clients = _controller.GetClientsFromAppointmentView(appoView);
             List<UserView> practitioners = _controller.GetPractitionerFromAppointmentView(appoView);
@@ -198,25 +156,49 @@ namespace BookNyAftale
         }
 
         private void BtnRemoveAppointment_Click(object sender, RoutedEventArgs e)
-        {            
-            _controller.RemoveAppointment(int.Parse(lblHiddenId.Content.ToString()));
-            this.Close();
+        {
+            try
+            {
+                _controller.RemoveAppointment(int.Parse(lblHiddenId.Content.ToString()));
+                Close();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
+                    "Fejl!!!", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            
         }
 
         private void BtnSaveAppointment_Click(object sender, RoutedEventArgs e)
         {
-            int appoId = int.Parse(lblHiddenId.Content.ToString());
-            string selectedTime = cmbbAppointmentTime.SelectedValue.ToString();
-            string selectedHour = selectedTime.Split(':')[0];
-            DateTime dateTime = new DateTime(dpAppointmentDate.SelectedDate.Value.Year, dpAppointmentDate.SelectedDate.Value.Month, dpAppointmentDate.SelectedDate.Value.Day,
-                int.Parse(selectedHour), 00, 00);
+            try
+            {
+                int appoId = int.Parse(lblHiddenId.Content.ToString());
+                string selectedTime = cmbbAppointmentTime.SelectedValue.ToString();
+                string selectedHour = selectedTime.Substring(0, 2);
+                if (dpAppointmentDate.SelectedDate != null)
+                {
+                    DateTime dateTime = new DateTime(dpAppointmentDate.SelectedDate.Value.Year, dpAppointmentDate.SelectedDate.Value.Month, dpAppointmentDate.SelectedDate.Value.Day,
+                        int.Parse(selectedHour), 00, 00);
+
+                    AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
+                    RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
+                    AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
+                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, room, txtNotes.Text, tempAppoView.Price);
+                    _controller.EditAppointment(appoView);
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
+                    "Fejl!!!", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
             
-            AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
-            RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
-            AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
-            AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users,typeView, room, txtNotes.Text, tempAppoView.Price);
-            _controller.EditAppointment(appoView);
-            this.Close();
+
+            Close();
         }
     }
 }

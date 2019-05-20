@@ -19,7 +19,7 @@ namespace ApplicationClassLibrary
 
         private Controller()
         {
-            _persistable = new DBController();
+            _persistable = new DbController();
             _clientRepo = ClientRepo.GetInstance(_persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
