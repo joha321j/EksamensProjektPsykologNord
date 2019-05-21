@@ -14,7 +14,7 @@ namespace UnitTestProject
     public class AppointmentRepoUnitTest
     {
         private AppointmentRepo _instance;
-        private TestDBController _dbController;
+        private TestDbController _dbController;
         private Controller _controller;
         private DepartmentRepo _departmentRepo;
         List<User> users = new List<User>();
@@ -24,7 +24,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void AppointmentRepoSetup()
         {
-            _dbController = new TestDBController();
+            _dbController = new TestDbController();
             _controller = Controller.GetInstance();
             _departmentRepo = DepartmentRepo.GetInstance(_dbController, practitioners);
             departments = _departmentRepo.GetDepartments();

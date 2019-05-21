@@ -16,7 +16,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void ClientRepoTestInitialize()
         {
-            _dbController = new TestDBController();
+            _dbController = new TestDbController();
             _clientRepo = ClientRepo.GetInstance(_dbController);
         }
 
@@ -52,7 +52,7 @@ namespace UnitTestProject
             string clientSSN = "12346578";
             string clientNote = "Dette er vores testnote.";
 
-            _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSSN, clientNote);
+            _clientRepo.CreateAndAddClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSSN, clientNote);
 
             Assert.AreEqual(_clientRepo.GetClient(clientName).Name, clientName);
             Assert.AreEqual(_clientRepo.GetClient(clientName).Address, clientAddress);

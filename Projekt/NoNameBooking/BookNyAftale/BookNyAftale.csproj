@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Crab_Nebula.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -178,9 +181,16 @@
       <Project>{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}</Project>
       <Name>ModelClassLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PersistencyClassLibrary\PersistencyClassLibrary.csproj">
+      <Project>{BDC3694E-1616-4288-A316-BCC7073BECFC}</Project>
+      <Name>PersistencyClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Crab_Nebula.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

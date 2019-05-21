@@ -10,7 +10,7 @@ namespace ApplicationClassLibrary
         private static IPersistable _persistable;
         private static ClientRepo _instance;
 
-        private readonly List<Client> _clients;
+        private List<Client> _clients;
 
         public EventHandler NewClientEventHandler;
 
@@ -25,17 +25,22 @@ namespace ApplicationClassLibrary
             return _instance ?? (_instance = new ClientRepo(persistable));
         }
 
-        public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
+        public void CreateAndAddClient(string clientName, string clientEmail, string clientPhoneNumber,
             string clientAddress, string clientSsn, string clientNote)
         {
             int clientId = _persistable.SaveUser(clientName, clientAddress, clientPhoneNumber, clientEmail);
             _persistable.SaveClient(clientId, clientNote, clientSsn);
 
-            Client newClient = new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
+            Client newClient = CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
             
             _clients.Add(newClient);
 
             NewClientEventHandler?.Invoke(newClient, EventArgs.Empty);
+        }
+
+        private Client CreateClient(string clientName, string clientEmail, string clientPhoneNumber, string clientAddress, string clientSsn, string clientNote, int clientId)
+        {
+            return new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
         }
 
 
@@ -63,6 +68,11 @@ namespace ApplicationClassLibrary
         public void Reset()
         {
             _instance = null;
+        }
+
+        public void Update()
+        {
+            _clients = _persistable.GetClients();
         }
     }
 }
