@@ -91,6 +91,7 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
+            TimeSpan timeSpan = TimeSpan.FromHours(24); //This is a default value that NEEDS to change
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
             {
@@ -101,7 +102,7 @@ namespace BookNyAftale
             {
                 _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text, timeSpan, (bool)cbEmail.IsChecked,(bool)cbSMS.IsChecked);
             }
             catch (InvalidInputException exception)
             {

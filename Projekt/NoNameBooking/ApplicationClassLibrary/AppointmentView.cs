@@ -13,6 +13,9 @@ namespace ApplicationClassLibrary
         public RoomView RoomView { get; set; }
         public string Note { get; set; }
         public double Price { get; set; }
+        public Boolean EmailNotification { get; set; }
+        public Boolean SMSNotification { get; set; }
+        public TimeSpan NotficationTime { get; set; }
         public AppointmentView(int id, DateTime dateAndTime, AppointmentTypeView appointmentType)
         {
             Id = id;
@@ -20,7 +23,7 @@ namespace ApplicationClassLibrary
             TypeView = appointmentType;
         }
 
-        public AppointmentView(int id, DateTime dateAndTime,List<UserView> users, AppointmentTypeView appointmentType, RoomView room,string note, double price)
+        public AppointmentView(int id, DateTime dateAndTime,List<UserView> users, AppointmentTypeView appointmentType, RoomView room,string note, double price, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
             Id = id;
             this.DateAndTime = dateAndTime;
@@ -29,6 +32,9 @@ namespace ApplicationClassLibrary
             RoomView = room;
             Note = note;
             Price = price;
+            EmailNotification = emailNotification;
+            SMSNotification = smsNotification;
+            NotficationTime = notificationTime;
         }
     }
 }

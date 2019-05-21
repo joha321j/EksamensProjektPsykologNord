@@ -141,7 +141,7 @@ namespace ApplicationClassLibrary
         }
 
         public void CreateAppointment(DateTime date, string timeString, string departmentName, string clientName,
-            string practitionerName, string appointmentTypeString, string note)
+            string practitionerName, string appointmentTypeString, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
             DateTime appointmentTime = InputValidator.ConvertShortTimeStringToDateTime(timeString);
 
@@ -158,7 +158,7 @@ namespace ApplicationClassLibrary
             List<User> users = new List<User>() {tempClient, tempPractitioner};
 
             _appointmentRepo.CreateAndAddAppointment(date, tempRoom, users,
-                tempAppointmentType, note);
+                tempAppointmentType, note, notificationTime, emailNotification, smsNotification);
         }
 
         public List<UserView> GetPractitionerFromAppointmentView(AppointmentView appoView)

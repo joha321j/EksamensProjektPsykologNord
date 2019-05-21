@@ -102,7 +102,7 @@ namespace BookNyAftale
             {
                 _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text, (TimeSpan)cmbbNotificationTime.SelectionBoxItem, (bool)cbEmail.IsChecked, (bool)cbSMS.IsChecked);
             }
             catch (InvalidInputException exception)
             {
@@ -214,7 +214,7 @@ namespace BookNyAftale
             AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
             RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
             AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
-            AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users,typeView, room, txtNotes.Text, tempAppoView.Price);
+            AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users,typeView, room, txtNotes.Text, tempAppoView.Price, tempAppoView.NotficationTime, tempAppoView.EmailNotification, tempAppoView.SMSNotification);
             _controller.EditAppointment(appoView);
             this.Close();
         }

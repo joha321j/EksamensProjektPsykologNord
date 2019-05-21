@@ -32,17 +32,17 @@ namespace ApplicationClassLibrary
             _appointments.Add(appointment);
         }
 
-        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
+        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
-            Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note);
+            Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note, notificationTime, emailNotification, smsNotification);
             AddAppointment(tempAppointment);
             _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
             NewAppointmentEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
         }
 
-        private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note)
+        private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
-            return new Appointment(dateAndTime, users, appointmentType, room, note);
+            return new Appointment(dateAndTime, users, appointmentType, room, note, notificationTime, emailNotification, smsNotification);
         }
 
         public void ResetInstance()
@@ -76,7 +76,7 @@ namespace ApplicationClassLibrary
                         RoomView roomView = new RoomView(item.Location.Id,item.Location.Name);
                         AppointmentView appView = new AppointmentView(item.Id, item.DateAndTime, userViews,
                             new AppointmentTypeView(item.AppointmentType.Id, item.AppointmentType.Name,
-                                item.AppointmentType.Duration, item.AppointmentType.StandardPrice), roomView, item.Note,item.Price);
+                                item.AppointmentType.Duration, item.AppointmentType.StandardPrice), roomView, item.Note,item.Price, item.NotficationTime, item.EmailNotification, item.SMSNotification);
 
                         appointments.Add(appView);
                     }
@@ -108,7 +108,7 @@ namespace ApplicationClassLibrary
             }
             AppointmentTypeView typeView = new AppointmentTypeView(appo.AppointmentType.Id, appo.AppointmentType.Name, appo.AppointmentType.Duration, appo.AppointmentType.StandardPrice);
             RoomView roomView = new RoomView(appo.Location.Id, appo.Location.Name);
-            AppointmentView appoView = new AppointmentView(appo.Id, appo.DateAndTime, userViews, typeView, roomView, appo.Note, appo.Price);
+            AppointmentView appoView = new AppointmentView(appo.Id, appo.DateAndTime, userViews, typeView, roomView, appo.Note, appo.Price, appo.NotficationTime, appo.EmailNotification, appo.SMSNotification);
                                     
             return appoView;
         }

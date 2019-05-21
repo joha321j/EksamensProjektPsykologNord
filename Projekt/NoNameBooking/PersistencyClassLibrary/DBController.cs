@@ -86,7 +86,7 @@ namespace PersistencyClassLibrary
                             AppointmentType tempAppointmentType = new AppointmentType(reader.GetString(5),
                                 reader.GetDouble(7), reader.GetTimeSpan(6), reader.GetInt32(4));
                             Appointment newAppointment = new Appointment(reader.GetDateTime(1), tempUsers,
-                                tempAppointmentType, tempRoom, reader.GetString(8), reader.GetDouble(9),
+                                tempAppointmentType, tempRoom, reader.GetString(8), reader.GetTimeSpan(9), reader.GetBoolean(10), reader.GetBoolean(11),reader.GetDouble(12),
                                 reader.GetInt32(0));
 
                             listOfAppointments.Add(newAppointment);
