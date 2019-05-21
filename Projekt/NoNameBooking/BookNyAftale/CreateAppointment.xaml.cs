@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using ApplicationClassLibrary;
+using PersistencyClassLibrary;
 
 namespace BookNyAftale
 {
@@ -104,12 +106,32 @@ namespace BookNyAftale
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
                     cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text, timeSpan, (bool)cbEmail.IsChecked,(bool)cbSMS.IsChecked);
             }
-            catch (InvalidInputException exception)
+            catch (Exception exception) when (exception is InvalidInputException || exception is SqlException || exception is SqlAppointmentAlreadyExistsException)
             {
-                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (exception is SqlAppointmentAlreadyExistsException)
+                {
+                    MessageBox.Show("Kunne ikke oprette en aftale dette tidspunkt.\nPrøv igen med et andet tidspunkt", "Aftale eksistere allerede",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (exception is InvalidInputException)
+                {
+                    MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
+                        "Fejl!!!", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    Close();
+                }
+
+                _controller.UpdateRepos();
+                UpdateAppointmentDates();
+                UpdateAppointmentTimeComboBox();
             }
 
-            Close();
+
         }
 
         private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)
@@ -201,8 +223,6 @@ namespace BookNyAftale
                     btnCreateAppointment.IsEnabled = true;
                 }
             }
-            
-
 
         }
 

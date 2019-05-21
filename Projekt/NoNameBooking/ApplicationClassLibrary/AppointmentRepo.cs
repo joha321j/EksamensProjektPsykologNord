@@ -11,7 +11,7 @@ namespace ApplicationClassLibrary
         private IPersistable _persistable;
         private static AppointmentRepo _instance;
 
-        private readonly List<Appointment> _appointments = new List<Appointment>();
+        private List<Appointment> _appointments;
 
         public event EventHandler NewAppointmentEventHandler;
 
@@ -59,19 +59,17 @@ namespace ApplicationClassLibrary
         {
             
             List<AppointmentView> appointments = new List<AppointmentView>();
-            foreach (Appointment item in _appointments)
+            foreach (Appointment appointment in _appointments)
             {
-                foreach (User person in item.Participants)
+                foreach (User person in appointment.Participants)
                 {
                     if (person.Id == id)
                     {
                         List<UserView> userViews = new List<UserView>();
-                        int i = 0;
-                        foreach (User user in item.Participants)
+                        foreach (User user in appointment.Participants)
                         {
-                            UserView view = new UserView(item.Participants[i].Id, item.Participants[i].Name, item.Participants[1].PhoneNumber, item.Participants[1].Address, item.Participants[1].Email);
+                            UserView view = new UserView(user.Id, user.Name, user.PhoneNumber, user.Address, user.Email);
                             userViews.Add(view);
-                            i++;
                         }
                         RoomView roomView = new RoomView(item.Location.Id,item.Location.Name);
                         AppointmentView appView = new AppointmentView(item.Id, item.DateAndTime, userViews,
@@ -127,6 +125,9 @@ namespace ApplicationClassLibrary
         {
             AppointmentNotification emailList = new AppointmentNotification(_appointments, _instance);
             emailList.emailUpdateThread();
+        public void Update()
+        {
+            _appointments = GetAppointments();
         }
     }
 }

@@ -48,38 +48,41 @@ DROP PROC IF EXISTS SPGetAppointmentsById
 DROP PROC IF EXISTS SPDeleteAppointment
 DROP PROC IF EXISTS SPGetAppointmentById
 DROP PROC IF EXISTS SPUpdateAppointment
+DROP PROC IF EXISTS SPInsertUserOutId
 
 GO
 
-
-CREATE PROC SPUpdateAppointment
-@AppointmentId int,
-@DateAndTime datetime2,
-@Note nvarchar(max)
+CREATE PROC SPDeleteUser @UserId int
 AS
 BEGIN
-	UPDATE PN_Appointment
-	SET 
-	DateAndTime = @DateAndTime,
-	Note = @Note
-	WHERE PN_Appointment.Id = @AppointmentId
+DELETE FROM PN_User
+WHERE PN_User.Id = @UserId
 END
 GO
 
-
-CREATE PROC SPDeleteAppointment
-@AppointmentId int
+CREATE PROC SPInsertClient
+@ClientId int,
+@MedicalRefferal bit,
+@JournalId int,
+@Note NVARCHAR(MAX),
+@SocialSecurityNumber NVARCHAR(MAX)
 AS
 BEGIN
-	DELETE FROM PN_User_Appointment
-	WHERE PN_User_Appointment.AppointmentId IN
-	(
-		SELECT PN_User_Appointment.AppointmentId
-		FROM PN_User_Appointment
-		WHERE PN_User_Appointment.AppointmentId = @AppointmentId
-	)
-	DELETE FROM PN_Invoice WHERE PN_Invoice.AppointmentId = @AppointmentId
-	DELETE FROM PN_Appointment WHERE PN_Appointment.Id = @AppointmentId
+INSERT INTO PN_Client(Id, MedicalReferral, Journalid, Note, SocialSecurityNumber)
+VALUES(@ClientId, @MedicalRefferal, @JournalId, @Note, @SocialSecurityNumber)
+END
+GO
+
+CREATE PROC SPInsertUserOutId
+@Name NVARCHAR(MAX),
+@Address NVARCHAR(MAX),
+@PhoneNumber NVARCHAR(MAX),
+@Email NVARCHAR(MAX)
+AS
+BEGIN
+INSERT INTO PN_User(Name, Address, PhoneNumber, Email)
+OUTPUT inserted.Id
+VALUES (@Name, @Address, @PhoneNumber, @Email)
 END
 GO
 
@@ -183,18 +186,6 @@ BEGIN
 END
 GO
 
---CREATE PROCEDURE SPUpdatePractitioner
---@PractitonerId int,
---@UserId int
-
---AS
---BEGIN
---	UPDATE PN_Practitioner
-	--SET		UserId = @UserId
-	--WHERE   Id = @PractitonerId
---END
---GO
-
 CREATE PROCEDURE SPUpdateRoom
 @RoomId int,
 @DepartmentId int,
@@ -281,13 +272,15 @@ CREATE PROC SPInsertAppointmentOutId
 @Note nvarchar(max)
 
 AS
-BEGIN
-
-
+	IF NOT EXISTS
+	 (SELECT PN_Appointment.DateAndTime, PN_Appointment.RoomId FROM PN_Appointment
+		WHERE PN_Appointment.DateAndTime = @DateAndTime AND
+		PN_Appointment.RoomId = @RoomId
+	 )
+	BEGIN
 	INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note)
 	OUTPUT inserted.Id
 	VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note)
-
 END
 GO
 CREATE PROCEDURE SPGetAllAppointments

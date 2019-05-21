@@ -19,7 +19,7 @@ namespace ApplicationClassLibrary
 
         private Controller()
         {
-            _persistable = new DBController();
+            _persistable = new DbController();
             _clientRepo = ClientRepo.GetInstance(_persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
@@ -63,7 +63,7 @@ namespace ApplicationClassLibrary
             InputValidator.EnsureValidSsn(clientSsn);
             InputValidator.EnsureValidZip(clientAddress);
 
-            _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
+            _clientRepo.CreateAndAddClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
         }
 
         public List<string> GetClientNames()
@@ -263,6 +263,12 @@ namespace ApplicationClassLibrary
         public void EmailTest()
         {
             _appointmentRepo.sendEmail();
+        public void UpdateRepos()
+        {
+            _practitionerRepo.Update();
+            _clientRepo.Update();
+            _appointmentRepo.Update();
+
         }
     }
 }
