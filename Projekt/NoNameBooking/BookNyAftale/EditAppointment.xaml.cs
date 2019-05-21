@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -226,9 +227,9 @@ namespace BookNyAftale
                         int.Parse(selectedHour), 00, 00);
 
                     AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
-                    RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
+                    RoomView roomview = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
                     AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
-                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, room, txtNotes.Text, tempAppoView.Price);
+                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, roomview, txtNotes.Text, tempAppoView.Price, tempAppoView.NotficationTime, tempAppoView.EmailNotification, tempAppoView.SMSNotification);
                     _controller.EditAppointment(appoView);
                 }
             }
@@ -238,12 +239,6 @@ namespace BookNyAftale
                     "Fejl!!!", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
-            
-            AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
-            RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
-            AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
-            AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users,typeView, room, txtNotes.Text, tempAppoView.Price, tempAppoView.NotficationTime, tempAppoView.EmailNotification, tempAppoView.SMSNotification);
-            _controller.EditAppointment(appoView);
             this.Close();
         }
     }

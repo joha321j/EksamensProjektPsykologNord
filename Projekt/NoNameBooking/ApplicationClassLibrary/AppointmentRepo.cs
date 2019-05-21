@@ -36,7 +36,7 @@ namespace ApplicationClassLibrary
         {
             Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note, notificationTime, emailNotification, smsNotification);
             AddAppointment(tempAppointment);
-            _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
+            _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note, notificationTime, emailNotification, smsNotification);
             NewAppointmentEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
         }
 
@@ -71,10 +71,10 @@ namespace ApplicationClassLibrary
                             UserView view = new UserView(user.Id, user.Name, user.PhoneNumber, user.Address, user.Email);
                             userViews.Add(view);
                         }
-                        RoomView roomView = new RoomView(item.Location.Id,item.Location.Name);
-                        AppointmentView appView = new AppointmentView(item.Id, item.DateAndTime, userViews,
-                            new AppointmentTypeView(item.AppointmentType.Id, item.AppointmentType.Name,
-                                item.AppointmentType.Duration, item.AppointmentType.StandardPrice), roomView, item.Note,item.Price, item.NotficationTime, item.EmailNotification, item.SMSNotification);
+                        RoomView roomView = new RoomView(appointment.Location.Id, appointment.Location.Name);
+                        AppointmentView appView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews,
+                            new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name,
+                                appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice), roomView, appointment.Note, appointment.Price, appointment.NotficationTime, appointment.EmailNotification, appointment.SMSNotification);
 
                         appointments.Add(appView);
                     }
@@ -125,6 +125,8 @@ namespace ApplicationClassLibrary
         {
             AppointmentNotification emailList = new AppointmentNotification(_appointments, _instance);
             emailList.emailUpdateThread();
+        }
+
         public void Update()
         {
             _appointments = GetAppointments();

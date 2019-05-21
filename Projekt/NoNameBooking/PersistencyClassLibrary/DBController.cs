@@ -75,8 +75,10 @@ namespace PersistencyClassLibrary
                             Room tempRoom = FindRoom(departments, reader.GetInt32(2)); //FindRoom is a private help method to find the associcated rooms.
                             AppointmentType tempAppointmentType = new AppointmentType(reader.GetString(5),
                                 reader.GetDouble(7), reader.GetTimeSpan(6), reader.GetInt32(4));
+                        int tempTimeInt = reader.GetInt32(10);
+                        TimeSpan tempTimeSpan = TimeSpan.FromHours(tempTimeInt);
                             Appointment newAppointment = new Appointment(reader.GetDateTime(1), tempUsers,
-                                tempAppointmentType, tempRoom, reader.GetString(8), reader.GetTimeSpan(9), reader.GetBoolean(10), reader.GetBoolean(11),reader.GetDouble(12),
+                                tempAppointmentType, tempRoom, reader.GetString(8), tempTimeSpan, reader.GetBoolean(11), reader.GetBoolean(12),reader.GetDouble(9),
                                 reader.GetInt32(0));
 
                         listOfAppointments.Add(newAppointment);
@@ -236,13 +238,13 @@ namespace PersistencyClassLibrary
         /// <param name="appointmentType"></param>
         /// <param name="note"></param>
         public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType,
-            string note)
+            string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
             double
                 price = 0.0; //Only here because of a missing feature where you could change the price according to discounts.
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-
+                
                 int appointmentId;
                 connection.Open();
 
@@ -254,6 +256,9 @@ namespace PersistencyClassLibrary
                 appointmentCommand.Parameters.AddWithValue("@Price", price);
                 appointmentCommand.Parameters.AddWithValue("@AppointmentTypeId", appointmentType.Id);
                 appointmentCommand.Parameters.AddWithValue("@Note", note);
+                appointmentCommand.Parameters.AddWithValue("@Notificationtime", (int)notificationTime.TotalHours);
+                appointmentCommand.Parameters.AddWithValue("@emailNotification", emailNotification);
+                appointmentCommand.Parameters.AddWithValue("@smsNotification", smsNotification);
 
                 try
                 {

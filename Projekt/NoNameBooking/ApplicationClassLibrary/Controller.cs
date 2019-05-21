@@ -263,6 +263,8 @@ namespace ApplicationClassLibrary
         public void EmailTest()
         {
             _appointmentRepo.sendEmail();
+        }
+
         public void UpdateRepos()
         {
             _practitionerRepo.Update();

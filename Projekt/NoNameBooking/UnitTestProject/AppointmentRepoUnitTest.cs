@@ -56,7 +56,7 @@ namespace UnitTestProject
             List<User> users = new List<User>() {testUserOne, testUserTwo};
             AppointmentType tempAppointmentType = new AppointmentType("Help", 2500, TimeSpan.FromHours(10));
             Room testRoom = new Room("Beta");
-            Appointment tempAppointment = new Appointment(date, users, tempAppointmentType, testRoom, "Hey");
+            Appointment tempAppointment = new Appointment(date, users, tempAppointmentType, testRoom, "Hey", TimeSpan.FromHours(5), false, false);
             _instance.AddAppointment(tempAppointment);
         }
 
@@ -70,9 +70,9 @@ namespace UnitTestProject
             AppointmentType tempAppointmentType = new AppointmentType("Help", 2500, TimeSpan.FromHours(10));
             Room testRoom = new Room("Beta");
 
-            Appointment tempAppointment = new Appointment(date, users, tempAppointmentType, testRoom, "Hey");
+            Appointment tempAppointment = new Appointment(date, users, tempAppointmentType, testRoom, "Hey", TimeSpan.FromHours(5), false, false);
 
-            _instance.CreateAndAddAppointment(date, testRoom, users, tempAppointmentType, "Hey");
+            _instance.CreateAndAddAppointment(date, testRoom, users, tempAppointmentType, "Hey", TimeSpan.FromHours(5), false, false);
 
             List<Appointment> compareList = new List<Appointment>(){tempAppointment};
             Assert.IsTrue(_instance.GetAppointments().Exists(appointment => appointment.DateAndTime == date));

@@ -93,7 +93,7 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
-            TimeSpan timeSpan = TimeSpan.FromHours(24); //This is a default value that NEEDS to change
+            TimeSpan timeSpan = TimeSpan.FromHours(12); //This is a default value that NEEDS to change
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
             {
@@ -120,8 +120,8 @@ namespace BookNyAftale
                 else
                 {
                     MessageBox.Show(
-                        "Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
-                        "Fejl!!!", MessageBoxButton.OK,
+                        "Kunne ikke oprette forbindelse til databasen.\nPrøv at checke din internet forbindelse",
+                        "Fejl!", MessageBoxButton.OK,
                         MessageBoxImage.Error);
                     Close();
                 }
@@ -130,8 +130,7 @@ namespace BookNyAftale
                 UpdateAppointmentDates();
                 UpdateAppointmentTimeComboBox();
             }
-
-
+            this.Close();
         }
 
         private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)
