@@ -115,8 +115,10 @@ namespace ApplicationClassLibrary
         {            
             Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note);
             Appointment tempAppo = _appointments.Find(appointmentOne => appointmentOne.Id == appointmentView.Id);
+
             tempAppo.DateAndTime = appointmentView.DateAndTime;
             tempAppo.Note = appointmentView.Note;
+
             _persistable.EditAppointment(appointment);
             NewAppointmentEventHandler?.Invoke(appointment, EventArgs.Empty);
         }
