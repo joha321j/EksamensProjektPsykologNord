@@ -37,6 +37,7 @@ namespace ApplicationClassLibrary
         public void EmailSender()
         {
             List<Appointment> removeList = new List<Appointment>();
+
             foreach (Appointment appointment in _appointments)
             {
                 DateTime now = DateTime.Now;
@@ -44,7 +45,6 @@ namespace ApplicationClassLibrary
                 {
                     foreach (User user in appointment.Participants)
                     {
-
                         if (_clientRepo.IsClient(user))
                         {
                            _mailNotification.SendTestMail(user);
@@ -54,6 +54,7 @@ namespace ApplicationClassLibrary
                     
                 }
             }
+
             foreach (Appointment appointment in removeList)
             {
                 _appointments.Remove(appointment);
