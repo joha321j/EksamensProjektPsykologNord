@@ -75,7 +75,7 @@ namespace ApplicationClassLibrary
                         RoomView roomView = new RoomView(appointment.Location.Id, appointment.Location.Name);
                         AppointmentView appView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews,
                             new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name,
-                                appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice), roomView, appointment.Note, appointment.Price, appointment.NotficationTime, appointment.EmailNotification, appointment.SMSNotification);
+                                appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice), roomView, appointment.Note, appointment.Price, appointment.NotificationTime, appointment.EmailNotification, appointment.SmsNotification);
 
                         appointments.Add(appView);
                     }
@@ -106,7 +106,7 @@ namespace ApplicationClassLibrary
 
             AppointmentTypeView typeView = new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name, appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice);
             RoomView roomView = new RoomView(appointment.Location.Id, appointment.Location.Name);
-            AppointmentView appointmentView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews, typeView, roomView, appointment.Note, appointment.Price, appointment.NotficationTime, appointment.EmailNotification, appointment.SMSNotification);
+            AppointmentView appointmentView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews, typeView, roomView, appointment.Note, appointment.Price, appointment.NotificationTime, appointment.EmailNotification, appointment.SmsNotification);
                                     
             return appointmentView;
         }
