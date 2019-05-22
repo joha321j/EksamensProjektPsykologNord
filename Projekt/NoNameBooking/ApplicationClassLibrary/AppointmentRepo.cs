@@ -96,18 +96,18 @@ namespace ApplicationClassLibrary
         {
             Appointment appointment = _appointments.Find(app => app.Id == appoId);
             List<UserView> userViews = new List<UserView>();
-            int i = 0;
+
             foreach (User user in appointment.Participants)
             {
-                UserView view = new UserView(appointment.Participants[i].Id, appointment.Participants[i].Name, appointment.Participants[1].PhoneNumber, appointment.Participants[1].Address, appointment.Participants[1].Email);
+                UserView view = new UserView(user.Id, user.Name, user.PhoneNumber, user.Address, user.Email);
                 userViews.Add(view);
-                i++;
             }
+
             AppointmentTypeView typeView = new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name, appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice);
             RoomView roomView = new RoomView(appointment.Location.Id, appointment.Location.Name);
-            AppointmentView appoView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews, typeView, roomView, appointment.Note, appointment.Price, appointment.NotficationTime, appointment.EmailNotification, appointment.SMSNotification);
+            AppointmentView appointmentView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews, typeView, roomView, appointment.Note, appointment.Price, appointment.NotficationTime, appointment.EmailNotification, appointment.SMSNotification);
                                     
-            return appoView;
+            return appointmentView;
         }
 
         public void EditAppointment(AppointmentView appointmentView)
