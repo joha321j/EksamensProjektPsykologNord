@@ -44,7 +44,11 @@ namespace ApplicationClassLibrary
             {
                 Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note, notificationTime, emailNotification, smsNotification);
                 AddAppointment(tempAppointment);
+
+                _updateAppointmentNotification.AppointmentCreatedNotification(tempAppointment);
+
                 _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note, notificationTime, emailNotification, smsNotification);
+
                 AppointmentsChangedEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
             }
             
@@ -105,6 +109,8 @@ namespace ApplicationClassLibrary
             {
                 _persistable.RemoveAppointment(appointmentId);
                 Appointment appointment = _appointments.Find(appointment1 => appointment1.Id == appointmentId);
+
+                _updateAppointmentNotification.AppointmentDeletedNotification(appointment);
                 _appointments.Remove(appointment);
             }
             
@@ -142,6 +148,8 @@ namespace ApplicationClassLibrary
 
                 tempAppointment.DateAndTime = appointmentView.DateAndTime;
                 tempAppointment.Note = appointmentView.Note;
+
+                _updateAppointmentNotification.AppointmentUpdatedNotification(appointment);
 
                 _persistable.EditAppointment(appointment);
                 AppointmentsChangedEventHandler?.Invoke(appointment, EventArgs.Empty);

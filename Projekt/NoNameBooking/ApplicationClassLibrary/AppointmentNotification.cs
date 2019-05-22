@@ -11,10 +11,11 @@ namespace ApplicationClassLibrary
     {
         private List<Appointment> _appointments;
         private readonly MailNotification _mailNotification = new MailNotification();
+        private readonly SmsNotification _smsNotification = new SmsNotification();
         private IPersistable _persistable;
         private readonly ClientRepo _clientRepo;
         private readonly AppointmentRepo _appointmentRepo;
-        private readonly bool _running = true;
+        private const bool Running = true;
 
         public AppointmentNotification(List<Appointment> tempAppointments, AppointmentRepo appointmentRepo, IPersistable persistable)
         {
@@ -43,7 +44,7 @@ namespace ApplicationClassLibrary
         public void EmailSender()
         {
 
-            while (_running)
+            while (Running)
             {
                 foreach (Appointment appointment in _appointments)
                 {
@@ -71,5 +72,43 @@ namespace ApplicationClassLibrary
             
         }
 
+        public void AppointmentCreatedNotification(Appointment appointment)
+        {
+            if (appointment.EmailNotification)
+            {
+                _mailNotification.AppointmentCreatedEmail(appointment);
+            }
+
+            if (appointment.SmsNotification)
+            {
+                _smsNotification.AppointmentCreatedSms(appointment);
+            }
+        }
+
+        public void AppointmentDeletedNotification(Appointment appointment)
+        {
+            if (appointment.EmailNotification)
+            {
+                _mailNotification.AppointmentDeletedEmail(appointment);
+            }
+
+            if (appointment.SmsNotification)
+            {
+                _smsNotification.AppointmentDeletedSms(appointment);
+            }
+        }
+
+        public void AppointmentUpdatedNotification(Appointment appointment)
+        {
+            if (appointment.EmailNotification)
+            {
+                _mailNotification.AppointmentUpdatedEmail(appointment);
+            }
+
+            if (appointment.SmsNotification)
+            {
+                _smsNotification.AppointmentUpdatedSms(appointment);
+            }
+        }
     }
 }
