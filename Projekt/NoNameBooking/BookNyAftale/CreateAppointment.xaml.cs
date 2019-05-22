@@ -130,7 +130,7 @@ namespace BookNyAftale
                     Close();
                 }
 
-                _controller.UpdateRepos();
+                //_controller.UpdateRepos();
                 UpdateAppointmentDates();
                 UpdateAppointmentTimeComboBox();
             }

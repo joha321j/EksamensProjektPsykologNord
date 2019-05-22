@@ -12,7 +12,7 @@ namespace ApplicationClassLibrary
         private List<Appointment> _appointments;
         private readonly MailNotification _mailNotification = new MailNotification();
         private readonly SmsNotification _smsNotification = new SmsNotification();
-        private IPersistable _persistable;
+        private readonly IPersistable _persistable;
         private readonly ClientRepo _clientRepo;
         private readonly AppointmentRepo _appointmentRepo;
         private const bool Running = true;

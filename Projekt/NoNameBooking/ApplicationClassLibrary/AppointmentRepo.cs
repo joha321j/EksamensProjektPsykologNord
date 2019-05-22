@@ -8,11 +8,11 @@ namespace ApplicationClassLibrary
 {
     public class AppointmentRepo
     {
-        private IPersistable _persistable;
+        private readonly IPersistable _persistable;
         private static AppointmentRepo _instance;
         private readonly AppointmentNotification _updateAppointmentNotification;
         
-        private object _lockingObject = new object();
+        private readonly object _lockingObject = new object();
 
         private List<Appointment> _appointments;
 
@@ -21,8 +21,14 @@ namespace ApplicationClassLibrary
         private AppointmentRepo(IPersistable persistable, List<User> users, List<Department> departments)
         {
             _persistable = persistable;
+
+            UpdateFromDatabase updateDatabase = UpdateFromDatabase.GetInstance(_persistable);
+
+            updateDatabase.AppointmentsUpdatedEventHandler += Update;
             _appointments = _persistable.GetAppointments(users, departments);
+
             _updateAppointmentNotification = new AppointmentNotification(_appointments, this, _persistable);
+
         }
 
         public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users, List<Department> departments)
@@ -161,11 +167,12 @@ namespace ApplicationClassLibrary
             _updateAppointmentNotification.EmailUpdateThread();
         }
 
-        public void Update()
+        public void Update(object sender, EventArgs eventArgs)
         {
             lock (_lockingObject)
             {
                 _appointments = GetAppointments();
+                AppointmentsChangedEventHandler?.Invoke(_appointments, EventArgs.Empty);
             }
             
         }

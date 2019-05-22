@@ -17,6 +17,11 @@ namespace ApplicationClassLibrary
         private ClientRepo(IPersistable persistable)
         {
             _persistable = persistable;
+
+            UpdateFromDatabase updateDatabase = UpdateFromDatabase.GetInstance(_persistable);
+
+            updateDatabase.ClientsUpdatedEventHandler += Update;
+
             _clients = _persistable.GetClients();
         }
 
@@ -68,7 +73,7 @@ namespace ApplicationClassLibrary
             _instance = null;
         }
 
-        public void Update()
+        public void Update(object sender, EventArgs eventArgs)
         {
             _clients = _persistable.GetClients();
         }

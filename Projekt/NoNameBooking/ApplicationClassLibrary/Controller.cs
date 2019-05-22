@@ -7,7 +7,6 @@ namespace ApplicationClassLibrary
 {
     public class Controller
     {
-        private IPersistable _persistable;
         private static Controller _instance;
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
@@ -19,15 +18,16 @@ namespace ApplicationClassLibrary
 
         private Controller()
         {
-            _persistable = new DbController();
-            _clientRepo = ClientRepo.GetInstance(_persistable);
+            IPersistable persistable = new DbController();
+            
+            _clientRepo = ClientRepo.GetInstance(persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
-            _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
+            _practitionerRepo = PractitionerRepo.GetInstance(persistable);
 
-            _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
+            _departmentRepo = DepartmentRepo.GetInstance(persistable, _practitionerRepo.GetPractitioners());
 
-            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
+            _appointmentRepo = AppointmentRepo.GetInstance(persistable, GetUsers(), _departmentRepo.GetDepartments());
             _appointmentRepo.AppointmentsChangedEventHandler += AppointmentsChangedEventHandler;
         }
 
@@ -263,14 +263,6 @@ namespace ApplicationClassLibrary
         public void EmailTest()
         {
             _appointmentRepo.SendEmail();
-        }
-
-        public void UpdateRepos()
-        {
-            _practitionerRepo.Update();
-            _clientRepo.Update();
-            _appointmentRepo.Update();
-
         }
     }
 }
