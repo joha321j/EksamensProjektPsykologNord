@@ -5,12 +5,18 @@ using MailKit;
 using MimeKit;
 using MailKit.Net.Smtp;
 using ModelClassLibrary;
+using PersistencyClassLibrary;
 
 namespace ApplicationClassLibrary
 {
     class MailNotification
     {
         private readonly ClientRepo _clientRepo;
+
+        public MailNotification(IPersistable persistable)
+        {
+            _clientRepo = ClientRepo.GetInstance(persistable);
+        }
         public void SendReminderMail(User user)
         {
             MimeMessage message = new MimeMessage();

@@ -10,7 +10,7 @@ namespace ApplicationClassLibrary
     class AppointmentNotification
     {
         private List<Appointment> _appointments;
-        private readonly MailNotification _mailNotification = new MailNotification();
+        private readonly MailNotification _mailNotification;
         private readonly SmsNotification _smsNotification = new SmsNotification();
         private IPersistable _persistable;
         private readonly ClientRepo _clientRepo;
@@ -24,6 +24,7 @@ namespace ApplicationClassLibrary
             _persistable = persistable;
 
             _clientRepo = ClientRepo.GetInstance(_persistable);
+            _mailNotification = new MailNotification(_persistable);
 
             _appointmentRepo = appointmentRepo;
             appointmentRepo.AppointmentsChangedEventHandler += UpdateAppointments;
