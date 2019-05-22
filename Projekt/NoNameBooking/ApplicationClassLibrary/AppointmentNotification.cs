@@ -40,6 +40,8 @@ namespace ApplicationClassLibrary
 
         public void EmailSender()
         {
+            // Rewrite to use properties in appointment
+
             List<Appointment> removeList = new List<Appointment>();
 
             foreach (Appointment appointment in _appointments)
