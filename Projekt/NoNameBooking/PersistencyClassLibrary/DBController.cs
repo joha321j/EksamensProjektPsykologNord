@@ -240,8 +240,9 @@ namespace PersistencyClassLibrary
         public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType,
             string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
-            double
-                price = 0.0; //Only here because of a missing feature where you could change the price according to discounts.
+            //Only here because of a missing feature where you could change the price according to discounts.
+            double price = 0.0; 
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 
