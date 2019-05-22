@@ -207,7 +207,7 @@ namespace ApplicationClassLibrary
 
         public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)
         {
-            List<AppointmentView> appointmentViews = _appointmentRepo.GetAppointmentsByPracId(id);
+            List<AppointmentView> appointmentViews = _appointmentRepo.GetAppointmentsByPractitionerId(id);
             
             List<AppointmentView> returnList = appointmentViews.FindAll(appointment =>
                 appointment.DateAndTime > startDate && appointment.DateAndTime < endDate);
