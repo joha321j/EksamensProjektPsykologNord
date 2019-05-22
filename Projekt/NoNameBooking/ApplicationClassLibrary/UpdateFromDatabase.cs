@@ -16,10 +16,10 @@ namespace ApplicationClassLibrary
         private readonly List<Practitioner> _practitioners;
         private List<Appointment> _appointments;
         private readonly List<Department> _departments;
-        private readonly TimeSpan _minutesToSleep = TimeSpan.FromMinutes(5);
+        private readonly TimeSpan _minutesToSleep = TimeSpan.FromMinutes(1);
         private const bool Running = true;
-
         private readonly IPersistable _persistable;
+
         public event EventHandler ClientsUpdatedEventHandler;
         public event EventHandler AppointmentsUpdatedEventHandler;
 
