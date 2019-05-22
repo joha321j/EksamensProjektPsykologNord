@@ -12,7 +12,7 @@ namespace ApplicationClassLibrary
     {
         public void SendTestMail(User user)
         {
-            var message = new MimeMessage();
+            MimeMessage message = new MimeMessage();
             message.From.Add(new MailboxAddress("Kaare Veggerby Sandbøl", "kaar1498@edu.eal.dk"));
             message.To.Add(new MailboxAddress(user.Name, user.Email));
 
