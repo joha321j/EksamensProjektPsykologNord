@@ -121,7 +121,7 @@ namespace ApplicationClassLibrary
             NewAppointmentEventHandler?.Invoke(appointment, EventArgs.Empty);
         }
 
-        public void sendEmail()
+        public void SendEmail()
         {
             AppointmentNotification emailList = new AppointmentNotification(_appointments, _instance);
             emailList.EmailUpdateThread();
