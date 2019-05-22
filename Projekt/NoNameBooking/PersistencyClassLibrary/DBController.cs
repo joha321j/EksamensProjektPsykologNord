@@ -367,11 +367,16 @@ namespace PersistencyClassLibrary
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("SPUpdateAppointment", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                SqlCommand command = new SqlCommand("SPUpdateAppointment", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
                 command.Parameters.AddWithValue("@AppointmentId", appointment.Id);
                 command.Parameters.AddWithValue("@DateAndTime", appointment.DateAndTime);
                 command.Parameters.AddWithValue("@Note", appointment.Note);
+                command.Parameters.AddWithValue("@EmailNotification", appointment.EmailNotification);
+                command.Parameters.AddWithValue("@SmsNotification", appointment.SmsNotification);
+                command.Parameters.AddWithValue("@NotificationTime", appointment.NotificationTime);
 
                 command.ExecuteNonQuery();
             }

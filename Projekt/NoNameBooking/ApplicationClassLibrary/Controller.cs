@@ -28,7 +28,7 @@ namespace ApplicationClassLibrary
             _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
 
             _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
-            _appointmentRepo.NewAppointmentEventHandler += NewAppointmentEventHandler;
+            _appointmentRepo.AppointmentsChangedEventHandler += AppointmentsChangedEventHandler;
         }
 
         public List<User> GetUsers()
@@ -46,7 +46,7 @@ namespace ApplicationClassLibrary
             NewClientCreatedEventHandler?.Invoke(((Client) sender)?.Name, e);
         }
 
-        private void NewAppointmentEventHandler(object sender, EventArgs e)
+        private void AppointmentsChangedEventHandler(object sender, EventArgs e)
         {
             NewAppointmentCreatedEventHandler?.Invoke(sender, e);
         }

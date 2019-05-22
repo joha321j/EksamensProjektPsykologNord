@@ -15,11 +15,15 @@ namespace ModelClassLibrary
         public bool EmailNotification { get; set; }
         public bool SmsNotification { get; set; }
         public TimeSpan NotificationTime { get; set; }
+
         public Appointment()
         {
 
         }
-        public Appointment(DateTime dateAndTime, List<User> participants, AppointmentType appointmentType, Room room, string note, TimeSpan notificationTime, bool emailNotification = false, bool smsNotification = false, double price = 0, int id = -1)
+
+        public Appointment(DateTime dateAndTime, List<User> participants, AppointmentType appointmentType, Room room,
+            string note, TimeSpan notificationTime, bool emailNotification = false, bool smsNotification = false,
+            double price = 0, int id = -1)
         {
             Id = id;
             DateAndTime = dateAndTime;

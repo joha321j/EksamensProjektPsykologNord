@@ -43,13 +43,6 @@ namespace ApplicationClassLibrary
             return new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
         }
 
-
-        public int GetClientAmount()
-        {
-            return _clients.Count;
-        }
-
-
         public List<Client> GetClients()
         {
             return _clients;

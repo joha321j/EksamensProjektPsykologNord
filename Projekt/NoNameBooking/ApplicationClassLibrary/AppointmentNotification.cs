@@ -14,6 +14,7 @@ namespace ApplicationClassLibrary
         private IPersistable _persistable;
         private readonly ClientRepo _clientRepo;
         private readonly AppointmentRepo _appointmentRepo;
+        private readonly bool _running = true;
 
         public AppointmentNotification(List<Appointment> tempAppointments, AppointmentRepo appointmentRepo, IPersistable persistable)
         {
@@ -24,48 +25,50 @@ namespace ApplicationClassLibrary
             _clientRepo = ClientRepo.GetInstance(_persistable);
 
             _appointmentRepo = appointmentRepo;
-            appointmentRepo.NewAppointmentEventHandler += UpdateAppointments;
+            appointmentRepo.AppointmentsChangedEventHandler += UpdateAppointments;
         }
 
         private void UpdateAppointments(object sender, EventArgs e)
         {
-            _appointments = _appointmentRepo.GetAppointments();
+            // Make a copy of the list of appointments in the appointment repo.
+            _appointments = new List<Appointment>(_appointmentRepo.GetAppointments());
         }
 
         public void EmailUpdateThread()
         {
-            Thread emailThread = new Thread(EmailSender);
+            Thread emailThread = new Thread(EmailSender) {IsBackground = true};
             emailThread.Start();
         }
 
         public void EmailSender()
         {
-            // Rewrite to use properties in appointment
 
-            List<Appointment> removeList = new List<Appointment>();
-
-            foreach (Appointment appointment in _appointments)
+            while (_running)
             {
-                DateTime now = DateTime.Now;
-                if (appointment.DateAndTime > now && appointment.DateAndTime <= now.AddHours(24))
+                foreach (Appointment appointment in _appointments)
                 {
-                    foreach (User user in appointment.Participants)
-                    {
-                        if (_clientRepo.IsClient(user))
-                        {
-                           _mailNotification.SendTestMail(user);
-                            removeList.Add(appointment);
-                        }
-                    }
-                    
-                }
-            }
+                    DateTime now = DateTime.Now;
+                    int hoursToAppointment = appointment.NotificationTime.Hours;
 
-            foreach (Appointment appointment in removeList)
-            {
-                _appointments.Remove(appointment);
+                    if (appointment.DateAndTime > now &&
+                        appointment.DateAndTime <= now.AddHours(hoursToAppointment)
+                        && appointment.EmailNotification)
+                    {
+                        foreach (User user in appointment.Participants)
+                        {
+                            if (_clientRepo.IsClient(user))
+                            {
+                                _mailNotification.SendTestMail(user);
+                                appointment.EmailNotification = false;
+                                _persistable.EditAppointment(appointment);
+                            }
+                        }
+
+                    }
+                }
+                Thread.Sleep(TimeSpan.FromMinutes(5));
             }
-            Thread.Sleep(TimeSpan.FromMinutes(5));
+            
         }
 
     }
