@@ -9,7 +9,7 @@ namespace ApplicationClassLibrary
 {
     class AppointmentNotification
     {
-        private List<Appointment> _appointments = new List<Appointment>();
+        private List<Appointment> _appointments;
         private readonly MailNotification _mailNotification = new MailNotification();
         private IPersistable _persistable;
         private readonly ClientRepo _clientRepo;
