@@ -64,6 +64,11 @@ namespace ApplicationClassLibrary
         {
             return _clients.Exists(client => client.Id == user.Id);
         }
+
+        public bool IsClient(User user)
+        {
+            return _clients.Exists(client => client.Id == user.Id);
+        }
         
         public void Reset()
         {

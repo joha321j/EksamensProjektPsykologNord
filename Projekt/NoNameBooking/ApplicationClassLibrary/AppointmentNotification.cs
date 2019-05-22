@@ -44,11 +44,10 @@ namespace ApplicationClassLibrary
                 {
                     foreach (User user in appointment.Participants)
                     {
-                        UserView tempUserView = new UserView(user.Id, user.Name, user.PhoneNumber, user.Address, user.Email);
-                        if (_clientRepo.IsClient(tempUserView))
+
+                        if (_clientRepo.IsClient(user))
                         {
-                            User emailUser = new User(tempUserView.Name, tempUserView.Address, tempUserView.PhoneNumber, tempUserView.Email);
-                            _mailNotification.SendTestMail(emailUser);
+                           _mailNotification.SendTestMail(user);
                             removeList.Add(appointment);
                         }
                     }
