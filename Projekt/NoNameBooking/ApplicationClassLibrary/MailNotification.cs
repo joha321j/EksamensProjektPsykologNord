@@ -39,5 +39,21 @@ namespace ApplicationClassLibrary
                 client.Disconnect(true);
             }
         }
+
+        public void AppointmentCreatedEmail(Appointment appointment)
+        {
+            //Send email to all involved users that an appointment has been made and at what time.
+        }
+
+        public void AppointmentUpdatedEmail(Appointment appointment)
+        {
+
+        }
+
+        public void AppointmentDeletedEmail(Appointment appointment)
+        {
+
+        }
+
     }
 }
