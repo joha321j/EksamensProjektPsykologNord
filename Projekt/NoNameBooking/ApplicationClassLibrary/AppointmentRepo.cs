@@ -124,7 +124,7 @@ namespace ApplicationClassLibrary
         public void sendEmail()
         {
             AppointmentNotification emailList = new AppointmentNotification(_appointments, _instance);
-            emailList.emailUpdateThread();
+            emailList.EmailUpdateThread();
         }
 
         public void Update()

@@ -93,7 +93,9 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
-            TimeSpan timeSpan = TimeSpan.FromHours(12); //This is a default value that NEEDS to change
+            //This is a default value that NEEDS to change
+            TimeSpan timeSpan = TimeSpan.FromHours(12); 
+
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
             {
@@ -104,7 +106,9 @@ namespace BookNyAftale
             {
                 _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text, timeSpan, (bool)cbEmail.IsChecked,(bool)cbSMS.IsChecked);
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(),
+                    txtNotes.Text, timeSpan, cbEmail.IsChecked != null && (bool) cbEmail.IsChecked,
+                    cbSMS.IsChecked != null && (bool) cbSMS.IsChecked);
             }
             catch (Exception exception) when (exception is InvalidInputException || exception is SqlException || exception is SqlAppointmentAlreadyExistsException)
             {
@@ -130,7 +134,7 @@ namespace BookNyAftale
                 UpdateAppointmentDates();
                 UpdateAppointmentTimeComboBox();
             }
-            this.Close();
+            Close();
         }
 
         private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)
