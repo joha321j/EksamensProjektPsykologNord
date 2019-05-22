@@ -27,7 +27,7 @@ namespace ApplicationClassLibrary
 
             };
 
-            using (var client = new SmtpClient())
+            using (SmtpClient client = new SmtpClient())
             {
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
