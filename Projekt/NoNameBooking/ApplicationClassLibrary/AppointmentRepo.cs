@@ -94,19 +94,18 @@ namespace ApplicationClassLibrary
 
         public AppointmentView GetAppointmentById(int appoId)
         {
-            Appointment appo = new Appointment();
-            appo = _appointments.Find(app => app.Id == appoId);
+            Appointment appointment = _appointments.Find(app => app.Id == appoId);
             List<UserView> userViews = new List<UserView>();
             int i = 0;
-            foreach (User user in appo.Participants)
+            foreach (User user in appointment.Participants)
             {
-                UserView view = new UserView(appo.Participants[i].Id, appo.Participants[i].Name, appo.Participants[1].PhoneNumber, appo.Participants[1].Address, appo.Participants[1].Email);
+                UserView view = new UserView(appointment.Participants[i].Id, appointment.Participants[i].Name, appointment.Participants[1].PhoneNumber, appointment.Participants[1].Address, appointment.Participants[1].Email);
                 userViews.Add(view);
                 i++;
             }
-            AppointmentTypeView typeView = new AppointmentTypeView(appo.AppointmentType.Id, appo.AppointmentType.Name, appo.AppointmentType.Duration, appo.AppointmentType.StandardPrice);
-            RoomView roomView = new RoomView(appo.Location.Id, appo.Location.Name);
-            AppointmentView appoView = new AppointmentView(appo.Id, appo.DateAndTime, userViews, typeView, roomView, appo.Note, appo.Price, appo.NotficationTime, appo.EmailNotification, appo.SMSNotification);
+            AppointmentTypeView typeView = new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name, appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice);
+            RoomView roomView = new RoomView(appointment.Location.Id, appointment.Location.Name);
+            AppointmentView appoView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews, typeView, roomView, appointment.Note, appointment.Price, appointment.NotficationTime, appointment.EmailNotification, appointment.SMSNotification);
                                     
             return appoView;
         }
