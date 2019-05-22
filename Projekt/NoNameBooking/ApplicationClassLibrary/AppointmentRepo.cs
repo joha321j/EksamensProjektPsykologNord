@@ -156,7 +156,7 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void SendEmail()
+        public void EmailNotifications()
         {
             _updateAppointmentNotification.EmailUpdateThread();
         }
