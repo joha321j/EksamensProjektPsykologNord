@@ -9,6 +9,7 @@ namespace ApplicationClassLibrary
     {
         private static IPersistable _persistable;
         private static ClientRepo _instance;
+        private readonly object _lockingObject = new object();
 
         private List<Client> _clients;
 
@@ -33,8 +34,11 @@ namespace ApplicationClassLibrary
             _persistable.SaveClient(clientId, clientNote, clientSsn);
 
             Client newClient = CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
-            
-            _clients.Add(newClient);
+
+            lock (_lockingObject)
+            {
+                _clients.Add(newClient);
+            }
 
             NewClientEventHandler?.Invoke(newClient, EventArgs.Empty);
         }
@@ -46,22 +50,37 @@ namespace ApplicationClassLibrary
 
         public List<Client> GetClients()
         {
-            return _clients;
+            lock (_lockingObject)
+            {
+                return _clients;
+            }
         }
 
         public Client GetClient(string clientName)
         {
-            return _clients.Find(client => string.Equals(client.Name, clientName));
+            lock (_lockingObject)
+            {
+                return _clients.Find(client => string.Equals(client.Name, clientName));
+            }
+            
         }
 
         public bool IsClient(UserView user)
         {
-            return _clients.Exists(client => client.Id == user.Id);
+            lock (_lockingObject)
+            {
+                return _clients.Exists(client => client.Id == user.Id);
+            }
+            
         }
 
         public bool IsClient(User user)
         {
-            return _clients.Exists(client => client.Id == user.Id);
+            lock (_lockingObject)
+            {
+                return _clients.Exists(client => client.Id == user.Id);
+            }
+            
         }
         
         public void Reset()
@@ -71,8 +90,12 @@ namespace ApplicationClassLibrary
 
         public void Update(object sender, EventArgs eventArgs)
         {
-            _clients = _persistable.GetClients();
-            NewClientEventHandler?.Invoke(_clients, EventArgs.Empty);
+            lock (_lockingObject)
+            {
+                _clients = _persistable.GetClients();
+                NewClientEventHandler?.Invoke(_clients, EventArgs.Empty);
+            }
+            
         }
     }
 }
