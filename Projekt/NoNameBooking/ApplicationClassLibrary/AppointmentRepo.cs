@@ -10,6 +10,7 @@ namespace ApplicationClassLibrary
     {
         private IPersistable _persistable;
         private static AppointmentRepo _instance;
+        private readonly AppointmentNotification _updateApoointmentNotification;
 
         private List<Appointment> _appointments;
 
@@ -19,7 +20,7 @@ namespace ApplicationClassLibrary
         {
             _persistable = persistable;
             _appointments = _persistable.GetAppointments(users, departments);
-            AppointmentNotification updateAppointmentEmailList = new AppointmentNotification(_appointments, this);
+            _updateApoointmentNotification = new AppointmentNotification(_appointments, this, _persistable);
         }
 
         public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users, List<Department> departments)
@@ -122,8 +123,7 @@ namespace ApplicationClassLibrary
 
         public void SendEmail()
         {
-            AppointmentNotification emailList = new AppointmentNotification(_appointments, _instance);
-            emailList.EmailUpdateThread();
+            _updateApoointmentNotification.EmailUpdateThread();
         }
 
         public void Update()

@@ -15,10 +15,14 @@ namespace ApplicationClassLibrary
         private readonly ClientRepo _clientRepo;
         private readonly AppointmentRepo _appointmentRepo;
 
-        public AppointmentNotification(List<Appointment> tempAppointments, AppointmentRepo appointmentRepo)
+        public AppointmentNotification(List<Appointment> tempAppointments, AppointmentRepo appointmentRepo, IPersistable persistable)
         {
             _appointments = tempAppointments;
+
+            _persistable = persistable;
+
             _clientRepo = ClientRepo.GetInstance(_persistable);
+
             _appointmentRepo = appointmentRepo;
             appointmentRepo.NewAppointmentEventHandler += UpdateAppointments;
         }
