@@ -59,7 +59,7 @@ namespace ApplicationClassLibrary
                         {
                             if (_clientRepo.IsClient(user))
                             {
-                                _mailNotification.SendTestMail(user);
+                                _mailNotification.SendReminderMail(user);
                                 appointment.EmailNotification = false;
                                 _persistable.EditAppointment(appointment);
                             }

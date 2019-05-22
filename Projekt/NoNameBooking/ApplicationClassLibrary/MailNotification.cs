@@ -11,7 +11,7 @@ namespace ApplicationClassLibrary
     class MailNotification
     {
         private readonly ClientRepo _clientRepo;
-        public void SendTestMail(User user)
+        public void SendReminderMail(User user)
         {
             MimeMessage message = new MimeMessage();
             message.From.Add(new MailboxAddress("Kaare Veggerby Sandbøl", "kaar1498@edu.eal.dk"));
@@ -21,9 +21,9 @@ namespace ApplicationClassLibrary
 
             message.Body = new TextPart("plain")
             {
-                Text = @"This is a test email to " + user.Name + "." +
-                "\n We hope you recieved this message in good health" +
-                "\n Kinds regards" +
+                Text = @"Hej " + user.Name + "." +
+                "\n Dette er en påmindelse om din tid." +
+                "\n Venlig Hilsen" +
                 "\n Semplito Booking"
 
             };
@@ -105,9 +105,9 @@ namespace ApplicationClassLibrary
             message.Body = new TextPart("plain")
             {
                 Text = @"Dette er en meddelelse om at " + user.Name + "'s aftale med "+ prac.Name +" er blevet rygget." +
-                "\nDin tid er nu d. "+ appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm")+"."+
+                "\n Din tid er nu d. "+ appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm")+"."+
                 "\n Vi glæder os til at se dig" +
-                "\nHvis der er nogle problemer eller spørgsmål til din tid er du som altid velkommen til at kontakte os på mobil eller mail"+
+                "\n Hvis der er nogle problemer eller spørgsmål til din tid er du som altid velkommen til at kontakte os på mobil eller mail"+
                 "\n Venlig hilsen" +
                 "\n Semplito"
 
@@ -152,7 +152,7 @@ namespace ApplicationClassLibrary
             {
                 Text = @"Dette er en meddelelse om at " + user.Name + "'s aftale d. " + appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm") + " med " + prac.Name + " er blevet aflyst." +                
                 "\n Vi beklager ulejligheden og håber at du vil komme til os igen på at andet tidspunkt" +
-                "\nHvis der er nogle problemer eller spørgsmål til din tid er du som altid velkommen til at kontakte os på mobil eller mail" +
+                "\n Hvis der er nogle problemer eller spørgsmål til din tid er du som altid velkommen til at kontakte os på mobil eller mail" +
                 "\n Venlig hilsen" +
                 "\n Semplito"
 
