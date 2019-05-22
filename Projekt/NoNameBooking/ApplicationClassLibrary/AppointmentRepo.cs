@@ -22,9 +22,6 @@ namespace ApplicationClassLibrary
         {
             _persistable = persistable;
 
-            UpdateFromDatabase updateDatabase = UpdateFromDatabase.GetInstance(_persistable);
-
-            updateDatabase.AppointmentsUpdatedEventHandler += Update;
             _appointments = _persistable.GetAppointments(users, departments);
 
             _updateAppointmentNotification = new AppointmentNotification(_appointments, this, _persistable);

@@ -18,10 +18,6 @@ namespace ApplicationClassLibrary
         {
             _persistable = persistable;
 
-            UpdateFromDatabase updateDatabase = UpdateFromDatabase.GetInstance(_persistable);
-
-            updateDatabase.ClientsUpdatedEventHandler += Update;
-
             _clients = _persistable.GetClients();
         }
 
@@ -76,6 +72,7 @@ namespace ApplicationClassLibrary
         public void Update(object sender, EventArgs eventArgs)
         {
             _clients = _persistable.GetClients();
+            NewClientEventHandler?.Invoke(_clients, EventArgs.Empty);
         }
     }
 }
