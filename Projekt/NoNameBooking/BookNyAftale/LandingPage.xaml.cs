@@ -93,10 +93,12 @@ namespace BookNyAftale
         {
             int timeCounter = _openingTime;
 
-            foreach (ListView listView in _listViews)
-            {
-                listView.Dispatcher.Invoke(() => listView.Items.Clear());
-            }
+            _listViews.ForEach(listView => listView.Items.Clear());
+
+            //foreach (ListView listView in _listViews)
+            //{
+            //    listView.Dispatcher.Invoke(() => listView.Items.Clear());
+            //}
 
             for (int i = 0; i < _openingHours; i++)
             {
