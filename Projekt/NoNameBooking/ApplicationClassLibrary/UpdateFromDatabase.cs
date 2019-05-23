@@ -52,7 +52,7 @@ namespace ApplicationClassLibrary
         {
             List<Client> tempClients = _persistable.GetClients();
 
-            bool newClientsInDatabase = tempClients.All(_clients.Contains) && tempClients.Count == _clients.Count;
+            bool newClientsInDatabase = !(tempClients.Count == _clients.Count || tempClients.All(_clients.Contains)) ;
 
             if (newClientsInDatabase)
             {
@@ -68,8 +68,7 @@ namespace ApplicationClassLibrary
             users.AddRange(_practitioners);
             List<Appointment> tempAppointments = _persistable.GetAppointments(users, _departments);
 
-            bool newAppointmentsInDatabase = tempAppointments.All(_appointments.Contains) &&
-                                             tempAppointments.Count == _appointments.Count;
+            bool newAppointmentsInDatabase = !(tempAppointments.Count == _appointments.Count || tempAppointments.All(_appointments.Contains));
 
             if (newAppointmentsInDatabase)
             {
