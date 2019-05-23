@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using ApplicationClassLibrary;
 
 namespace BookNyAftale
@@ -83,22 +85,26 @@ namespace BookNyAftale
 
         private void UpdateCalendar(object sender, EventArgs e)
         {
-            Dispatcher.Invoke(ResetCalendarView);
-            Dispatcher.Invoke(() => UpdateCalendarDatesWeekPage(_mondayDate));
-            Dispatcher.Invoke(() =>
-                UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId));
+            Dispatcher.Invoke(ResetCalendarView, DispatcherPriority.Background);
+
+            Dispatcher.Invoke(() => UpdateCalendarDatesWeekPage(_mondayDate),
+                DispatcherPriority.Background);
+
+            Dispatcher.Invoke(
+                () => UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId),
+                DispatcherPriority.Background);
         }
 
         private void ResetCalendarView()
         {
             int timeCounter = _openingTime;
 
-            _listViews.ForEach(listView => listView.Items.Clear());
+            foreach (ListView view in _listViews)
+            {
+                Dispatcher.Invoke(() => view.Items.Clear());
+            }
 
-            //foreach (ListView listView in _listViews)
-            //{
-            //    listView.Dispatcher.Invoke(() => listView.Items.Clear());
-            //}
+            //_listViews.ForEach(listView => listView.Items.Clear());
 
             for (int i = 0; i < _openingHours; i++)
             {
@@ -200,33 +206,21 @@ namespace BookNyAftale
         {
             _mondayDate = _mondayDate.AddDays(_forwardAmount);
 
-            ResetCalendarView();
-
-            UpdateCalendarDatesWeekPage(_mondayDate);
-
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            UpdateCalendar(sender, e); 
         }
 
         private void BtnBack_OnClick(object sender, RoutedEventArgs e)
         {
             _mondayDate = _mondayDate.AddDays(_forwardAmount * -1);
 
-            ResetCalendarView();
-
-            UpdateCalendarDatesWeekPage(_mondayDate);
-
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            UpdateCalendar(sender, e);
         }
 
         private void BtnToday_OnClick(object sender, RoutedEventArgs e)
         {
             _mondayDate = _mondayDateCurrentWeek;
 
-            ResetCalendarView();
-
-            UpdateCalendarDatesWeekPage(_mondayDate);
-
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            UpdateCalendar(sender, e);
         }
 
         private void CmbbPractitioner_DropDownClosedEvent(object sender, EventArgs e)
@@ -238,19 +232,15 @@ namespace BookNyAftale
             _openingHours = selectedPractitionerView.DayLength.Hours;
             _currentUserId = selectedPractitionerView.Id;
 
-            ResetCalendarView();
-
-            UpdateCalendarDatesWeekPage(_mondayDate);
-
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            UpdateCalendar(sender, e);
 
         }
 
         private void BtnCreateAppointment_Click(object sender, RoutedEventArgs e)
         {
             CreateAppointment createAppointment = new CreateAppointment();
-            
-            createAppointment.Show();
+
+            createAppointment.Dispatcher.Invoke(() => createAppointment.Show());
         }
 
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -287,7 +277,7 @@ namespace BookNyAftale
             {
                 int appoId = ((int)item.Tag);
                 EditAppointment edit = new EditAppointment(appoId);
-                edit.Show();
+                edit.Dispatcher.Invoke(() => edit.Show());
 
             }
         }

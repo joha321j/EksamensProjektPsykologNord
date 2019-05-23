@@ -114,7 +114,8 @@ namespace BookNyAftale
             {
                 if (exception is SqlAppointmentAlreadyExistsException)
                 {
-                    MessageBox.Show("Kunne ikke oprette en aftale dette tidspunkt.\nPrøv igen med et andet tidspunkt", "Aftale eksistere allerede",
+                    MessageBox.Show("Kunne ikke oprette en aftale dette tidspunkt.\nPrøv igen med et andet tidspunkt",
+                        "Aftale eksistere allerede",
                         MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else if (exception is InvalidInputException)

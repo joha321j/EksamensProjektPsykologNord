@@ -30,12 +30,12 @@ namespace ApplicationClassLibrary
             _appointmentRepo = AppointmentRepo.GetInstance(persistable, GetUsers(), _departmentRepo.GetDepartments());
             _appointmentRepo.AppointmentsChangedEventHandler += AppointmentsChangedEventHandler;
 
-            UpdateFromDatabase updateFromDatabase = UpdateFromDatabase.GetInstance(persistable,
-                _clientRepo.GetClients(), _appointmentRepo.GetAppointments(), _practitionerRepo.GetPractitioners(),
-                _departmentRepo.GetDepartments());
+            //UpdateFromDatabase updateFromDatabase = UpdateFromDatabase.GetInstance(persistable,
+            //    _clientRepo.GetClients(), _appointmentRepo.GetAppointments(), _practitionerRepo.GetPractitioners(),
+            //    _departmentRepo.GetDepartments());
 
-            updateFromDatabase.ClientsUpdatedEventHandler += _clientRepo.Update;
-            updateFromDatabase.AppointmentsUpdatedEventHandler += _appointmentRepo.Update;
+            //updateFromDatabase.ClientsUpdatedEventHandler += _clientRepo.Update;
+            //updateFromDatabase.AppointmentsUpdatedEventHandler += _appointmentRepo.Update;
 
         }
 
