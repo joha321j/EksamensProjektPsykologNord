@@ -245,7 +245,7 @@ namespace BookNyAftale
                     AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
                     RoomView roomview = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
                     AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
-                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, roomview, txtNotes.Text, tempAppoView.Price, tempAppoView.NotficationTime, tempAppoView.EmailNotification, tempAppoView.SMSNotification);
+                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, roomview, txtNotes.Text, tempAppoView.Price, tempAppoView.NotficationTime, (bool)cbEmail.IsChecked, (bool)cbSMS.IsChecked);
                     _controller.EditAppointment(appoView);
                 }
             }

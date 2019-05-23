@@ -151,10 +151,13 @@ namespace ApplicationClassLibrary
 
                 tempAppointment.DateAndTime = appointmentView.DateAndTime;
                 tempAppointment.Note = appointmentView.Note;
+                tempAppointment.EmailNotification = appointment.EmailNotification;
+                tempAppointment.SmsNotification = appointment.SmsNotification;
+                tempAppointment.NotificationTime = appointment.NotificationTime;
 
                 _updateAppointmentNotification.AppointmentUpdatedNotification(tempAppointment);
 
-                _persistable.EditAppointment(appointment);
+                _persistable.EditAppointment(tempAppointment);
                 AppointmentsChangedEventHandler?.Invoke(appointment, EventArgs.Empty);
             }
         }
