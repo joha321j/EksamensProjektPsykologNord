@@ -91,7 +91,7 @@ namespace BookNyAftale
             UpdateClientComboBox(sender);
         }
 
-        private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
+        private void BtnEditAppointment_OnClick(object sender, RoutedEventArgs e)
         {
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)

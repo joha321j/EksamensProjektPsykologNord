@@ -68,7 +68,7 @@ namespace ApplicationClassLibrary
 
                     }
                 }
-                Thread.Sleep(TimeSpan.FromMinutes(5));
+                Thread.Sleep(TimeSpan.FromMinutes(1));
             }
             
         }

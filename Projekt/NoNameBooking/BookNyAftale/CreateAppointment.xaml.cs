@@ -94,7 +94,7 @@ namespace BookNyAftale
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
             //This is a default value that NEEDS to change
-            TimeSpan timeSpan = TimeSpan.FromHours(12); 
+            TimeSpan timeSpan = TimeSpan.FromHours(240); 
 
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
