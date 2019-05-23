@@ -28,6 +28,8 @@ namespace ApplicationClassLibrary
 
             _appointmentRepo = appointmentRepo;
             appointmentRepo.AppointmentsChangedEventHandler += UpdateAppointments;
+
+            EmailUpdateThread();
         }
 
         private void UpdateAppointments(object sender, EventArgs e)
@@ -60,7 +62,7 @@ namespace ApplicationClassLibrary
                         {
                             if (_clientRepo.IsClient(user))
                             {
-                                _mailNotification.SendReminderMail(user);
+                                _mailNotification.SendReminderEmail(appointment, user as Client);
                                 appointment.EmailNotification = false;
                                 _persistable.EditAppointment(appointment);
                             }

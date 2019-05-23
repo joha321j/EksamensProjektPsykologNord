@@ -17,20 +17,21 @@ namespace ApplicationClassLibrary
         {
             _clientRepo = ClientRepo.GetInstance(persistable);
         }
-        public void SendReminderMail(User user)
+        public void SendReminderEmail(Appointment appointment, Client appointmentClient)
         {
             MimeMessage message = new MimeMessage();
             message.From.Add(new MailboxAddress("Kaare Veggerby Sandbøl", "kaar1498@edu.eal.dk"));
-            message.To.Add(new MailboxAddress(user.Name, user.Email));
+            
+            message.To.Add(new MailboxAddress(appointmentClient.Name, appointmentClient.Email));
 
-            message.Subject = "Test-Email to "+ user.Name;
+            message.Subject = "Påmindelse om aftale d." + appointment.DateAndTime.ToString("dd/MM/yyyy");
 
             message.Body = new TextPart("plain")
             {
-                Text = @"Hej " + user.Name + "." +
-                "\n Dette er en påmindelse om din tid." +
+                Text = @"Hej " + appointmentClient.Name +
+                "\n Dette er en påmindelse om din tid d." + appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm") + "." +
                 "\n Venlig Hilsen" +
-                "\n Semplito Booking"
+                "\n Semplito"
 
             };
 
