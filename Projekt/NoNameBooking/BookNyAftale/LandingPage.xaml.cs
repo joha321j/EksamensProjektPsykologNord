@@ -287,10 +287,9 @@ namespace BookNyAftale
                     break;
             }
             
-            if (item.Tag != null)
+            if (item?.Tag != null)
             {
                 int appoId = ((int)item.Tag);
-                string appoDate = item.Content.ToString();
                 EditAppointment edit = new EditAppointment(appoId);
                 edit.Show();
 

@@ -87,7 +87,7 @@ namespace UnitTestProject
             Room testRoom = new Room("TestName");
             _departmentOne.Rooms.Add(testRoom);
 
-            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(5), false, true);
 
             List<DateTime> availableDateTimes = _instance.GetAvailableDatesForDepartment("TestDepartmentOne", DateTime.Today, DateTime.Today.AddDays(7));
 
@@ -109,7 +109,7 @@ namespace UnitTestProject
             Room testRoom = new Room("TestRoom");
             _departmentOne.Rooms.Add(testRoom);
 
-            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(5), false, false);
 
             List<DateTime> availableTimes = _instance.GetAvailableTimesForDepartment(testDateTime.Date, "TestDepartmentOne");
 

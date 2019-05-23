@@ -93,6 +93,9 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
+            //This is a default value that NEEDS to change
+            TimeSpan timeSpan = TimeSpan.FromHours(12); 
+
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
             {
@@ -103,7 +106,9 @@ namespace BookNyAftale
             {
                 _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(),
+                    txtNotes.Text, timeSpan, cbEmail.IsChecked != null && (bool) cbEmail.IsChecked,
+                    cbSMS.IsChecked != null && (bool) cbSMS.IsChecked);
             }
             catch (Exception exception) when (exception is InvalidInputException || exception is SqlException || exception is SqlAppointmentAlreadyExistsException)
             {
@@ -119,18 +124,17 @@ namespace BookNyAftale
                 else
                 {
                     MessageBox.Show(
-                        "Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
-                        "Fejl!!!", MessageBoxButton.OK,
+                        "Kunne ikke oprette forbindelse til databasen.\nPrøv at checke din internet forbindelse",
+                        "Fejl!", MessageBoxButton.OK,
                         MessageBoxImage.Error);
                     Close();
                 }
 
-                _controller.UpdateRepos();
+                //_controller.UpdateRepos();
                 UpdateAppointmentDates();
                 UpdateAppointmentTimeComboBox();
             }
-
-
+            Close();
         }
 
         private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)

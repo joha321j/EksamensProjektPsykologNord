@@ -8,17 +8,24 @@ namespace ApplicationClassLibrary
 {
     public class AppointmentRepo
     {
-        private IPersistable _persistable;
+        private readonly IPersistable _persistable;
         private static AppointmentRepo _instance;
+        private readonly AppointmentNotification _updateAppointmentNotification;
+        
+        private readonly object _lockingObject = new object();
 
         private List<Appointment> _appointments;
 
-        public event EventHandler NewAppointmentEventHandler;
+        public event EventHandler AppointmentsChangedEventHandler;
 
         private AppointmentRepo(IPersistable persistable, List<User> users, List<Department> departments)
         {
             _persistable = persistable;
+
             _appointments = _persistable.GetAppointments(users, departments);
+
+            _updateAppointmentNotification = new AppointmentNotification(_appointments, this, _persistable);
+
         }
 
         public static AppointmentRepo GetInstance(IPersistable persistable, List<User> users, List<Department> departments)
@@ -28,20 +35,31 @@ namespace ApplicationClassLibrary
 
         public void AddAppointment(Appointment appointment)
         {
-            _appointments.Add(appointment);
+            lock (_lockingObject)
+            {
+                _appointments.Add(appointment);
+            }
         }
 
-        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
+        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
-            Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note);
-            AddAppointment(tempAppointment);
-            _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note);
-            NewAppointmentEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
+            lock (_lockingObject)
+            {
+                Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note, notificationTime, emailNotification, smsNotification);
+                AddAppointment(tempAppointment);
+
+                _updateAppointmentNotification.AppointmentCreatedNotification(tempAppointment);
+
+                _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note, notificationTime, emailNotification, smsNotification);
+
+                AppointmentsChangedEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
+            }
+            
         }
 
-        private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note)
+        private Appointment CreateAppointment(DateTime dateAndTime, List<User> users, AppointmentType appointmentType, Room room, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
-            return new Appointment(dateAndTime, users, appointmentType, room, note);
+            return new Appointment(dateAndTime, users, appointmentType, room, note, notificationTime, emailNotification, smsNotification);
         }
 
         public void ResetInstance()
@@ -51,78 +69,109 @@ namespace ApplicationClassLibrary
 
         public List<Appointment> GetAppointments()
         {
-            return _appointments;
+            lock (_lockingObject)
+            {
+                return _appointments;
+            }
         }
 
-        public List<AppointmentView> GetAppointmentsByPracId(int id)
+        public List<AppointmentView> GetAppointmentsByPractitionerId(int id)
         {
-            
-            List<AppointmentView> appointments = new List<AppointmentView>();
-            foreach (Appointment appointment in _appointments)
+            lock (_lockingObject)
             {
-                foreach (User person in appointment.Participants)
+                List<AppointmentView> appointments = new List<AppointmentView>();
+                foreach (Appointment appointment in _appointments)
                 {
-                    if (person.Id == id)
+                    foreach (User person in appointment.Participants)
                     {
-                        List<UserView> userViews = new List<UserView>();
-                        foreach (User user in appointment.Participants)
+                        if (person.Id == id)
                         {
-                            UserView view = new UserView(user.Id, user.Name, user.PhoneNumber, user.Address, user.Email);
-                            userViews.Add(view);
-                        }
-                        RoomView roomView = new RoomView(appointment.Location.Id,appointment.Location.Name);
-                        AppointmentView appView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews,
-                            new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name,
-                                appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice), roomView, appointment.Note,appointment.Price);
+                            List<UserView> userViews = new List<UserView>();
+                            foreach (User user in appointment.Participants)
+                            {
+                                UserView view = new UserView(user.Id, user.Name, user.PhoneNumber, user.Address, user.Email);
+                                userViews.Add(view);
+                            }
+                            RoomView roomView = new RoomView(appointment.Location.Id, appointment.Location.Name);
+                            AppointmentView appView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews,
+                                new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name,
+                                    appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice), roomView, appointment.Note, appointment.Price, appointment.NotificationTime, appointment.EmailNotification, appointment.SmsNotification);
 
-                        appointments.Add(appView);
+                            appointments.Add(appView);
+                        }
                     }
                 }
+
+                return appointments;
             }
-            return appointments;
         }
 
         public void RemoveAppointment(int appointmentId)
-        {            
-            _persistable.RemoveAppointment(appointmentId);
-            Appointment appointment = _appointments.Find(appo => appo.Id == appointmentId);
-            _appointments.Remove(appointment);
+        {
+            lock (_lockingObject)
+            {
+                _persistable.RemoveAppointment(appointmentId);
+                Appointment appointment = _appointments.Find(appointment1 => appointment1.Id == appointmentId);
+
+                _updateAppointmentNotification.AppointmentDeletedNotification(appointment);
+                _appointments.Remove(appointment);
+            }
             
-            NewAppointmentEventHandler?.Invoke(appointmentId, EventArgs.Empty);
+            AppointmentsChangedEventHandler?.Invoke(appointmentId, EventArgs.Empty);
         }
 
-        public AppointmentView GetAppointmentById(int appoId)
+        public AppointmentView GetAppointmentById(int appointmentId)
         {
-            Appointment appo = new Appointment();
-            appo = _appointments.Find(app => app.Id == appoId);
-            List<UserView> userViews = new List<UserView>();
-            int i = 0;
-            foreach (User user in appo.Participants)
+            lock (_lockingObject)
             {
-                UserView view = new UserView(appo.Participants[i].Id, appo.Participants[i].Name, appo.Participants[1].PhoneNumber, appo.Participants[1].Address, appo.Participants[1].Email);
-                userViews.Add(view);
-                i++;
+                Appointment appointment = _appointments.Find(app => app.Id == appointmentId);
+                List<UserView> userViews = new List<UserView>();
+
+                foreach (User user in appointment.Participants)
+                {
+                    UserView view = new UserView(user.Id, user.Name, user.PhoneNumber, user.Address, user.Email);
+                    userViews.Add(view);
+                }
+
+                AppointmentTypeView typeView = new AppointmentTypeView(appointment.AppointmentType.Id, appointment.AppointmentType.Name, appointment.AppointmentType.Duration, appointment.AppointmentType.StandardPrice);
+                RoomView roomView = new RoomView(appointment.Location.Id, appointment.Location.Name);
+                AppointmentView appointmentView = new AppointmentView(appointment.Id, appointment.DateAndTime, userViews, typeView, roomView, appointment.Note, appointment.Price, appointment.NotificationTime, appointment.EmailNotification, appointment.SmsNotification);
+
+                return appointmentView;
             }
-            AppointmentTypeView typeView = new AppointmentTypeView(appo.AppointmentType.Id, appo.AppointmentType.Name, appo.AppointmentType.Duration, appo.AppointmentType.StandardPrice);
-            RoomView roomView = new RoomView(appo.Location.Id, appo.Location.Name);
-            AppointmentView appoView = new AppointmentView(appo.Id, appo.DateAndTime, userViews, typeView, roomView, appo.Note, appo.Price);
-                                    
-            return appoView;
+            
         }
 
         public void EditAppointment(AppointmentView appointmentView)
-        {            
-            Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note);
-            Appointment tempAppo = _appointments.Find(appo => appo.Id == appointmentView.Id);
-            tempAppo.DateAndTime = appointmentView.DateAndTime;
-            tempAppo.Note = appointmentView.Note;
-            _persistable.EditAppointment(appointment);
-            NewAppointmentEventHandler?.Invoke(appointment, EventArgs.Empty);
+        {
+            lock (_lockingObject)
+            {
+                Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note);
+                Appointment tempAppointment = _appointments.Find(appointmentOne => appointmentOne.Id == appointmentView.Id);
+
+                tempAppointment.DateAndTime = appointmentView.DateAndTime;
+                tempAppointment.Note = appointmentView.Note;
+
+                _updateAppointmentNotification.AppointmentUpdatedNotification(appointment);
+
+                _persistable.EditAppointment(appointment);
+                AppointmentsChangedEventHandler?.Invoke(appointment, EventArgs.Empty);
+            }
         }
 
-        public void Update()
+        public void EmailNotifications()
         {
-            _appointments = GetAppointments();
+            _updateAppointmentNotification.EmailUpdateThread();
+        }
+
+        public void Update(object sender, EventArgs eventArgs)
+        {
+            lock (_lockingObject)
+            {
+                _appointments = GetAppointments();
+                AppointmentsChangedEventHandler?.Invoke(_appointments, EventArgs.Empty);
+            }
+            
         }
     }
 }

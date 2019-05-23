@@ -10,7 +10,7 @@ namespace PersistencyClassLibrary
         List<Appointment> GetAppointments(List<User> users, List<Department> departments);
         List<Department> GetDepartments(List<Practitioner> practitioners);
         List<Practitioner> GetPractitioners();
-        void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note);
+        void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification);
 
         void RemoveAppointment(int appointmentId);
 
