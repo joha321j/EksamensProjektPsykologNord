@@ -22,7 +22,7 @@ namespace ApplicationClassLibrary
         public void AppointmentUpdatedSms(Appointment appointment)
         {
             // Use sms service API to send sms's
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
