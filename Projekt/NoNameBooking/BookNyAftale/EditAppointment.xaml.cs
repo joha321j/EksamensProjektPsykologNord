@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -67,48 +66,6 @@ namespace BookNyAftale
             }
 
             cmbbAppointmentTime.SelectedIndex = 0;
-        }
-
-        private void UpdateClientComboBox(object sender)
-        {
-            List<string> clients = _controller.GetClientNames();
-
-            cmbbClient.ItemsSource = clients;
-            cmbbClient.SelectedIndex = 0;
-
-
-            cmbbClient.SelectedItem = sender;
-        }
-
-        private void BtnAddClient_Click(object sender, RoutedEventArgs e)
-        {
-            AddClient addClient = new AddClient();
-            addClient.Show();
-        }
-
-        private void ClientRepoClientCreationHandler(object sender, EventArgs args)
-        {
-            UpdateClientComboBox(sender);
-        }
-
-        private void BtnEditAppointment_OnClick(object sender, RoutedEventArgs e)
-        {
-            DateTime date = default(DateTime);
-            if (dpAppointmentDate.SelectedDate != null)
-            {
-                date = (DateTime)dpAppointmentDate.SelectedDate;
-            }
-
-            try
-            {
-                _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
-                    cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text, (TimeSpan)cmbbNotificationTime.SelectionBoxItem, (bool)cbEmail.IsChecked, (bool)cbSMS.IsChecked);
-            }
-            catch (InvalidInputException exception)
-            {
-                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -239,7 +196,7 @@ namespace BookNyAftale
                     "Fejl!!!", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
-            this.Close();
+            Close();
         }
     }
 }
