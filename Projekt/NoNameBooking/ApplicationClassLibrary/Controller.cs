@@ -258,10 +258,5 @@ namespace ApplicationClassLibrary
         {
             return _appointmentRepo.GetAppointmentById(appoId);
         }
-
-        public void EmailTest()
-        {
-            _appointmentRepo.SendEmail();
-        }
     }
 }

@@ -40,7 +40,7 @@ namespace ApplicationClassLibrary
 
                 client.Connect("smtp.sendgrid.net", 587, false);
 
-                client.Authenticate("apikey", "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");
+                client.Authenticate("apikey", "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");
 
                 client.Send(message);
                 client.Disconnect(true);
@@ -67,7 +67,7 @@ namespace ApplicationClassLibrary
 
             message.Body = new TextPart("plain")
             {
-                Text = @"Dette er en bekræftigelse på at " + user.Name + "'s aftale d. "+ appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm")+"." +
+                Text = @"Dette er en bekræftigelse på at " + user.Name + "'s aftale d. "+ appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm") + "." +
                 "\n Vi glæder os til at se dig" +
                 "\n Venlig hilsen" +
                 "\n Semplito"
@@ -80,7 +80,7 @@ namespace ApplicationClassLibrary
 
                 client.Connect("smtp.sendgrid.net", 587, false);
 
-                client.Authenticate("apikey", "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");
+                client.Authenticate("apikey", "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");
 
                 client.Send(message);
                 client.Disconnect(true);
@@ -103,16 +103,14 @@ namespace ApplicationClassLibrary
                 {
                     prac = tempUser;
                 }
-
+                message.To.Add(new MailboxAddress(tempUser.Name, tempUser.Email));
             }
-            message.To.Add(new MailboxAddress(user.Name, user.Email));
-
             message.Subject = "Bekræftelses Email til " + user.Name;
 
             message.Body = new TextPart("plain")
             {
-                Text = @"Dette er en meddelelse om at " + user.Name + "'s aftale med "+ prac.Name +" er blevet rygget." +
-                "\n Din tid er nu d. "+ appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm")+"."+
+                Text = @"Dette er en meddelelse om at din aftale med " + prac.Name + " er blevet rygget." +
+                "\n Din tid er nu d. "+ appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm") +"." +
                 "\n Vi glæder os til at se dig" +
                 "\n Hvis der er nogle problemer eller spørgsmål til din tid er du som altid velkommen til at kontakte os på mobil eller mail"+
                 "\n Venlig hilsen" +
@@ -126,7 +124,7 @@ namespace ApplicationClassLibrary
 
                 client.Connect("smtp.sendgrid.net", 587, false);
 
-                client.Authenticate("apikey", "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");
+                client.Authenticate("apikey", "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");
 
                 client.Send(message);
                 client.Disconnect(true);
@@ -149,15 +147,15 @@ namespace ApplicationClassLibrary
                 {
                     prac = tempUser;
                 }
-
+                message.To.Add(new MailboxAddress(tempUser.Name, tempUser.Email));
             }
-            message.To.Add(new MailboxAddress(user.Name, user.Email));
 
-            message.Subject = "Bekræftelses Email til " + user.Name;
+            message.Subject = "Aflysning af aftale.";
+
 
             message.Body = new TextPart("plain")
             {
-                Text = @"Dette er en meddelelse om at " + user.Name + "'s aftale d. " + appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm") + " med " + prac.Name + " er blevet aflyst." +                
+                Text = @"Dette er en meddelelse om at din aftale d. " + appointment.DateAndTime.ToString("dd/MM/yyyy HH:mm") + " med " + prac.Name + " er blevet aflyst." +                
                 "\n Vi beklager ulejligheden og håber at du vil komme til os igen på at andet tidspunkt" +
                 "\n Hvis der er nogle problemer eller spørgsmål til din tid er du som altid velkommen til at kontakte os på mobil eller mail" +
                 "\n Venlig hilsen" +
@@ -171,7 +169,7 @@ namespace ApplicationClassLibrary
 
                 client.Connect("smtp.sendgrid.net", 587, false);
 
-                client.Authenticate("apikey", "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");
+                client.Authenticate("apikey", "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");
 
                 client.Send(message);
                 client.Disconnect(true);
