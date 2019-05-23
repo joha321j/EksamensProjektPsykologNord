@@ -57,10 +57,11 @@ namespace ApplicationClassLibrary
                 if (_clientRepo.IsClient(tempUser))
                 {
                     user = tempUser;
+                    message.To.Add(new MailboxAddress(user.Name, user.Email));
                 }
                 
             }
-            message.To.Add(new MailboxAddress(user.Name, user.Email));
+            
 
             message.Subject = "Bekræftelses Email til " + user.Name;
 
