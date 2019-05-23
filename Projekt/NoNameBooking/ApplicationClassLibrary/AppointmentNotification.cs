@@ -52,7 +52,7 @@ namespace ApplicationClassLibrary
                 foreach (Appointment appointment in _appointments)
                 {
                     DateTime now = DateTime.Now;
-                    int hoursToAppointment = appointment.NotificationTime.Hours;
+                    double hoursToAppointment = appointment.NotificationTime.TotalHours;
 
                     if (appointment.DateAndTime > now &&
                         appointment.DateAndTime <= now.AddHours(hoursToAppointment)
