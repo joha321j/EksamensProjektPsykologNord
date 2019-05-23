@@ -7,7 +7,6 @@ namespace ApplicationClassLibrary
 {
     public class Controller
     {
-        private IPersistable _persistable;
         private static Controller _instance;
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
@@ -19,17 +18,22 @@ namespace ApplicationClassLibrary
 
         private Controller()
         {
-            _persistable = new DbController();
-            _clientRepo = ClientRepo.GetInstance(_persistable);
+            IPersistable persistable = new DbController();
+            
+            _clientRepo = ClientRepo.GetInstance(persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
-            _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
+            _practitionerRepo = PractitionerRepo.GetInstance(persistable);
 
-            _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
+            _departmentRepo = DepartmentRepo.GetInstance(persistable, _practitionerRepo.GetPractitioners());
 
-            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
+            _appointmentRepo = AppointmentRepo.GetInstance(persistable, GetUsers(), _departmentRepo.GetDepartments());
             _appointmentRepo.AppointmentsChangedEventHandler += AppointmentsChangedEventHandler;
-            _appointmentRepo.EmailNotifications();
+
+            UpdateFromDatabase updateFromDatabase = UpdateFromDatabase.GetInstance(persistable, _clientRepo.GetClients(), _appointmentRepo.GetAppointments(), _practitionerRepo.GetPractitioners(), _departmentRepo.GetDepartments());
+            updateFromDatabase.ClientsUpdatedEventHandler += _clientRepo.Update;
+            updateFromDatabase.AppointmentsUpdatedEventHandler += _appointmentRepo.Update;
+
         }
 
         public List<User> GetUsers()
@@ -255,12 +259,9 @@ namespace ApplicationClassLibrary
             return _appointmentRepo.GetAppointmentById(appoId);
         }
 
-        public void UpdateRepos()
+        public void EmailTest()
         {
-            _practitionerRepo.Update();
-            _clientRepo.Update();
-            _appointmentRepo.Update();
-
+            _appointmentRepo.SendEmail();
         }
     }
 }

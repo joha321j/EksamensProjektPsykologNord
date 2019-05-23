@@ -89,13 +89,20 @@ GO
 CREATE PROC SPUpdateAppointment
 @AppointmentId int,
 @DateAndTime datetime2,
-@Note nvarchar(max)
+@Note nvarchar(max),
+@EmailNotification bit,
+@SMSNotification bit,
+@NotificationTime int
+
 AS
 BEGIN
 	UPDATE PN_Appointment
 	SET 
 	DateAndTime = @DateAndTime,
-	Note = @Note
+	Note = @Note,
+    Notificationtime = @NotificationTime,
+    SMSNotification = @SMSNotification,
+    EmailNotification = @EmailNotification
 	WHERE PN_Appointment.Id = @AppointmentId
 END
 GO

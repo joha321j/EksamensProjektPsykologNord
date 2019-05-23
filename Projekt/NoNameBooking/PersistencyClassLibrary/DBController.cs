@@ -265,9 +265,9 @@ namespace PersistencyClassLibrary
                 appointmentCommand.Parameters.AddWithValue("@Price", price);
                 appointmentCommand.Parameters.AddWithValue("@AppointmentTypeId", appointmentType.Id);
                 appointmentCommand.Parameters.AddWithValue("@Note", note);
-                appointmentCommand.Parameters.AddWithValue("@Notificationtime", (int)notificationTime.TotalHours);
-                appointmentCommand.Parameters.AddWithValue("@emailNotification", emailNotification);
-                appointmentCommand.Parameters.AddWithValue("@smsNotification", smsNotification);
+                appointmentCommand.Parameters.AddWithValue("@NotificationTime", (int)notificationTime.TotalHours);
+                appointmentCommand.Parameters.AddWithValue("@EmailNotification", emailNotification);
+                appointmentCommand.Parameters.AddWithValue("@SMSNotification", smsNotification);
 
                 try
                 {
@@ -376,7 +376,7 @@ namespace PersistencyClassLibrary
                 command.Parameters.AddWithValue("@Note", appointment.Note);
                 command.Parameters.AddWithValue("@EmailNotification", appointment.EmailNotification);
                 command.Parameters.AddWithValue("@SmsNotification", appointment.SmsNotification);
-                command.Parameters.AddWithValue("@NotificationTime", appointment.NotificationTime);
+                command.Parameters.AddWithValue("@NotificationTime", appointment.NotificationTime.Hours);
 
                 command.ExecuteNonQuery();
             }
