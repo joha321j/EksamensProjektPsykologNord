@@ -85,12 +85,12 @@ namespace BookNyAftale
 
         private void UpdateCalendar(object sender, EventArgs e)
         {
-            Dispatcher.Invoke(ResetCalendarView, DispatcherPriority.Background);
+            Dispatcher.InvokeAsync(ResetCalendarView, DispatcherPriority.Background);
 
-            Dispatcher.Invoke(() => UpdateCalendarDatesWeekPage(_mondayDate),
+            Dispatcher.InvokeAsync(() => UpdateCalendarDatesWeekPage(_mondayDate),
                 DispatcherPriority.Background);
 
-            Dispatcher.Invoke(
+            Dispatcher.InvokeAsync(
                 () => UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId),
                 DispatcherPriority.Background);
         }

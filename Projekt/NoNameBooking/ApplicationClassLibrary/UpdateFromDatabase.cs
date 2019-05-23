@@ -32,7 +32,8 @@ namespace ApplicationClassLibrary
             _practitioners = practitioners;
             _departments = departments;
 
-            Thread updateThread = new Thread(CheckForUpdates) {IsBackground = true};
+            Thread updateThread = new Thread(CheckForUpdates)
+                { IsBackground = true};
 
             updateThread.Start();
         }
