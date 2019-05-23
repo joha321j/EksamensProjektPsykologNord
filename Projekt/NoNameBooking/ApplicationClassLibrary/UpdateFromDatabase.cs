@@ -56,8 +56,8 @@ namespace ApplicationClassLibrary
 
             if (newClientsInDatabase)
             {
-                ClientsUpdatedEventHandler?.Invoke(_clients, EventArgs.Empty);
                 _clients = tempClients;
+                ClientsUpdatedEventHandler?.Invoke(_clients, EventArgs.Empty);
             }
         }
 
@@ -73,8 +73,8 @@ namespace ApplicationClassLibrary
 
             if (newAppointmentsInDatabase)
             {
-                AppointmentsUpdatedEventHandler?.Invoke(_appointments, EventArgs.Empty);
                 _appointments = tempAppointments;
+                AppointmentsUpdatedEventHandler?.Invoke(_appointments, EventArgs.Empty);
             }
         }
 
