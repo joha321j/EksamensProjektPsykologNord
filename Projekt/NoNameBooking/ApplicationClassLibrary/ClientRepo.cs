@@ -9,6 +9,7 @@ namespace ApplicationClassLibrary
     {
         private static IPersistable _persistable;
         private static ClientRepo _instance;
+        private readonly object _lockingObject = new object();
 
         private List<Client> _clients;
 
@@ -17,6 +18,7 @@ namespace ApplicationClassLibrary
         private ClientRepo(IPersistable persistable)
         {
             _persistable = persistable;
+
             _clients = _persistable.GetClients();
         }
 
@@ -32,8 +34,11 @@ namespace ApplicationClassLibrary
             _persistable.SaveClient(clientId, clientNote, clientSsn);
 
             Client newClient = CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
-            
-            _clients.Add(newClient);
+
+            lock (_lockingObject)
+            {
+                _clients.Add(newClient);
+            }
 
             NewClientEventHandler?.Invoke(newClient, EventArgs.Empty);
         }
@@ -43,26 +48,39 @@ namespace ApplicationClassLibrary
             return new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
         }
 
-
-        public int GetClientAmount()
-        {
-            return _clients.Count;
-        }
-
-
         public List<Client> GetClients()
         {
-            return _clients;
+            lock (_lockingObject)
+            {
+                return _clients;
+            }
         }
 
         public Client GetClient(string clientName)
         {
-            return _clients.Find(client => string.Equals(client.Name, clientName));
+            lock (_lockingObject)
+            {
+                return _clients.Find(client => string.Equals(client.Name, clientName));
+            }
+            
         }
 
         public bool IsClient(UserView user)
         {
-            return _clients.Exists(client => client.Id == user.Id);
+            lock (_lockingObject)
+            {
+                return _clients.Exists(client => client.Id == user.Id);
+            }
+            
+        }
+
+        public bool IsClient(User user)
+        {
+            lock (_lockingObject)
+            {
+                return _clients.Exists(client => client.Id == user.Id);
+            }
+            
         }
         
         public void Reset()
@@ -70,9 +88,14 @@ namespace ApplicationClassLibrary
             _instance = null;
         }
 
-        public void Update()
+        public void Update(object sender, EventArgs eventArgs)
         {
-            _clients = _persistable.GetClients();
+            lock (_lockingObject)
+            {
+                _clients = (List<Client>) sender;
+                NewClientEventHandler?.Invoke(_clients, EventArgs.Empty);
+            }
+            
         }
     }
 }

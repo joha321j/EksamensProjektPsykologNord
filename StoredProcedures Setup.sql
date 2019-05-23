@@ -89,13 +89,20 @@ GO
 CREATE PROC SPUpdateAppointment
 @AppointmentId int,
 @DateAndTime datetime2,
-@Note nvarchar(max)
+@Note nvarchar(max),
+@EmailNotification bit,
+@SMSNotification bit,
+@NotificationTime int
+
 AS
 BEGIN
 	UPDATE PN_Appointment
 	SET 
 	DateAndTime = @DateAndTime,
-	Note = @Note
+	Note = @Note,
+    Notificationtime = @NotificationTime,
+    SMSNotification = @SMSNotification,
+    EmailNotification = @EmailNotification
 	WHERE PN_Appointment.Id = @AppointmentId
 END
 GO
@@ -269,7 +276,10 @@ CREATE PROC SPInsertAppointmentOutId
 @RoomId int,
 @Price float,
 @AppointmentTypeId int,
-@Note nvarchar(max)
+@Note nvarchar(max),
+@NotificationTime int,
+@EmailNotification bit,
+@SMSNotification bit
 
 AS
 	IF NOT EXISTS
@@ -278,9 +288,9 @@ AS
 		PN_Appointment.RoomId = @RoomId
 	 )
 	BEGIN
-	INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note)
+	INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note, Notificationtime, EmailNotification, SMSNotification)
 	OUTPUT inserted.Id
-	VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note)
+	VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note, @NotificationTime, @EmailNotification, @SMSNotification)
 END
 GO
 CREATE PROCEDURE SPGetAllAppointments
@@ -289,7 +299,7 @@ AS
 BEGIN
 
 	SELECT DISTINCT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_Appointment.NotificationTime, PN_Appointment.EmailNotification, PN_Appointment.SMSNotification
 	FROM PN_APPOINTMENT 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
 	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
@@ -369,7 +379,8 @@ CREATE PROC SPGetAppointmentById @AppointmentId int
 AS
 BEGIN
 SELECT DISTINCT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_Department.Name
+	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_Appointment.NotificationTime, PN_Appointment.EmailNotification, 
+	PN_Appointment.SMSNotification, PN_Department.Name
 	FROM PN_APPOINTMENT 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
 	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId

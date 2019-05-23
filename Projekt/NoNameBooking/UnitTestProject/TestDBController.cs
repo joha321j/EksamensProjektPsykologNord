@@ -27,7 +27,7 @@ namespace UnitTestProject
             return new List<Practitioner>();
         }
 
-        public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note)
+        public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note, TimeSpan notificationTime, bool emailNotification, bool smsNotification)
         {
             //Done
         }

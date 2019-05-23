@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 using ApplicationClassLibrary;
-using System.Xml;
 
 namespace BookNyAftale
 {
@@ -39,7 +32,8 @@ namespace BookNyAftale
             }
             catch (SqlException)
             {
-                MessageBox.Show("Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse", "Fejl!!!", MessageBoxButton.OK,
+                MessageBox.Show("Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
+                    "Fejl!!!", MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 Environment.Exit(0);
             }
@@ -91,16 +85,26 @@ namespace BookNyAftale
 
         private void UpdateCalendar(object sender, EventArgs e)
         {
-            ResetCalendarView();
-            UpdateCalendarDatesWeekPage(_mondayDate);
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            Dispatcher.InvokeAsync(ResetCalendarView, DispatcherPriority.Background);
+
+            Dispatcher.InvokeAsync(() => UpdateCalendarDatesWeekPage(_mondayDate),
+                DispatcherPriority.Background);
+
+            Dispatcher.InvokeAsync(
+                () => UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId),
+                DispatcherPriority.Background);
         }
 
         private void ResetCalendarView()
         {
             int timeCounter = _openingTime;
 
-            _listViews.ForEach(listView => listView.Items.Clear());
+            foreach (ListView view in _listViews)
+            {
+                Dispatcher.Invoke(() => view.Items.Clear());
+            }
+
+            //_listViews.ForEach(listView => listView.Items.Clear());
 
             for (int i = 0; i < _openingHours; i++)
             {
@@ -202,33 +206,21 @@ namespace BookNyAftale
         {
             _mondayDate = _mondayDate.AddDays(_forwardAmount);
 
-            ResetCalendarView();
-
-            UpdateCalendarDatesWeekPage(_mondayDate);
-
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            UpdateCalendar(sender, e); 
         }
 
         private void BtnBack_OnClick(object sender, RoutedEventArgs e)
         {
             _mondayDate = _mondayDate.AddDays(_forwardAmount * -1);
 
-            ResetCalendarView();
-
-            UpdateCalendarDatesWeekPage(_mondayDate);
-
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            UpdateCalendar(sender, e);
         }
 
         private void BtnToday_OnClick(object sender, RoutedEventArgs e)
         {
             _mondayDate = _mondayDateCurrentWeek;
 
-            ResetCalendarView();
-
-            UpdateCalendarDatesWeekPage(_mondayDate);
-
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            UpdateCalendar(sender, e);
         }
 
         private void CmbbPractitioner_DropDownClosedEvent(object sender, EventArgs e)
@@ -240,19 +232,15 @@ namespace BookNyAftale
             _openingHours = selectedPractitionerView.DayLength.Hours;
             _currentUserId = selectedPractitionerView.Id;
 
-            ResetCalendarView();
-
-            UpdateCalendarDatesWeekPage(_mondayDate);
-
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            UpdateCalendar(sender, e);
 
         }
 
         private void BtnCreateAppointment_Click(object sender, RoutedEventArgs e)
         {
             CreateAppointment createAppointment = new CreateAppointment();
-            
-            createAppointment.Show();
+
+            createAppointment.Dispatcher.Invoke(() => createAppointment.Show());
         }
 
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -283,16 +271,13 @@ namespace BookNyAftale
                 case "lvSunday":
                     item = lvSunday.SelectedItems[0] as ListViewItem;
                     break;
-                default:
-                    break;
             }
             
-            if (item.Tag != null)
+            if (item?.Tag != null)
             {
                 int appoId = ((int)item.Tag);
-                string appoDate = item.Content.ToString();
                 EditAppointment edit = new EditAppointment(appoId);
-                edit.Show();
+                edit.Dispatcher.Invoke(() => edit.Show());
 
             }
         }

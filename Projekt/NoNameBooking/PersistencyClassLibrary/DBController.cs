@@ -38,7 +38,7 @@ namespace PersistencyClassLibrary
         }
 
         /// <summary>
-        /// Gets all appointsments from the database and inserts users into these appointments from another table.
+        /// Gets all appointments from the database and inserts users into these appointments from another table.
         /// </summary>
         /// <param name="users"></param>
         /// <param name="departments"></param>
@@ -72,12 +72,19 @@ namespace PersistencyClassLibrary
                             }
                         }
 
-                        Room tempRoom = FindRoom(departments, reader.GetInt32(2)); //FindRoom is a private help method to find the associcated rooms.
+                        //FindRoom is a private help method to find the associated rooms.
+                        Room tempRoom = FindRoom(departments, reader.GetInt32(2)); 
+
                         AppointmentType tempAppointmentType = new AppointmentType(reader.GetString(5),
                             reader.GetDouble(7), reader.GetTimeSpan(6), reader.GetInt32(4));
+
+                        int tempTimeInt = reader.GetInt32(10);
+
+                        TimeSpan tempTimeSpan = TimeSpan.FromHours(tempTimeInt);
+
                         Appointment newAppointment = new Appointment(reader.GetDateTime(1), tempUsers,
-                            tempAppointmentType, tempRoom, reader.GetString(8), reader.GetDouble(9),
-                            reader.GetInt32(0));
+                            tempAppointmentType, tempRoom, reader.GetString(8), tempTimeSpan, reader.GetBoolean(11),
+                            reader.GetBoolean(12), reader.GetDouble(9), reader.GetInt32(0));
 
                         listOfAppointments.Add(newAppointment);
 
@@ -235,14 +242,18 @@ namespace PersistencyClassLibrary
         /// <param name="users"></param>
         /// <param name="appointmentType"></param>
         /// <param name="note"></param>
+        /// <param name="notificationTime"></param>
+        /// <param name="emailNotification"></param>
+        /// <param name="smsNotification"></param>
         public void SaveAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType,
-            string note)
+            string note, TimeSpan notificationTime, bool emailNotification, bool smsNotification)
         {
-            double
-                price = 0.0; //Only here because of a missing feature where you could change the price according to discounts.
+            //Only here because of a missing feature where you could change the price according to discounts.
+            double price = 0.0; 
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-
+                
                 int appointmentId;
                 connection.Open();
 
@@ -254,6 +265,9 @@ namespace PersistencyClassLibrary
                 appointmentCommand.Parameters.AddWithValue("@Price", price);
                 appointmentCommand.Parameters.AddWithValue("@AppointmentTypeId", appointmentType.Id);
                 appointmentCommand.Parameters.AddWithValue("@Note", note);
+                appointmentCommand.Parameters.AddWithValue("@NotificationTime", (int)notificationTime.TotalHours);
+                appointmentCommand.Parameters.AddWithValue("@EmailNotification", emailNotification);
+                appointmentCommand.Parameters.AddWithValue("@SMSNotification", smsNotification);
 
                 try
                 {
@@ -353,11 +367,16 @@ namespace PersistencyClassLibrary
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("SPUpdateAppointment", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                SqlCommand command = new SqlCommand("SPUpdateAppointment", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
                 command.Parameters.AddWithValue("@AppointmentId", appointment.Id);
                 command.Parameters.AddWithValue("@DateAndTime", appointment.DateAndTime);
                 command.Parameters.AddWithValue("@Note", appointment.Note);
+                command.Parameters.AddWithValue("@EmailNotification", appointment.EmailNotification);
+                command.Parameters.AddWithValue("@SmsNotification", appointment.SmsNotification);
+                command.Parameters.AddWithValue("@NotificationTime", appointment.NotificationTime.Hours);
 
                 command.ExecuteNonQuery();
             }

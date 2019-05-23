@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -66,6 +67,48 @@ namespace BookNyAftale
             }
 
             cmbbAppointmentTime.SelectedIndex = 0;
+        }
+
+        private void UpdateClientComboBox(object sender)
+        {
+            List<string> clients = _controller.GetClientNames();
+
+            cmbbClient.ItemsSource = clients;
+            cmbbClient.SelectedIndex = 0;
+
+
+            cmbbClient.SelectedItem = sender;
+        }
+
+        private void BtnAddClient_Click(object sender, RoutedEventArgs e)
+        {
+            AddClient addClient = new AddClient();
+            addClient.Show();
+        }
+
+        private void ClientRepoClientCreationHandler(object sender, EventArgs args)
+        {
+            UpdateClientComboBox(sender);
+        }
+
+        private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
+        {
+            DateTime date = default(DateTime);
+            if (dpAppointmentDate.SelectedDate != null)
+            {
+                date = (DateTime)dpAppointmentDate.SelectedDate;
+            }
+
+            try
+            {
+                _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
+                    cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text, (TimeSpan)cmbbNotificationTime.SelectionBoxItem, (bool)cbEmail.IsChecked, (bool)cbSMS.IsChecked);
+            }
+            catch (InvalidInputException exception)
+            {
+                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -184,9 +227,9 @@ namespace BookNyAftale
                         int.Parse(selectedHour), 00, 00);
 
                     AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
-                    RoomView room = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
+                    RoomView roomview = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
                     AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
-                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, room, txtNotes.Text, tempAppoView.Price);
+                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, roomview, txtNotes.Text, tempAppoView.Price, tempAppoView.NotficationTime, tempAppoView.EmailNotification, tempAppoView.SMSNotification);
                     _controller.EditAppointment(appoView);
                 }
             }
@@ -196,9 +239,7 @@ namespace BookNyAftale
                     "Fejl!!!", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
-            
-
-            Close();
+            this.Close();
         }
     }
 }

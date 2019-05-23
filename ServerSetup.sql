@@ -110,6 +110,9 @@ CREATE TABLE dbo.PN_Appointment
 	Price float NOT NULL,
 	AppointmentTypeId int NOT NULL FOREIGN KEY REFERENCES PN_AppointmentType(Id),
 	Note nvarchar(max) NOT NULL,
+	NotificationTime int NOT NULL,
+	EmailNotification bit NOT NULL,
+	SMSNotification bit NOT NULL,
 );
 
 CREATE TABLE dbo.PN_Invoice
