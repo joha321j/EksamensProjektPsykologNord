@@ -39,7 +39,8 @@ namespace BookNyAftale
             }
             catch (SqlException)
             {
-                MessageBox.Show("Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse", "Fejl!!!", MessageBoxButton.OK,
+                MessageBox.Show("Kunne ikke oprette forbindlse til databasen.\nPrøv at checke din internet forbindelse",
+                    "Fejl!!!", MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 Environment.Exit(0);
             }
@@ -75,8 +76,6 @@ namespace BookNyAftale
 
             UpdateAppointmentView(_mondayDateCurrentWeek, _mondayDateCurrentWeek.AddDays(_forwardAmount),
                 _currentUserId);
-
-            _controller.EmailTest();
         }
 
         private void PopulatePractitionerComboBox()

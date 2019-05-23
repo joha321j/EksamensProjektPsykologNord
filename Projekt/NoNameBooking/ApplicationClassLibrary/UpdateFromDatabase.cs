@@ -68,7 +68,8 @@ namespace ApplicationClassLibrary
             users.AddRange(_practitioners);
             List<Appointment> tempAppointments = _persistable.GetAppointments(users, _departments);
 
-            bool newAppointmentsInDatabase = tempAppointments.All(_appointments.Contains) && tempAppointments.Count == _appointments.Count;
+            bool newAppointmentsInDatabase = tempAppointments.All(_appointments.Contains) &&
+                                             tempAppointments.Count == _appointments.Count;
 
             if (newAppointmentsInDatabase)
             {

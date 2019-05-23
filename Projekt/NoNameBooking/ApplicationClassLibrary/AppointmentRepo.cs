@@ -168,7 +168,7 @@ namespace ApplicationClassLibrary
         {
             lock (_lockingObject)
             {
-                _appointments = GetAppointments();
+                _appointments = (List<Appointment>) sender;
                 AppointmentsChangedEventHandler?.Invoke(_appointments, EventArgs.Empty);
             }
             
