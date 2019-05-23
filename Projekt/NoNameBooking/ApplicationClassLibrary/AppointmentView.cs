@@ -47,7 +47,7 @@ namespace ApplicationClassLibrary
             Price = price;
             EmailNotification = emailNotification;
             SMSNotification = smsNotification;
-            NotificationTime = notificationTime;
+            NotficationTime = notificationTime;
         }
     }
 }

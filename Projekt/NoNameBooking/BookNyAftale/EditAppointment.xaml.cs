@@ -196,6 +196,22 @@ namespace BookNyAftale
             txtNotes.Text = appoView.Note;
             cmbbAppointmentType.IsEnabled = false;
             lblHiddenId.Content = appoView.Id;
+            if (appoView.EmailNotification == true)
+            {
+                cbEmail.IsChecked = true;
+            }
+            else if (appoView.EmailNotification == false)
+            {
+                cbEmail.IsChecked = false;
+            }
+            if (appoView.SMSNotification == true)
+            {
+                cbSMS.IsChecked = true;
+            }
+            else if(appoView.SMSNotification == false)
+            {
+                cbSMS.IsChecked = false;
+            }
         }
 
         private void BtnRemoveAppointment_Click(object sender, RoutedEventArgs e)

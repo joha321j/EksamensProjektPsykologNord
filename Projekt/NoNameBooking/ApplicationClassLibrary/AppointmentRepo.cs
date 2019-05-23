@@ -146,13 +146,13 @@ namespace ApplicationClassLibrary
         {
             lock (_lockingObject)
             {
-                Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note);
+                Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note, appointmentView.NotficationTime,appointmentView.EmailNotification,appointmentView.SMSNotification);
                 Appointment tempAppointment = _appointments.Find(appointmentOne => appointmentOne.Id == appointmentView.Id);
 
                 tempAppointment.DateAndTime = appointmentView.DateAndTime;
                 tempAppointment.Note = appointmentView.Note;
 
-                _updateAppointmentNotification.AppointmentUpdatedNotification(appointment);
+                _updateAppointmentNotification.AppointmentUpdatedNotification(tempAppointment);
 
                 _persistable.EditAppointment(appointment);
                 AppointmentsChangedEventHandler?.Invoke(appointment, EventArgs.Empty);

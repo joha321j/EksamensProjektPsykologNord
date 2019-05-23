@@ -261,7 +261,7 @@ namespace ApplicationClassLibrary
 
         public void EmailTest()
         {
-            _appointmentRepo.SendEmail();
+            _appointmentRepo.EmailNotifications();
         }
     }
 }
