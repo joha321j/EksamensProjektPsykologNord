@@ -32,7 +32,8 @@ namespace ApplicationClassLibrary
             _practitioners = practitioners;
             _departments = departments;
 
-            Thread updateThread = new Thread(CheckForUpdates) {IsBackground = true};
+            Thread updateThread = new Thread(CheckForUpdates)
+                { IsBackground = true};
 
             updateThread.Start();
         }
@@ -52,12 +53,12 @@ namespace ApplicationClassLibrary
         {
             List<Client> tempClients = _persistable.GetClients();
 
-            bool newClientsInDatabase = tempClients.All(_clients.Contains) && tempClients.Count == _clients.Count;
+            bool newClientsInDatabase = !(tempClients.Count == _clients.Count || tempClients.All(_clients.Contains)) ;
 
             if (newClientsInDatabase)
             {
-                ClientsUpdatedEventHandler?.Invoke(_clients, EventArgs.Empty);
                 _clients = tempClients;
+                ClientsUpdatedEventHandler?.Invoke(_clients, EventArgs.Empty);
             }
         }
 
@@ -68,12 +69,12 @@ namespace ApplicationClassLibrary
             users.AddRange(_practitioners);
             List<Appointment> tempAppointments = _persistable.GetAppointments(users, _departments);
 
-            bool newAppointmentsInDatabase = tempAppointments.All(_appointments.Contains) && tempAppointments.Count == _appointments.Count;
+            bool newAppointmentsInDatabase = !(tempAppointments.Count == _appointments.Count || tempAppointments.All(_appointments.Contains));
 
             if (newAppointmentsInDatabase)
             {
-                AppointmentsUpdatedEventHandler?.Invoke(_appointments, EventArgs.Empty);
                 _appointments = tempAppointments;
+                AppointmentsUpdatedEventHandler?.Invoke(_appointments, EventArgs.Empty);
             }
         }
 
