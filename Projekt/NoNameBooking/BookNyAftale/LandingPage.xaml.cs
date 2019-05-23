@@ -83,16 +83,15 @@ namespace BookNyAftale
 
         private void UpdateCalendar(object sender, EventArgs e)
         {
-            ResetCalendarView();
-            UpdateCalendarDatesWeekPage(_mondayDate);
-            UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId);
+            Dispatcher.Invoke(ResetCalendarView);
+            Dispatcher.Invoke(() => UpdateCalendarDatesWeekPage(_mondayDate));
+            Dispatcher.Invoke(() =>
+                UpdateAppointmentView(_mondayDate, _mondayDate.AddDays(_forwardAmount), _currentUserId));
         }
 
         private void ResetCalendarView()
         {
             int timeCounter = _openingTime;
-
-            //_listViews.ForEach(listView => listView.Items.Clear());
 
             foreach (ListView listView in _listViews)
             {
