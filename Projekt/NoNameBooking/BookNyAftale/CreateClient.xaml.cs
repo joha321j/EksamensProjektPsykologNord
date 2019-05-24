@@ -50,10 +50,5 @@ namespace BookNyAftale
             _controller.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
                 clientAddress, txtClientSSN.Text, txtClientNote.Text);
         }
-
-        private bool ContainsLetters(string text)
-        {
-            return !int.TryParse(text, out _);
-        }
     }
 }
