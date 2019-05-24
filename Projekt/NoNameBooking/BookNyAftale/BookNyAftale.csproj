@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Crab_Nebula.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Logo Semplito-big-03.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
@@ -201,6 +201,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Crab_Nebula.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo Semplito-big-03.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo Semplito-big-01.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

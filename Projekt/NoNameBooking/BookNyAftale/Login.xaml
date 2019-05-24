@@ -8,7 +8,7 @@
        Title="Log ind" Height="720" Width="1080"
          WindowState="Maximized">
     <Grid >
-        <Grid Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Margin="378,330,394,158" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Email:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox x:Name="txtEmailLogin" HorizontalAlignment="Center" Height="23" Margin="0,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
             <Label Content="Password:" HorizontalAlignment="Left" Margin="0,73,0,0" VerticalAlignment="Top"/>
@@ -16,6 +16,7 @@
             <Button x:Name="btnLogin" Content="Log ind" HorizontalAlignment="Center" Margin="112,181,112,0" Width="76" Click="BtnLogin_Click"/>
 
         </Grid>
+        <Image HorizontalAlignment="Center" Height="98" Margin="310,210,326,381"  VerticalAlignment="Center" Width="436" Source="Resources/Logo Semplito-big-01.png" />
 
     </Grid>
 </Window>
