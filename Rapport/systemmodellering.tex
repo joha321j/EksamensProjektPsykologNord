@@ -9,8 +9,11 @@ Dette kapitel arbejder med denne modellering.
 
 \subsection{Problemafgrænsning}
 \label{problemafgraensning}
+På grund af projektets begrænsede tidsperiode har vi været nød til at begrænse mængden af problemer, som vi vil kunne arbejde med.
 
-SKRIV OM HVORFOR VI SORTERER BRUGERETTIGHEDER PROBLEMERNE FRA.
+I samarbejde med PsykologNords ledelse er vi blevet enige om, at det vigtigste for dem er at få løst de to første bookingproblemer beskrevet i afsnit \ref{section:problemstilling}.
+
+Derudover har vi ikke kunnet nå at arbejde med klientjournalerne.
 
 \subsection{Objektmodel}
 \label{objektmodel}
@@ -28,7 +31,7 @@ Objektmodellen er blevet opdateret hele vejen igennem forløbet, og den har vær
 Vores klientobjekt indeholder blandt andet et informationspunkt, der hedder journal.
 Det har været diskuteret meget frem og tilbage i projektgruppen, om det skulle være sit ejet objekt eller ej.
 Et argument for at have journalen som sit eget objekt vil være, at informationen i journalen bliver ændret uden at resten af klientobjektet ændres.
-Vi har valgt at have det som et informationspunkt, da der altid vil være en en-til-en sammenhæng mellem en klient og en journal, og man derfor ikke kan have en journal uden en klient eller en klient uden en journal.
+Vi har valgt at have det som et informationspunkt, da der altid vil være en en-til-en sammenhæng mellem en klient og en journal, og man derfor ikke kan have en journal uden en klient eller en klient uden en journal, og som nævnt i afsnit \ref{section:problemstilling} har vi ikke nået at lave nogen funktionalitet, der behandler dem.
 
 Aftale objektet er vores samleobjekt, da det binder de andre objekter sammen.
 
@@ -45,11 +48,12 @@ Aftale objektet er vores samleobjekt, da det binder de andre objekter sammen.
 På baggrund af objektmodellen kan vi så bygge videre til det næste artefakt, domænemodellen.
 En domænemodel er en generalisering af objektmodellen.
 Det er nødvendigt at lave en domænemodel, da en virksomhed ikke nødvendigvis er statisk.
-Hvis man kun arbejder videre med en objektmodel modellerer man kun virkeligheden, som den er i det øjeblik, hvor modellen bliver konstrueret.
+Hvis man kun arbejder videre med en objektmodel modellerer man kun virkeligheden, som den er i det øjeblik, hvor modellen bliver konstrueret, og modellen viser nødvendigvis ikke hele virkeligheden, men kun et udsnit.
 Så I vores tilfælde ville der bygges et system, som håndtere lige præcis de tre psykologer nævnt i objektmodellen, med lige præcis de terapityper, og så videre.
 Men vi ved, at de har et ønske om at udvide, så derfor er det vigtigt at generalisere vores model, så den kan skaleres op og ned.
 
-Domænemodellen bygges på de associationer og sammenhænge, som vi kan se i objektmodellen, f.eks kan vi se, at en aftale altid skal have mindst én klient, en klinik har et eller flere lokaler og så fremdeles.
+Domænemodellen bygges på de associationer og sammenhænge, som vi kan se i objektmodellen.
+F.eks kan vi se, at en aftale altid skal have mindst én klient, en klinik har et eller flere lokaler og så fremdeles.
 Objekterne bliver oversat til domæneklasser, og deres sammenhænge bliver vist med associationer og kardinaliteter.
 
 \begin{figure}[H]

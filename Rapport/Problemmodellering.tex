@@ -25,7 +25,10 @@ I bilagene på figur \ref{bilag:DCD} kan en samlet DCD for hele systemet ses.
 \subsection{Sekvensdiagram(SD)}
 \label{SD}
 
-TODO: SKRIV OM SD
+Et SD beskriver, hvordan softwareklasser taler sammen.
+På figur \ref{fig:SD} kan et SD for SOC'en createAppointment ses.
+Når er bruger trykker på opret aftale knappen i opret aftale vinduet, vil vinduet kalde controlleren, som kalder videre ned i systemet til appointmentRepo objektet, der laver en ny aftale, og tilføjer referencer til det nye aftale objekt i det angivne room objekt og de angivne user objekter.
+Til sidst kalder appointmentRepo objektet sit IPersistable objekt.
 
 \begin{sidewaysfigure}
     \caption{SD for SOC Operation - createAppointment}
@@ -38,7 +41,7 @@ TODO: SKRIV OM SD
 \label{Pakkediagram}
 
 Ud over vores DCD lavede vi også et pakkediagram.
-Pakkediagrammet er til stor hjælp når man skal finde rundt i programmet forskellige klasser og lag.
+Pakkediagrammet er til stor hjælp, når man skal finde rundt i programmets forskellige klasser og lag.
 Ligesom DCD'et kan det give et overblik over hvilke klasser, der har kendskab til hinanden, men uden at vise metoderne, som kan gøre det sværere at overskue relationerne mellem de forskellige klasser.
 Samtidigt viser pakkediagrammet mere omkring programmets lagdeling, da klasserne er opdelt i de lag, som vi har opdelt vores system i, se figur \ref{fig:pakkediagram}.
 
