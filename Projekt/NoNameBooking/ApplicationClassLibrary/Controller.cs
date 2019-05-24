@@ -243,12 +243,6 @@ namespace ApplicationClassLibrary
                 practitioner.DayLength));
         }
 
-        public double GetAppointmenmtPrice(int appoId)
-        {
-            AppointmentView tempAppo = _appointmentRepo.GetAppointmentById(appoId);
-            return tempAppo.Price;
-        }
-
         public RoomView GetRoomByAppointmentId(int appointmentId, string departmentName)
         {
             RoomView roomView = _departmentRepo.GetRoomByAppointmentId(appointmentId, departmentName);
