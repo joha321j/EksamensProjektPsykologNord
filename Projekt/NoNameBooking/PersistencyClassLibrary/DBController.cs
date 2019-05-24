@@ -83,8 +83,8 @@ namespace PersistencyClassLibrary
                         TimeSpan tempTimeSpan = TimeSpan.FromHours(tempTimeInt);
 
                         Appointment newAppointment = new Appointment(reader.GetDateTime(1), tempUsers,
-                            tempAppointmentType, tempRoom, reader.GetString(8), tempTimeSpan, reader.GetBoolean(11), reader.GetBoolean(12),reader.GetDouble(9),
-                            reader.GetInt32(0));
+                            tempAppointmentType, tempRoom, reader.GetString(8), tempTimeSpan, reader.GetBoolean(11),
+                            reader.GetBoolean(12), reader.GetDouble(9), reader.GetInt32(0));
 
                         listOfAppointments.Add(newAppointment);
 

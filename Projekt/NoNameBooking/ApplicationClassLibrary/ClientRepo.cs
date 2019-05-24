@@ -92,7 +92,7 @@ namespace ApplicationClassLibrary
         {
             lock (_lockingObject)
             {
-                _clients = _persistable.GetClients();
+                _clients = (List<Client>) sender;
                 NewClientEventHandler?.Invoke(_clients, EventArgs.Empty);
             }
             
