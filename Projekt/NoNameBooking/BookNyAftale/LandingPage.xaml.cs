@@ -281,5 +281,22 @@ namespace BookNyAftale
 
             }
         }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Er du sikkker på at du vil afslutte programmet ?", "Afslut", MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+            {
+                
+            }
+            else
+            {
+                _controller.StopRunning();
+                Environment.Exit(0);
+            }
+          
+        }
     }       
 }

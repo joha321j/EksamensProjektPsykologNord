@@ -88,11 +88,10 @@ namespace BookNyAftale
                 cmbbNotificationTime.Items.Add(i.ToString());
             }
         }
-
-        private void BtnAddClient_Click(object sender, RoutedEventArgs e)
+        private void BtnCreateClient_Click(object sender, RoutedEventArgs e)
         {
-            AddClient addClient = new AddClient();
-            addClient.Show();
+            CreateClient createClient = new CreateClient();
+            createClient.Show();
         }
 
         private void ClientRepoClientCreationHandler(object sender, EventArgs args)

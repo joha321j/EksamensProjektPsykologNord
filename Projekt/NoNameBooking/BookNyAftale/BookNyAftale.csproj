@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Crab_Nebula.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Logo Semplito-big-03.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
@@ -95,7 +95,7 @@
     <Compile Include="SpecifcInvoice.xaml.cs">
       <DependentUpon>SpecifcInvoice.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddClient.xaml">
+    <Page Include="CreateClient.xaml">
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -127,8 +127,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AddClient.xaml.cs">
-      <DependentUpon>AddClient.xaml</DependentUpon>
+    <Compile Include="CreateClient.xaml.cs">
+      <DependentUpon>CreateClient.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -201,6 +201,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Crab_Nebula.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo Semplito-big-03.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo Semplito-big-01.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

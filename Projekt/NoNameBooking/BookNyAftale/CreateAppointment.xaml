@@ -16,7 +16,7 @@
         <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="210,389,0,0" IsEnabled="False" DropDownClosed="CmbbAppointmentTime_OnDropDownClosed"/>
         <ComboBox x:Name="cmbbClient" HorizontalAlignment="Left" VerticalAlignment="Top" Width="449" Margin="100,118,0,0" DropDownClosed="CmbbClient_OnDropDownClosed"/>
         <Label Content="Vælg klient:" HorizontalAlignment="Left" Margin="100,87,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnAddClient" Content="Opret klient" HorizontalAlignment="Left" Margin="566,118,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddClient_Click"/>
+        <Button x:Name="btnCreateClient" Content="Opret klient" HorizontalAlignment="Left" Margin="566,118,0,0" VerticalAlignment="Top" Width="75" Click="BtnCreateClient_Click"/>
         <ComboBox x:Name="cmbbDepartment" HorizontalAlignment="Left" Margin="100,182,0,0" VerticalAlignment="Top" Width="541" DropDownClosed="CmbbDepartment_DropDownClosed"/>
         <Label Content="Vælg afdeling:" HorizontalAlignment="Left" Margin="100,151,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="cmbbAppointmentType" HorizontalAlignment="Left" Margin="100,323,0,0" VerticalAlignment="Top" Width="541" IsEnabled="False" DropDownClosed="CmbbAppointmentType_OnDropDownClosed"/>

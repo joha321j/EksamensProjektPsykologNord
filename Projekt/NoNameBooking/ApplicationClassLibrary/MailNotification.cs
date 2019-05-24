@@ -17,6 +17,7 @@ namespace ApplicationClassLibrary
         {
             _clientRepo = ClientRepo.GetInstance(persistable);
         }
+      
         public void SendReminderEmail(Appointment appointment, Client appointmentClient)
         {
             MimeMessage message = new MimeMessage();

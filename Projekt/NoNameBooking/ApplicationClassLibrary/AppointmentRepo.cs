@@ -162,6 +162,10 @@ namespace ApplicationClassLibrary
             }
         }
 
+        public void EmailNotifications()
+        {
+            _updateAppointmentNotification.EmailUpdateThread();
+        }
         public void Update(object sender, EventArgs eventArgs)
         {
             lock (_lockingObject)
