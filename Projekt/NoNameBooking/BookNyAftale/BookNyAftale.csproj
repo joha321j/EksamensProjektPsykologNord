@@ -95,7 +95,7 @@
     <Compile Include="SpecifcInvoice.xaml.cs">
       <DependentUpon>SpecifcInvoice.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddClient.xaml">
+    <Page Include="CreateClient.xaml">
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -127,8 +127,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AddClient.xaml.cs">
-      <DependentUpon>AddClient.xaml</DependentUpon>
+    <Compile Include="CreateClient.xaml.cs">
+      <DependentUpon>CreateClient.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

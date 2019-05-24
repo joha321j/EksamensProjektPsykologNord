@@ -19,12 +19,11 @@ namespace BookNyAftale
     /// <summary>
     /// Interaction logic for AddClient.xaml
     /// </summary>
-    public partial class AddClient : Window
+    public partial class CreateClient : Window
     {
+        internal readonly Controller _controller;
 
-        private readonly Controller _controller;
-
-        public AddClient()
+        public CreateClient()
         {
             InitializeComponent();
 
@@ -35,7 +34,7 @@ namespace BookNyAftale
         {
             try
             {
-                CreateClient();
+                CreateClientController();
                 Close();
             }
             catch (InvalidInputException exception)
@@ -44,7 +43,7 @@ namespace BookNyAftale
             }
         }
 
-        private void CreateClient()
+        private void CreateClientController()
         {
             string clientAddress = txtClientAddress.Text + ";" + txtClientZip.Text + ";" + txtClientCity.Text;
 
