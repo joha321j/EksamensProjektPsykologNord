@@ -28,5 +28,7 @@
         <CheckBox x:Name="cbSMS" Content="Send SMS til klient 24 timer før aftale." HorizontalAlignment="Left" Margin="753,331,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" Margin="100,250,0,0" VerticalAlignment="Top" Width="541" x:Name="cmbbPractitioner" DropDownClosed="CmbbPractitioner_DropDownClosed" IsEnabled="False"/>
         <Label Content="Vælg Behandler:" HorizontalAlignment="Left" Margin="100,219,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="800,387,0,0" VerticalAlignment="Top" Width="120" x:Name="cmbbNotificationTime"/>
+        <Label Content="Hvor mange dage før vil du påmindes om din aftale?" HorizontalAlignment="Left" Margin="720,356,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

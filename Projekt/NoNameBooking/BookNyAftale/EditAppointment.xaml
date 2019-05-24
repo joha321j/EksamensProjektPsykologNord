@@ -29,8 +29,8 @@
         <Label Content="Vælg Behandler:" HorizontalAlignment="Left" Margin="100,219,0,0" VerticalAlignment="Top"/>
         <Button Content="SLET" HorizontalAlignment="Left" Margin="825,644,0,27.4" Width="75" Height="25" Background="DarkRed" Foreground="White" FontWeight="Bold" Name="btnRemoveAppointment" Click="BtnRemoveAppointment_Click"/>
         <Label Visibility="Hidden" HorizontalAlignment="Left" Margin="624,61,0,0" VerticalAlignment="Top" Name="lblHiddenId"/>
-        <ComboBox HorizontalAlignment="Left" Margin="798,263,0,0" VerticalAlignment="Top" Width="120" Name="cmbbNotificationTime"/>
-        <Label Content="Hvornår vil du påmindes om din aftale?" HorizontalAlignment="Left" Margin="753,232,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="800,387,0,0" VerticalAlignment="Top" Width="120" Name="cmbbNotificationTime"/>
+        <Label Content="Hvor mange dage før vil du påmindes om din aftale?" HorizontalAlignment="Left" Margin="720,356,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
 

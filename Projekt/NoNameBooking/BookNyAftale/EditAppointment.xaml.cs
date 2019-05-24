@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ApplicationClassLibrary;
+using System;
 using DateTime = System.DateTime;
 
 namespace BookNyAftale
@@ -31,6 +32,7 @@ namespace BookNyAftale
             UpdateDepartmentComboBox();
             AppointmentView appoView = GetAppointmentById(appointmentId);
             UpdateEditWpf(appoView);
+            UpdateNotificationTimeComboBox();
         }
         private void UpdatePractitionerComboBox()
         {
@@ -42,6 +44,14 @@ namespace BookNyAftale
             foreach (string practitionerName in practitionerNames)
             {
                 cmbbPractitioner.Items.Add(practitionerName);
+            }
+        }
+
+        private void UpdateNotificationTimeComboBox()
+        {
+            for (int i = 1; i < 8; i++)
+            {
+                cmbbNotificationTime.Items.Add(i.ToString());
             }
         }
 
@@ -202,7 +212,8 @@ namespace BookNyAftale
                     AppointmentTypeView typeView = _controller.GetAppointmentTypeByName(cmbbAppointmentType.SelectedValue.ToString(), cmbbPractitioner.SelectedValue.ToString());
                     RoomView roomview = _controller.GetRoomByAppointmentId(appoId, cmbbDepartment.SelectedValue.ToString());
                     AppointmentView tempAppoView = _controller.GetAppointmentById(appoId);
-                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, roomview, txtNotes.Text, tempAppoView.Price, tempAppoView.NotficationTime, (bool)cbEmail.IsChecked, (bool)cbSMS.IsChecked);
+                    TimeSpan time = TimeSpan.Parse(cmbbNotificationTime.SelectedValue.ToString());
+                    AppointmentView appoView = new AppointmentView(appoId, dateTime, tempAppoView.Users, typeView, roomview, txtNotes.Text, tempAppoView.Price, time, (bool)cbEmail.IsChecked, (bool)cbSMS.IsChecked);
                     _controller.EditAppointment(appoView);
                 }
             }

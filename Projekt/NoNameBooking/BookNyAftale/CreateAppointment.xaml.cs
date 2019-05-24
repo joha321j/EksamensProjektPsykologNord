@@ -31,6 +31,7 @@ namespace BookNyAftale
 
             UpdateClientComboBox(null);
             UpdateDepartmentComboBox();
+            UpdateNotificationTimeComboBox();
         }
 
         private void UpdatePractitionerComboBox()
@@ -80,6 +81,14 @@ namespace BookNyAftale
             cmbbClient.SelectedItem = sender;
         }
 
+        private void UpdateNotificationTimeComboBox()
+        {
+            for (int i = 1; i < 8; i++)
+            {
+                cmbbNotificationTime.Items.Add(i.ToString());
+            }
+        }
+
         private void BtnAddClient_Click(object sender, RoutedEventArgs e)
         {
             AddClient addClient = new AddClient();
@@ -93,8 +102,7 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
-            //This is a default value that NEEDS to change
-            TimeSpan timeSpan = TimeSpan.FromHours(240); 
+            TimeSpan time = TimeSpan.Parse(cmbbNotificationTime.SelectedValue.ToString());
 
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
@@ -107,7 +115,7 @@ namespace BookNyAftale
                 _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
                     cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(),
-                    txtNotes.Text, timeSpan, cbEmail.IsChecked != null && (bool) cbEmail.IsChecked,
+                    txtNotes.Text, time, cbEmail.IsChecked != null && (bool) cbEmail.IsChecked,
                     cbSMS.IsChecked != null && (bool) cbSMS.IsChecked);
             }
             catch (Exception exception) when (exception is InvalidInputException || exception is SqlException || exception is SqlAppointmentAlreadyExistsException)
