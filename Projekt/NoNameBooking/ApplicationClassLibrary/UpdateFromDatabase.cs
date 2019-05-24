@@ -17,7 +17,7 @@ namespace ApplicationClassLibrary
         private List<Appointment> _appointments;
         private readonly List<Department> _departments;
         private readonly TimeSpan _minutesToSleep = TimeSpan.FromMinutes(1);
-        private const bool Running = true;
+        private static bool _running = true;
         private readonly IPersistable _persistable;
 
         public event EventHandler ClientsUpdatedEventHandler;
@@ -40,7 +40,7 @@ namespace ApplicationClassLibrary
 
         private void CheckForUpdates()
         {
-            while (Running)
+            while (_running)
             {
                 CheckForClients();
                 CheckForAppointments();
@@ -83,6 +83,11 @@ namespace ApplicationClassLibrary
         {
             return _instance ?? (_instance =
                        new UpdateFromDatabase(persistable, clients, appointments, practitioners, departments));
+        }
+
+        public static void StopThread()
+        {
+            _running = false;
         }
     }
 }

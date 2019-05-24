@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookNyAftale"
         mc:Ignorable="d"
-        Title="Kalender" Height="720" Width="1080"
+        Title="Kalender" Height="852.167" Width="1239.833"
          WindowState="Maximized">
     <Grid>
         <Grid HorizontalAlignment="Center" Height="500" Margin="0,180,0,0" VerticalAlignment="Top" Width="1052">
@@ -113,5 +113,6 @@
         <Button Content="I dag" HorizontalAlignment="Center" Margin="889,133,69,0" VerticalAlignment="Top" Width="114" Name="btnToday" Click="BtnToday_OnClick"/>
         <Button Content="←" HorizontalAlignment="Center" Margin="1010,133,34,0" VerticalAlignment="Top" Width="28" Name="btnBack" Click="BtnBack_OnClick"/>
         <Button Content="→" HorizontalAlignment="Center" Margin="1031,133,0,0" VerticalAlignment="Top" Width="28" Name="btnForward" Click="BtnForward_OnClick"/>
+        <Button x:Name="BtnClose" Content="Afslut" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="114" Height="31" Click="BtnClose_Click"/>
     </Grid>
 </Window>

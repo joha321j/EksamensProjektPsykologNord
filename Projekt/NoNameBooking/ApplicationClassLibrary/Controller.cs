@@ -267,5 +267,12 @@ namespace ApplicationClassLibrary
         {
             return _appointmentRepo.GetAppointmentById(appoId);
         }
+
+        public void StopRunning()
+        {
+            AppointmentNotification.StopThread();
+            UpdateFromDatabase.StopThread();
+
+        }
     }
 }
