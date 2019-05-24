@@ -15,7 +15,7 @@ namespace ApplicationClassLibrary
         private readonly IPersistable _persistable;
         private readonly ClientRepo _clientRepo;
         private readonly AppointmentRepo _appointmentRepo;
-        private const bool Running = true;
+        private static bool _running = true;
 
         public AppointmentNotification(List<Appointment> tempAppointments, AppointmentRepo appointmentRepo, IPersistable persistable)
         {
@@ -45,7 +45,7 @@ namespace ApplicationClassLibrary
         public void EmailSender()
         {
 
-            while (Running)
+            while (_running)
             {
                 foreach (Appointment appointment in _appointments)
                 {
@@ -110,6 +110,11 @@ namespace ApplicationClassLibrary
             {
                 _smsNotification.AppointmentUpdatedSms(appointment);
             }
+        }
+
+        public static void StopThread()
+        {
+            _running = false;
         }
     }
 }

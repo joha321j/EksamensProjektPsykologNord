@@ -51,7 +51,7 @@ namespace ApplicationClassLibrary
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler?.Invoke(((Client) sender)?.Name, e);
+            NewClientCreatedEventHandler?.Invoke(new object(), e);
         }
 
         private void AppointmentsChangedEventHandler(object sender, EventArgs e)
@@ -260,6 +260,13 @@ namespace ApplicationClassLibrary
         public AppointmentView GetAppointmentById(int appoId)
         {
             return _appointmentRepo.GetAppointmentById(appoId);
+        }
+
+        public void StopRunning()
+        {
+            AppointmentNotification.StopThread();
+            UpdateFromDatabase.StopThread();
+
         }
     }
 }
