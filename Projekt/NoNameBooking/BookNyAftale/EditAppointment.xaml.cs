@@ -31,8 +31,13 @@ namespace BookNyAftale
             _controller = Controller.GetInstance();
             UpdateDepartmentComboBox();
             AppointmentView appoView = GetAppointmentById(appointmentId);
-            UpdateEditWpf(appoView);
             UpdateNotificationTimeComboBox();
+            UpdateEditWpf(appoView);
+            
+            if (cmbbAppointmentTime.SelectedValue == null)
+            {
+                btnSaveAppointment.IsEnabled = false;
+            }
         }
         private void UpdatePractitionerComboBox()
         {
@@ -92,6 +97,8 @@ namespace BookNyAftale
             UpdateTreatmentComboBox();
             UpdateAppointmentDates();
         }
+
+        
 
         private void UpdateAppointmentDates()
         {
@@ -160,6 +167,7 @@ namespace BookNyAftale
             cmbbDepartment.IsEnabled = false;
             dpAppointmentDate.SelectedDate = appoView.DateAndTime.Date;           
             cmbbAppointmentTime.SelectedIndex = cmbbAppointmentTime.Items.IndexOf(appoView.DateAndTime.ToString("H:mm"));
+            cmbbNotificationTime.SelectedIndex = cmbbNotificationTime.Items.IndexOf(appoView.NotficationTime.Days.ToString());
             txtNotes.Text = appoView.Note;
             cmbbAppointmentType.IsEnabled = false;
             lblHiddenId.Content = appoView.Id;
@@ -224,6 +232,11 @@ namespace BookNyAftale
                     MessageBoxImage.Error);
             }
             Close();
+        }
+
+        private void CmbbAppointmentTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnSaveAppointment.IsEnabled = true;
         }
     }
 }

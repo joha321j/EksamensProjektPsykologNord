@@ -13,7 +13,7 @@
         <Label Content="Ændre aftale" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="22"/>
         <DatePicker x:Name="dpAppointmentDate" HorizontalAlignment="Left" VerticalAlignment="Top" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="103,387,0,0" SelectedDateChanged="DpAppointmentDate_OnSelectedDateChanged"/>
         <Label Content="Vælg dato og  tidspunkt:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,358,0,0"/>
-        <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="233,389,0,0"/>
+        <ComboBox x:Name="cmbbAppointmentTime" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="233,389,0,0" SelectionChanged="CmbbAppointmentTime_SelectionChanged"/>
         <ComboBox x:Name="cmbbClient" HorizontalAlignment="Left" VerticalAlignment="Top" Width="541" Margin="100,118,0,0"/>
         <Label Content="Vælg klient:" HorizontalAlignment="Left" Margin="100,87,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="cmbbDepartment" HorizontalAlignment="Left" Margin="100,182,0,0" VerticalAlignment="Top" Width="541" SelectionChanged="CmbbDepartment_SelectionChanged"/>
