@@ -28,6 +28,8 @@ namespace ApplicationClassLibrary
 
             _appointmentRepo = appointmentRepo;
             appointmentRepo.AppointmentsChangedEventHandler += UpdateAppointments;
+
+            EmailUpdateThread();
         }
 
         private void UpdateAppointments(object sender, EventArgs e)
@@ -50,7 +52,7 @@ namespace ApplicationClassLibrary
                 foreach (Appointment appointment in _appointments)
                 {
                     DateTime now = DateTime.Now;
-                    int hoursToAppointment = appointment.NotificationTime.Hours;
+                    double hoursToAppointment = appointment.NotificationTime.TotalHours;
 
                     if (appointment.DateAndTime > now &&
                         appointment.DateAndTime <= now.AddHours(hoursToAppointment)
@@ -60,7 +62,7 @@ namespace ApplicationClassLibrary
                         {
                             if (_clientRepo.IsClient(user))
                             {
-                                _mailNotification.SendReminderMail(user);
+                                _mailNotification.SendReminderEmail(appointment, user as Client);
                                 appointment.EmailNotification = false;
                                 _persistable.EditAppointment(appointment);
                             }
@@ -68,7 +70,7 @@ namespace ApplicationClassLibrary
 
                     }
                 }
-                Thread.Sleep(TimeSpan.FromMinutes(5));
+                Thread.Sleep(TimeSpan.FromMinutes(1));
             }
             
         }
