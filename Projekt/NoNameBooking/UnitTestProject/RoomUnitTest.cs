@@ -154,7 +154,7 @@ namespace UnitTestProject
 
             DateTime newTime = testDateTime;
 
-            Assert.IsTrue(testAppointment.EmailNotification);
+            Assert.IsTrue(testAppointment.SmsNotification);
         }
     }
 }
