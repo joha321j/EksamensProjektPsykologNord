@@ -34,7 +34,7 @@ namespace BookNyAftale
         {
             try
             {
-                CreateClientController();
+                CreateNewClient();
                 Close();
             }
             catch (InvalidInputException exception)
@@ -43,7 +43,7 @@ namespace BookNyAftale
             }
         }
 
-        private void CreateClientController()
+        private void CreateNewClient()
         {
             string clientAddress = txtClientAddress.Text + ";" + txtClientZip.Text + ";" + txtClientCity.Text;
 
