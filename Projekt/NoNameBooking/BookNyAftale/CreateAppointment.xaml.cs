@@ -32,6 +32,7 @@ namespace BookNyAftale
             UpdateClientComboBox(null);
             UpdateDepartmentComboBox();
             UpdateNotificationTimeComboBox();
+            cbSMS.IsEnabled = false;
         }
 
         private void UpdatePractitionerComboBox()

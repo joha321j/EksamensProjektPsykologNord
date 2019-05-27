@@ -38,6 +38,7 @@ namespace BookNyAftale
             {
                 btnSaveAppointment.IsEnabled = false;
             }
+            cbSMS.IsEnabled = false;
         }
         private void UpdatePractitionerComboBox()
         {

@@ -67,10 +67,5 @@ namespace ApplicationClassLibrary
             AppointmentType appoType = tempPrac.GetAppointmentType(typeName);
             return appoType;
         }
-
-        public void Update()
-        {
-            _practitioners = _persistable.GetPractitioners();
-        }
     }
 }

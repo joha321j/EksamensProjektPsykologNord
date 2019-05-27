@@ -15,11 +15,5 @@ namespace ApplicationClassLibrary
             Start = start;
             DayLength = dayLength;
         }
-
-        public PractitionerView(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
     }
 }

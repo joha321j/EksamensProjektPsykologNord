@@ -81,10 +81,5 @@ namespace ModelClassLibrary
         {
             return AppointmentTypes.Find(appointment => String.Equals(appointment.Name, appointmentTypeString));
         }
-
-        public AppointmentType GetAppointmentType(int appointmentType)
-        {
-            return AppointmentTypes.Find(type => type.Id == appointmentType);
-        }
     }
 }

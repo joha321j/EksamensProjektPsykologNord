@@ -20,9 +20,5 @@ namespace ApplicationClassLibrary
             Address = address;
             Email = email;
         }
-
-        public UserView()
-        {
-        }
     }
 }

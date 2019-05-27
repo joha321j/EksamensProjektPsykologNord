@@ -15,8 +15,5 @@ namespace ApplicationClassLibrary
             Name = name;
         }
 
-        public DepartmentView()
-        {
-        }
     }
 }
