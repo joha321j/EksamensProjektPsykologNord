@@ -91,10 +91,53 @@ Undgå rod i namespacet ved ikke at have det som globale variable.
 Hvis man ændrer mening, og det ikke længere skal være en singleton, er det simpelt at redigere koden, så klassen tillader at blive instantieret flere gange. Faktisk kan man med singleton mønstret bestemme præcis hvor mange instanser af en klasse, som man ønsker.
 
 På figur \ref{code:singleton} kan vores implementation af singletonmønstret ses.
+
+Vi har flere klasser, der implementerer singletonmønstret: alle vores repositories er singletons.
+Derfor burde vi have implementeret et singleton interface eller en abstract singleton klasse, som de andre singletons kunne arve fra.
+
+\begin{figure}[h]
+    \caption{PractitionerRepo's implementering af singletonmønstret}
+    \centering
+        \includegraphics[width=\textwidth]{Singleton.png}
+    \label{code:singleton}
+\end{figure}
+
 \subsubsection{Observer}
 \label{observer}
 
-TODO: SKRIV NOGET SPÆNDENDE OM OBSERVER
+Idéen med observermønstret er at skabe en fornuftig en-til-mange afhængigmed mellem objekter, så når et objekt ændrer tilstand får alle dens afhængige klasser en besked og opdateres automatisk.\cite{gangoffour}
+
+Det bruges rigtig meget til at styre, hvordan et UI bliver opdateret, når programmet ændrer tilstand.
+
+I C\# er der flere måder at implementere et observermønster: de mest udbredte måder er gennem 2 interfaces(et udgiver og et abonnent interface) eller ved hjælp af delegates.
+I C\# findes en delegate, der hedder EventHandler, som normalt bruges, når man laver et observermønster vha delegates.
+
+Som det kan ses på figur \ref{fig:ControllerObserverPattern} har vi implementeret vores observermønstre ved brug af EventHandler delegaten.
+Vi har valgt at bruge delegates i stedet for interfaces, da vi så ikke behøver at lave og implementere to interfaces, men i stedet gør vi brug af værktøjer, der allerede eksisterer.
+Derudover ville vi gerne få mere erfaring i at bruge delegates og events, da vi ikke har arbejdet lige så meget med det i løbet af året som med interfaces.
+
+Som det kan ses på figur \ref{fig:ControllerObserverPattern} er vores Controller klasse både en udgiver og en abonnent.
+Det er den nød til, da som beskrevet i afsnit \ref{facade}, er Controller en facade, og derfor kan vores UI ikke abonnere direkte ned til andre udgivere i vores applikationslag.
+
+
+\begin{figure}[h]
+    \caption{Controller observer mønster}
+    \centering
+        \includegraphics[width=\textwidth]{ControllerObserverPattern.png}
+    \label{fig:ControllerObserverPattern}
+\end{figure}
+
+Vores UI abonnerer på vores controller, som abonnerer på vores appointmentrepo og clientrepo klasser.
+På figur \ref{fig:ObserverObservermethod} kan det ses, at når controlleren får at vide, at der er sket en ændring i clientrepo eller appointmentrepo giver den sine abonnenter besked om det.
+Vores LandingPage og CreateAppointment vinduer abonnerer på vores controller.
+Det medfører, at når en aftale bliver lavet, opdateres aftaleoversigten på vores LandingPage.
+
+\begin{figure}[h]
+    \caption{Controller abonnentmetoder.}
+    \centering
+        \includegraphics[width=\textwidth]{ObserverObservermethod.png}
+    \label{fig:ObserverObservermethod}
+\end{figure}
 
 \subsection{GRASP}
 \label{grasp}

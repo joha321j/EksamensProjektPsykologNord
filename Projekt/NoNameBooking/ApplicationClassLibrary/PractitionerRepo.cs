@@ -7,7 +7,7 @@ namespace ApplicationClassLibrary
 {
     public class PractitionerRepo
     {
-        private IPersistable _persistable;
+        private readonly IPersistable _persistable;
         private List<Practitioner> _practitioners;
         private static PractitionerRepo _instance;
 

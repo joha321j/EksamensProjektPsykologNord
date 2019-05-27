@@ -11,8 +11,7 @@ Med alle use casene modelleret kan vi går videre til at modellere hvad koden sk
 
 \subsection{Systemoperationskontrakter(SOC) for Use Case: Book ny aftale}\label{Operation:Book ny aftale}
 
-\noindent
-
+{\setlength{\parindent}{0cm}
 \textbf{Operation:} createClient(clientName: string, clientEmail: string, clientPhoneNumber: string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
 
 \textbf{Cross References:} Use Case: Book ny aftale 
@@ -26,7 +25,7 @@ Med alle use casene modelleret kan vi går videre til at modellere hvad koden sk
 		\end{itemize}
  
 
-{\setlength{\parindent}{0cm}
+
 \textbf{Operation:} createAppointment(dateAndTime: DateTime, users : User[2..*], appointmentType: AppointmentType, note: string, room: Room) 
 
 \textbf{Cross References:} Use Case: Book ny aftale 
@@ -46,3 +45,4 @@ Med alle use casene modelleret kan vi går videre til at modellere hvad koden sk
             \item a was associated with c, u and r
         \end{itemize}
         
+{\setlength{\parindent}{14pt}
