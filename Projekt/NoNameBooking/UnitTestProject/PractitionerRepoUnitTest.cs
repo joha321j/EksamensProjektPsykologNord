@@ -16,7 +16,7 @@ namespace UnitTestProject
         private PractitionerRepo testInstance;
         private Practitioner testPractitionerOne;
         private Practitioner testPractitionerTwo;
-        private DBController _dbController;
+        private TestDbController _dbController;
 
 
 
@@ -24,7 +24,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void PractitionerRepoSetup()
         {
-            _dbController = new DBController();
+            _dbController = new TestDbController();
             testInstance = PractitionerRepo.GetInstance(_dbController);
 
 
@@ -77,7 +77,7 @@ namespace UnitTestProject
 
             Room testRoom = new Room("TestName");
 
-            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(5), false, false);
 
             List<DateTime> availableDateTimes = testInstance.GetAvailableDatesForPractitioner("pracNameOne", DateTime.Today, DateTime.Today.AddDays(7));
 
@@ -97,7 +97,7 @@ namespace UnitTestProject
 
             Room testRoom = new Room("TestName");
 
-            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(5), false, false);
 
             List<DateTime> availableTimes =
                 testInstance.GetAvailableTimesForPractitioner(testDateTime.Date, "pracNameOne");

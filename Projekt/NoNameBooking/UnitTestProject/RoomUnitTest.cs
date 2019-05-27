@@ -45,7 +45,7 @@ namespace UnitTestProject
             DateTime testDate = new DateTime(2019, 5, 1, 12, 0, 0);
             AppointmentType appointmentType = new AppointmentType("Anders", 123.879, TimeSpan.FromHours(2));
 
-            Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testRoom, "");
+            Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testRoom, "", TimeSpan.FromHours(5), false, false);
 
 
             DateTime startDate = DateTime.Today.AddDays(1);
@@ -55,7 +55,46 @@ namespace UnitTestProject
             List<DateTime> availableTimes = _testRoom.GetAvailability(startDate, endDate);
 
             Assert.IsFalse(availableTimes.Contains(testDate));
+        }
 
+        [TestMethod]
+        public void IsAvailableTest()
+        {
+            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(2));
+
+            User testUserOne = new User("testMike", "TestVibevænget 24", "69696969", "Mike@Johannes.mike");
+            User testUserTwo = new User("testMike2", "TestVibevænget 241", "69696968", "Mike@Cancer.Rasmus");
+            List<User> testUsers = new List<User>() { testUserOne, testUserTwo };
+
+            DateTime testDateTime = DateTime.Today.AddDays(1).AddHours(10);
+
+            Room testRoom = new Room("Youtube");
+
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(5), false, false);
+
+            DateTime newTime = testDateTime.AddHours(3);
+
+            Assert.IsTrue(testRoom.IsAvailable(newTime, testType.Duration));
+        }
+
+        [TestMethod]
+        public void NotAvailableTest()
+        {
+            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(2));
+
+            User testUserOne = new User("testMike", "TestVibevænget 24", "69696969", "Mike@Johannes.mike");
+            User testUserTwo = new User("testMike2", "TestVibevænget 241", "69696968", "Mike@Cancer.Rasmus");
+            List<User> testUsers = new List<User>() { testUserOne, testUserTwo };
+
+            DateTime testDateTime = DateTime.Today.AddDays(1).AddHours(10);
+
+            Room testRoom = new Room("Youtube");
+
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(5), false, false);
+
+            DateTime newTime = testDateTime;
+
+            Assert.IsFalse(testRoom.IsAvailable(newTime, testType.Duration));
         }
     }
 }

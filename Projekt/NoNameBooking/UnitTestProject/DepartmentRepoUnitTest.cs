@@ -18,7 +18,7 @@ namespace UnitTestProject
         private DepartmentRepo _instance;
         private Department _departmentOne;
         private Department _departmentTwo;
-        private DBController _dbController;
+        private TestDbController _dbController;
         private List<Practitioner> practitioners = new List<Practitioner>();
 
         [TestCleanup]
@@ -30,7 +30,7 @@ namespace UnitTestProject
         [TestInitialize]
         public void DepartmentRepoSetup()
         {
-            _dbController = new DBController();
+            _dbController = new TestDbController();
             _instance = DepartmentRepo.GetInstance(_dbController, practitioners);
             _departmentOne = new Department("TestDepartmentOne", "TestAddressOne");
             _departmentTwo = new Department("TestDepartmentTwo", "TestAddressTwo");
@@ -62,14 +62,14 @@ namespace UnitTestProject
         [TestMethod]
         public void GetAllDepartmentsTest()
         {
-            List<Department> testList = new List<Department> {_departmentOne, _departmentTwo};
+            List<Department> compare = _instance.GetDepartments();
 
             _instance.AddDepartment(_departmentOne);
             _instance.AddDepartment(_departmentTwo);
 
-            List<Department> compare = _instance.GetDepartments();
+            List<Department> testList = _instance.GetDepartments();
 
-            CollectionAssert.AreEquivalent(compare, testList);
+            Assert.AreEqual(compare.Count, testList.Count);
         }
 
         [TestMethod]
@@ -87,7 +87,7 @@ namespace UnitTestProject
             Room testRoom = new Room("TestName");
             _departmentOne.Rooms.Add(testRoom);
 
-            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(24), false, true);
 
             List<DateTime> availableDateTimes = _instance.GetAvailableDatesForDepartment("TestDepartmentOne", DateTime.Today, DateTime.Today.AddDays(7));
 
@@ -97,19 +97,19 @@ namespace UnitTestProject
         [TestMethod]
         public void GetAvailableTimesforDepartmentTest()
         {
-            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(4));
+            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(24));
 
-            User testUserOne = new User("asd", "ghd 24", "2324655", "sadffd@cxv.d");
-            User testUserTwo = new User("asdasd", "fj, 241", "23563223", "Mixcvke@sdfh.hg");
+            User testUserOne = new User("Testname1", "TestAddress 1", "2324655", "Testmail1@test.com");
+            User testUserTwo = new User("Testname2", "TestAddress 2", "23563223", "Testmail2@test.com");
             List<User> testUsers = new List<User>() { testUserOne, testUserTwo };
 
             DateTime testDateTime = DateTime.Today.AddDays(1);
 
             _instance.AddDepartment(_departmentOne);
-            Room testRoom = new Room("pohjpd");
+            Room testRoom = new Room("TestRoom");
             _departmentOne.Rooms.Add(testRoom);
 
-            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(24), false, false);
 
             List<DateTime> availableTimes = _instance.GetAvailableTimesForDepartment(testDateTime.Date, "TestDepartmentOne");
 

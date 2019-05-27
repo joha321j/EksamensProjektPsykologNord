@@ -19,12 +19,11 @@ namespace BookNyAftale
     /// <summary>
     /// Interaction logic for AddClient.xaml
     /// </summary>
-    public partial class AddClient : Window
+    public partial class CreateClient : Window
     {
+        internal readonly Controller _controller;
 
-        private readonly Controller _controller;
-
-        public AddClient()
+        public CreateClient()
         {
             InitializeComponent();
 
@@ -35,7 +34,7 @@ namespace BookNyAftale
         {
             try
             {
-                CreateClient();
+                CreateNewClient();
                 Close();
             }
             catch (InvalidInputException exception)
@@ -44,17 +43,12 @@ namespace BookNyAftale
             }
         }
 
-        private void CreateClient()
+        private void CreateNewClient()
         {
             string clientAddress = txtClientAddress.Text + ";" + txtClientZip.Text + ";" + txtClientCity.Text;
 
             _controller.CreateClient(txtClientName.Text, txtClientEmail.Text, txtClientPhone.Text,
                 clientAddress, txtClientSSN.Text, txtClientNote.Text);
-        }
-
-        private bool ContainsLetters(string text)
-        {
-            return !int.TryParse(text, out _);
         }
     }
 }

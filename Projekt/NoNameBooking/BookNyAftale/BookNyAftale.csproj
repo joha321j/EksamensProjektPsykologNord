@@ -34,12 +34,25 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Logo Semplito-big-03.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="MailKit, Version=2.1.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.2.1.5.1\lib\net45\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=2.1.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.2.1.5.1\lib\net45\MimeKit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlClient, Version=4.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.6.0\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -82,7 +95,7 @@
     <Compile Include="SpecifcInvoice.xaml.cs">
       <DependentUpon>SpecifcInvoice.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddClient.xaml">
+    <Page Include="CreateClient.xaml">
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -114,8 +127,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AddClient.xaml.cs">
-      <DependentUpon>AddClient.xaml</DependentUpon>
+    <Compile Include="CreateClient.xaml.cs">
+      <DependentUpon>CreateClient.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -178,9 +191,22 @@
       <Project>{BB1603B7-1593-4B0B-BE66-EC29CF1635DD}</Project>
       <Name>ModelClassLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PersistencyClassLibrary\PersistencyClassLibrary.csproj">
+      <Project>{BDC3694E-1616-4288-A316-BCC7073BECFC}</Project>
+      <Name>PersistencyClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Crab_Nebula.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo Semplito-big-03.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo Semplito-big-01.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

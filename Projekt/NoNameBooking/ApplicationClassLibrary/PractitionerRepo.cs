@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using ModelClassLibrary;
+using PersistencyClassLibrary;
 
 namespace ApplicationClassLibrary
 {
     public class PractitionerRepo
     {
         private IPersistable _persistable;
-        private readonly List<Practitioner> _practitioners;
+        private List<Practitioner> _practitioners;
         private static PractitionerRepo _instance;
 
         private PractitionerRepo(IPersistable persistable)
@@ -45,8 +46,6 @@ namespace ApplicationClassLibrary
             _practitioners.Add(practitioner);
         }
 
-
-
         public void ResetInstance()
         {
             _instance = null;
@@ -55,6 +54,23 @@ namespace ApplicationClassLibrary
         public List<Practitioner> GetPractitioners()
         {
             return _practitioners;
+        }
+
+        internal bool IsPractitioner(UserView user)
+        {
+            return _practitioners.Exists(practitioner => practitioner.Id == user.Id);
+        }
+
+        internal AppointmentType GetTreatmentByTreatmentName(string typeName, string practitionerName)
+        {
+            Practitioner tempPrac = _practitioners.Find(prac => prac.Name == practitionerName);
+            AppointmentType appoType = tempPrac.GetAppointmentType(typeName);
+            return appoType;
+        }
+
+        public void Update()
+        {
+            _practitioners = _persistable.GetPractitioners();
         }
     }
 }

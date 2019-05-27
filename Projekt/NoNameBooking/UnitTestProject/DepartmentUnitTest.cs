@@ -57,8 +57,8 @@ namespace UnitTestProject
 
             DateTime testDateTwo = new DateTime(DateTime.Today.Year, DateTime.Today.AddMonths(1).Month, DateTime.Today.AddDays(5).Day, 10, 0, 0);
 
-            Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[0], "");
-            Appointment testAppointmentTwo = new Appointment(testDateTwo, users, appointmentType, _testDepartment.Rooms[1], "");
+            Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[0], "", TimeSpan.FromHours(5), true, false);
+            Appointment testAppointmentTwo = new Appointment(testDateTwo, users, appointmentType, _testDepartment.Rooms[1], "", TimeSpan.FromHours(5), false, false);
 
             DateTime startDate = DateTime.Today.AddDays(1);
 
@@ -80,10 +80,10 @@ namespace UnitTestProject
 
 
             DateTime testDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.AddDays(2).Day, 10, 0, 0);
-            AppointmentType appointmentType = new AppointmentType("Anders", 123.879, TimeSpan.FromHours(2));
+            AppointmentType appointmentType = new AppointmentType("Anders", 123.879, TimeSpan.FromHours(24));
 
-            Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[0], "");
-            Appointment testAppointmentTwo = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[1], "");
+            Appointment testAppointment = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[0], "", TimeSpan.FromHours(24), false, false);
+            Appointment testAppointmentTwo = new Appointment(testDate, users, appointmentType, _testDepartment.Rooms[1], "", TimeSpan.FromHours(24), false, false);
 
 
             DateTime startDate = DateTime.Today.AddDays(1);
@@ -111,11 +111,37 @@ namespace UnitTestProject
 
             testDepartment2.Rooms.Add(testRoom);
 
-            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ");
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(5), false, false);
 
             List<DateTime> availableDateTimes = testDepartment2.GetAvailability(DateTime.Today, DateTime.Today.AddDays(7));
 
             Assert.IsFalse(availableDateTimes.Contains(testDateTime));
+        }
+
+        [TestMethod]
+        public void GetAvailableRoomsTest()
+        {
+            Department testDepartment2 = new Department("Kaare sex dungeon", "Hej 24");
+            AppointmentType testType = new AppointmentType("Kaare", 50, TimeSpan.FromHours(2));
+
+            User testUserOne = new User("testMike", "TestVibevænget 24", "69696969", "Mike@Johannes.mike");
+            User testUserTwo = new User("testMike2", "TestVibevænget 241", "69696968", "Mike@Cancer.Rasmus");
+            List<User> testUsers = new List<User>() { testUserOne, testUserTwo };
+
+            DateTime testDateTime = DateTime.Today.AddDays(1).AddHours(10);
+
+            Room testRoom = new Room("Youtube");
+            Room testRoom2 = new Room("TestRum");
+
+            testDepartment2.Rooms.Add(testRoom);
+            testDepartment2.Rooms.Add(testRoom2);
+
+            Appointment testAppointment = new Appointment(testDateTime, testUsers, testType, testRoom, " ", TimeSpan.FromHours(5), false, false);
+
+            Room availableRoom = testDepartment2.GetAvailableRoom(testDateTime, testType.Duration);
+
+            Assert.AreEqual(testRoom2, availableRoom);
+
         }
 
         [TestMethod]
