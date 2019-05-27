@@ -139,19 +139,113 @@ Det medfører, at når en aftale bliver lavet, opdateres aftaleoversigten på vo
     \label{fig:ObserverObservermethod}
 \end{figure}
 
+\subsection{Interfaces og nedarvning}
+
+\subsection{Threads}
+
+\subsection{Delegates og Lambdaudtryk}
+
+\subsection{LINQ}
+
 \subsection{GRASP}
 \label{grasp}
+GRASP står for General Responsibility Assignment Software Principles og er udgivet af Craig Larman.\cite{larman}
 
-TODO: DITTO MEN GRASP
+Principperne skal hjælpe med at skrive kode af høj kvalitet, så det skal være nemt at vedligeholde, udvide, og det skal være modulært.
+
+Vi har arbejdet med 5 GRASP principper: Creator, Information 
+Expert, Low Coupling, High Cohesion og Controller.
+
+\subsubsection{Creator}
+
+Creator princippet hjælper os med at bestemme, hvilken klasse skal have ansvaret for at lave en anden klasse.
+Larman giver os flere betingelser for, hvornår klasse A skal lave klasse B:
+
+\begin{itemize}
+    \item A indeholder B
+    \item A samler B
+    \item A har initialiseringsdataerne for B
+    \item A optager B
+    \item A nøje bruger B
+\end{itemize}
+
+Ifølge disse principper betyder det, at vores controller også kunne lave blandt andet vores aftaleklasse, se figur \ref{fig:controllerCreator}, da den indeholder alt den nødvendige data til at instantiere klassen.
+Det vil dog bryde med single responsibility princippet, som vi behandler i afsnit \ref{SRP}.
+Derfor er det appointmentRepo klassen, der har ansvaret for at lave et nyt appointment objekt, da denne samler appointment objekter.
+Som det kan ses på figur \ref{fig:controllerCreator} sender controlleren informationen videre ned til AppointmentRepo objektet, som så laver et Appointment objekt.
+
+\begin{figure}[h]
+    \caption{Controller CreateAppointment metode}
+    \centering
+        \includegraphics[width=\textwidth]{CreateAppointmentCreator.png}
+    \label{fig:controllerCreator}
+\end{figure}
+
+\subsubsection{Information Expert(IE)}
+IE princippet er et princip, der skal hjælpe os med single responsibility princippet.
+
+IE siger, at den klasse, der har den nødvendige information til at udføre en handling, skal have ansvaret for at udføre den handling.
+
+Da practitioner klassen indeholder den information, der skal bruges til at finde ud af, hvornår en practitioner har en ledig tid, er det derfor den klasse der skal udføre den handling, se figur \ref{fig:informationexpert}.
+De to hjælpemetoder kan ses i bilagene på figur \ref{bilag:informationexpert}.
+
+\begin{figure}[h]
+    \caption{IE eksempel i practitioner klassen}
+    \centering
+        \includegraphics[width=\textwidth]{IEEksempel.png}
+    \label{fig:informationexpert}
+\end{figure}
+
+
+\subsubsection{Low Coupling}
+Idéen med lav kobling eller low coupling er, at klasserne i ens software skal være så uafhængige af andre klasser som muligt.
+
+På figur \ref{fig:DCD} kan man se 
+
+\subsubsection{High Cohesion}
+
 
 \subsubsection{Controller}
 \label{controller}
 Vi gør brug af en controller til at facilitere kald fra UI'et, der kræver kald ned i applikations- og domænelaget.
 Dette betyder, at vi indkapsulerer en systemoperation.
-En systemoperation er noget, som en bruger af systemet ønsker at opnå, f.eks at booke en ny aftale.
+En systemoperation er noget, som en bruger af systemet ønsker at opnå, f.eks at booke en ny aftale, altså de operationer, som vises i et SSD.
 
 Vi opnår så systemoperationen ved, at controlleren kalder de nødvendige metoder i resten af systemet.
 
 Da vi, som nævnt i afsnit \ref{lagdeling}, har et applikationslag er det oplagt at bruge en controller til netop at give os det ønskede lag mellem UI og domæne.
 
 Vores controller er også en facade mellem UI- og applikationslagene, se afsnit \ref{facade}.
+
+\subsection{SOLID}
+\label{solid}
+
+SOLID er en samling af principper givet af Robert C. Martin.
+På samme måde som GRASP skal SOLID principperne hjælpe en programmør med at skrive kvalitetskode.
+
+Vi er blevet undervist i single responsibility i løbet af dette år.
+
+\subsubsection{Single responsibility princip(SRP)}
+\label{SRP}
+
+Idéen med SRP er, at en klasse må kun have ét ansvar.\cite{solid}
+
+En fare ved at bruge en controller er, at den godt kan komme til at have mere end et ansvar.
+Det har vi forsøgt at være meget opmærksomme på, hvilket også er grunden til, at vi har klasser som InputValidator klassen og DateTimeCalculator klassen.
+Begge klasser er i bund og grund metodebiblioteksklasser, da de kun indeholder statiske metoder.
+InputValidator klassen sikrer, at input fra brugeren er gyldige inputs, inden de bliver brugt af resten af systemet.
+Et eksempel af dens brug kan ses på figur \ref{fig:InputValidator}.
+
+Det kan dog ses på figur \ref{fig:controllerCreator}, at det ikke er lykkedes os helt at overholde SRP for controller klassen, da dens CreateAppointment metode også går ind og samler oplysninger fra andre objekter, og giver dem videre til appointmentrepo objektet.
+
+Den har altså nu mere end et ansvar: den faciliterer ikke kun samarbejde mellem UI og applikationslag, men samler også informationer fra andre klasser i applikationslaget.
+
+\begin{figure}[h]
+    \caption{Controllers brug af InputValidator metoder}
+    \centering
+        \includegraphics[width=\textwidth]{InputValidator.png}
+    \label{fig:InputValidator}
+\end{figure}
+
+
+

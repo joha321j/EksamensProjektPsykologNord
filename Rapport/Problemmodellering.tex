@@ -57,7 +57,8 @@ Vores valg af lagdeling vil blive diskuteret nærmere i afsnit \ref{lagdeling}.
     \label{fig:pakkediagram}
 \end{figure}
 
-\subsection{Databasediagram(DBD)}
+\section{Modellering af Simplito's database(DBD)}
+\subsection{Databasediagram}
 \label{DBD}
 
 Vi har også opstillet et DBD, for at bedre overskue opstillingen af databasen.
@@ -114,14 +115,7 @@ En determinant er den frie variable i en funktionel afhængighed. Har man funkti
 Måden vi har normaliseret vores database er ved først at identificere alle funktionelle afhængigheder, og så opstille tabeller, så alle determinanter er kandidatnøgler.
 De er ikke alle primærnøgler, da vi har valgt at bruge substitutnøgler som primærnøgler.
 
-Vores databasediagram kan ses på figur \ref{databasediagram}.
-
-\begin{figure}[h]
-    \caption{Databasediagram}
-    \centering
-        \includegraphics[width=\textwidth]{DBD.png}
-    \label{databasediagram}
-\end{figure}
+Vores databasediagram kan ses på figur \ref{fig:DBD}.
 
 \subsubsection{Views}
 
@@ -144,7 +138,7 @@ Det er blevet lavet forskellige SP'er primært ud fra CRUD princippet og de vi h
     \label{StoredProcedures}
 \end{figure}
 
-Vi har valgt at beskrive SP'en SPGetAllAppointments \ref{SPGetAllAppointments}, for at vise hvordan man kan bruge JOIN til at hente fra flere forskellige tabeller og få et enktelt table som output.
+Vi har valgt at beskrive SP'en SPGetAllAppointments, se figur \ref{SPGetAllAppointments}, for at vise hvordan man kan bruge JOIN til at hente fra flere forskellige tabeller og få et enktelt table som output.
 
 \begin{figure}[h]
     \caption{SPGetAllAppointments}
@@ -154,7 +148,5 @@ Vi har valgt at beskrive SP'en SPGetAllAppointments \ref{SPGetAllAppointments}, 
 \end{figure}
 
 Der er blevet brugt SELECT DISTINCT, som sørger for at der ikke er nogle duplicationer af data i outputted. Vi brugte det som et debugging værktøj, hvor det ikke er blevet fjernet fordi vi gerne ville være sikre på at der ikke var duplicationer.
-Der er blevet brugt fire JOIN's i denne SP, keyworded JOIN i MSSQL er i sig selv et LEFT JOIN dvs. at den tager alt fra den første table og forener på det de har tilfælles. Det gøres ved keyworded ON hvor der efter bliver lavet en sammenligning på deres PK og den modsatte table FK.
++Der er blevet brugt fire JOIN's i denne SP, keyworded JOIN i MSSQL er i sig selv et LEFT JOIN dvs. at den tager alt fra den første table og forener på det de har tilfælles. Det gøres ved keyworded ON hvor der efter bliver lavet en sammenligning på deres PK og den modsatte tables FK.
 Tilsidst er der blevet brugt ORDER BY, som sørget for at den kommer i den rækkefølge som vi gerne vil have det i.
-
-

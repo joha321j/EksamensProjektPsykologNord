@@ -149,7 +149,8 @@ namespace ApplicationClassLibrary
         }
 
         public void CreateAppointment(DateTime date, string timeString, string departmentName, string clientName,
-            string practitionerName, string appointmentTypeString, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
+            string practitionerName, string appointmentTypeString, string note, TimeSpan notificationTime,
+            Boolean emailNotification, Boolean smsNotification)
         {
             DateTime appointmentTime = InputValidator.ConvertShortTimeStringToDateTime(timeString);
 
