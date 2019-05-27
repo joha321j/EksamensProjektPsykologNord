@@ -146,7 +146,7 @@ namespace ApplicationClassLibrary
         {
             lock (_lockingObject)
             {
-                Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note, appointmentView.NotficationTime,appointmentView.EmailNotification,appointmentView.SMSNotification);
+                Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note, appointmentView.NotificationTime,appointmentView.EmailNotification,appointmentView.SMSNotification);
                 Appointment tempAppointment = _appointments.Find(appointmentOne => appointmentOne.Id == appointmentView.Id);
 
                 tempAppointment.DateAndTime = appointmentView.DateAndTime;

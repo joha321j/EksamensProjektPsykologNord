@@ -14,9 +14,5 @@ namespace ApplicationClassLibrary
             Id = id;
             Name = name;
         }
-
-        public DepartmentView()
-        {
-        }
     }
 }

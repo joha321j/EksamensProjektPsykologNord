@@ -200,9 +200,6 @@
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Crab_Nebula.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Logo Semplito-big-03.ico" />
   </ItemGroup>
   <ItemGroup>
