@@ -50,7 +50,7 @@ namespace UnitTestProject
             Room testRoom = new Room("A");
 
             List<User> users = new List<User> {testClient, _testPractitioner};
-            Appointment appointmentOne = new Appointment(testDateTime, users, testAppointmentType, testRoom, "");
+            Appointment appointmentOne = new Appointment(testDateTime, users, testAppointmentType, testRoom, "", TimeSpan.FromHours(5), false, false);
 
             DateTime tomorrow = DateTime.Today.AddDays(1);
             DateTime inOneYear = tomorrow.AddYears(1);
@@ -68,7 +68,7 @@ namespace UnitTestProject
             Room testRoom = new Room("B");
 
             List<User> users = new List<User> { testClient, _testPractitioner };
-            Appointment appointmentOne = new Appointment(testDateTime, users, testAppointmentType, testRoom, "");
+            Appointment appointmentOne = new Appointment(testDateTime, users, testAppointmentType, testRoom, "", TimeSpan.FromHours(5), false, false);
 
             List<DateTime> availableTimes = _testPractitioner.GetAvailableTimes(testDateTime.Date);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ModelClassLibrary;
+using PersistencyClassLibrary;
 
 namespace ApplicationClassLibrary
 {
@@ -9,7 +10,7 @@ namespace ApplicationClassLibrary
         private readonly IPersistable _persistable;
         private static DepartmentRepo _instance;
 
-        private readonly List<Department> _departments = new List<Department>();
+        private readonly List<Department> _departments;
 
         private DepartmentRepo(IPersistable persistable, List<Practitioner> practitioners)
         {
@@ -55,6 +56,22 @@ namespace ApplicationClassLibrary
             Department tempDepartment = GetDepartment(departmentName);
 
             return tempDepartment.GetAvailableTimes(selectedDateValue);
+        }
+
+        public DepartmentView GetDepartmentViewFromRoomId(int id)
+        {
+            DepartmentView department;
+            Department tempDepartment = _departments.Find(depart => depart.Rooms.Exists(room => room.Id == id));
+            department = new DepartmentView(tempDepartment.Id,tempDepartment.Name);
+            return department;
+        }
+
+        internal RoomView GetRoomByAppointmentId(int appointmentId, string departmentName)
+        {
+            Department tempDepartment = _departments.Find(depart => depart.Name == departmentName);            
+            Room tempRoom = tempDepartment.GetRoomByAppointmnetId(appointmentId);
+            RoomView roomView = new RoomView(tempRoom.Id, tempRoom.Name);
+            return roomView;
         }
     }
 }

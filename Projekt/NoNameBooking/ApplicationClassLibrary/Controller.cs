@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using ModelClassLibrary;
+using PersistencyClassLibrary; 
 
 namespace ApplicationClassLibrary
 {
     public class Controller
     {
-        private IPersistable _persistable;
         private static Controller _instance;
         private readonly ClientRepo _clientRepo;
         private readonly DepartmentRepo _departmentRepo;
@@ -14,21 +14,32 @@ namespace ApplicationClassLibrary
         private readonly AppointmentRepo _appointmentRepo;
 
         public EventHandler NewClientCreatedEventHandler;
+        public EventHandler NewAppointmentCreatedEventHandler;
 
         private Controller()
         {
-            _persistable = new DBController();
-            _clientRepo = ClientRepo.GetInstance(_persistable);
+            IPersistable persistable = new DbController();
+            
+            _clientRepo = ClientRepo.GetInstance(persistable);
             _clientRepo.NewClientEventHandler += NewClientEventHandler;
 
-            _practitionerRepo = PractitionerRepo.GetInstance(_persistable);
+            _practitionerRepo = PractitionerRepo.GetInstance(persistable);
 
-            _departmentRepo = DepartmentRepo.GetInstance(_persistable, _practitionerRepo.GetPractitioners());
+            _departmentRepo = DepartmentRepo.GetInstance(persistable, _practitionerRepo.GetPractitioners());
 
-            _appointmentRepo = AppointmentRepo.GetInstance(_persistable, GetUsers(), _departmentRepo.GetDepartments());
+            _appointmentRepo = AppointmentRepo.GetInstance(persistable, GetUsers(), _departmentRepo.GetDepartments());
+            _appointmentRepo.AppointmentsChangedEventHandler += AppointmentsChangedEventHandler;
+
+            UpdateFromDatabase updateFromDatabase = UpdateFromDatabase.GetInstance(persistable,
+                _clientRepo.GetClients(), _appointmentRepo.GetAppointments(), _practitionerRepo.GetPractitioners(),
+                _departmentRepo.GetDepartments());
+
+            updateFromDatabase.ClientsUpdatedEventHandler += _clientRepo.Update;
+            updateFromDatabase.AppointmentsUpdatedEventHandler += _appointmentRepo.Update;
+
         }
 
-        private List<User> GetUsers()
+        public List<User> GetUsers()
         {
             List<User> tempUsers = new List<User>();
             tempUsers.AddRange(_clientRepo.GetClients());
@@ -40,7 +51,12 @@ namespace ApplicationClassLibrary
 
         private void NewClientEventHandler(object sender, EventArgs e)
         {
-            NewClientCreatedEventHandler.Invoke(((Client) sender).Name, e);
+            NewClientCreatedEventHandler?.Invoke(new object(), e);
+        }
+
+        private void AppointmentsChangedEventHandler(object sender, EventArgs e)
+        {
+            NewAppointmentCreatedEventHandler?.Invoke(sender, e);
         }
 
         public static Controller GetInstance()
@@ -55,7 +71,7 @@ namespace ApplicationClassLibrary
             InputValidator.EnsureValidSsn(clientSsn);
             InputValidator.EnsureValidZip(clientAddress);
 
-            _clientRepo.CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
+            _clientRepo.CreateAndAddClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
         }
 
         public List<string> GetClientNames()
@@ -89,6 +105,14 @@ namespace ApplicationClassLibrary
             return treatments.ConvertAll(treatmentType => treatmentType.Name);
         }
 
+        /// <summary>
+        /// Returns a list of unavailable dates based on available dates for practitioners and department.
+        /// </summary>
+        /// <param name="practitionerName"></param>
+        /// <param name="departmentName"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public List<DateTime> GetBusyDates(string practitionerName, string departmentName, DateTime startDate,
             DateTime endDate)
         {
@@ -104,6 +128,13 @@ namespace ApplicationClassLibrary
             return busyDates;
         }
 
+        /// <summary>
+        /// Returns a list of times you can select.
+        /// </summary>
+        /// <param name="selectedDateValue"></param>
+        /// <param name="practitionerName"></param>
+        /// <param name="departmentName"></param>
+        /// <returns></returns>
         public List<string> GetAvailableTimes(DateTime selectedDateValue, string practitionerName, string departmentName)
         {
             List<DateTime> practitionerTimes =
@@ -117,35 +148,125 @@ namespace ApplicationClassLibrary
             return availableTimes.ConvertAll(time => time.ToShortTimeString());
         }
 
-        public void CreateAppointment(DateTime dateAndTime, string timeString, string departmentName, string clientName,
-            string practitionerName, string appointmentTypeString, string note)
+        public void CreateAppointment(DateTime date, string timeString, string departmentName, string clientName,
+            string practitionerName, string appointmentTypeString, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
             DateTime appointmentTime = InputValidator.ConvertShortTimeStringToDateTime(timeString);
 
-            dateAndTime = dateAndTime.AddHours(appointmentTime.Hour);
-
-            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
-            Room tempRoom = tempDepartment.GetAvailableRoom(dateAndTime);
+            date = date.AddHours(appointmentTime.Hour);
 
             Client tempClient = _clientRepo.GetClient(clientName);
+
             Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
+            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
+
+            Department tempDepartment = _departmentRepo.GetDepartment(departmentName);
+            Room tempRoom = tempDepartment.GetAvailableRoom(date, tempAppointmentType.Duration);
 
             List<User> users = new List<User>() {tempClient, tempPractitioner};
 
-            AppointmentType tempAppointmentType = tempPractitioner.GetAppointmentType(appointmentTypeString);
-
-            _appointmentRepo.CreateAndAddAppointment(dateAndTime, tempRoom, users,
-                tempAppointmentType, note);
+            _appointmentRepo.CreateAndAddAppointment(date, tempRoom, users,
+                tempAppointmentType, note, notificationTime, emailNotification, smsNotification);
         }
 
-        public void RemoveAppointment(DateTime dateAndTime, string clientName)
-        {            
-            _appointmentRepo.RemoveAppointment(clientName, dateAndTime);
+        public List<UserView> GetPractitionerFromAppointmentView(AppointmentView appoView)
+        {
+            List<UserView> users = appoView.Users;
+
+            List<UserView> practitioner = new List<UserView>();
+
+            foreach (UserView user in users)
+            {
+                if (_practitionerRepo.IsPractitioner(user))
+                {
+                    practitioner.Add(user);
+                }
+            }
+
+            return practitioner;
         }
 
-        public List<AppointmentView> GetAllAppointmentsByPracId(int id)
+        public List<UserView> GetClientsFromAppointmentView(AppointmentView appoView)
+        {
+            List<UserView> users = appoView.Users;
+
+            List<UserView> clients = new List<UserView>();
+
+            foreach (UserView user in users)
+            {
+                if (_clientRepo.IsClient(user))
+                {
+                    clients.Add(user);
+                }
+            }
+
+            return clients;
+        }
+
+        public void RemoveAppointment(int appointmentId)
         {                        
-            return _appointmentRepo.GetAppointmentsByPracId(id);
+            _appointmentRepo.RemoveAppointment(appointmentId);
+        }
+
+        public DepartmentView GetDepartmentViewFromRoomId(int id)
+        {
+           return _departmentRepo.GetDepartmentViewFromRoomId(id);
+        }
+
+        public List<AppointmentView> GetAllAppointmentsByPracId(int id, DateTime startDate, DateTime endDate)
+        {
+            List<AppointmentView> appointmentViews = _appointmentRepo.GetAppointmentsByPractitionerId(id);
+            
+            List<AppointmentView> returnList = appointmentViews.FindAll(appointment =>
+                appointment.DateAndTime > startDate && appointment.DateAndTime < endDate);
+            return returnList;
+        }
+
+        public DateTime GetMondayDate(DateTime today)
+        {
+            int weekNumber = DateTimeCalculator.GetIso8601WeekOfYear(today);
+
+            return DateTimeCalculator.FirstDateOfWeek(today.Year, weekNumber);
+        }
+
+        public void EditAppointment(AppointmentView appointmentView)
+        {
+            _appointmentRepo.EditAppointment(appointmentView);
+        }
+
+        public List<PractitionerView> GetPractitioners()
+        {
+            List<Practitioner> practitioners = _practitionerRepo.GetPractitioners();
+
+            return practitioners.ConvertAll(practitioner => new PractitionerView(practitioner.Id, practitioner.Name,
+                practitioner.PhoneNumber, practitioner.Address, practitioner.Email, practitioner.Start,
+                practitioner.DayLength));
+        }
+
+        public RoomView GetRoomByAppointmentId(int appointmentId, string departmentName)
+        {
+            RoomView roomView = _departmentRepo.GetRoomByAppointmentId(appointmentId, departmentName);
+            return roomView;
+        }
+
+        public AppointmentTypeView GetAppointmentTypeByName(string typeName, string practitionerName)
+        {
+            AppointmentType tempType = _practitionerRepo.GetTreatmentByTreatmentName(typeName, practitionerName);
+            AppointmentTypeView appoTypeView = new AppointmentTypeView(tempType.Id,tempType.Name,tempType.Duration,tempType.StandardPrice);
+
+            return appoTypeView;
+        }
+
+        public AppointmentView GetAppointmentById(int appoId)
+        {
+            return _appointmentRepo.GetAppointmentById(appoId);
+        }
+
+        public void StopRunning()
+        {
+            AppointmentNotification.StopThread();
+            UpdateFromDatabase.StopThread();
+
         }
     }
 }

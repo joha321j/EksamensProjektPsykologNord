@@ -80,5 +80,20 @@ namespace ModelClassLibrary
         {
             Appointments.Add(appointment);
         }
+
+        public bool IsAvailable(DateTime dateAndTime, TimeSpan appointmentDuration)
+        {
+            List<DateTime> availableDateTimes = GetAvailability(dateAndTime.Date, dateAndTime.Date.AddDays(1));
+
+            bool isAvailable = false;
+
+            for (int i = 0; i < appointmentDuration.Hours; i++)
+            {
+                isAvailable = availableDateTimes.Contains(dateAndTime);
+                dateAndTime = dateAndTime.AddHours(1);
+            }
+
+            return isAvailable;
+        }
     }
 }

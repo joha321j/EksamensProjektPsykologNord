@@ -1,21 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ApplicationClassLibrary;
-using DateTime = System.DateTime;
-
+using PersistencyClassLibrary;
 
 namespace BookNyAftale
 {
@@ -26,6 +15,13 @@ namespace BookNyAftale
     {
         private readonly Controller _controller;
 
+        private bool _departmentChosen;
+        private bool _practitionerChosen;
+        private bool _appointmentTypeChosen;
+        private bool _dateChosen;
+        private bool _timeChosen;
+        private bool _clientChosen;
+
         public CreateAppointment()
         {
             InitializeComponent();
@@ -35,6 +31,7 @@ namespace BookNyAftale
 
             UpdateClientComboBox(null);
             UpdateDepartmentComboBox();
+            UpdateNotificationTimeComboBox();
         }
 
         private void UpdatePractitionerComboBox()
@@ -84,10 +81,17 @@ namespace BookNyAftale
             cmbbClient.SelectedItem = sender;
         }
 
-        private void BtnAddClient_Click(object sender, RoutedEventArgs e)
+        private void UpdateNotificationTimeComboBox()
         {
-            AddClient addClient = new AddClient();
-            addClient.Show();
+            for (int i = 1; i < 8; i++)
+            {
+                cmbbNotificationTime.Items.Add(i.ToString());
+            }
+        }
+        private void BtnCreateClient_Click(object sender, RoutedEventArgs e)
+        {
+            CreateClient createClient = new CreateClient();
+            createClient.Show();
         }
 
         private void ClientRepoClientCreationHandler(object sender, EventArgs args)
@@ -97,6 +101,8 @@ namespace BookNyAftale
 
         private void BtnCreateAppointment_OnClick(object sender, RoutedEventArgs e)
         {
+            TimeSpan time = TimeSpan.Parse(cmbbNotificationTime.SelectedValue.ToString());
+
             DateTime date = default(DateTime);
             if (dpAppointmentDate.SelectedDate != null)
             {
@@ -107,23 +113,63 @@ namespace BookNyAftale
             {
                 _controller.CreateAppointment(date, cmbbAppointmentTime.SelectionBoxItem.ToString(),
                     cmbbDepartment.SelectionBoxItem.ToString(), cmbbClient.SelectionBoxItem.ToString(),
-                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(), txtNotes.Text);
+                    cmbbPractitioner.SelectionBoxItem.ToString(), cmbbAppointmentType.SelectionBoxItem.ToString(),
+                    txtNotes.Text, time, cbEmail.IsChecked != null && (bool) cbEmail.IsChecked,
+                    cbSMS.IsChecked != null && (bool) cbSMS.IsChecked);
             }
-            catch (InvalidInputException exception)
+            catch (Exception exception) when (exception is InvalidInputException || exception is SqlException || exception is SqlAppointmentAlreadyExistsException)
             {
-                MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (exception is SqlAppointmentAlreadyExistsException)
+                {
+                    MessageBox.Show("Kunne ikke oprette en aftale dette tidspunkt.\nPrøv igen med et andet tidspunkt",
+                        "Aftale eksistere allerede",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (exception is InvalidInputException)
+                {
+                    MessageBox.Show(exception.Message, "Fejl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Kunne ikke oprette forbindelse til databasen.\nPrøv at checke din internet forbindelse",
+                        "Fejl!", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    Close();
+                }
+
+                //_controller.UpdateRepos();
+                UpdateAppointmentDates();
+                UpdateAppointmentTimeComboBox();
             }
+            Close();
         }
 
-        private void CmbbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbbDepartment_DropDownClosed(object sender, EventArgs e)
         {
-            UpdatePractitionerComboBox();
+
+            if ((string) cmbbDepartment.SelectionBoxItem != string.Empty)
+            {
+                UpdatePractitionerComboBox();
+
+                _departmentChosen = true;
+
+                cmbbPractitioner.IsEnabled = _departmentChosen;
+            }
+            
         }
 
-        private void CmbbPractitioner_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbbPractitioner_DropDownClosed(object sender, EventArgs e)
         {
-            UpdateTreatmentComboBox();
-            UpdateAppointmentDates();
+            if ((string) cmbbPractitioner.SelectionBoxItem != string.Empty)
+            {
+                UpdateTreatmentComboBox();
+                UpdateAppointmentDates();
+
+                _practitionerChosen = true;
+                cmbbAppointmentType.IsEnabled = _practitionerChosen;
+            }
+            
         }
 
         private void UpdateAppointmentDates()
@@ -156,7 +202,47 @@ namespace BookNyAftale
 
         private void DpAppointmentDate_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateAppointmentTimeComboBox();
+            if (dpAppointmentDate.SelectedDate != null)
+            {
+                UpdateAppointmentTimeComboBox();
+                _dateChosen = true;
+                cmbbAppointmentTime.IsEnabled = _dateChosen;
+            }
+            
+        }
+
+        private void CmbbAppointmentType_OnDropDownClosed(object sender, EventArgs e)
+        {
+            if ((string) cmbbAppointmentType.SelectionBoxItem != string.Empty)
+            {
+                _appointmentTypeChosen = true;
+                dpAppointmentDate.IsEnabled = _appointmentTypeChosen;
+            }
+            
+        }
+
+
+
+        private void CmbbAppointmentTime_OnDropDownClosed(object sender, EventArgs e)
+        {
+            if ((string) cmbbAppointmentTime.SelectionBoxItem != string.Empty)
+            {
+                _timeChosen = true;
+
+                if (_practitionerChosen && _appointmentTypeChosen && _dateChosen && _departmentChosen && _timeChosen && _clientChosen)
+                {
+                    btnCreateAppointment.IsEnabled = true;
+                }
+            }
+
+        }
+
+        private void CmbbClient_OnDropDownClosed(object sender, EventArgs e)
+        {
+            if ((string) cmbbClient.SelectionBoxItem != string.Empty)
+            {
+                _clientChosen = true;
+            }
         }
     }
 }

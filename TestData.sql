@@ -62,16 +62,16 @@ VALUES
 ('Billig', '01:00', 999.00),
 ('Par', '02:00', 2499.00)
 
-INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note)
+INSERT INTO PN_Appointment(DateAndTime, RoomId, Price, AppointmentTypeId, Note, NotificationTime, EmailNotification, SMSNotification)
 VALUES
-('2019-05-16 12:00:00', 1, 0.00, 1, 'test note'),
-('2019-05-20 12:00:00', 3, 0.00, 2, 'note'),
-('2019-05-15 12:00:00', 2, 0.00, 1, 'test note'),
-('2019-05-16 14:00:00', 5, 0.00, 3, 'note'),
-('2019-05-18 15:00:00', 1, 0.00, 1, 'test note'),
-('2019-05-23 20:00:00', 1, 2000.00, 2, 'note'),
-('2019-06-16 10:00:00', 2, 0.00, 1, 'test note'),
-('2019-06-16 12:00:00', 5, 0.00, 2, 'note')
+('2019-05-16 12:00:00', 1, 0.00, 1, 'test note', 5, 0, 0),
+('2019-05-20 12:00:00', 3, 0.00, 2, 'note', 24, 1, 0),
+('2019-05-15 12:00:00', 2, 0.00, 1, 'test note', 5, 1, 1),
+('2019-05-16 14:00:00', 5, 0.00, 3, 'note', 24, 0, 1),
+('2019-05-18 15:00:00', 1, 0.00, 1, 'test note', 24, 1, 1),
+('2019-05-23 10:00:00', 1, 2000.00, 2, 'note', 24, 1, 1),
+('2019-06-16 10:00:00', 2, 0.00, 1, 'test note', 24, 0, 0),
+('2019-06-16 12:00:00', 5, 0.00, 2, 'note', 24, 0, 0)
 GO
 
 INSERT INTO PN_Invoice(AppointmentId, DueDate)
@@ -112,7 +112,7 @@ VALUES
 (4,2),
 (4,3)
 
-INSERT INTO PN_Dartment_Practitioner(DeparmentId, PractitionerId)
+INSERT INTO PN_Department_Practitioner(DepartmentId, PractitionerId)
 VALUES
 (1,3),
 (2,3),

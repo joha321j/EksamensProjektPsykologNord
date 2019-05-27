@@ -23,7 +23,23 @@ Metodikken ved TDD er:
 Hurtigt skriv en test, kør alle tests og se den nye test fejle, lav en lille ændring i ens program, kør alle tests og se dem alle bestå, refaktorer til at undgå duplikeret kode, sikr at alle tests stadig består.
 
 En stor gevinst ved TDD er, at du er sikker på, at du har tests, der dokumenterer dit systems funktionalitet, så når der laves ændringer og refaktoreringer, er du sikker på, at programmet stadig virker som ønsket.
-Det har været en stor gevinst for os, da vi alle stadig er uerfarne programører, og vi derfor flere gange refaktoreret vores kode.
+
+På figur \ref{fig:TDD} kan ses et eksempel på en testmetode.
+Denne test sikrer, at vores client klasse arver fra vores user klasse.
+
+\begin{figure}[H]
+    \caption{Eksempel på en unit test}
+    \centering
+        \includegraphics[width=\textwidth]{TestEksempelInheritance.png}
+    \label{fig:TDD}
+\end{figure}
+
+TDD fungerede rigtig godt for os i de to første sprints, hvor programmets grundstruktur i domæne og applikationslagene blev skabt.
+Da vi alle stadig er nye og uerfarne programmører, har vi været nød til at refaktorere koden af flere omgange.
+Der har det været en uvurderlig gevinst, at vi nemt har kunne se, om vi har mistet funktionalitet i vores program eller ej.
+
+I den sidste sprint må vi dog indrømme, at vi gik bort fra TDD pga. tidspres.
+Det gjorde det dog meget sværere at debugge vores funktionalitet med tråde, og i retrospekt ville vi nok have sparet tid på også at bruge TDD til udvilkingen af dette.
 
 \subsection{Lagdeling}
 \label{lagdeling}

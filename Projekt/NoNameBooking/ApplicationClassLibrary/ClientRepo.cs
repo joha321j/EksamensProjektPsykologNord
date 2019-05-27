@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ModelClassLibrary;
+using PersistencyClassLibrary;
 
 namespace ApplicationClassLibrary
 {
@@ -8,14 +9,16 @@ namespace ApplicationClassLibrary
     {
         private static IPersistable _persistable;
         private static ClientRepo _instance;
+        private readonly object _lockingObject = new object();
 
-        private readonly List<Client> _clients;
+        private List<Client> _clients;
 
         public EventHandler NewClientEventHandler;
 
         private ClientRepo(IPersistable persistable)
         {
             _persistable = persistable;
+
             _clients = _persistable.GetClients();
         }
 
@@ -24,31 +27,75 @@ namespace ApplicationClassLibrary
             return _instance ?? (_instance = new ClientRepo(persistable));
         }
 
-        public void CreateClient(string clientName, string clientEmail, string clientPhoneNumber,
+        public void CreateAndAddClient(string clientName, string clientEmail, string clientPhoneNumber,
             string clientAddress, string clientSsn, string clientNote)
         {
-            Client newClient = new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote);
+            int clientId = _persistable.SaveUser(clientName, clientAddress, clientPhoneNumber, clientEmail);
+            _persistable.SaveClient(clientId, clientNote, clientSsn);
 
-            _clients.Add(newClient);
+            Client newClient = CreateClient(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
+
+            lock (_lockingObject)
+            {
+                _clients.Add(newClient);
+            }
 
             NewClientEventHandler?.Invoke(newClient, EventArgs.Empty);
         }
 
-
-        public int GetClientAmount()
+        private Client CreateClient(string clientName, string clientEmail, string clientPhoneNumber, string clientAddress, string clientSsn, string clientNote, int clientId)
         {
-            return _clients.Count;
+            return new Client(clientName, clientEmail, clientPhoneNumber, clientAddress, clientSsn, clientNote, clientId);
         }
-
 
         public List<Client> GetClients()
         {
-            return _clients;
+            lock (_lockingObject)
+            {
+                return _clients;
+            }
         }
 
         public Client GetClient(string clientName)
         {
-            return _clients.Find(client => string.Equals(client.Name, clientName));
+            lock (_lockingObject)
+            {
+                return _clients.Find(client => string.Equals(client.Name, clientName));
+            }
+            
+        }
+
+        public bool IsClient(UserView user)
+        {
+            lock (_lockingObject)
+            {
+                return _clients.Exists(client => client.Id == user.Id);
+            }
+            
+        }
+
+        public bool IsClient(User user)
+        {
+            lock (_lockingObject)
+            {
+                return _clients.Exists(client => client.Id == user.Id);
+            }
+            
+        }
+        
+        public void Reset()
+        {
+            _instance = null;
+        }
+
+        public void Update(object sender, EventArgs eventArgs)
+        {
+            lock (_lockingObject)
+            {
+                _clients = (List<Client>) sender;
+                NewClientEventHandler?.Invoke(_clients, EventArgs.Empty);
+            }
+            
         }
     }
 }
