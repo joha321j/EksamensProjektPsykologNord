@@ -15,7 +15,7 @@ namespace ApplicationClassLibrary
         public double Price { get; set; }
         public Boolean EmailNotification { get; set; }
         public Boolean SMSNotification { get; set; }
-        public TimeSpan NotficationTime { get; set; }
+        public TimeSpan NotificationTime { get; set; }
 
         public AppointmentView(int id, DateTime dateAndTime,List<UserView> users, AppointmentTypeView appointmentType, RoomView room,string note, double price, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
         {
@@ -28,7 +28,7 @@ namespace ApplicationClassLibrary
             Price = price;
             EmailNotification = emailNotification;
             SMSNotification = smsNotification;
-            NotficationTime = notificationTime;
+            NotificationTime = notificationTime;
         }
     }
 }
