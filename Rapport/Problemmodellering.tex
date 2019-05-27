@@ -57,7 +57,8 @@ Vores valg af lagdeling vil blive diskuteret nærmere i afsnit \ref{lagdeling}.
     \label{fig:pakkediagram}
 \end{figure}
 
-\subsection{Databasediagram(DBD)}
+\section{Modellering af Simplito's database(DBD)}
+\subsection{Databasediagram}
 \label{DBD}
 
 Vi har også opstillet et DBD, for at bedre overskue opstillingen af databasen.
@@ -126,7 +127,26 @@ Vi bruger ikke på nuværende tidspunkt views i vores database, men det kunne ha
 Hvis vi ændrer databaseopbygningen nu, skal vi også ændre vores stored procedures og muligvis også vores kode i vores program, hvor hvis vi brugte views ville vi blot skulle ændre viewet, så det præsenterer dataene på samme måde som inden ændringen i databasen.
 
 \subsubsection{Stored Procedures}
-En stored procedure er gemt SQL forespørgsler, sa det nemt kan køres igen, når det skal bruges.
+En stored procedure (SP) er gemt SQL forespørgsler, så det nemt kan køres igen, når det skal bruges.
 Man kan bruge stored procedures til at bestemme, hvordan en bruger kan interagere med ens database ved at sætte rettighederne så brugeren kun kan køre allerede eksisterende stored procedures.
+Det er blevet lavet forskellige SP'er primært ud fra CRUD princippet og de vi har brugt i vores system kan ses i figur \ref{StoredProcedures}
 
-\textbf{SKRIV OM SPÆNDENDE SP'ER!}
+\begin{figure}[h]
+    \caption{Stored Procedures}
+    \centering
+        \includegraphics[width=\textwidth]{SP.png}
+    \label{StoredProcedures}
+\end{figure}
+
+Vi har valgt at beskrive SP'en SPGetAllAppointments, se figur \ref{SPGetAllAppointments}, for at vise hvordan man kan bruge JOIN til at hente fra flere forskellige tabeller og få et enktelt table som output.
+
+\begin{figure}[h]
+    \caption{SPGetAllAppointments}
+    \centering
+        \includegraphics[width=\textwidth]{SPGetAllAppointments.png}
+    \label{SPGetAllAppointments}
+\end{figure}
+
+Der er blevet brugt SELECT DISTINCT, som sørger for at der ikke er nogle duplicationer af data i outputted. Vi brugte det som et debugging værktøj, hvor det ikke er blevet fjernet fordi vi gerne ville være sikre på at der ikke var duplicationer.
++Der er blevet brugt fire JOIN's i denne SP, keyworded JOIN i MSSQL er i sig selv et LEFT JOIN dvs. at den tager alt fra den første table og forener på det de har tilfælles. Det gøres ved keyworded ON hvor der efter bliver lavet en sammenligning på deres PK og den modsatte tables FK.
+Tilsidst er der blevet brugt ORDER BY, som sørget for at den kommer i den rækkefølge som vi gerne vil have det i.
