@@ -145,9 +145,6 @@ Det er blevet lavet forskellige SP'er primært ud fra CRUD princippet og de vi h
 \end{figure}
 
 Vi har valgt at beskrive SP'en SPGetAllAppointments \ref{SPGetAllAppointments}, for at vise hvordan man kan bruge JOIN til at hente fra flere forskellige tabeller og få et enktelt table som output.
-Der er blevet brugt SELECT DISTINCT, som sørger for at der ikke er nogle duplicationer af data i outputted. Vi brugte det som et debugging værktøj, hvor det ikke er blevet fjernet fordi vi gerne ville være sikre på at der ikke var duplicationer.
-Der er blevet brugt fire JOIN's i denne SP, keyworded JOIN i MSSQL er i sig selv et LEFT JOIN dvs. at den tager alt fra den første table og forener på det de har tilfælles. Det gøres ved keyworded ON hvor der efter bliver lavet en sammenligning på deres PK og den modsatte table FK.
-Tilsidst er der blevet brugt ORDER BY, som sørget for at den kommer i den rækkefølge som vi gerne vil have det i.
 
 \begin{figure}[h]
     \caption{SPGetAllAppointments}
@@ -155,3 +152,9 @@ Tilsidst er der blevet brugt ORDER BY, som sørget for at den kommer i den rækk
         \includegraphics[width=\textwidth]{SPGetAllAppointments.png}
     \label{SPGetAllAppointments}
 \end{figure}
+
+Der er blevet brugt SELECT DISTINCT, som sørger for at der ikke er nogle duplicationer af data i outputted. Vi brugte det som et debugging værktøj, hvor det ikke er blevet fjernet fordi vi gerne ville være sikre på at der ikke var duplicationer.
+Der er blevet brugt fire JOIN's i denne SP, keyworded JOIN i MSSQL er i sig selv et LEFT JOIN dvs. at den tager alt fra den første table og forener på det de har tilfælles. Det gøres ved keyworded ON hvor der efter bliver lavet en sammenligning på deres PK og den modsatte table FK.
+Tilsidst er der blevet brugt ORDER BY, som sørget for at den kommer i den rækkefølge som vi gerne vil have det i.
+
+
