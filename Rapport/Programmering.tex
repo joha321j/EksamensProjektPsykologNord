@@ -139,6 +139,14 @@ Det medfører, at når en aftale bliver lavet, opdateres aftaleoversigten på vo
     \label{fig:ObserverObservermethod}
 \end{figure}
 
+\subsection{Interfaces og nedarvning}
+
+\subsection{Threads}
+
+\subsection{Delegates og Lambdaudtryk}
+
+\subsection{LINQ}
+
 \subsection{GRASP}
 \label{grasp}
 GRASP står for General Responsibility Assignment Software Principles og er udgivet af Craig Larman.\cite{larman}
@@ -163,8 +171,8 @@ Larman giver os flere betingelser for, hvornår klasse A skal lave klasse B:
 
 Ifølge disse principper betyder det, at vores controller også kunne lave blandt andet vores aftaleklasse, se figur \ref{fig:controllerCreator}, da den indeholder alt den nødvendige data til at instantiere klassen.
 Det vil dog bryde med single responsibility princippet, som vi behandler i afsnit \ref{SRP}.
-Derfor er det AppointmentRepo klassen, der har ansvaret for at lave et nyt appointment objekt, da denne samler appointment objekter.
-Som det kan ses på figur \ref{fig:controllerCreator} sender controlleren derfor informationen videre ned til AppointmentRepo objektet.
+Derfor er det appointmentRepo klassen, der har ansvaret for at lave et nyt appointment objekt, da denne samler appointment objekter.
+Som det kan ses på figur \ref{fig:controllerCreator} sender controlleren informationen videre ned til AppointmentRepo objektet, som så laver et Appointment objekt.
 
 \begin{figure}[h]
     \caption{Controller CreateAppointment metode}
@@ -173,8 +181,21 @@ Som det kan ses på figur \ref{fig:controllerCreator} sender controlleren derfor
     \label{fig:controllerCreator}
 \end{figure}
 
-\subsubsection{Information Expert}
+\subsubsection{Information Expert(IE)}
+IE princippet er et princip, der skal hjælpe os med single responsibility princippet.
 
+IE siger, at den klasse, der har den nødvendige information til at udføre en handling, skal have ansvaret for at udføre den handling.
+
+Da practitioner klassen indeholder den information, der skal bruges til at finde ud af, hvornår en practitioner har en ledig tid, er det derfor den klasse der skal udføre den handling, se figur \ref{fig:informationexpert}.
+De to hjælpemetoder kan ses i bilagene på figur \ref{bilag:informationexpert}.
+
+
+\begin{figure}[h]
+    \caption{IE eksempel i practitioner klassen}
+    \centering
+        \includegraphics[width=\textwidth]{IEEksempel.png}
+    \label{fig:informationexpert}
+\end{figure}
 
 \subsubsection{Low Coupling}
 
@@ -186,7 +207,7 @@ Som det kan ses på figur \ref{fig:controllerCreator} sender controlleren derfor
 \label{controller}
 Vi gør brug af en controller til at facilitere kald fra UI'et, der kræver kald ned i applikations- og domænelaget.
 Dette betyder, at vi indkapsulerer en systemoperation.
-En systemoperation er noget, som en bruger af systemet ønsker at opnå, f.eks at booke en ny aftale.
+En systemoperation er noget, som en bruger af systemet ønsker at opnå, f.eks at booke en ny aftale, altså de operationer, som vises i et SSD.
 
 Vi opnår så systemoperationen ved, at controlleren kalder de nødvendige metoder i resten af systemet.
 
@@ -213,6 +234,9 @@ Begge klasser er i bund og grund metodebiblioteksklasser, da de kun indeholder s
 InputValidator klassen sikrer, at input fra brugeren er gyldige inputs, inden de bliver brugt af resten af systemet.
 Et eksempel af dens brug kan ses på figur \ref{fig:InputValidator}.
 
+Det kan dog ses på figur \ref{fig:controllerCreator}, at det ikke er lykkedes os helt at overholde SRP for controller klassen, da dens CreateAppointment metode også går ind og samler oplysninger fra andre objekter, og giver dem videre til appointmentrepo objektet.
+
+Den har altså nu mere end et ansvar: den faciliterer ikke kun samarbejde mellem UI og applikationslag, men samler også informationer fra andre klasser i applikationslaget.
 
 \begin{figure}[h]
     \caption{Controllers brug af InputValidator metoder}
