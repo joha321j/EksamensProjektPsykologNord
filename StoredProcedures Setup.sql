@@ -273,15 +273,17 @@ AS
 	OUTPUT inserted.Id
 	VALUES(@DateAndTime, @RoomId, @Price, @AppointmentTypeId, @Note, @NotificationTime, @EmailNotification, @SMSNotification)
 END
+
 GO
 CREATE PROCEDURE SPGetAllAppointments
 
 AS
 BEGIN
-
-	SELECT DISTINCT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
-	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_Appointment.NotificationTime, PN_Appointment.EmailNotification, PN_Appointment.SMSNotification
-	FROM PN_APPOINTMENT 
+	SELECT DISTINCT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name,
+	PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, PN_AppointmentType.Duration,
+	PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_Appointment.NotificationTime,
+	PN_Appointment.EmailNotification, PN_Appointment.SMSNotification
+	FROM PN_Appointment 
 	JOIN PN_Room ON PN_Appointment.RoomId=PN_Room.Id
 	JOIN PN_AppointmentType ON PN_AppointmentType.Id = PN_Appointment.AppointmentTypeId
 	JOIN PN_User_Appointment ON PN_Appointment.Id = PN_User_Appointment.AppointmentId
