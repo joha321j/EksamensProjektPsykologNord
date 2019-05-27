@@ -251,25 +251,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPDeleteDepartment
-@DepartmentId int
-
-AS
-BEGIN
-	DELETE from PN_Department
-	WHERE	Id = @DepartmentId
-END
-GO
-
-CREATE PROCEDURE SPDeleteInvoice
-@InvoiceId int
-
-AS
-BEGIN
-	DELETE from PN_Invoice
-	WHERE Id = @InvoiceId
-END
-GO
 
 CREATE PROC SPInsertAppointmentOutId
 @DateAndTime datetime2,
@@ -378,7 +359,7 @@ GO
 CREATE PROC SPGetAppointmentById @AppointmentId int
 AS
 BEGIN
-SELECT DISTINCT PN_User_Appointment.AppointmentId, PN_APPOINTMENT.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
+SELECT DISTINCT PN_User_Appointment.AppointmentId, PN_Appointment.DateAndTime, PN_Room.Id, PN_Room.Name, PN_Appointment.AppointmentTypeId, PN_AppointmentType.Name, 
 	PN_AppointmentType.Duration, PN_AppointmentType.StandardPrice, PN_Appointment.Note, PN_Appointment.Price, PN_Appointment.NotificationTime, PN_Appointment.EmailNotification, 
 	PN_Appointment.SMSNotification, PN_Department.Name
 	FROM PN_APPOINTMENT 
