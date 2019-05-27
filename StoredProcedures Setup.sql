@@ -261,15 +261,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SPDeleteInvoice
-@InvoiceId int
-
-AS
-BEGIN
-	DELETE from PN_Invoice
-	WHERE Id = @InvoiceId
-END
-GO
 
 CREATE PROC SPInsertAppointmentOutId
 @DateAndTime datetime2,
