@@ -119,10 +119,6 @@ Derudover ville vi gerne få mere erfaring i at bruge delegates og events, da vi
 Som det kan ses på figur \ref{fig:ControllerObserverPattern} er vores Controller klasse både en udgiver og en abonnent.
 Det er den nød til, da som beskrevet i afsnit \ref{facade}, er Controller en facade, og derfor kan vores UI ikke abonnere direkte ned til andre udgivere i vores applikationslag.
 
-Vores UI abonnerer på vores controller, som abonnerer på vores appointmentrepo og clientrepo klasser.
-På figur \ref{fig:ObserverObservermethod} kan det ses, at når controlleren får at vide, at der er sket en ændring i clientrepo eller appointmentrepo giver den sine abonnenter besked om det.
-
-
 
 \begin{figure}[h]
     \caption{Controller observer mønster}
@@ -130,6 +126,11 @@ På figur \ref{fig:ObserverObservermethod} kan det ses, at når controlleren få
         \includegraphics[width=\textwidth]{ControllerObserverPattern.png}
     \label{fig:ControllerObserverPattern}
 \end{figure}
+
+Vores UI abonnerer på vores controller, som abonnerer på vores appointmentrepo og clientrepo klasser.
+På figur \ref{fig:ObserverObservermethod} kan det ses, at når controlleren får at vide, at der er sket en ændring i clientrepo eller appointmentrepo giver den sine abonnenter besked om det.
+Vores LandingPage og CreateAppointment vinduer abonnerer på vores controller.
+Det medfører, at når en aftale bliver lavet, opdateres aftaleoversigten på vores LandingPage.
 
 \begin{figure}[h]
     \caption{Controller abonnentmetoder.}
