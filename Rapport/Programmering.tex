@@ -272,6 +272,8 @@ De to hjælpemetoder kan ses i bilagene på figur \ref{bilag:informationexpert}.
 \subsubsection{Controller}
 \label{controller}
 Vi gør brug af en controller til at facilitere kald fra UI'et, der kræver kald ned i applikations- og domænelaget.
+Først i projektet prøvede vi at bruge view models i stedet for en controller, hvor vi kunne udnytte WPFs databindings til nemmere at visualisere vores domæne.
+Vi besluttede os for at det ikke var besværligheden værd at bruge tid på at lære hvordan databindings fungerer, da det ikke er en del af pensum.
 Dette betyder, at vi indkapsulerer en systemoperation.
 En systemoperation er noget, som en bruger af systemet ønsker at opnå, f.eks at booke en ny aftale, altså de operationer, som vises i et SSD.
 
@@ -321,3 +323,16 @@ Hele filosofien bag objektorienteret programmering er, at man repræsentere ens 
 Men hvis man forsøger at reducere kobling så meget som muligt gør det det nemmere at udvide og ændre ens program.
 
 På figur \ref{fig:DCD} kan det ses, hvor mange af vores klasser kender til hinanden.
+
+\subsection{Kommunikation med databasen}
+
+For at holde styr på hvilke metoder vores DbController, skal have er det blevet inplemteret et interface IPersistable se bilag \ref{PersistableDCD}.
+Det vil sige at de klasser de bruger interfacet har en lokal variable af IPersistable, hvor efter de kan klade de metoder interfacet indeholder, dette kan ses i figur \ref{fig:Persistable}
+
+\begin{figure}[h]
+    \caption{Inplemtering af IPersistable interfacet}
+    \centering
+        \includegraphics[width=\textwidth]{Ipersistable.png}
+    \label{fig:Persistable}
+\end{figure}
+
