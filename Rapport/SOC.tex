@@ -26,7 +26,7 @@ Med alle use casene modelleret kan vi går videre til at modellere hvad koden sk
  
 
 
-\textbf{Operation:} createAppointment(dateAndTime: DateTime, users : User[2..*], appointmentType: AppointmentType, note: string, room: Room) 
+\textbf{Operation:} createAppointment(dateAndTime: DateTime, users : User[2..*], appointmentType: AppointmentType, note: string, room: Room, notificationTime: TimeSpan, emailNotification: bool, smsNotification: bool) 
 
 \textbf{Cross References:} Use Case: Book ny aftale 
 
@@ -45,4 +45,6 @@ Med alle use casene modelleret kan vi går videre til at modellere hvad koden sk
             \item a was associated with c, u and r
         \end{itemize}
         
+\textbf{Output:}
+There is sent a confirmation email and/or SMS to the client
 {\setlength{\parindent}{14pt}
