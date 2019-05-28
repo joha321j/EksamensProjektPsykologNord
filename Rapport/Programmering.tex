@@ -139,8 +139,6 @@ Det medfører, at når en aftale bliver lavet, opdateres aftaleoversigten på vo
     \label{fig:ObserverObservermethod}
 \end{figure}
 
-\subsection{Interfaces og nedarvning}
-
 \subsection{Threads}
 C\# tilbyder et værktøj til at parallellisere processer i et program ved hjælp af multithreading, der hedder threads eller tråde.
 
@@ -194,6 +192,8 @@ Det medfører også, at vores UI får at vide, at der er sket en ændring, og vo
 Man kan dog ikke trådsikre WPF ved hjælp af locks, da en WPF applikation allerede bruger to skjulte tråde, en render tråd og en UI tråd, og WPF derfor kun tillader, at kun Dispatcher kan opdatere ens UI fra ikke UI-tråde.\cite{wpfdispatcher}
 
 På figur \ref{fig:threadsWPF} kan metoden, der opdaterer vores LandingPage vindue, ses.
+For at undgå, at LandingPage vinduet fryser, når en anden tråd går ind og opdaterer dens indhold, var vi nød til at bruge InvokeAsync metoden.
+InvokeAsync starter endnu en tråd, der udfører den givne metode, og derfor undgår vi at vores vindue fryser mens det opdateres.
 
 \begin{figure}[H]
     \caption{UpdateCalendar metode, der opdareter LandingPage vinduet.}
@@ -203,8 +203,6 @@ På figur \ref{fig:threadsWPF} kan metoden, der opdaterer vores LandingPage vind
 \end{figure}
 
 Ved at bruge tråde har vi løst problemer, der opstår, når en psykolog sidder og booker aftaler på sin computer, samtidig med, at en anden psykolog booker aftaler på en anden computer.
-
-\subsection{Delegates og Lambdaudtryk}
 
 \subsection{LINQ}
 
@@ -217,6 +215,10 @@ Vi bruger det blandt andet til at samle to lister på de datoer listerne har til
         \includegraphics[width=\textwidth]{LINQGetBusyDates.png}
     \label{fig:LINQGetBusyDates}
 \end{figure}
+
+Derudover bruger vi også metoden Except, som LINQ biblioteket også giver os.
+Except giver forskellen på to sæt, altså hvad det første sæt har, som det andet sæt ikke har.
+Derfor kan vi bruge det til at fjerne alle de datoer, der er tilgængelige fra listen af datoer, hvor der ikke er tid, som det også kan ses på figur \ref{fig:LINQGetBusyDates}.
 
 \subsection{GRASP}
 \label{grasp}
