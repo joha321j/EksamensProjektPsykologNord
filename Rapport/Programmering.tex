@@ -139,13 +139,86 @@ Det medfører, at når en aftale bliver lavet, opdateres aftaleoversigten på vo
     \label{fig:ObserverObservermethod}
 \end{figure}
 
-\subsection{Interfaces og nedarvning}
-
 \subsection{Threads}
+C\# tilbyder et værktøj til at parallellisere processer i et program ved hjælp af multithreading, der hedder threads eller tråde.
 
-\subsection{Delegates og Lambdaudtryk}
+Vi gør brug af flere tråde i vores program: hovedtråden, som kører det meste af programmet, og håndterer brugerinput.
+En baggrundstråd, der sender påmindelser ud til klienter, når de har en aftale.
+Og til sidst har vi en anden baggrundstråd, der periodisk ser, om der er kommet nye data i databasen, som programmet ikke har.
+
+Vores UpdateFromDatabase klasse er klassen, der har ansvaret for at se, om der er kommet nye data i databasen, dens constructor kan ses på figur \ref{fig:threadsConstructor}.
+
+\begin{figure}[h]
+    \caption{CheckForUpdates metoden.}
+    \centering
+        \includegraphics[width=\textwidth]{ThreadsConstructor.png}
+    \label{fig:threadsConstructor}
+\end{figure}
+
+Når dens constructor bliver kaldt, laves der en ny tråd.
+Thread klassen tager en delegate, altså en metodereference i sin constructor, hvorfor vi giver den metoden CheckForUpdates.
+CheckForUpdates metoden kan ses på figur \ref{fig:threadsUpdate}.
+De to hjælpemetoder kan ses på figur \ref{bilag:CheckForUpdates} i bilagene.
+
+\begin{figure}[H]
+    \caption{UpdateFromDatabase klassens constructor.}
+    \centering
+        \includegraphics[width=\textwidth]{ThreadsCheckForUpdates.png}
+    \label{fig:threadsUpdate}
+\end{figure}
+
+\subsubsection{Trådsikring}
+Når man bruger tråde i ens program, er det vigtigt at trådsikre fælles ressourcer, som flere tråde kan bruge.
+Derfor har vi været nød til at trådsikre vores AppointmentRepo klasse og vores ClientRepo klasse.
+Vi har trådsikret ved at bruge lock blokke, som C\# tilbyder, se figur \ref{fig:threadsLock}.
+
+En lock blok fungerer ved, at den sikrer en gensidig udelukkelse ved hjælp af et låseobjekt, udfører koden, der står inde i lock blokken, og slipper derefter låsen på låseobjektet.
+Hvis en anden tråd forsøger at opnå en lås på samme objekt, vil den vente til den nuværende lås er frigivet.
+
+Vi bruger altså vores lock til at sikre, at kun én tråd kan bruge vores liste af aftaler ad gangen.
+ClientRepo klassen er trådsikret på samme måde.
+
+\begin{figure}[h]
+    \caption{Trådsikring af GetAppointments metoden.}
+    \centering
+        \includegraphics[width=\textwidth]{ThreadsLock.png}
+    \label{fig:threadsLock}
+\end{figure}
+
+\subsubsection{WPF - Dispatcher}
+
+Når UpdateFromDatabase klassen ser, at der er en ændring i listen af aftaler giver den besked til resten af systemet ved hjælp af et event.
+Det medfører også, at vores UI får at vide, at der er sket en ændring, og vores LandingPage vindue skal opdatere dens aftaler.
+Man kan dog ikke trådsikre WPF ved hjælp af locks, da en WPF applikation allerede bruger to skjulte tråde, en render tråd og en UI tråd, og WPF derfor kun tillader, at kun Dispatcher kan opdatere ens UI fra ikke UI-tråde.\cite{wpfdispatcher}
+
+På figur \ref{fig:threadsWPF} kan metoden, der opdaterer vores LandingPage vindue, ses.
+For at undgå, at LandingPage vinduet fryser, når en anden tråd går ind og opdaterer dens indhold, var vi nød til at bruge InvokeAsync metoden.
+InvokeAsync starter endnu en tråd, der udfører den givne metode, og derfor undgår vi at vores vindue fryser mens det opdateres.
+
+\begin{figure}[H]
+    \caption{UpdateCalendar metode, der opdareter LandingPage vinduet.}
+    \centering
+        \includegraphics[width=\textwidth]{ThreadsUpdateCalendar.png}
+    \label{fig:threadsWPF}
+\end{figure}
+
+Ved at bruge tråde har vi løst problemer, der opstår, når en psykolog sidder og booker aftaler på sin computer, samtidig med, at en anden psykolog booker aftaler på en anden computer.
 
 \subsection{LINQ}
+
+LINQ står for Language Intregrated Query, og er en query syntaks i C\# og VB.NET, der gør det muligt at hente data fra forskellige kilder og formater.
+Vi bruger det blandt andet til at samle to lister på de datoer listerne har til fælles, se figur \ref{fig:LINQGetBusyDates}.
+
+\begin{figure}[h]
+    \caption{GetBusyDates metoden}
+    \centering
+        \includegraphics[width=\textwidth]{LINQGetBusyDates.png}
+    \label{fig:LINQGetBusyDates}
+\end{figure}
+
+Derudover bruger vi også metoden Except, som LINQ biblioteket også giver os.
+Except giver forskellen på to sæt, altså hvad det første sæt har, som det andet sæt ikke har.
+Derfor kan vi bruge det til at fjerne alle de datoer, der er tilgængelige fra listen af datoer, hvor der ikke er tid, som det også kan ses på figur \ref{fig:LINQGetBusyDates}.
 
 \subsection{GRASP}
 \label{grasp}
@@ -159,7 +232,7 @@ Expert, Low Coupling, High Cohesion og Controller.
 \subsubsection{Creator}
 
 Creator princippet hjælper os med at bestemme, hvilken klasse skal have ansvaret for at lave en anden klasse.
-Larman giver os flere betingelser for, hvornår klasse A skal lave klasse B:
+Larman giver os flere betingelser for, hvornår klasse A skal lave klasse B:\cite{larman}
 
 \begin{itemize}
     \item A indeholder B
@@ -184,7 +257,7 @@ Som det kan ses på figur \ref{fig:controllerCreator} sender controlleren inform
 \subsubsection{Information Expert(IE)}
 IE princippet er et princip, der skal hjælpe os med single responsibility princippet.
 
-IE siger, at den klasse, der har den nødvendige information til at udføre en handling, skal have ansvaret for at udføre den handling.
+IE siger, at den klasse, der har den nødvendige information til at udføre en handling, skal have ansvaret for at udføre den handling.\cite{solid}
 
 Da practitioner klassen indeholder den information, der skal bruges til at finde ud af, hvornår en practitioner har en ledig tid, er det derfor den klasse der skal udføre den handling, se figur \ref{fig:informationexpert}.
 De to hjælpemetoder kan ses i bilagene på figur \ref{bilag:informationexpert}.
@@ -195,15 +268,6 @@ De to hjælpemetoder kan ses i bilagene på figur \ref{bilag:informationexpert}.
         \includegraphics[width=\textwidth]{IEEksempel.png}
     \label{fig:informationexpert}
 \end{figure}
-
-
-\subsubsection{Low Coupling}
-Idéen med lav kobling eller low coupling er, at klasserne i ens software skal være så uafhængige af andre klasser som muligt.
-
-På figur \ref{fig:DCD} kan man se, hvor mange klasser kender til hinanden.
-
-\subsubsection{High Cohesion}
-
 
 \subsubsection{Controller}
 \label{controller}
@@ -247,5 +311,13 @@ Den har altså nu mere end et ansvar: den faciliterer ikke kun samarbejde mellem
     \label{fig:InputValidator}
 \end{figure}
 
+En af gevinsterne ved at bruge SRP er, at man får høj samhørighed i ens program.
 
+Man skulle tro, at SRP og høj samhørighed bryder med en anden idé, der hedder lav kobling.     
+Idéen med lav kobling eller low coupling er, at klasserne i ens software skal være så uafhængige af andre klasser som muligt.
 
+Lav kobling betyder dog ikke, at et program har ingen kobling.
+Hele filosofien bag objektorienteret programmering er, at man repræsentere ens problem med klasser, og hvordan de klasser taler sammen.
+Men hvis man forsøger at reducere kobling så meget som muligt gør det det nemmere at udvide og ændre ens program.
+
+På figur \ref{fig:DCD} kan det ses, hvor mange af vores klasser kender til hinanden.

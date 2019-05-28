@@ -41,16 +41,20 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
+        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users,
+            AppointmentType appointmentType, string note, TimeSpan notificationTime, Boolean emailNotification,
+            Boolean smsNotification)
         {
             lock (_lockingObject)
             {
-                Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note, notificationTime, emailNotification, smsNotification);
+                Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note,
+                    notificationTime, emailNotification, smsNotification);
                 AddAppointment(tempAppointment);
 
                 _updateAppointmentNotification.AppointmentCreatedNotification(tempAppointment);
 
-                _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note, notificationTime, emailNotification, smsNotification);
+                _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note, notificationTime,
+                    emailNotification, smsNotification);
 
                 AppointmentsChangedEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
             }
