@@ -196,15 +196,6 @@ De to hjælpemetoder kan ses i bilagene på figur \ref{bilag:informationexpert}.
     \label{fig:informationexpert}
 \end{figure}
 
-
-\subsubsection{Low Coupling}
-Idéen med lav kobling eller low coupling er, at klasserne i ens software skal være så uafhængige af andre klasser som muligt.
-
-På figur \ref{fig:DCD} kan man se, hvor mange klasser kender til hinanden.
-
-\subsubsection{High Cohesion}
-
-
 \subsubsection{Controller}
 \label{controller}
 Vi gør brug af en controller til at facilitere kald fra UI'et, der kræver kald ned i applikations- og domænelaget.
@@ -247,5 +238,13 @@ Den har altså nu mere end et ansvar: den faciliterer ikke kun samarbejde mellem
     \label{fig:InputValidator}
 \end{figure}
 
+En af gevinsterne ved at bruge SRP er, at man får høj samhørighed i ens program.
 
+Man skulle tro, at SRP og høj samhørighed bryder med en anden idé, der hedder lav kobling.     
+Idéen med lav kobling eller low coupling er, at klasserne i ens software skal være så uafhængige af andre klasser som muligt.
 
+Lav kobling betyder dog ikke, at et program har ingen kobling.
+Hele filosofien bag objektorienteret programmering er, at man repræsentere ens problem med klasser, og hvordan de klasser taler sammen.
+Men hvis man forsøger at reducere kobling så meget som muligt gør det det nemmere at udvide og ændre ens program.
+
+På figur \ref{fig:DCD} kan det ses, hvor mange af vores klasser kender til hinanden.
