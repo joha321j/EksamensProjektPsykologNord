@@ -326,7 +326,7 @@ På figur \ref{fig:DCD} kan det ses, hvor mange af vores klasser kender til hina
 
 \subsection{Kommunikation med databasen}
 
-For at holde styr på hvilke metoder vores DbController, skal have er det blevet inplemteret et interface IPersistable se bilag \ref{PersistableDCD}.
+For at holde styr på hvilke metoder vores DbController, skal have er det blevet inplemteret et interface IPersistable se bilag \ref{bilag:PersistableDCD}.
 Det vil sige at de klasser de bruger interfacet har en lokal variable af IPersistable, hvor efter de kan klade de metoder interfacet indeholder, dette kan ses i figur \ref{fig:Persistable}
 
 \begin{figure}[h]
@@ -336,3 +336,14 @@ Det vil sige at de klasser de bruger interfacet har en lokal variable af IPersis
     \label{fig:Persistable}
 \end{figure}
 
+Metoden GetAppointments(users, departments), er blevet inplementeret og kan ses i figur \ref{fig:GetAppointments}.
+For at være sikker på at vores forbindelse bliver åbnet og lukket korrekt har brugt using, som sørger for at vi ikke selv skal være opmærksom på at bruge close(), i slutningen af metoden til at lukke forbindelse igen.
+I metoden bliver der brugt en SqlDataReader inde i en SqlDataReader for først at finde vores Appointment og dernæst find ealle de Users der høre til denne Appointment.
+Derfor er vi nød til at tilføje parametern MultipleActiveResultSets=True til vores connectionString før at dette kan lade sig gøre.
+
+\begin{figure}[h]
+    \caption{Inplemtering af IPersistable interfacet}
+    \centering
+        \includegraphics[width=\textwidth]{GetAppointments.png}
+    \label{fig:GetAppointments}
+\end{figure}
