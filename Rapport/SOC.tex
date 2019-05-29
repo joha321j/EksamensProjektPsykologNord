@@ -5,11 +5,12 @@
 %\textbf{Precondition:} Der skal være mindst et brugerobject og der skal være mindst et klientobject I systemet, der skal også være en klinik, begge aktører skal være ledige på det valgte tidspunkt, der skal samtidig også være et lokale ledigt I den valgte klinik på det valgte tidspunkt. 
 %
 %\textbf{Postconditions:}   
- 
-Med alle use casene modelleret kan vi går videre til at modellere hvad koden skal gøre. Hertil har vi så oprettet SOC'er for de mest relevante metoder, så vi ved præcis hvordan funktionen skal virke.
-
 
 \subsection{Systemoperationskontrakter(SOC) for Use Case: Book ny aftale}\label{Operation:Book ny aftale}
+
+Ud fra et SSD kan man lave SOC'er, der forklarer, hvad der skal ske af tilstandsændringer i systemet, når en bruger laver en systemoperation.
+En systemoperation er det, der repræsenteres i et SSD som en pil fra brugeren til systemet.
+Det vigtige med en SOC er at beskrive hvilke ændringer, der er sket, ikke hvordan de er sket, det er et sekvensdiagram, der beskriver det.
 
 {\setlength{\parindent}{0cm}
 \textbf{Operation:} createClient(clientName: string, clientEmail: string, clientPhoneNumber: string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
