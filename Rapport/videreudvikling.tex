@@ -1,7 +1,7 @@
 \section{Videreudvikling}
 \label{kapitel:Videreudvikling}
 
-Vi har hele tiden godt vidst, at vi ikke ville kunne nå at implementere alle ønsker fra vores PO, og derfor har vi forsøgt at gøre programmet så ledt som muligt at videreudvikling.
+Vi har hele tiden godt vidst, at vi ikke ville kunne nå at implementere alle ønsker fra vores PO, og derfor har vi forsøgt at gøre programmet så ledt som muligt at videreudvikle.
 
 Dog er der nogle uhensigtsmæssige dele af programmet lige nu, som vi ikke har nået at refaktorere.
 
@@ -21,8 +21,46 @@ Hvis de to tal så ikke er ens, betyder det at programmets data er forældet i f
 
 \subsection{Udvidelse af Semplito}
 
+\subsubsection{Notifikationssystem}
+
+Lige nu sender systemet en email til de involverede brugere af en aftale, når aftalen bookes, ændres eller slettes.
+Derudover modtager klienter også en påmindelsesemail et angivet tidspunkt inden deres aftale.
+Det nuværende system sender emailsne gennem en  SMTP client uden et login, hvilket betyder, at emailen næsten altid ender i modtagerens spamfilter.
+Derfor skal emailnotifikationssystemet sættes op, så vores emailafsender er autoriseret, f.eks ved hjælp af en domænenøgle, der beviser, at emailen hører til Semplitos domæne.
+
+Desuden skal SMS-notifikationssystemet implementeres.
+I løbet af projektet fandt vi en service, der tilbyder at sende SMS'er for os vha. en API.
+De skal dog have penge per SMS sendt efter en hvis mængde SMS'er, hvilket en identisk til den nuværende løsning, som Terapeut Booking tilbyder.
+I stedet kan man anskaffe sig en 3G USB dongle og et SIM-kort, som kan sættes op til at sende SMSer, og derfor vil udgiften være det månedlige abonnement for SIM-kortet.
+Det ville derfor være nødvendigt at tale med PO om at lave en økonomisk beregning over, hvilken af de to løsninger vil være optimal for dem.
+
+Da der vil være mindst to forskellige måder at implementere SMS-notifikations-systemet, vil det være en stor fordel at lave et ITextMessage interface, så vores program ikke skal skrives om, afhængig af hvilken løsning, der bliver brugt, men vores AppointmentNotification klasse kun skal kende til ITextMessage interface.
+
 \subsubsection{Journaler}
+På nuværende tidspunkt er vores journal klasse bare en tom klasse, der ikke indeholder noget information eller nogen funktionalitet.
+Klassen skal derfor udvides til at indeholde journalindgange, altså en liste af tekststrenge, som en klients behandler vil kunne håndtere.
+
+Når journalklassen bliver udvidet er det vigtigt at være opmærksom på klientens og behandlerens fortrolighed, og derfor skal en behandler kun kunne tilgå sine egne klienters journaler.
+Dette kunne gøres ved, at vores Practitioner klasse indeholder en liste af sine klienter, og klassen har en metode, der finder en given klients journal.
+Når en klient opretter en aftale med en behandler, skal klienten så tilføjes til behandlerens kundeliste.
+På denne måde kan en behandler altså kun tilgå sine egne klienters journaler, specielt når det kombineres med login systemet, som også skal implementeres, se afsnit \ref{login}.
+
+\subsubsection{Loginsystem}
+\label{login}
+Da vores program skal arbejde med følsomme persondata er det vigtigt, at vores sikkerhed er i orden.
+Derfor skal der implementeres et login system, så alle brugere har et unikt login.
+
+Alle systemets brugeres kodeord skal hashes vha. SHA256 algoritmen, udviklet af NSA.
+Hashing betyder, at man bruger en algoritme til at omdanne en given mængde data til en streng af en bestemt længde.
+Kodeordet skal også saltes, vha. en cryptografisk sikker pseudo-tilfældig nummergenerator.
+Når man salter et kodeord inden man hasher det, betyder det, at man tilføjer en lang tilfældig tekststreng foran brugerens kodeord.
+Både brugerens salt og hash gemmes i databasen.
+Når en bruger forsøger at logge ind hentes brugerens salt og hash. 
+Saltet tilføjes til det indtastede kodeord, som hashes og sammenlignes med hashen hentet fra databasen.
+Hvis de to hashes er ens er kodeordet korrekt, ellers er det forkert.\cite{hash}
 
 \subsubsection{Rettigheder}
+Vores PO ønsker også at kunne styre rettigheder for alle brugere af systemet, så f.eks det kun er Katrine, der kan tilføje nye behandlere til systemet, eller at sekretæren skal kunne se alle behandleres aftaler uden at kunne se og redigere nogen klientjournaler.
 
-\subsubsection{Oprettelse af nye brugere}
+Dette ville kunne implementeres ved, at User klassen har en liste af enumerables, der repræsenterer brugerens rettigheder.
+Hvis en bruger så forsøger at se en oversigt over aftaler, tjekkes der om brugeren har den nødvendige rettighed.

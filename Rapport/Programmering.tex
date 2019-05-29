@@ -46,7 +46,9 @@ Det gjorde det dog meget sværere at debugge vores funktionalitet med tråde, og
 \label{lagdeling}
 
 Inden vi begyndte at udvikle progammet havde udviklingsgruppen en diskussion om, hvordan vi ønskede at lagdele vores program.
-Vi blev enige om at bruge en trelagsdeling
+Vi blev enige om at bruge en trelagsdeling.
+
+Man kan have forskellige lagdelinger:
 En streng lagdeling betyder, at et lag kun kender til og kan tale med laget lige under sig.
 I en afslappet lagdeling kan et lag derimod kalde lag, der ligger flere lag under sig.\cite{larman}
 
@@ -339,9 +341,9 @@ Det vil sige at de klasser de bruger interfacet har en lokal variable af IPersis
 \end{figure}
 
 Metoden GetAppointments(users, departments), er blevet inplementeret og kan ses i figur \ref{fig:GetAppointments}.
-For at være sikker på at vores forbindelse bliver åbnet og lukket korrekt har brugt using, som sørger for at vi ikke selv skal være opmærksom på at bruge close(), i slutningen af metoden til at lukke forbindelse igen.
-I metoden bliver der brugt en SqlDataReader inde i en SqlDataReader for først at finde vores Appointment og dernæst find ealle de Users der høre til denne Appointment.
-Derfor er vi nød til at tilføje parametern MultipleActiveResultSets=True til vores connectionString før at dette kan lade sig gøre.
+For at være sikker på at vores forbindelse bliver åbnet og lukket korrekt har vi brugt en using blok, som sørger for at vi ikke selv skal være opmærksom på at bruge close(), i slutningen af metoden til at lukke forbindelsen igen.
+I metoden bliver der brugt en SqlDataReader inde i en SqlDataReader for først at finde vores Appointment og dernæst find alle de Users, der hører til denne Appointment.
+Derfor er vi nød til at tilføje parameteren MultipleActiveResultSets=True til vores connectionString, for at dette kan lade sig gøre.
 
 \begin{figure}[h]
     \caption{Inplemtering af IPersistable interfacet}

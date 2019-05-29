@@ -1,9 +1,14 @@
-\subsection{Kodestruktur}
+\subsubsection{Kodestruktur}
 
 Undervejs i projektet har vi som gruppe taget mange beslutninger omkring koden.
-Kodestandarder, lagdeling og patterns er alle blev brugt.
-I dette kapitel vil vi snakke omkring vores udvikling af selve programmet og vores fremgangsmåde for udvikling af programmet. 
+Kodestandarder, lagdeling og patterns er alle blev brugt. 
 
-Da vi skulle kode aftalte vi at, udvikle programmet ved brug af top-down udvikling. Vi skulle derfor udvikle fra UI-laget og så langsomt gå ned i lagene, som vi udviklede. Det gjorde at vi kun inkorporerede det nødvendige i hver metode, og kun gav nødvendige relationer. En af grundende til at vi har valgt at bruge top-down udvikling er blandt andet fordi at vi havde en rigtig god ide om hvordan vores UI skulle se ud da vi startede projektet, som også er beskrevet i afsnit \ref{UI}.
+Da vi skulle kode aftalte vi at, udvikle programmet ved brug af top-down udvikling.
+Vi skulle derfor udvikle fra UI-laget og så langsomt gå ned i lagene, som vi udviklede.
+Det gjorde at vi kun inkorporerede det nødvendige i hver klasse, og kun gav nødvendige relationer, og på den måde har det også hjulpet os med at overholde GRASP og SOLID principperne.
 
-Noget af det vi fik ud af det var at vi hele tiden kunne køre en funktion i programmet helt igennem fra at der bliver trykket på en knap i UI'et til at der sker en reaktion i databasen, hvilket har gjort at vi har haft en masse små succes oplevelser, som har holdt vores arbejdsmoral oppe.
+Vi valgte at bruge top-down udvikling, da vi tidligt i forløbet blev enige med PO om, hvordan vores UI skulle se ud, og vi derfor også tidligt kunne implementere vores WPF-vinduer, som vi også beskriver i \ref{GUI}.
+
+Noget af det vi fik ud af det var, at vi hele tiden kunne køre en funktion i programmet helt igennem fra at der bliver trykket på en knap i UI'et til at der sker en reaktion i databasen, hvilket har gjort at vi har haft en masse små succes oplevelser, som har holdt vores arbejdsmoral oppe, derudover har det også været nemt at se, hvad vi skulle bruge vores SD, SOC og SSD artefakter til, da de netop viser, hvad der skal ske, når brugeren benytter programmet.
+En af de negative effekter er dog, at vi har et UI, hvor det ligner, at man kan en helt masse mere, end hvad der er muligt, hvilket nok har fået vores PO til at tro, at vi nåede meget mere, end vi gjorde.
+Alt i alt synes vi dog, at det har været en gevinst at bruge denne form for udvikling, når vi netop havde vores færdige UI så tidligt i forløbet.

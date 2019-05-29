@@ -9,6 +9,10 @@ DCD'et er baseret på vores objekt- og domænemodel, se afsnit \ref{objektmodel}
 DCD'et har været med til at sikre, at kodestandarden blev overholdt.
 Dertil har det gjort det nemmere at bestemme ansvaret for hver klasse.
 
+Når man laver et DCD er det vigtigt, at kravene til programmet repræsenteres, så det bliver implementeret rigtigt.
+Med det menes, at en metodes signatur skal også indeholde hvilke variabeltyper den modtager og returnere, at metoder og variables tilgængelighed skal kunne ses, det skal vises, hvis en klasse arver fra en anden klasse eller implementere et interface.
+Det skal også vises, hvilke klasser kender til hinanden ved at bruge associationspile.
+
 For at holde det overskueligt har vi både lavet et samlet DCD, men også lavet mindre DCD'er, der er bundet til en bestemt use case, og derfor kun indeholder de klasser, som er relevante for use casen.
 
 På figur \ref{fig:DCD} kan domænelaget af DCD'en for use casen: Book Ny Aftale ses.
@@ -27,6 +31,9 @@ I bilagene på figurene \ref{bilag:RelationDCD}, \ref{bilag:UIDCD}, \ref{bilag:A
 \label{SD}
 
 Et SD beskriver, hvordan softwareklasser taler sammen.
+Det er vigtigt, at SD'et derfor er på samme sprog, som man ønsker ens kode skal være, da metodenavnene i SD'et er de metoder, som udvikleren implementerer.
+Derfor skal metoderne også være de samme metoder, som i ens DCD.
+
 På figur \ref{fig:SD} kan et SD for SOC'en createAppointment ses.
 Når er bruger trykker på opret aftale knappen i opret aftale vinduet, vil vinduet kalde controlleren, som kalder videre ned i systemet til appointmentRepo objektet, der laver en ny aftale, og tilføjer referencer til det nye aftale objekt i det angivne room objekt og de angivne user objekter.
 Til sidst kalder appointmentRepo objektet sit IPersistable objekt.
