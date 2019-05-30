@@ -10,21 +10,8 @@
 
 Ud fra et SSD kan man lave SOC'er, der forklarer, hvad der skal ske af tilstandsændringer i systemet, når en bruger laver en systemoperation.
 En systemoperation er det, der repræsenteres i et SSD som en pil fra brugeren til systemet.
-Det vigtige med en SOC er at beskrive hvilke ændringer, der er sket, ikke hvordan de er sket, det er et sekvensdiagram, der beskriver det.
+Det vigtige med en SOC er at beskrive hvilke ændringer, der er sket, ikke hvordan de er sket, det er et sekvensdiagram, der beskriver det. For at se SOC'en omkring createClient se bilag \ref{bilag:SOCcreateClient} på side \pageref{bilag:SOCcreateClient}
 
-{\setlength{\parindent}{0cm}
-\textbf{Operation:} createClient(clientName: string, clientEmail: string, clientPhoneNumber: string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
-
-\textbf{Cross References:} Use Case: Book ny aftale 
-
-\textbf{Precondition:} Client instance with Client.Email equals to clientEmail does not exist in the system
-
-\textbf{Postcondition:}  
-		\begin{itemize}
-			\item Client instance c was created 
-			\item Attributes of c were initialized
-		\end{itemize}
- 
 
 
 \textbf{Operation:} createAppointment(dateAndTime: DateTime, users : User[2..*], appointmentType: AppointmentType, note: string, room: Room, notificationTime: TimeSpan, emailNotification: bool, smsNotification: bool) 
