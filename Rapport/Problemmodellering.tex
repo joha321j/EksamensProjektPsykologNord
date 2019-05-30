@@ -98,29 +98,7 @@ I stedet deles den store tabel op i mindre tabeller, der indeholder referencer t
 
 \subsubsection{Normalisering af databasediagrammet}
 
-Hvor mange forskellige tabeller skal man så lave? Til at finde ud af dette bruger man det, som Codd kalder normalformer.
-Der eksistere et hav af normalformer, men i denne rapport vil der arbejdes med første, anden, tredje og Boyce-Codd normalform.
-
-Man bruger normalisering og normalformerne til at reducere redundans og forbedre præcisionen og konsistens af dataene i ens database.
-
-Første normalform er opfyldt, når følgende gælder:
-\begin{itemize}
-    \item Alle cellerne i en tabel indeholder én værdi
-    \item Alle indgange i en søjle er af samme type
-    \item Hver søjle har et unikt navn
-    \item Rækkefølgen af søjlerne er ligegyldig
-    \item Rækkefølgen af rækkerne er ligegyldig
-    \item Ingen rækker er ens
-\end{itemize}
-
-Anden normalform er opfyldt, når første normalform er opfyldt, og når det gælder, at alle ikke primærnøgle søjler er afhængig af \textit{hele} primærnøglen og ikke kun en del af primærnøglen.
-Det betyder altså, at det kun er tabeller med sammensatte primærnøgler, der kan være på første normalform uden også at være på anden normalform. Hvis man har en tabel \textbf{(\underline{A}, \underline{B}, C, D, E)}, hvor \textbf{(A, B)} er en sammensat nøgle, skal det altså gælde at \textbf{C}, \textbf{D} og \textbf{E} ikke kan bestemmes af kun \textbf{A} eller kun \textbf{B}.
-
-En tabel er på tredje normalform, hvis den er på anden normalform og der er ingen funktionelle afhængigheder i mellem ikke-nøgle søjler.
-Det betyder altså, at hvis vores ovenstående eksempel skal være på tredje normalform må ingen af \textbf{C}, \textbf{D} eller \textbf{E} kunne bestemmes af \textbf{C}, \textbf{D}, \textbf{E} eller en kombination af disse.
-
-For at opnå Boyce-Codd normalform skal tabellen være på tredje normalform, og alle determinanter skal være kandidatnøgler.
-En determinant er den frie variable i en funktionel afhængighed. Har man funktionen \(f(n) = 5n^2 \), vil \(n\) være determinanten.\cite{database}
+For at læse teori om normalisering af databaser se bilag \ref{bilag:normalisering} på side \pageref{bilag:normalisering}. 
 
 Måden vi har normaliseret vores database er ved først at identificere alle funktionelle afhængigheder, og så opstille tabeller, så alle determinanter er kandidatnøgler.
 De er ikke alle primærnøgler, da vi har valgt at bruge substitutnøgler som primærnøgler.
