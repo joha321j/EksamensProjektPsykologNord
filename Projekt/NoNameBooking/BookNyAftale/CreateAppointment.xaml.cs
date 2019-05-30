@@ -194,7 +194,7 @@ namespace BookNyAftale
 
         private void UpdateTreatmentComboBox()
         {
-            List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
+            List<string> treatments = _controller.GetAppointmentTypes(cmbbPractitioner.SelectionBoxItem.ToString());
 
             cmbbAppointmentType.ItemsSource = treatments;
             cmbbAppointmentType.SelectedIndex = 0;
