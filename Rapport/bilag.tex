@@ -1,5 +1,111 @@
 \section{Bilag}
 
+\subsection{BPMN}
+
+\begin{figure}[h]
+    \caption{BPMN diagram over at aftale en tid med en klient}
+    \centering
+        \includegraphics[width=\textwidth]{BPMNNow.png}
+        \label{bilag:bpmnnow}
+\end{figure}
+
+\subsection{Use Cases}
+\label{bilag:UseCases}
+\subsubsection*{Use Case: Ændr Aftale}
+{\setlength{\parindent}{0cm}
+\textbf{Scope:} Bookingsystem for Psykolog Nord
+
+\textbf{Primær Aktør:} Bookingansvarlig 
+
+\textbf{Preconditions:} En aftale eksisterer, og der er mere end 24 timer til aftalen.
+
+\textbf{Hovedscenarie (succes):} Ændring af aftale
+
+Den bookingansvarlige går ind i systemet og ændrer aftalen til andet tidspunkt, hvor kunden og psykologen kan.
+Kunde og psykolog modtager en notifikation med ændringen.
+
+\textbf{Primær Aktør:} Kunde og bookingansvarlig
+
+\textbf{Alternativt scenarie:} Kunde ændrer aftale ved at kontakte PsykologNord.
+
+Kunden ønsker at ændre sin aftale, og kontakter derfor PsykologNord.
+En bookingansvarlig ændrer aftalen som i hovedscenariet.
+}
+
+\subsubsection*{Use case: Aflys Aftale}
+{\setlength{\parindent}{0cm}
+\textbf{Scope:} Bookingsystem for Psykolog Nord
+
+\textbf{Primær Aktør:} Bookingansvarlig
+
+\textbf{Preconditions:} En aftale eksisterer.
+
+\textbf{Hovedscenarie (succes):} Aflysning af aftale
+
+Den bookingansvarlige aflyser aftalen.
+Den involverede kunde og psykolog modtager en besked om aflysningen. Fakturaen, der er tilkoblet aftalen, slettes.
+
+\textbf{Primær Aktør:} Kunde og bookingansvarlig
+
+\textbf{Alternativt scenarie:} Kunde aflyser aftale ved at kontakte PsykologNord.
+
+En kunde ønsker at aflyse en aftale og kontakter derfor PsykologNord.
+Den bookingansvarlige aflyser aftalen som i hovedscenariet.
+
+\textbf{Primær Aktør:} Kunde
+
+\textbf{Alternativt scenarie:} Aflysning af aftale med mindre end 24 timer til aftales start
+
+Kunden ønsker at aflyse en aftale, der er mindre en 24 timer til.
+Psykologen modtager en notifikation om aflysningen, men fakturaen sendes stadig til klienten.
+}
+
+\subsubsection*{Use Case: Se og betal faktura}
+{\setlength{\parindent}{0cm}
+\textbf{Scope:} Bookingsystem for Psykolog Nord
+
+\textbf{Primær Aktør:} Klient
+
+\textbf{Precondition:} Faktura eksisterer.
+
+\textbf{Hovedscenarie (success):} Se faktura
+
+Klienten går ind i systemet og finder listen over fakturaer. 
+Han finder den ønskede faktura og får den vist. Klienten betale derefter fakturaen og modtager kvittering.
+}
+
+\subsubsection*{Use Case: Ajourfør kundes journal}
+{\setlength{\parindent}{0cm}
+\textbf{Scope:} Bookingsystem for Psykolog Nord
+
+\textbf{Primær Aktør:} Psykolog
+
+\textbf{Precondition:} Kunde eksisterer og har været til aftale.
+
+\textbf{Hovedscenarie (success):} Ajourfør kundes journal
+
+En psykolog ønsker at ajourføre en af sine kunders journaler.
+Psykologen tilgår sin kundeoversigt og vælger den ønskede kunde.
+Psykologen ser nu en oversigt over sin kundes journalindlæg, og psykologen laver et nyt journalindlæg og tilføjer sine notater.
+}
+
+
+\subsection{SOC}
+\label{bilag:SOCcreateClient}
+
+{\setlength{\parindent}{0cm}
+\textbf{Operation:} createClient(clientName: string, clientEmail: string, clientPhoneNumber: string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
+
+\textbf{Cross References:} Use Case: Book ny aftale 
+
+\textbf{Precondition:} Client instance with Client.Email equals to clientEmail does not exist in the system
+
+\textbf{Postcondition:}  
+		\begin{itemize}
+			\item Client instance c was created 
+			\item Attributes of c were initialized
+		\end{itemize}
+
 \subsection{DCD}
 \begin{figure}[H]
     \caption{Relation for vores DCD}
@@ -46,6 +152,15 @@
     \label{bilag:CheckForUpdates }
 \end{figure}
 
+\subsection{Burndown chart}
+\begin{figure}[h]
+    \caption{Burndownchart for anden sprint}
+    \centering
+        \includegraphics[width=\textwidth]{Burndownchart_2.png}
+    \label{bilag:burndownsecondsprint}
+\end{figure}
+
 \input{ProjektLogBilag}
 
 \input{GruppeKontraktBilag}
+
