@@ -1,3 +1,4 @@
+\newpage
 \section{Bilag}
 
 \subsection{BPMN}
@@ -13,7 +14,7 @@
 \label{bilag:UseCases}
 \subsubsection*{Use Case: Ændr Aftale}
 {\setlength{\parindent}{0cm}
-\textbf{Scope:} Bookingsystem for Psykolog Nord
+\textbf{Scope:} Bookingsystem for PsykologNord
 
 \textbf{Primær Aktør:} Bookingansvarlig 
 
@@ -28,13 +29,13 @@ Kunde og psykolog modtager en notifikation med ændringen.
 
 \textbf{Alternativt scenarie:} Kunde ændrer aftale ved at kontakte PsykologNord.
 
-Kunden ønsker at ændre sin aftale, og kontakter derfor PsykologNord.
+Kunden ønsker at ændre sin aftale og kontakter derfor PsykologNord.
 En bookingansvarlig ændrer aftalen som i hovedscenariet.
 }
 
 \subsubsection*{Use case: Aflys Aftale}
 {\setlength{\parindent}{0cm}
-\textbf{Scope:} Bookingsystem for Psykolog Nord
+\textbf{Scope:} Bookingsystem for PsykologNord
 
 \textbf{Primær Aktør:} Bookingansvarlig
 
@@ -54,7 +55,7 @@ Den bookingansvarlige aflyser aftalen som i hovedscenariet.
 
 \textbf{Primær Aktør:} Kunde
 
-\textbf{Alternativt scenarie:} Aflysning af aftale med mindre end 24 timer til aftales start
+\textbf{Alternativt scenarie:} Aflysning af aftale med mindre end 24 timer til aftalens start
 
 Kunden ønsker at aflyse en aftale, der er mindre en 24 timer til.
 Psykologen modtager en notifikation om aflysningen, men fakturaen sendes stadig til klienten.
@@ -62,7 +63,7 @@ Psykologen modtager en notifikation om aflysningen, men fakturaen sendes stadig 
 
 \subsubsection*{Use Case: Se og betal faktura}
 {\setlength{\parindent}{0cm}
-\textbf{Scope:} Bookingsystem for Psykolog Nord
+\textbf{Scope:} Bookingsystem for PsykologNord
 
 \textbf{Primær Aktør:} Klient
 
@@ -76,7 +77,7 @@ Han finder den ønskede faktura og får den vist. Klienten betale derefter faktu
 
 \subsubsection*{Use Case: Ajourfør kundes journal}
 {\setlength{\parindent}{0cm}
-\textbf{Scope:} Bookingsystem for Psykolog Nord
+\textbf{Scope:} Bookingsystem for PsykologNord
 
 \textbf{Primær Aktør:} Psykolog
 
@@ -145,7 +146,7 @@ Psykologen ser nu en oversigt over sin kundes journalindlæg, og psykologen lave
 \newpage
 \subsection{Normalisering af databaser}
 \label{bilag:normalisering}
-Der eksistere et hav af normalformer, men i denne rapport vil der arbejdes med første, anden, tredje og Boyce-Codd normalform.
+Der eksisterer et hav af normalformer, men i denne rapport vil der arbejdes med første, anden, tredje og Boyce-Codd normalform.
 
 Man bruger normalisering og normalformerne til at reducere redundans og forbedre præcisionen og konsistens af dataene i ens database.
 
@@ -159,10 +160,10 @@ Første normalform er opfyldt, når følgende gælder:
     \item Ingen rækker er ens
 \end{itemize}
 
-Anden normalform er opfyldt, når første normalform er opfyldt, og når det gælder, at alle ikke primærnøgle søjler er afhængig af \textit{hele} primærnøglen og ikke kun en del af primærnøglen.
+Anden normalform er opfyldt, når første normalform er opfyldt, og når det gælder, at alle ikke-primærnøgle-søjler er afhængig af \textit{hele} primærnøglen og ikke kun en del af primærnøglen.
 Det betyder altså, at det kun er tabeller med sammensatte primærnøgler, der kan være på første normalform uden også at være på anden normalform. Hvis man har en tabel \textbf{(\underline{A}, \underline{B}, C, D, E)}, hvor \textbf{(A, B)} er en sammensat nøgle, skal det altså gælde at \textbf{C}, \textbf{D} og \textbf{E} ikke kan bestemmes af kun \textbf{A} eller kun \textbf{B}.
 
-En tabel er på tredje normalform, hvis den er på anden normalform og der er ingen funktionelle afhængigheder i mellem ikke-nøgle søjler.
+En tabel er på tredje normalform, hvis den er på anden normalform, og der er ingen funktionelle afhængigheder i mellem ikke-nøgle-søjler.
 Det betyder altså, at hvis vores ovenstående eksempel skal være på tredje normalform må ingen af \textbf{C}, \textbf{D} eller \textbf{E} kunne bestemmes af \textbf{C}, \textbf{D}, \textbf{E} eller en kombination af disse.
 
 For at opnå Boyce-Codd normalform skal tabellen være på tredje normalform, og alle determinanter skal være kandidatnøgler.
@@ -187,7 +188,7 @@ En determinant er den frie variable i en funktionel afhængighed. Har man funkti
 
 \subsection{Burndown chart}
 \begin{figure}[h]
-    \caption{Burndownchart for anden sprint}
+    \caption{Burndownchart for andet sprint}
     \centering
         \includegraphics[width=\textwidth]{Burndownchart_2.png}
     \label{bilag:burndownsecondsprint}

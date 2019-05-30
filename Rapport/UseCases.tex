@@ -1,7 +1,7 @@
 \subsection{Use Cases}
 \label{UseCases}
 For at sikre at vi laver et program, der fungerer som ønsket, har vi opstillet flere use cases for systemet.
-Disse use cases er blevet udledt på baggrund af møder med Psykolog Nords ledelse, og ved brug af de fire basis funktioner for persistens: create, read, update og delete (CRUD), på objekt- og domænemodelen.
+Disse use cases er blevet udledt på baggrund af møder med PsykologNords ledelse og ved brug af de fire basisfunktioner for persistens: create, read, update og delete(CRUD) på objekt- og domænemodelen.
 Derudover har vi også identificeret primæraktørene og deres mål, og sikret at vores use cases opfylder målene.
 
 Vores primæraktører og deres mål er:
@@ -37,15 +37,15 @@ Det er f.eks. vigtigt at skelne mellem at booke en ny aftale, ændre den og afly
   \label{fig:UseCaseDiagram}
 \end{figure}
 
-På figur \ref{fig:UseCaseDiagram} kan man se alle de use cases vi fandt frem til.
-Uses casesne er blevet markeret med farver, der repræsenterer deres prioritering under projektforløbet: de grønne var dem, som Psykolog Nord først ønskede implementeret og derefter gul.
-I følgende afsnit kan man så findes vores use cases beskrevet mere detaljeret. 
+På figur \ref{fig:UseCaseDiagram} kan man se alle de use cases, vi fandt frem til.
+Uses casesne er blevet markeret med farver, der repræsenterer deres prioritering under projektforløbet: de grønne var dem, som PsykologNord først ønskede implementeret og derefter de gule use cases.
+I følgende afsnit ses en use case beskrevet mere detaljeret. 
 
 To personer deltager i en aftale: en kunde og en psykolog.
 
 \subsubsection{Use Case: Book aftale}\label{usecase:bookaftale}
 {\setlength{\parindent}{0cm}
-\textbf{Scope:} Bookingsystem for Psykolog Nord
+\textbf{Scope:} Bookingsystem for PsykologNord
 
 \textbf{Primær Aktør:} Bookingansvarlig
 
@@ -60,16 +60,16 @@ Aftalen bookes og kunde og psykolog notificeres.
 
 \textbf{Alternativt scenarie (succes):} Kontakt PsykologNord for at booke en aftale
 
-En kunde ønsker at booke en aftale, og kontakter derfor PsykologNord.
+En kunde ønsker at booke en aftale og kontakter derfor PsykologNord.
 En bookingansvarlig booker aftalen som i hovedscenariet.
 
 \textbf{Primær Aktør:} Kunde
 
-\textbf{Alternativt scenarie (succes):} Vælge Parterapi som aftale
+\textbf{Alternativt scenarie (succes):} Vælge parterapi som aftale
 
-En kunde ønsker at booke en parterapi aftale.
+En kunde ønsker at booke en parterapiaftale.
 Hvis den involverede kunde ikke har brugt PsykologNord før, oprettes kunden i systemet.
-Kunden vælger aftaletype, og indtaster den anden kundes informationer, og den anden kunde oprettes også i systemet.
+Kunden vælger aftaletype og indtaster den anden kundes informationer, og den anden kunde oprettes også i systemet.
 Der bookes en ny aftale, hvor både kunden og psykologen har tid. 
 Aftalen bookes, begge kunder og psykologen notificeres.
 }
