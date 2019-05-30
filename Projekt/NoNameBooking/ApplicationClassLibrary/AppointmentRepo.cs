@@ -42,8 +42,8 @@ namespace ApplicationClassLibrary
         }
 
         public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users,
-            AppointmentType appointmentType, string note, TimeSpan notificationTime, Boolean emailNotification,
-            Boolean smsNotification)
+            AppointmentType appointmentType, string note, TimeSpan notificationTime, bool emailNotification,
+            bool smsNotification)
         {
             lock (_lockingObject)
             {
