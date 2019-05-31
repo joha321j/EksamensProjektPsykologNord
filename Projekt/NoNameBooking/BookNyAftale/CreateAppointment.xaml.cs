@@ -75,11 +75,11 @@ namespace BookNyAftale
         {
             List<string> clients = _controller.GetClientNames();
 
-            cmbbClient.ItemsSource = clients;
-            cmbbClient.SelectedIndex = 0;
+            Dispatcher.InvokeAsync(() =>cmbbClient.ItemsSource = clients);
+            Dispatcher.InvokeAsync(() =>cmbbClient.SelectedIndex = 0);
 
 
-            cmbbClient.SelectedItem = sender;
+            Dispatcher.InvokeAsync(() => cmbbClient.SelectedItem = sender);
         }
 
         private void UpdateNotificationTimeComboBox()
