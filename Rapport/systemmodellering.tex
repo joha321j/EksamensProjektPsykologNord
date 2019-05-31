@@ -1,25 +1,51 @@
 \section{Modellering af PsykologNord og deres problemstilling}
+\label{kabitel:ModelleringPN}
 
 Nu da der er en dybere forståelse for PsykologNord, deres problem og deres krav til løsningen, kan der kigges nærmere på, hvordan dette projekt har forsøgt at løse deres problemer.
-Inden der skrives en masse kode er det dog nødvendigt at arbejde med deres problem og få det omdannet til modeller, som er nemmere at skrive et program ud fra.
-Dette vil der blive arbejdet med i dette kapitel.
+Inden der skrives en masse kode, er det dog nødvendigt at arbejde med deres problem og få det omdannet til modeller, som er nemmere at skrive et program ud fra.
+
+Hvis man ikke har en ordentlig modellering af problemet, vil det tage ekstra tid at levere en løsning, og kvaliteten af løsningen vil med stor sandsynlighed også være lavere.
+
+Dette kapitel arbejder med denne modellering.
+I dette kapitel og det næste vil der gøres brug af en objektmodel og de UML modeller, som vi er blevet præsenteret for i undervisningen.
+Generelt for alle disse modeller har vi opstillet følgende krav:
+
+\begin{itemize}
+    \item Alle modellerne skal afspejle vores PO's domæne.
+    \item Der skal være sporbarhed i vores modeller. Dette har vi sikret, ved at udvikle modellerne i den rækkefølge de bliver præsenteret i rapporten.
+\end{itemize}
+
+
+\subsection{Problemafgrænsning}
+\label{problemafgraensning}
+På grund af projektets begrænsede tidsperiode har vi været nødt til at begrænse mængden af problemer, som vi vil kunne arbejde med.
+
+I samarbejde med PsykologNords ledelse er vi blevet enige om, at det vigtigste for dem er at få løst de to første bookingproblemer beskrevet i afsnit \ref{section:problemstilling}.
+
+Derudover har vi ikke kunnet nå at arbejde med klientjournalerne.
 
 \subsection{Objektmodel}
+\label{objektmodel}
 
 For at have et værktøj til at skabe et overblik over virksomheden og dens gøremål, har vi lavet en objektmodel.
 Modellen er lavet ud fra møderne med PsykologNord, og viden vi har tilegnet os om virksomheden gennem deres hjemmeside.\cite{psykolognord}
 
 Objektmodellen, der kan ses på figur \ref{system:objekt} er udarbejdet med henblik på use casen ``Book Aftale'' beskrevet i afsnit \ref{usecase:bookaftale}.
 
-Vi bruger objektmodellen til at hjælpe os med at visualisere hvilke ting fra Psykolog Nords hverdag, som vi skal have vores system til at indeholde.
-Det er også et godt værktøj til at vise Psykolog Nord vores forståelse af deres arbejdsgang og virkelighed.
+Vi bruger objektmodellen til at hjælpe os med at visualisere hvilke ting fra PsykologNords hverdag, som vi skal have vores system til at indeholde.
+Det er også et godt værktøj til at vise PsykologNord vores forståelse af deres arbejdsgang og virkelighed.
 
 Objektmodellen er blevet opdateret hele vejen igennem forløbet, og den har været diskuteret igennem med vejledere og alle gruppens medlemmer flere gange.
 
 Vores klientobjekt indeholder blandt andet et informationspunkt, der hedder journal.
 Det har været diskuteret meget frem og tilbage i projektgruppen, om det skulle være sit ejet objekt eller ej.
 Et argument for at have journalen som sit eget objekt vil være, at informationen i journalen bliver ændret uden at resten af klientobjektet ændres.
-Vi har valgt at have det som et informationspunkt, da der altid vil være en en-til-en sammenhæng mellem en klient og en journal, og når en klient bliver oprettet, skal den også have en journal.
+Vi har valgt at have det som et informationspunkt, da der altid vil være en en-til-en sammenhæng mellem en klient og en journal, og man derfor ikke kan have en journal uden en klient eller en klient uden en journal, og som nævnt i afsnit \ref{section:problemstilling} har vi ikke nået at lave nogen funktionalitet, der behandler dem.
+
+Lige nu er sekretæren ikke repræsenteret i vores objektmodel, da løsningen ikke håndterer hende på nuværende tidspunkt.
+Hvis vi havde nået at arbejde med problematikken om brugerrettigheder ville vi være nød til at have sekretæren med i vores objektmodel og videre ned i resten af projektet.
+
+Aftaleobjektet er vores samleobjekt, da det binder de andre objekter sammen.
 
 \begin{sidewaysfigure}
     \caption{Objektmodel for Book Aftale}
@@ -27,4 +53,26 @@ Vi har valgt at have det som et informationspunkt, da der altid vil være en en-
         \includegraphics[width=\textwidth]{Objektmodel.png}
     \label{system:objekt}
 \end{sidewaysfigure}
+
+\subsection{Domænemodel}
+\label{domaenemodel}
+
+På baggrund af objektmodellen kan vi så bygge videre til det næste artefakt, domænemodellen.
+En domænemodel er en generalisering af objektmodellen.
+Det er nødvendigt at lave en domænemodel, da en virksomhed ikke nødvendigvis er statisk.
+Hvis man kun arbejder videre med en objektmodel, modellerer man kun virkeligheden, som den er i det øjeblik, hvor modellen bliver konstrueret, og modellen viser nødvendigvis ikke hele virkeligheden, men kun et udsnit.
+Så i vores tilfælde ville der bygges et system, som håndterer lige præcis de tre psykologer nævnt i objektmodellen, med lige præcis de terapityper og så videre.
+Men vi ved, at de har et ønske om at udvide, så derfor er det vigtigt at generalisere vores model, så den kan skaleres op og ned.
+
+Domænemodellen bygges på de associationer og sammenhænge, som vi kan se i objektmodellen.
+F.eks kan vi se, at en aftale altid skal have mindst én klient, en klinik har et eller flere lokaler og så fremdeles.
+Objekterne bliver oversat til domæneklasser, og deres sammenhænge bliver vist med associationer og kardinaliteter.
+
+\begin{figure}[H]
+    \caption{Domænemodel for Book Aftale}
+    \centering
+        \includegraphics[width=\textwidth]{Domaenemodel.png}
+    \label{system:domaene}
+\end{figure}
+
 

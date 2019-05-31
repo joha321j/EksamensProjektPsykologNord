@@ -97,12 +97,12 @@ namespace ApplicationClassLibrary
             return practitionerNames.ConvertAll(practitioner => practitioner.Name);
         }
 
-        public List<string> GetTreatments(string practitionerName)
+        public List<string> GetAppointmentTypes(string practitionerName)
         {
             Practitioner tempPractitioner = _practitionerRepo.GetPractitioner(practitionerName);
-            List<AppointmentType> treatments = tempPractitioner.AppointmentTypes;
+            List<AppointmentType> appointmentTypes = tempPractitioner.AppointmentTypes;
 
-            return treatments.ConvertAll(treatmentType => treatmentType.Name);
+            return appointmentTypes.ConvertAll(treatmentType => treatmentType.Name);
         }
 
         /// <summary>
@@ -149,7 +149,8 @@ namespace ApplicationClassLibrary
         }
 
         public void CreateAppointment(DateTime date, string timeString, string departmentName, string clientName,
-            string practitionerName, string appointmentTypeString, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
+            string practitionerName, string appointmentTypeString, string note, TimeSpan notificationTime,
+            bool emailNotification, bool smsNotification)
         {
             DateTime appointmentTime = InputValidator.ConvertShortTimeStringToDateTime(timeString);
 

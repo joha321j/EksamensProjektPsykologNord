@@ -75,11 +75,11 @@ namespace BookNyAftale
         {
             List<string> clients = _controller.GetClientNames();
 
-            cmbbClient.ItemsSource = clients;
-            cmbbClient.SelectedIndex = 0;
+            Dispatcher.InvokeAsync(() =>cmbbClient.ItemsSource = clients);
+            Dispatcher.InvokeAsync(() =>cmbbClient.SelectedIndex = 0);
 
 
-            cmbbClient.SelectedItem = sender;
+            Dispatcher.InvokeAsync(() => cmbbClient.SelectedItem = sender);
         }
 
         private void UpdateNotificationTimeComboBox()
@@ -195,7 +195,7 @@ namespace BookNyAftale
 
         private void UpdateTreatmentComboBox()
         {
-            List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectionBoxItem.ToString());
+            List<string> treatments = _controller.GetAppointmentTypes(cmbbPractitioner.SelectionBoxItem.ToString());
 
             cmbbAppointmentType.ItemsSource = treatments;
             cmbbAppointmentType.SelectedIndex = 0;

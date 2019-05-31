@@ -1,0 +1,175 @@
+\subsection{Gruppearbejde}
+\subsubsection{Organisering af gruppearbejde}
+
+\paragraph*{Gruppekontrakt}
+
+Som det første i projektet lavede vi en gruppekontrakt, 
+hvori vi aftalte forholdene for dette projekt.
+Et af de vigtigste forhold for gruppen var en forventningsafstemning, da alle gruppemedlemmerne tidligere har haft uheldige oplevelser med andre gruppemedlemmer, der ikke havde samme forventninger som de andre i gruppen.
+Heldigvis blev hele gruppen hurtigt enige om de fælles forventninger til projektet.
+Derefter udvekslede gruppen kontaktoplysninger.
+I gruppekontakten aftalte vi alt fra mødetid til konflikthåndtering.
+Gruppekontrakten kan læses i bilagene i afsnit \ref{bilag:gruppekontrakt} på side \pageref{bilag:gruppekontrakt}.
+
+
+I kontrakten aftalte vi, at vi ville bruge OneDrive til deling af filer, Trello som scrumboard, Discord til intern kommunikation, Lucidchart til vores artefakter og GitHub til versionsstyring. 
+Endvidere aftalte vi også at bruge Visual Studio som IDE.
+Selve rapporten blev skrevet i \LaTeX, da mange i gruppen havde haft en positiv oplevelse med det i tidligere projekter, og man kunne samtidig nemt tilføje og ændre ting i rapporten.
+
+\paragraph*{Kvalitetssikring}
+I gruppen lavede vi også en kvalitetsplan.
+Idéen var, at vi fordelte alle de ting, som skulle kvalitetssikres: UML artefakterne og softwarekoden.
+De forskellige artefakter blev så fordelt imellem gruppemedlemmerne, og gruppemedlemmet havde så ansvaret for, at det tildelte artefakt var af en kvalitet, som hele gruppen ville kunne stå inde for.
+Det betød ikke, at det var en selv, der skulle kvalitetssikre det, men det var det gruppemedlem, der skulle sikre, at kvalitetssikring skete for det artefakt.
+Dette var en stor hjælp for gruppen, da hvert gruppemedlem fik ejerfornemmelser over deres tilgivne artefakter, og derfor var mere opmærksom på, at det var et ordenligt artefakt.
+
+\paragraph*{Pair-programming}
+Under kodning gjorde vi stor brug af pair-programming.
+Dette hjalp med at mindske fejl, sikrede bedre løsninger og gav os en højere produktivitet.
+Ud over dette aftalte vi i gruppen, at efter noget er blevet lavet, skal det reviewes af et andet medlem i gruppen, før det kan kvalificeres som færdigt.
+Vi opholdte reglen ved at opsætte merging-regler i Github, der gjorde det umuligt at lave et merge uden et pull-request.
+
+\subsubsection{Versionsstyring}
+\label{versionsstyring}
+
+Da flere udviklere arbejder på det samme projekt, har vi brugt et versionsstyringsprogram, der hedder GitHub.
+Ved vores brug af GitHub sikrer vi en sporbarhed for vores kode, samt gør det muligt nemt at fjerne tilføjelser, i tilfælde af at de ødelægger programmet.
+Blot at bruge GitHub i sig selv hjælper, men man kan gøre mere for at beskytte projektet mod fejl.
+
+I projektet valgte vi at køre med pull-requests. 
+Hvis man f.eks. havde lavet en tilføjelse til programmet i en anden branch, var det ikke tilladt at merge den med master branchen med det samme. 
+I stedet skulle man oprette et pull-request på GitHub. 
+Dermed skulle et af de andre gruppemedlemmer ind og reviewe koden før requestet kunne godkendes, og ens tilføjelse merges ind i master-branchen.
+
+Det hjalp os med at spotte fejl i hinandens kode, som senere henne kunne give problemer.
+Det betød, at andre blev nødt til at gennemse ens kode, og ikke blot kunne forvente, at det virkede fint.
+Dertil gav det mere sporbarhed, da man kunne se hvilken ting et pull-request ville ændre, og hvis man evt. skulle gå tilbage til en tidligere version af programmet, hvad man skulle gå tilbage til.
+Det hjalp os også med at overholde vores kvalitetskrav til koden. 
+
+\subsubsection{Kontakt med virksomhed}
+
+Vi fik etableret tidlig kontakt med vores virksomhed, da vi var tidligt ude at søge virksomhed.
+En af virksomhedern, vi kom i kontakt med, var PsykologNord.
+Vi mødtes med dem den 27. februar, hvor de præsenterede deres problem, og vi kunne præsentere, hvad formålet med vores eksamensprojekt var.
+
+Projektet blev godkendt af underviserne, hvorefter vi aftalte et møde den 25. marts, før pre-sprinten, hvor PsykologNord havde lavet en oversigt over de problemer, de har i deres hverdag.
+Til mødet diskuterede vi også frem og tilbage, hvad vi mente var realistisk, vi ville kunne lave; bl.a. er udvikling af hjemmesider og smart-phone apps uden for førsteårspensum.
+Desuden fik vi også planlagt de møder, som vi ville have i løbet af projektforløbet.
+
+Vi aftalte at holde møder med dem hver anden uge, hvor vi præsenterede, hvad vi havde nået, de kunne komme med input på projektet, og vi kunne få svar på spørgsmål som evt. var opstået siden sidste møde.
+
+Det var bevidst, at der skulle være møder hver anden uge, da vores scrum sprints varede to uger hver.
+
+Møderne har hjulpet gevaldigt med at sikre udvikling i den rigtige retning, dertil fjernede de tvivl omkring den ønskede adfærd af systemet, der opstod undervejs, og vi kunne også omprioritere undervejs, da vi opdagede, at vi ikke ville kunne nå alt det, som vi talte om til mødet den 25. marts.
+
+\input{Kodestruktur}
+
+\subsubsection{Scrum og retrospektiver}
+
+Vi valgte at køre to ugers sprints, da vi følte, at dette passede bedst med størrelserne af vores PBI'er og mødetiderne med vores PO ifht. sprintreviews.
+
+\paragraph*{Scrumboard}
+Til at hjælpe os med at organisere vores arbejde har vi brugt Trello som scrumboard.
+På vores scrumboard havde vi fem felter:
+\begin{enumerate}
+    \item Product Backlog Items: der indeholdt alle de backlog items, som vi skulle nå i projektet.
+    \item To Do: hvad der skulle arbejdes med i denne sprint.
+    \item Doing: hvad der arbejdes med lige nu.
+    \item Review: hvad der skal kvalitetssikres af andre gruppemedlemmer.
+    \item Done: hvad der er færdigt i denne sprint.
+\end{enumerate}
+
+På Trello kan man tilføje sig på en task, så når et gruppemedlem flyttede en task fra To Do til Doing, satte han sig på tasken, så vi kunne se, hvem der var igang med hvad.
+
+\paragraph*{Planning poker}
+I begyndelsen af hver sprint brugte vi planning poker til at vurdere, hvor lang tid hver af de forskellige opgaver under sprinten ville tage.
+Det gjorde det nemmere at se og vurdere vores fremskridt i sprintet, også selvom man nogen gange vurderede tidsforbruget på opgaven forkert.
+Vi kan konstatere, at ingen af os er gode til planning poker endnu, da vi ofte skød flere timer forkert, men vi er forhåbningsfulde om, at vi bliver bedre til det med tiden.
+I løbet af projektet blev vores bud, på hvor meget tid en opgave ville tage mere præcis, da vi fik noget at sammenlige med.
+
+\paragraph*{Stand-up meeting}
+Vi startede hver dag med et kort stand-up meeting, hvor hvert gruppemedlem fortalte, hvad de havde tænkt sig at arbejde med den dag, hvad de arbejdede med dagen forinden, og om der er noget der ville forhindre dem i komme videre med deres arbejde.
+Derved sikrede vi, at alle havde en opgave at gå i gang med, og alle havde et godt overblik over status af projektet.
+Den sidste uge af projektet, der gik med det sidste rapportskrivning, kom vi til at glemme vores stand-up meetings i de første par dage, hvilket betød, at tirsdag aften sagde et gruppemedlem, at han havde mistet overblikket over, hvor langt vi var nået.
+Det var altså tydeligt at se, at det var vigtigt, at vi holdte vores morgenmøder, som vi så også holdt de sidste dage i projektforløbet igen.
+
+\paragraph*{Sprint retrospektiver}
+Efter hvert sprint holdte vi et sprint retrospektiv.
+Her skiftede vi altid roller, så det ikke var den samme person, der var scrum-master.
+I vores sprint retrospektiver blev der talt om, hvad vi synes, der var gået godt, og hvad vi synes, der var gået mindre godt.
+Til det første sprint review gjorde to gruppemedlemmer opmærksom på, at de synes de to andre gruppemedlemmer havde været slemme til at kaste sig over koden og overlade de mindre spændende opgaver til dem.
+Efter det retrospektiv blev hele gruppen mere opmærksom på at have en bedre fordeling af arbejdstyperne, og vi havde ikke det problem i resten af projektet.
+Det er vigtigt, at hvert gruppemedlem er ærlige omkring, hvad de synes er gået mindre godt, og hvad de synes skal gøres bedre i det næste sprint, da man ellers ikke kan få løst problemerne, der opstår i forløbet.
+
+\paragraph*{Happiness index}
+Efter hver uge i projektet kørte vi et happiness index for hver person, en oversigt over vores happiness index kan ses på figur \ref{happinessindex}.
+Det havde vi internt i gruppen valgt at bruge for at have en status over, hvordan folk syntes projektet gik, og om de havde evt. grunde til deres happiness.
+Ens happiness, som gik på en skala fra et til fem, kunne være alt fra noget projektrelateret til bare hvorledes man havde det.
+
+\begin{figure}[h]
+    \caption{Graf for Happiness index}
+    \centering
+        \includegraphics[scale=0.90]{HappinessIndex.png}
+    \label{happinessindex}
+\end{figure}
+
+Meget at tiden var der en positiv moral i gruppen.
+De eneste bemærkelsesværdige uger var uge 15 og uge 19.
+I uge 15 var happinessen nede, da koncentrationen ikke var så stærk som i den tidligere uge, og vi derfor var irriterede på os selv og bekymrede for, hvad der skulle ske, hvis denne mangel på koncentration ville fortsætte.
+Heldigvis var der ikke mangel på koncentration i de resterende uger.
+I uge 19 var happinessen nede, da vi fik besked om, at undervisningsholdene ville blive splittet i det nye semester.
+Ud over det var alle meget tilfredse med arbejdet i projektet.
+Vi valgte at bruge dette happiness index, da det kunne hjælpe os med at få en føling for gruppens humør og dynamik sammen med sprint retrospektiverne.
+Det kan være nemmere at give et tal fra et til fem, der repræsneterer, hvor glad du har været for ugen, end at skulle komme med en længere forklaring på, hvad man synes var gået ringe, og hvad man synes skulle gå bedre.
+
+\subsubsection{Burndownchart}
+
+Under hele projektet har vi forsøgt at notere vores tidsforbrug vha. burndowncharts.
+Sammen med planning poker giver det os et overblik over, hvordan sprinten forløber, og om der skal være en omprioritering til det næste sprint. 
+
+Efter hvert sprint tog vi et billede af burndowncharten og opstillede en ny for den næste sprint.
+På den måde havde vi et burndownchart for hvert sprint, så vi kunne se fremskridtet for hvert sprint.
+
+Et af de gennemgående temaer i vores burndowncharts var dog tilføjelser til sprintet.
+Vi fandt ofte ud af, at der også var en anden opgave, som skulle gøres under sprintet, som så gjorde, at flere timer blev tilføjet til burndowncharten midt-sprint. 
+
+Dette kan f.eks. ses på burndownchartet for pre-sprintet på figur \ref{fig:burndownpresprint}.
+Først gik det godt med at følge den ideelle burndown, men midtvejs opstod der problemer, da vi opdagede, at der skulle laves noget mere, og tingene gik derfor lidt i stå.
+
+\begin{figure}[H]
+    \caption{Burndownchart for presprintet}
+    \centering
+        \includegraphics[width=\textwidth]{Burndownchart_PreSprint.png}
+    \label{fig:burndownpresprint}
+\end{figure}
+
+I sprint et, se figur \ref{fig:burndownfirstsprint}, blev den idelle burndown overholdt bedre.
+I det sprint havde vi også bedre overblik over, hvad der skulle gøres, takket være hvad vi lærte i pre-sprintet samt bedre overvejelse ved planlægningen.
+Vi havde dog undervurderet omfanget af implementering af vores PBI, som gjorde, at vi gik i stå til sidste i sprintet, og disse PBI'er blev overført til næste sprint.
+
+\begin{figure}[H]
+    \caption{Burndownchart for første sprint}
+    \centering
+        \includegraphics[width=\textwidth]{Burndownchart_1.png}
+    \label{fig:burndownfirstsprint}
+\end{figure}
+
+Vores andet sprint blev ramt af problemerne fra sprint et, se bilag \ref{bilag:burndownsecondsprint} side \pageref{bilag:burndownsecondsprint}, som betød at burndownchartet blev opdateret lidt sent.
+Det betød, at burndownchartens mængde af timer brugt ændrede sig midt i sprintet.
+Vi havde dog stadig et produktiv sprint, hvor vi nåede en større del af opgaverne.
+
+
+
+\subsubsection{Erfaringer i projektet}
+
+Undervejs opstod der problemer i projektet.
+Et eksempel var, da et gruppemedlem kom til at merge ind på masteren med en branch, som ikke var up-to-date, hvilket betød meget af koden i masteren blev ændret.
+Heldigvis blev det indset med det samme, og merget blev trukket tilbage.
+På den måde fandt vi også ud af at vores Github-regler var forkert sat op, da som nævnt i afsnit \ref{versionsstyring} burde det ikke kunne lade sig gøre at merge ind på master uden et pull-request.
+Det blev så fikset.
+
+Et mere alvorligt problem var, da et gruppemedlem manglede filer efter at have merget to branches.
+I forsøget på at løse dette problem mistede begge branches kode, som så skulle genskrives.
+Heldigvis var koden skrevet på samme dag, så da de manglende dele var fundet, var det ikke svært at skrive igen, da vi var gode til at commite vores arbejde løbende med små commits.
+Hertil lærte vi så, at Github ikke cloner alt med hver eneste gang, du henter en branch ned.
+Derimod ved vi nu, at det altid er en god ide at rebuilde en solutiond og være meget opmærksom på, at man har alle de filer, som man bør have.

@@ -5,12 +5,13 @@ Dette afsnit vil beskrive, hvad formålet med projektet er, hvad PsykologNord vi
 Formålet med projektet er:
 
 \begin{itemize}
-    \item At forbedre booking processen, så når en klient laver en aftale med en psykolog i et lokale, kan en anden psykolog ikke lave en aftale på samme tidspunkt i samme lokale, uden at psykologen manuelt skal ind og blokere for booking af lokalet.
-    \item At forbedre booking processen, så når en klient laver en aftale med en psykolog i en afdeling, kan en anden klient ikke lave en aftale med samme psykolog i en anden afdeling på samme tidspunkt, uden at psykologen manuelt skal melde sig optaget.
-    \item At forbedre kundesikkerheden ved at sikre, at en psykolog kun har adgang til sine egne klienters journaler.
+    \item At forbedre bookingprocessen, så når en klient laver en aftale med en psykolog i et lokale, kan en anden psykolog ikke lave en aftale på samme tidspunkt i samme lokale.
+    \item At forbedre bookingprocessen, så når en klient laver en aftale med en psykolog i en afdeling, kan en anden klient ikke lave en aftale med samme psykolog i en anden afdeling på samme tidspunkt, uden at psykologen manuelt skal melde sig optaget.
+    \item At forbedre klientsikkerheden ved at sikre, at en psykolog kun har adgang til sine egne klienters journaler.
 \end{itemize}
 
-Hvis man ser på deres forretningsmodellærred, figur \ref{forretning:fml}, vil de første 2 formål gå ind og understøtte deres indtægtsstrømme, nøgleaktiviteter og værditilbud, da det vil give mere tid for Miriam og Katrine, hvor de kan tilbyde behandling.
+Hvis man ser på deres forretningsmodellærred, figur \ref{forretning:fml}, vil de første to formål gå ind og understøtte deres indtægtsstrømme, nøgleaktiviteter og værditilbud, da det vil give mere tid for Miriam og Katrine, hvor de kan tilbyde behandling.
+
 \subsubsection{Forretningsmæssig løsningsbeskrivelse}
 
 Projektet skal sikre, at PsykologNords bookingproces kommer til at foregå uden, at de manuelt skal ind og rette i hinandens kalendere.
@@ -34,23 +35,23 @@ Da vi også nu ved, at de senere vil have det som en hjemmeside i stedet for en 
 \paragraph*{Økonomiske effekter}
 \subparagraph*{Forretningsmæssige investeringer}
 
-Da løsningen skal ind og erstatte en allerede eksisterende løsning skal der stræbes efter, at der ikke bliver den store omvæltning for PsykologNord.
+Da løsningen skal ind og erstatte en allerede eksisterende løsning, skal der stræbes efter, at der ikke bliver den store omvæltning for PsykologNord.
 
 \subparagraph{IT investeringer}
 
 \textit{Interne ressourcer:} PsykologNord skal bruge tid på møder med projektgruppen. Der skal også bruges tid på at svare på spørgsmål over mail og telefon.
 
-\textit{Eksterne ressourcer:} Projektgruppen har startet projektet, men vi har ikke nået at færdiggøre løsningen med alle ønskerne PsykologNord har.
+\textit{Eksterne ressourcer:} Projektgruppen har startet projektet, men vi har ikke nået at færdiggøre løsningen med alle PsykologNords ønsker.
 Derfor vil der bagefter skulle hyres softwareudviklere til at videreudvikle på løsningen.
 
-Der skal ikke investeres i hardware, da deres nuværende løsning allerede er digital. Derfor er den totale udgift prisen på at få færdig udviklet løsningen.
+Der skal ikke investeres i hardware, da deres nuværende løsning allerede er digital. Derfor er den totale udgift prisen på at få færdigudviklet løsningen.
 
 \subparagraph{Økonomiske gevinster}
 
 \textit{Forretningsmæssige gevinster:} Det forventes, at den gennemsnitlige tid på at booke en aftale vil blive mindsket.
 Der vil også blive en større sikkerhed for klienterne, da alle brugere af systemet ikke vil have adgang til alle klienters oplysninger, og risikoen for bøder pga. datasikkerhed vil blive mindsket.
 
-I det første år eller 2 vil projektet være en udgift, men effektiviseringen af bookingprocessen vil resultere i en besparelse på længere sigt.
+I det første år eller to vil projektet være en udgift, men effektiviseringen af bookingprocessen vil resultere i en besparelse på længere sigt.
 
 \subsubsection{Risikovurdering}
 Risikovurderingerne beskrevet i dette afsnit vil sammenligne sikkerhed ved den nuværende løsning og den løsning vi har udviklet i projektet.
@@ -61,12 +62,12 @@ Risikovurderingerne beskrevet i dette afsnit vil sammenligne sikkerhed ved den n
 Høj pga. økonomiske konsekvenser og tab af troværdighed ved kunden.
     
 \subparagraph{Eksisterende sikring:}
-Den nuværende løsning lever op  til alle krav fra Datatilsynet mht. til behandling af følsomme personoplysninger, blandt andet ved at have en krypteret hjemmside.\cite{terapeutbookingsikkerhed}
+Den nuværende løsning lever op  til alle krav fra Datatilsynet mht. til behandling af følsomme personoplysninger blandt andet ved at have en krypteret hjemmside.\cite{terapeutbookingsikkerhed}
     
 \subparagraph{Handlingsplan:}
 Den nye løsning skal også leve op til reglerne fra Datatilsynet. Derudover vil den forbedre sikkerheden ved at begrænse brugernes adgang til klienter i systemet, så en bruger kun har adgang til sine egne klienter.
     
-Hvis der skulle ske en læk af data vil PsykologNord følge lovgivningen ved at give Datatilsynet besked, inden for 24 timer efter lækken opdages, og derefter give de involverede klienter besked. Derefter vil lækken lukkes hurtigst muligt.
+Hvis der skulle ske en læk af data, vil PsykologNord følge lovgivningen ved at give Datatilsynet besked inden for 24 timer efter lækken opdages og derefter give de involverede klienter besked. Derefter vil lækken lukkes hurtigst muligt.
     
 \paragraph*{Tab af klienters fortrolige oplysninger som følge af servernedbrud}
 
@@ -74,10 +75,10 @@ Hvis der skulle ske en læk af data vil PsykologNord følge lovgivningen ved at 
 Lav
     
 \subparagraph{Eksisterende sikring:}
-Den nuværende serverløsning har en gennemsnitlig oppetid på 99.5\%. De har 2 separate strømtilslutning, hvilket sikrer deres kørsel mod strømsvigt. Der tages backup af data dagligt, der gemmes i 7 til 30 dage, hvorefter det overskrives. Deres servere er sikret med firewalls og antivirus software, og deres netværksinfrastruktur er optimeret til at kunne modstå alle former for hackerangreb.\cite{terapeutbookingdata}
+Den nuværende serverløsning har en gennemsnitlig oppetid på 99.5\%. De har to separate strømtilslutning, hvilket sikrer deres kørsel mod strømsvigt. Der tages backup af data dagligt, der gemmes i 7 til 30 dage, hvorefter det overskrives. Deres servere er sikret med firewalls og antivirus software, og deres netværksinfrastruktur er optimeret til at kunne modstå alle former for hackerangreb.\cite{terapeutbookingdata}
 
 \subparagraph{Handlingsplan:}
-Den nuværende sikring er tilstrækkelig, og derfor er det vigtigt at den nye løsning opfylder samme krav, når den bliver implementeret i virksomheden.
+Den nuværende sikring er tilstrækkelig, og derfor er det vigtigt, at den nye løsning opfylder samme krav, når den bliver implementeret i virksomheden.
 
 \subsubsection{Gevinster}
 \textit{Interne serviceforbedringer:}
@@ -87,7 +88,7 @@ Det vil blive nemmere for brugerne af bookingsystemet, når de ikke skal til at 
 De største risici med udviklingen af dette projekt er, at vi ikke når langt nok til, at det bliver en erstatning for deres nuværende løsning, og at den nye løsning ikke behandler klienternes fortrolige personoplysninger sikkert nok.
 Derfor er det vigtigt, at vi laver et system, der er så nemt som muligt at videreudvikle på, og at det er sikkert nok til, at uvedkommende ikke bare kan få adgang til fortrolige personoplysninger.
 
-\subsubsection{Implementering og Opfølgning}
+\subsubsection{Implementering og opfølgning}
 
 For at sikre, at den udarbejdede løsning er en forbedring af deres nuværende system, er der blevet opstillet følgende key performance indicators(KPI'er):
 
@@ -95,7 +96,7 @@ For at sikre, at den udarbejdede løsning er en forbedring af deres nuværende s
 \begin{tabular}{|l|l|}
 \hline
 KPI:                                                                                                       & Antal timer sparet på booking                                                                                                                    \\ \hline
-Hvorfor måles?                                                                                             & \begin{tabular}[c]{@{}l@{}}Booking procesen er lige nu tidskrævende,\\ og vi vil derfor gerne kunne se om\\ vores løsning er bedre.\end{tabular} \\ \hline
+Hvorfor måles?                                                                                             & \begin{tabular}[c]{@{}l@{}}Bookingprocesen er lige nu tidskrævende,\\ og vi vil derfor gerne kunne se om\\ vores løsning er bedre.\end{tabular} \\ \hline
 Hvordan måles?                                                                                             & Det kan måles med et stopur.                                                                                                                     \\ \hline
 \begin{tabular}[c]{@{}l@{}}Hvem er ansvarlig\\ for måling?\end{tabular}                                    & Chefpsykolog Katrine Breum Larsen                                                                                                                \\ \hline
 Forventet målingsdato                                                                                      & Hver gang der foretages en booking.                                                                                                              \\ \hline
@@ -124,8 +125,8 @@ Ansvarlig for handling                                                          
 \begin{table}[H]
 \begin{tabular}{|l|l|}
 \hline
-KPI                                                                                                        & \begin{tabular}[c]{@{}l@{}}Antal gange tilgået anden psykologs\\ patients journal.\end{tabular}                        \\ \hline
-Hvorfor måles?                                                                                             & \begin{tabular}[c]{@{}l@{}}For at sikre, at der ikke sker\\ sikkerhedsbrud, samt for at\\ overholde GDPR.\end{tabular} \\ \hline
+KPI                                                                                                        & \begin{tabular}[c]{@{}l@{}}Antal gange en anden psykologs\\ patientjournal tilgås.\end{tabular}                        \\ \hline
+Hvorfor måles?                                                                                             & \begin{tabular}[c]{@{}l@{}}For at sikre at der ikke sker\\ sikkerhedsbrud samt for at\\ overholde GDPR.\end{tabular} \\ \hline
 Hvordan måles?                                                                                             & Måles med en tæller                                                                                                    \\ \hline
 \begin{tabular}[c]{@{}l@{}}Hvem er ansvarlig\\ for måling?\end{tabular}                                    & Chefpsykolog Katrine Breum Larsen                                                                                      \\ \hline
 Forventet målingsdato?                                                                                     & \begin{tabular}[c]{@{}l@{}}Ugentligt det første kvartal efter systemets\\ implementeret.\end{tabular}                  \\ \hline
@@ -135,3 +136,6 @@ Måling                                                                         
 Ansvarlig for handling                                                                                     & Katrine Breum Larsen                                                                                                   \\ \hline
 \end{tabular}
 \end{table}
+
+
+Desværre har vi ikke nået at fået målt vores KPI'er, da programmet ikke har været i en færdig nok tilstand til at afprøve det.

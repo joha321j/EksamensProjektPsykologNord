@@ -1,0 +1,200 @@
+\newpage
+\section{Bilag}
+
+\subsection{BPMN}
+
+\begin{figure}[h]
+    \caption{BPMN diagram over at aftale en tid med en klient}
+    \centering
+        \includegraphics[width=\textwidth]{BPMNNow.png}
+        \label{bilag:bpmnnow}
+\end{figure}
+
+\subsection{Use cases}
+\label{bilag:UseCases}
+\subsubsection*{Use case: Ændr Aftale}
+{\setlength{\parindent}{0cm}
+\textbf{Scope:} Bookingsystem for PsykologNord
+
+\textbf{Primær Aktør:} Bookingansvarlig 
+
+\textbf{Preconditions:} En aftale eksisterer, og der er mere end 24 timer til aftalen.
+
+\textbf{Hovedscenarie (succes):} Ændring af aftale
+
+Den bookingansvarlige går ind i systemet og ændrer aftalen til andet tidspunkt, hvor kunden og psykologen kan.
+Kunde og psykolog modtager en notifikation med ændringen.
+
+\textbf{Primær Aktør:} Kunde og bookingansvarlig
+
+\textbf{Alternativt scenarie:} Kunde ændrer aftale ved at kontakte PsykologNord.
+
+Kunden ønsker at ændre sin aftale og kontakter derfor PsykologNord.
+En bookingansvarlig ændrer aftalen som i hovedscenariet.
+}
+
+\subsubsection*{Use case: Aflys Aftale}
+{\setlength{\parindent}{0cm}
+\textbf{Scope:} Bookingsystem for PsykologNord
+
+\textbf{Primær Aktør:} Bookingansvarlig
+
+\textbf{Preconditions:} En aftale eksisterer.
+
+\textbf{Hovedscenarie (succes):} Aflysning af aftale
+
+Den bookingansvarlige aflyser aftalen.
+Den involverede kunde og psykolog modtager en besked om aflysningen. Fakturaen, der er tilkoblet aftalen, slettes.
+
+\textbf{Primær Aktør:} Kunde og bookingansvarlig
+
+\textbf{Alternativt scenarie:} Kunde aflyser aftale ved at kontakte PsykologNord.
+
+En kunde ønsker at aflyse en aftale og kontakter derfor PsykologNord.
+Den bookingansvarlige aflyser aftalen som i hovedscenariet.
+
+\textbf{Primær Aktør:} Kunde
+
+\textbf{Alternativt scenarie:} Aflysning af aftale med mindre end 24 timer til aftalens start
+
+Kunden ønsker at aflyse en aftale, der er mindre en 24 timer til.
+Psykologen modtager en notifikation om aflysningen, men fakturaen sendes stadig til klienten.
+}
+
+\subsubsection*{Use case: Se og betal faktura}
+{\setlength{\parindent}{0cm}
+\textbf{Scope:} Bookingsystem for PsykologNord
+
+\textbf{Primær Aktør:} Klient
+
+\textbf{Precondition:} Faktura eksisterer.
+
+\textbf{Hovedscenarie (success):} Se faktura
+
+Klienten går ind i systemet og finder listen over fakturaer. 
+Han finder den ønskede faktura og får den vist. Klienten betale derefter fakturaen og modtager kvittering.
+}
+
+\subsubsection*{Use case: Ajourfør kundes journal}
+{\setlength{\parindent}{0cm}
+\textbf{Scope:} Bookingsystem for PsykologNord
+
+\textbf{Primær Aktør:} Psykolog
+
+\textbf{Precondition:} Kunde eksisterer og har været til aftale.
+
+\textbf{Hovedscenarie (success):} Ajourfør kundes journal
+
+En psykolog ønsker at ajourføre en af sine kunders journaler.
+Psykologen tilgår sin kundeoversigt og vælger den ønskede kunde.
+Psykologen ser nu en oversigt over sin kundes journalindlæg, og psykologen laver et nyt journalindlæg og tilføjer sine notater.
+}
+
+
+\subsection{SOC}
+\label{bilag:SOCcreateClient}
+
+{\setlength{\parindent}{0cm}
+\textbf{Operation:} createClient(clientName: string, clientEmail: string, clientPhoneNumber: string, clientAddress: string, clientSocialSecurityNumber: integer, clientNote: string) 
+
+\textbf{Cross References:} Use Case: Book ny aftale 
+
+\textbf{Precondition:} Client instance with Client.Email equals to clientEmail does not exist in the system
+
+\textbf{Postcondition:}  
+		\begin{itemize}
+			\item Client instance c was created 
+			\item Attributes of c were initialized
+		\end{itemize}
+
+\subsection{DCD}
+\begin{figure}[H]
+    \caption{Relation for vores DCD}
+    \centering
+        \includegraphics[width=\textwidth]{RelationDCD.png}
+    \label{bilag:RelationDCD}
+\end{figure}
+
+\begin{sidewaysfigure}[p]
+    \caption{DCD for UI}
+    \centering
+        \includegraphics[width=\textwidth]{UIDCD.png}
+    \label{bilag:UIDCD}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}[p]
+    \caption{DCD for Application}
+    \centering
+        \includegraphics[width=\textwidth]{ApplicationDCD.png}
+    \label{bilag:ApplicationDCD}
+\end{sidewaysfigure}
+
+\begin{figure}[H]
+    \caption{DCD for Domain}
+    \centering
+        \includegraphics[width=\textwidth]{DomainDCD.png}
+    \label{bilag:DomainDCD}
+\end{figure}
+
+\begin{figure}[h]
+    \caption{DCD for Persistency}
+    \centering
+        \includegraphics[width=\textwidth]{PersistableDCD.png}
+    \label{bilag:PersistableDCD}
+\end{figure}
+
+\newpage
+\subsection{Normalisering af databaser}
+\label{bilag:normalisering}
+Der eksisterer et hav af normalformer, men i denne rapport vil der arbejdes med første, anden, tredje og Boyce-Codd normalform.
+
+Man bruger normalisering og normalformerne til at reducere redundans og forbedre præcisionen og konsistens af dataene i ens database.
+
+Første normalform er opfyldt, når følgende gælder:
+\begin{itemize}
+    \item Alle cellerne i en tabel indeholder én værdi
+    \item Alle indgange i en søjle er af samme type
+    \item Hver søjle har et unikt navn
+    \item Rækkefølgen af søjlerne er ligegyldig
+    \item Rækkefølgen af rækkerne er ligegyldig
+    \item Ingen rækker er ens
+\end{itemize}
+
+Anden normalform er opfyldt, når første normalform er opfyldt, og når det gælder, at alle ikke-primærnøgle-søjler er afhængig af \textit{hele} primærnøglen og ikke kun en del af primærnøglen.
+Det betyder altså, at det kun er tabeller med sammensatte primærnøgler, der kan være på første normalform uden også at være på anden normalform. Hvis man har en tabel \textbf{(\underline{A}, \underline{B}, C, D, E)}, hvor \textbf{(A, B)} er en sammensat nøgle, skal det altså gælde at \textbf{C}, \textbf{D} og \textbf{E} ikke kan bestemmes af kun \textbf{A} eller kun \textbf{B}.
+
+En tabel er på tredje normalform, hvis den er på anden normalform, og der er ingen funktionelle afhængigheder i mellem ikke-nøgle-søjler.
+Det betyder altså, at hvis vores ovenstående eksempel skal være på tredje normalform må ingen af \textbf{C}, \textbf{D} eller \textbf{E} kunne bestemmes af \textbf{C}, \textbf{D}, \textbf{E} eller en kombination af disse.
+
+For at opnå Boyce-Codd normalform skal tabellen være på tredje normalform, og alle determinanter skal være kandidatnøgler.
+En determinant er den frie variable i en funktionel afhængighed. Har man funktionen \(f(n) = 5n^2 \), vil \(n\) være determinanten.\cite{database}
+
+\subsection{Kode}
+
+\begin{figure}[H]
+    \caption{Hjælpemetoder til CheckForUpdates metoden}
+    \centering
+        \includegraphics[width=\textwidth]{UpdateFromDatabaseHelpMethods.png}
+    \label{bilag:CheckForUpdates}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Hjælpemetoder til GetAvailability metoden}
+    \centering
+        \includegraphics[width=\textwidth]{GetAvailableDateTimes}
+        \includegraphics[width=\textwidth]{RemoveBookedDateTimes.png}
+    \label{bilag:InformationExpert}
+\end{figure}
+
+\subsection{Burndownchart}
+\begin{figure}[h]
+    \caption{Burndownchart for andet sprint}
+    \centering
+        \includegraphics[width=\textwidth]{Burndownchart_2.png}
+    \label{bilag:burndownsecondsprint}
+\end{figure}
+
+\input{ProjektLogBilag}
+
+\input{GruppeKontraktBilag}
+

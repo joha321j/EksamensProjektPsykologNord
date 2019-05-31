@@ -123,9 +123,9 @@ namespace BookNyAftale
 
         private void UpdateTreatmentComboBox()
         {
-            List<string> treatments = _controller.GetTreatments(cmbbPractitioner.SelectedItem.ToString());
+            List<string> appointmentTypes = _controller.GetAppointmentTypes(cmbbPractitioner.SelectedItem.ToString());
 
-            cmbbAppointmentType.ItemsSource = treatments;
+            cmbbAppointmentType.ItemsSource = appointmentTypes;
             cmbbAppointmentType.SelectedIndex = 0;
         }
 
@@ -168,7 +168,7 @@ namespace BookNyAftale
             cmbbDepartment.IsEnabled = false;
             dpAppointmentDate.SelectedDate = appoView.DateAndTime.Date;           
             cmbbAppointmentTime.SelectedIndex = cmbbAppointmentTime.Items.IndexOf(appoView.DateAndTime.ToString("H:mm"));
-            cmbbNotificationTime.SelectedIndex = cmbbNotificationTime.Items.IndexOf(appoView.NotficationTime.Days.ToString());
+            cmbbNotificationTime.SelectedIndex = cmbbNotificationTime.Items.IndexOf(appoView.NotificationTime.Days.ToString());
             txtNotes.Text = appoView.Note;
             cmbbAppointmentType.IsEnabled = false;
             lblHiddenId.Content = appoView.Id;

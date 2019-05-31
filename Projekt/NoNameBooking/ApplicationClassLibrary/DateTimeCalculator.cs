@@ -44,7 +44,7 @@ namespace ApplicationClassLibrary
                 {
                     availableDates.Add(tempDate);
                 }
-            }
+            } 
 
             return availableDates;
         }

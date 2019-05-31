@@ -1,0 +1,67 @@
+\section{Videreudvikling}
+\label{kapitel:Videreudvikling}
+
+Vi har hele tiden godt vidst, at vi ikke ville kunne nå at implementere alle ønsker fra vores PO, og derfor har vi forsøgt at gøre programmet så let som muligt at videreudvikle.
+
+Dog er der nogle uhensigtsmæssige dele af programmet lige nu, som vi ikke har nået at refaktorere.
+
+\subsection{Refaktorering}
+\subsubsection{Tekst i UI}
+Lige nu er al tekst, der vises på skærmen, skrevet direkte ind i programmet, hvilket betyder, at det ikke er nemt at skifte sprog.
+I stedet burde vi have skrevet al tekst i tekstdokumenter, som hentes ind, når programmet startes.
+Dette ville også gøre det nemt for brugeren at skifte sprog, da det blot er at læse en anden tekstfil ind i programmet.
+
+\subsubsection{Kommunikation med databasen}
+Som nævnt i afsnit \ref{thread} har vi en klasse, der tjekker nede i databasen for at se, om andre brugere har tilføjet aftaler eller klienter til databasen.
+Lige nu fungerer den ved, at den beder om at få databasens liste over klienter og aftaler, og så sammenligner den med de lister, programmet har.
+
+Det ville være mere hensigtsmæssigt, hvis databasen havde en trigger, der kører hver gang en bruger kører de stored procedures, der ændrer på dataene i databasen, og gemmer tidspunktet, for hvornår den sidste ændring er sket i databasen.
+Vores updateFromDatabase-klasse kunne så bare sammenligne det klokkeslæt med en variable i programmet, der indeholder, hvornår programmet selv lavede en ændring i databasen.
+Hvis de to tal så ikke er ens, betyder det, at programmets data er forældet i forhold til databasen.
+
+\subsection{Udvidelse af Semplito}
+
+\subsubsection{Notifikationssystem}
+
+Lige nu sender systemet en e-mail til de involverede brugere af en aftale, når aftalen bookes, ændres eller slettes.
+Derudover modtager klienter også en påmindelsese-mail et angivet tidspunkt inden deres aftale.
+Det nuværende system sender e-mails gennem en SMTP-client uden et login, hvilket betyder, at e-mailen næsten altid ender i modtagerens spamfilter.
+Derfor skal e-mailnotifikationssystemet sættes op, så vores e-mailafsender er autoriseret, f.eks ved hjælp af en domænenøgle, der beviser, at e-mailen hører til Semplitos domæne.
+
+Desuden skal SMS-notifikationssystemet implementeres.
+I løbet af projektet fandt vi en service, der tilbyder at sende SMS'er for os vha. en API.
+De skal dog have penge per SMS sendt efter en hvis mængde SMS'er, hvilket en identisk til den nuværende løsning, som Terapeut Booking tilbyder.
+I stedet kan man anskaffe sig en 3G USB dongle og et SIM-kort, som kan sættes op til at sende SMSer, og derfor vil udgiften være det månedlige abonnement for SIM-kortet.
+Det ville derfor være nødvendigt at tale med PO om at lave en økonomisk beregning over, hvilken af de to løsninger vil være optimal for dem.
+
+Da der vil være mindst to forskellige måder at implementere SMS-notifikations-systemet, vil det være en stor fordel at lave et ITextMessage interface, så vores program ikke skal skrives om afhængig af hvilken løsning, der bliver brugt, men vores appointmentNotification-klasse kun skal kende til ITextMessage interfacet.
+
+\subsubsection{Journaler}
+På nuværende tidspunkt er vores journal-klasse bare en tom klasse, der ikke indeholder noget information eller nogen funktionalitet.
+Klassen skal derfor udvides til at indeholde journalindgange, altså en liste af tekststrenge, som en klients behandler vil kunne håndtere.
+
+Når journal-klassen bliver udvidet, er det vigtigt at være opmærksom på klientens og behandlerens fortrolighed, og derfor skal en behandler kun kunne tilgå sine egne klienters journaler.
+Dette kunne gøres ved, at vores practitioner-klasse indeholder en liste af sine klienter, og klassen har en metode, der finder en given klients journal.
+Når en klient opretter en aftale med en behandler, skal klienten så tilføjes til behandlerens kundeliste.
+På denne måde kan en behandler altså kun tilgå sine egne klienters journaler, specielt når det kombineres med login-systemet, som også skal implementeres, se afsnit \ref{login}.
+
+\subsubsection{Login-system}
+\label{login}
+Da vores program skal arbejde med følsomme persondata, er det vigtigt, at vores programs sikkerhed er i orden.
+Derfor skal der implementeres et login-system, så alle brugere har et unikt login.
+
+Alle systemets brugeres kodeord skal hashes vha. SHA256 algoritmen, udviklet af NSA.
+Hashing betyder, at man bruger en algoritme til at omdanne en given mængde data til en streng af en bestemt længde.
+Kodeordet skal også saltes vha. en cryptografisk sikker pseudo-tilfældig talgenerator.
+Når man salter et kodeord, inden man hasher det, betyder det, at man tilføjer en lang tilfældig tekststreng foran brugerens kodeord.
+Både brugerens salt og hash gemmes i databasen.
+Når en bruger forsøger at logge ind, hentes brugerens salt og hash.
+Saltet tilføjes til det indtastede kodeord, som hashes, og sammenlignes med hashen hentet fra databasen.
+Hvis de to hashes er ens, er kodeordet korrekt, ellers er det forkert.\cite{hash}
+
+\subsubsection{Rettigheder}
+Vores PO ønsker også at kunne styre rettigheder for alle brugere af systemet.
+Så det er muligt, at f.eks det kun er Katrine, der kan tilføje nye behandlere til systemet, eller at sekretæren skal kunne se alle behandleres aftaler uden at kunne se og redigere nogen klientjournaler.
+
+Dette ville kunne implementeres ved, at user-klassen har en liste af enumerables, der repræsenterer brugerens rettigheder.
+Hvis en bruger så forsøger at se en oversigt over aftaler, tjekkes der, om brugeren har den nødvendige rettighed.

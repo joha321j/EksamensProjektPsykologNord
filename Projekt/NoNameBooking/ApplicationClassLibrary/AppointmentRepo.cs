@@ -41,16 +41,20 @@ namespace ApplicationClassLibrary
             }
         }
 
-        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users, AppointmentType appointmentType, string note, TimeSpan notificationTime, Boolean emailNotification, Boolean smsNotification)
+        public void CreateAndAddAppointment(DateTime dateAndTime, Room room, List<User> users,
+            AppointmentType appointmentType, string note, TimeSpan notificationTime, bool emailNotification,
+            bool smsNotification)
         {
             lock (_lockingObject)
             {
-                Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note, notificationTime, emailNotification, smsNotification);
+                Appointment tempAppointment = CreateAppointment(dateAndTime, users, appointmentType, room, note,
+                    notificationTime, emailNotification, smsNotification);
                 AddAppointment(tempAppointment);
 
                 _updateAppointmentNotification.AppointmentCreatedNotification(tempAppointment);
 
-                _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note, notificationTime, emailNotification, smsNotification);
+                _persistable.SaveAppointment(dateAndTime, room, users, appointmentType, note, notificationTime,
+                    emailNotification, smsNotification);
 
                 AppointmentsChangedEventHandler?.Invoke(tempAppointment, EventArgs.Empty);
             }
@@ -146,7 +150,7 @@ namespace ApplicationClassLibrary
         {
             lock (_lockingObject)
             {
-                Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note, appointmentView.NotficationTime,appointmentView.EmailNotification,appointmentView.SMSNotification);
+                Appointment appointment = new Appointment(appointmentView.Id, appointmentView.DateAndTime, appointmentView.Note, appointmentView.NotificationTime,appointmentView.EmailNotification,appointmentView.SMSNotification);
                 Appointment tempAppointment = _appointments.Find(appointmentOne => appointmentOne.Id == appointmentView.Id);
 
                 tempAppointment.DateAndTime = appointmentView.DateAndTime;

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Pipes;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using ModelClassLibrary;
 using PersistencyClassLibrary;
 
 namespace ApplicationClassLibrary
 {
-    class UpdateFromDatabase
+    internal class UpdateFromDatabase
     {
         private static UpdateFromDatabase _instance;
         private List<Client> _clients;

@@ -12,24 +12,26 @@ PsykologNord har følgende problemer med TerapeutBooking:
 \begin{itemize}
     \item TerapeutBooking kan ikke håndtere en bruger tilknyttet flere lokationer.
     Derfor har Katrine to forskellige kalendere: En for hendes klienter i Aarhus og en i Aalborg.
-    Det medfører den konsekvens, at Katrine manuelt skal blokere hendes ene kalender, når hun booker en tid i den anden kalender med en klient. Ellers skal hun bede sekretæren gøre det.
+    Det har den konsekvens, at Katrine eller Jean manuelt skal blokere hendes ene kalender, når hun booker en tid i den anden kalender med en klient.
     
     \item TerapeutBooking kan ikke håndtere flere kalendere, der bruger de samme lokaler.
-    Det betyder, at da Miriam og Katrine lige nu begge tilbyder samtaler i Aarhus og Aalborg, skal de manuelt gå ind og blokere aftaler i hinandens kalendere.
-    Hvis Katrine har en aftale i Aalborg om mandagen klokken 10 til 11, skal hun, eller deres sekretær, blokere tiden i Miriams kalender
+    Det betyder, at da Miriam og Katrine lige nu begge tilbyder samtaleterapi i Aarhus og Aalborg, skal de manuelt gå ind og blokere aftaler i hinandens kalendere.
+    Hvis Katrine har en aftale i Aalborg om mandagen klokken 10 til 11, skal hun eller deres sekretær blokere tiden i Miriams kalender
     
-   \item PsykologNord har, som beskrevet i afsnit \ref{section:forretningsmodel} flere psykologer tilknyttet deres firma.
-   Men TerapeutBooking giver ikke en tilfredsstillende måde at styre deres brugeres rettigheder.
+   \item PsykologNord har som beskrevet i afsnit \ref{section:forretningsmodel} flere psykologer tilknyttet deres firma.
+   Men TerapeutBooking giver ikke en tilfredsstillende måde at styre deres brugeres rettigheder på.
    En bruger kan få lov til at ændre alle journaler, se alle journaler eller se ingen journaler.
-   På samme måde med fakturaer.
+   Det samme gælder for fakturaer.
 \end{itemize}
 
-De første to problemstillinger betyder, at noget så simpelt som at lave en aftale med en klient går hen og bliver en tidskrævende proces, hvor der også nemt kan ske fejl, se figur \ref{forretning:bpmnnow}.
-I følge Katrine bruger sekretæren, Jean, lige nu 1 time om ugen på bare at håndtere bestillinger af aftaler.
-Den tredje problemstilling gør, at de ikke kan udvide mere uden, at det kommer til at drukne i et bureaukratisk mareridt i følge dem selv.
-Under vores møder med PsykologNord har de givet udtryk for ønsker om at udvide, og bruge lokalerne til et nyt start-up projekt, når de ikke bliver brugt af PsykologNord.
-Det vil blive et stort sikkerhedsproblem, hvis flere forskellige firmaer har direkte adgang til hinandens kunder og deres fortrolige oplysninger.
+De første to problemstillinger betyder, at noget så simpelt som at lave en aftale med en klient går hen og bliver en tidskrævende proces, hvor der også nemt kan ske fejl, se figur \ref{bilag:bpmnnow} i bilagene på side \pageref{bilag:bpmnnow} for en BPMN over den nuværende process.
+Ifølge Katrine bruger Jean lige nu tre timer om ugen på bare at håndtere det merarbejde, de første to problemstillinger forårsager.
+Den tredje problemstilling gør, at de ikke kan udvide mere, uden at det kommer til at drukne i et bureaukratisk mareridt ifølge dem selv.
 
+Under vores møder med PsykologNord har de givet udtryk for ønsker om at udvide og bruge lokalerne til et nyt start-up projekt, når de ikke bliver brugt af PsykologNord.
+Derfor er det et problem, at deres kalendersystem ikke kan håndtere, at firmaet har flere lokaler.
+
+Det vil blive et stort sikkerhedsproblem, hvis flere forskellige firmaer har direkte adgang til hinandens kunder og deres fortrolige oplysninger.
 
 
 \begin{figure}[H]
@@ -39,9 +41,4 @@ Det vil blive et stort sikkerhedsproblem, hvis flere forskellige firmaer har dir
     \label{forretning:isfml}
 \end{figure}
 
-\begin{figure}
-    \caption{BPMN diagram over at aftale en tid med en klient}
-    \centering
-        \includegraphics[width=\textwidth]{BPMNNow.png}
-    \label{forretning:bpmnnow}
-\end{figure}
+
