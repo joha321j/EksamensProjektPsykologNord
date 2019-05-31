@@ -120,12 +120,12 @@ Desuden kan det også bruges til at samle flere databaser og præsentere dem til
 Vi bruger ikke på nuværende tidspunkt views i vores database, men det kunne have været fordelagtigt, at de stored procedures vi bruger til at hente informationer fra databasen hentede data fra views i stedet for at hente data direkte fra databasen.
 Hvis vi ændrer databaseopbygningen nu, skal vi også ændre vores stored procedures og muligvis også vores kode i vores program, hvor, hvis vi brugte views, ville vi blot skulle ændre viewet, så det præsenterer dataene på samme måde som inden ændringen i databasen.
 
-\subsubsection{Stored Procedures}
+\subsubsection{Stored procedures}
 En stored procedure (SP) er gemt SQL forespørgsler, så det nemt kan køres igen, når det skal bruges.
 Man kan bruge stored procedures til at bestemme, hvordan en bruger kan interagere med ens database ved at sætte rettighederne, så brugeren kun kan køre allerede eksisterende stored procedures.
 Det er blevet lavet forskellige SP'er primært ud fra CRUD princippet, og en oversigt kan ses på figur \ref{StoredProcedures}.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \caption{Stored Procedures}
     \centering
         \includegraphics[width=\textwidth]{SP.png}
@@ -134,7 +134,7 @@ Det er blevet lavet forskellige SP'er primært ud fra CRUD princippet, og en ove
 
 Vi har valgt at beskrive SP'en SPGetAllAppointments, se figur \ref{SPGetAllAppointments}, for at vise hvordan man kan bruge JOIN til at hente fra flere forskellige tabeller og få et enktelt table som output.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \caption{SPGetAllAppointments}
     \centering
         \includegraphics[width=\textwidth]{SPGetAllAppointments.png}
